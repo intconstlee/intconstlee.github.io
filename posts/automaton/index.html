@@ -98,18 +98,18 @@
                     </div>
                     <div class="post_content markdown"><h1 id="自动机">自动机</h1>
 <p>自动机是一种对信号序列进行判定的数学模型</p>
-<h3 id="一主观理解">一，主观理解</h3>
+<h2 id="一主观理解">一，主观理解</h2>
 <p>以上为自动机的定义，该定义十分抽象，以下为笔者的主观理解。</p>
-<h4 id="1-自动机建立的基础">1. 自动机建立的基础</h4>
+<h3 id="1-自动机建立的基础">1. 自动机建立的基础</h3>
 <p>即定义中的“信号序列”。</p>
 <p>我们可以把这个所谓“信号序列”理解为一个串，串的每一位上存有信息。</p>
 <p>eg. 字符串是一个“信号序列”，数组是一个“信号序列”，一个数的各位可以构成一个“信号序列”。</p>
 <p>自动机便是建立在信号序列的基础上的。</p>
-<h4 id="2-自动机要干什么">2. 自动机要干什么</h4>
+<h3 id="2-自动机要干什么">2. 自动机要干什么</h3>
 <p>即定义中的“判定”。</p>
 <p>对针对信号序列的特定命题给出真或假的回答。</p>
 <p>eg. 判断一个数是奇数还是偶数是判定，判断一个字符串是否回文是判定，判断一个字符串是否是一特定字符串的子串是判定。</p>
-<h4 id="3-自动机的具象化理解">3. 自动机的具象化理解</h4>
+<h3 id="3-自动机的具象化理解">3. 自动机的具象化理解</h3>
 <p>虽然自动机是一个抽象的数学模型，但在 OI 里，自动机常可以被理解为一张有向图，我们把自动机所求的判定拆解为若干小判定，每一个结点都代表某次判定时的状态，结点向结点转移便是判定的过程，判定会有多种结果，因而一个结点的不同子结点便代表判定的不同结果。</p>
 <p>以下图片有助于更好地理解：</p>
 <div>
@@ -134,7 +134,7 @@
 </table>
 </div>
 <p>eg. 在 Trie 树上查找某字符串是否出现时，Trie 树便可视为自动机的一个实现，它针对一些特定文本串建立（信号序列），并完成对某字符串是否出现的判断（判定）。</p>
-<h3 id="二形式化理解">二，形式化理解</h3>
+<h2 id="二形式化理解">二，形式化理解</h2>
 <p>一个有限状态自动机（DFA）由以下五部分构成：</p>
 <ol>
 <li>字符集（$\Sigma$）：该自动机只能输入这些字符。</li>
@@ -149,14 +149,14 @@
 <p>$$
 A(s)=[\delta(start,s)\in F]
 $$</p>
-<h3 id="三常见自动机">三，常见自动机</h3>
-<h4 id="字典树httpsoi-wikiorgstringtrie"><a href="https://oi-wiki.org/string/trie/">字典树</a></h4>
-<h4 id="kmp-自动机httpsoi-wikiorgstringkmp"><a href="https://oi-wiki.org/string/kmp/">KMP 自动机</a></h4>
-<h4 id="ac-自动机httpsintconstleegithubiopostsaho-corasick-automaton"><a href="https://intconstlee.github.io/posts/aho-corasick-automaton/">AC 自动机</a></h4>
-<h4 id="后缀自动机httpsoi-wikiorgstringsam"><a href="https://oi-wiki.org/string/sam/">后缀自动机</a></h4>
-<h4 id="广义后缀自动机httpsoi-wikiorgstringgeneral-sam"><a href="https://oi-wiki.org/string/general-sam/">广义后缀自动机</a></h4>
-<h4 id="回文自动机httpsoi-wikiorgstringpam"><a href="https://oi-wiki.org/string/pam/">回文自动机</a></h4>
-<h4 id="序列自动机httpsoi-wikiorgstringseq-automaton"><a href="https://oi-wiki.org/string/seq-automaton/">序列自动机</a></h4>
+<h2 id="三常见自动机">三，常见自动机</h2>
+<h3 id="字典树httpsoi-wikiorgstringtrie"><a href="https://oi-wiki.org/string/trie/">字典树</a></h3>
+<h3 id="kmp-自动机httpsoi-wikiorgstringkmp"><a href="https://oi-wiki.org/string/kmp/">KMP 自动机</a></h3>
+<h3 id="ac-自动机httpsintconstleegithubiopostsaho-corasick-automaton"><a href="https://intconstlee.github.io/posts/aho-corasick-automaton/">AC 自动机</a></h3>
+<h3 id="后缀自动机httpsoi-wikiorgstringsam"><a href="https://oi-wiki.org/string/sam/">后缀自动机</a></h3>
+<h3 id="广义后缀自动机httpsoi-wikiorgstringgeneral-sam"><a href="https://oi-wiki.org/string/general-sam/">广义后缀自动机</a></h3>
+<h3 id="回文自动机httpsoi-wikiorgstringpam"><a href="https://oi-wiki.org/string/pam/">回文自动机</a></h3>
+<h3 id="序列自动机httpsoi-wikiorgstringseq-automaton"><a href="https://oi-wiki.org/string/seq-automaton/">序列自动机</a></h3>
 </div>
                     <div class="post_footer">
                         

@@ -98,14 +98,14 @@
                     </div>
                     <div class="post_content markdown"><h1 id="ac-自动机">AC 自动机</h1>
 <p>AC 自动机是以 Trie 树结构为基础，结合 KMP 思想建立的自动机，用于解决多模式匹配等任务。</p>
-<h3 id="一概览">一，概览</h3>
+<h2 id="一概览">一，概览</h2>
 <p>用两步建立一个 AC 自动机：</p>
 <ol>
 <li>建立 Trie 树。（以 Trie 树为基础）</li>
 <li>对 Trie 树上的所有结点构造失配指针。（结合 KMP 思想）</li>
 </ol>
 <p>之后便可以用它进行匹配了。</p>
-<h3 id="二字典树构建">二，字典树构建</h3>
+<h2 id="二字典树构建">二，字典树构建</h2>
 <p>AC 自动机所用的 Trie 就是普通的 Trie。</p>
 <p>在 Trie 当中，结点表示某个模式串的前缀。Trie 的结点表示状态，边表示转移。</p>
 <p>对于若干模式串 $s_1,s_2,&hellip;,s_n$，将它们构建成字典树后所有状态的集合记为 $Q$。</p>
@@ -121,10 +121,10 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="n">ended</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h3 id="三失配指针">三，失配指针</h3>
+</span></span></code></pre></div><h2 id="三失配指针">三，失配指针</h2>
 <p>AC 自动机利用 fail 指针辅助完成匹配。
 理解 fail 指针对理解 AC 自动机意义重大。</p>
-<h4 id="1理解-fail-指针">1.理解 fail 指针</h4>
+<h3 id="1理解-fail-指针">1.理解 fail 指针</h3>
 <p>fail 指针从一个状态 $u$ 出发，指向一个状态 $v$，Trie 树中每个状态对应一个由根结点出发的字符串，状态 $v$ 所对应字符串是状态 $u$ 所对应字符串的最长后缀。</p>
 <p>有图为证：</p>
 <table>
@@ -143,7 +143,7 @@
 </table>
 <p>fail 指针可以从 Trie 树上任意结点出发，其指向的结点可能为普通结点，也可能为模式串匹配结点，通过跳 fail 可以使同一位上匹配多个模式串，详细的运作规律将在下文讲解。</p>
 <p><img src="https://cdn.luogu.com.cn/upload/image_hosting/ol3dha3q.png" alt=""></p>
-<h4 id="实现-fail-指针">实现 fail 指针</h4>
+<h3 id="实现-fail-指针">实现 fail 指针</h3>
 <p>当前结点为 $u$，其父结点为 $p$，$p$ 通过字符 $c$ 指向 $u$，即 $\delta(p,c)=u$，若深度小于 $u$ 的结点的 fail 指针均已知：</p>
 <ol>
 <li>如果 $\delta(\text{fail}[p],c)$ 存在，即状态 $p$ 的最长后缀添加 $c$ 后依然合法，而 $u$ 是由状态 $p$ 添加 $c$ 得到的，此时状态 $\delta(\text{fail}[p],c)$ 是 $u$ 的最长后缀。</li>
@@ -187,7 +187,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h3 id="四匹配的过程">四，匹配的过程</h3>
+</span></span></code></pre></div><h2 id="四匹配的过程">四，匹配的过程</h2>
 <p>匹配到每一位，不断跳 fail 并更新答案。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">query</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -200,9 +200,9 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h3 id="五版">五，版</h3>
+</span></span></code></pre></div><h2 id="五版">五，版</h2>
 <div>
-<details class=note open>
+<details class=note close>
 <summary>
 模板一
 </summary>
@@ -273,7 +273,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div></div>
 <div>
-<details class=note open>
+<details class=note close>
 <summary>
 模板二
 </summary>
@@ -368,7 +368,7 @@
 </span></span></code></pre></div></p>
 </div>
 <div>
-<details class=note open>
+<details class=note close>
 <summary>
 模板三
 </summary>

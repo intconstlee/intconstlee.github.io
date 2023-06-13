@@ -99,7 +99,7 @@
                     <div class="post_content markdown"><h1 id="左偏树">左偏树</h1>
 <p>左偏树是可并堆的一种，具有堆的性质，可快速合并.</p>
 <p>维护如下信息：$\text{val}$：权值，$\text{ls}$：左儿子，$\text{rs}$：右儿子，$\text{dist}$：距离，$\text{fa}$：父亲。</p>
-<h3 id="一dist">一，dist</h3>
+<h2 id="一dist">一，dist</h2>
 <p>对于一棵二叉树，我们定义外结点为左儿子或右儿子为空的结点。</p>
 <p>定义一个外结点的 $\text{dist}$ 为 $1$，非外结点的 $\text{dist}$ 为其到子树中最近外结点的距离加一，空结点的 $\text{dist}$ 为 $0$。</p>
 <p>现在有一棵 $n$ 个结点的二叉树，则有如下性质：</p>
@@ -111,7 +111,7 @@
 <p>若该二叉树根的 $\text{dist}$ 为 $x$，则至少有 $x-1$ 层为满二叉树，至少有 $2^x-1$ 个结点。</p>
 </li>
 </ol>
-<h3 id="二左偏树的性质">二，左偏树的性质</h3>
+<h2 id="二左偏树的性质">二，左偏树的性质</h2>
 <p>左偏树是一棵二叉树，它具有如下性质：</p>
 <ol>
 <li>
@@ -125,7 +125,7 @@
 </li>
 </ol>
 <p>左偏树的深度无保证，一条向左的链也是左偏树。</p>
-<h3 id="三核心操作合并-merge">三，核心操作——合并 merge</h3>
+<h2 id="三核心操作合并-merge">三，核心操作——合并 merge</h2>
 <ol>
 <li>
 <p>取值较小的根作为合并后堆的根节点；</p>
@@ -151,12 +151,12 @@
 </span></span><span class="line"><span class="cl">    <span class="n">dis</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">=</span><span class="n">dis</span><span class="p">[</span><span class="n">rs</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h3 id="四其他操作">四，其他操作</h3>
-<h4 id="插入结点">插入结点</h4>
+</span></span></code></pre></div><h2 id="四其他操作">四，其他操作</h2>
+<h3 id="插入结点">插入结点</h3>
 <p>将单个结点视为一个堆，合并即可。</p>
-<h4 id="删除根">删除根</h4>
+<h3 id="删除根">删除根</h3>
 <p>合并根的左右儿子。</p>
-<h4 id="删除任意结点">删除任意结点</h4>
+<h3 id="删除任意结点">删除任意结点</h3>
 <p>合并左右儿子，自底向上更新 $\text{dist}$，不满足左偏性质时交换左右儿子，$\text{dist}$ 无需更新时结束递归。</p>
 <p>时间复杂度：$O(\log n)$</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">pushup</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span>
@@ -166,7 +166,7 @@
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">dis</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">!=</span><span class="n">dis</span><span class="p">[</span><span class="n">rs</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="n">dis</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">=</span><span class="n">dis</span><span class="p">[</span><span class="n">rs</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">pushup</span><span class="p">(</span><span class="n">fa</span><span class="p">[</span><span class="n">x</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h4 id="对整个堆进行加减乘运算">对整个堆进行加/减/乘运算</h4>
+</span></span></code></pre></div><h3 id="对整个堆进行加减乘运算">对整个堆进行加/减/乘运算</h3>
 <p>在根上打标记，删除根/合并堆时下传即可。</p>
 </div>
                     <div class="post_footer">

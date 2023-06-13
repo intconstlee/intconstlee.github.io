@@ -98,15 +98,15 @@
                     </div>
                     <div class="post_content markdown"><h1 id="最大流">最大流</h1>
 <p>两大核心算法：<a href="https://oi-wiki.org/graph/flow/max-flow/#ford-fulkerson-%E5%A2%9E%E5%B9%BF">Ford-Fulkerson 增广</a>与<a href="https://oi-wiki.org/graph/flow/max-flow/#push-relabel-%E9%A2%84%E6%B5%81%E6%8E%A8%E8%BF%9B%E7%AE%97%E6%B3%95">Push-Relabel 预流推进算法</a></p>
-<h3 id="一ford-fulkerson-增广">一，Ford-Fulkerson 增广</h3>
+<h2 id="一ford-fulkerson-增广">一，Ford-Fulkerson 增广</h2>
 <p>该方法运用贪心思想，通过寻找增广路来更新并求解最大流。</p>
 <p>我们将 $G_f$ 上一条从源点 $s$ 到汇点 $t$ 的路径称为增广路。对于一条增广路，我们给每一条边 $(u,v)$ 都加上等量的流量，以令整个网络的流量增加，这一过程被称为增广。</p>
 <p><strong>由此，最大流的求解可以被视为若干次增广分别得到的流的叠加。</strong></p>
 <p>值得注意的是，根据流的斜对称性，我们在增广时需要记得退流，即 $f(u,v)$ 增加时 $f(v,u)$ 应当减少同等的量。</p>
 <p>以下为 Ford-Fulkerson 增广的几种实现方式：</p>
-<h4 id="1-edmonds-karp-算法">1. Edmonds-Karp 算法</h4>
+<h3 id="1-edmonds-karp-算法">1. Edmonds-Karp 算法</h3>
 <p>$O(nm^2)$</p>
-<h5 id="算法流程">算法流程：</h5>
+<h4 id="算法流程">算法流程：</h4>
 <ol>
 <li>
 <p>如果在 $G_f$ 上我们可以找到从 $s$ 出发 BFS 到 $t$，则我们找到了新的增广路。</p>
@@ -118,8 +118,8 @@
 <p>修改流量后我们得到了新的 $G_f$，在新的 $G_f$ 中重复上述过程直到增广路不存在。</p>
 </li>
 </ol>
-<h5 id="参考代码">参考代码：</h5>
-<h6 id="vector版本">vector版本</h6>
+<h4 id="参考代码">参考代码：</h4>
+<h5 id="vector版本">vector版本</h5>
 <ol>
 <li>
 <p>变量声明与初始化：</p>
@@ -180,7 +180,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div></li>
 </ol>
-<h6 id="链式前向星版本">链式前向星版本</h6>
+<h5 id="链式前向星版本">链式前向星版本</h5>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;bits/stdc++.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">maxflow</span><span class="p">;</span>
@@ -233,12 +233,12 @@
 </span></span><span class="line"><span class="cl">    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">maxflow</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h4 id="2-dinic-算法">2. Dinic 算法</h4>
+</span></span></code></pre></div><h3 id="2-dinic-算法">2. Dinic 算法</h3>
 <p>$O(n^2m)$</p>
-<h5 id="算法思想">算法思想：</h5>
+<h4 id="算法思想">算法思想：</h4>
 <p>考虑在增广前先对 $G_f$ 做 BFS 分层，即根据结点 $u$ 到源点 $s$ 的距离 $d(u)$ 把结点分成若干层。令经过 $u$ 的流量只能流向下一层的结点 $v$，即删除 $u$ 向层数标号相等或更小的结点的出边，我们称 $G_f$ 剩下的部分为层次图。形式化地，我们称 $G_L$ 是 $G_f$ 的层次图<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" title="E_L = \left{ (u, v) \mid (u, v) \in E_f, d(u) + 1 = d(v) \right}">。</p>
 <p>如果我们在层次图 $G_L$ 上找到一个最大的增广流 $f_b$，使得仅在 $G_L$ 上是不可能找出更大的增广流的，则我们称 $f_b$ 是 $G_L$ 的阻塞流。</p>
-<h5 id="算法流程-1">算法流程：</h5>
+<h4 id="算法流程-1">算法流程：</h4>
 <ol>
 <li>
 <p>在 $G_f$ 上 BFS 出层次图 $G_L$。</p>
@@ -253,7 +253,7 @@
 <p>重复以上过程直到不存在 $s$ 到 $t$ 的路径。</p>
 </li>
 </ol>
-<h5 id="优化">优化：</h5>
+<h4 id="优化">优化：</h4>
 <ol>
 <li>
 <p><strong>弧优化</strong>：</p>
@@ -264,8 +264,8 @@
 <p>如果我们在层次图上找到了一条从 $s$ 到 $t$ 的增广路 $p$，则接下来我们未必需要重新从 $s$ 出发找下一条增广路，而可能从 $p$ 上最后一个仍有剩余容量的位置出发寻找一条岔路进行增广。</p>
 </li>
 </ol>
-<h5 id="参考代码-1">参考代码：</h5>
-<h6 id="vector版本-1">vector版本</h6>
+<h4 id="参考代码-1">参考代码：</h4>
+<h5 id="vector版本-1">vector版本</h5>
 <ol>
 <li>
 <p>变量声明与初始化：</p>
@@ -330,7 +330,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div></li>
 </ol>
-<h6 id="链式前向星版本-1">链式前向星版本</h6>
+<h5 id="链式前向星版本-1">链式前向星版本</h5>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;bits/stdc++.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">maxflow</span><span class="p">,</span><span class="n">dep</span><span class="p">[</span><span class="mi">1000</span><span class="p">],</span><span class="n">cur</span><span class="p">[</span><span class="mi">1000</span><span class="p">];</span>
@@ -390,12 +390,12 @@
 </span></span><span class="line"><span class="cl">    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">maxflow</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h3 id="二push-relabel-预流推进算法">二，Push-Relabel 预流推进算法</h3>
+</span></span></code></pre></div><h2 id="二push-relabel-预流推进算法">二，Push-Relabel 预流推进算法</h2>
 <p>该方法在求解过程中忽略流的守恒性，每次对一个结点更新答案以求最大流。</p>
 <p><strong>超额流</strong>：对于一个结点，进入结点的流若超出流出结点的流，超出部分即为该结点的超额流 $e(u)$，形式化地，$e(u)=\sum_{(x,u)\in E}f(x,u)-\sum_{(u,y)\in E}f(u,y)$。</p>
 <p><strong>溢出</strong>：超额流 $e(u)&gt;0$ 时，称结点 $u$ 溢出（不包括 $s$ 与 $t$）。</p>
 <p>预流推进算法维护每个结点的高度 $h(u)$，并且规定溢出的结点 $u$ 如果要推送超额流，只能向高度小于 $u$ 的结点推送；如果 $u$ 没有相邻的高度小于 $u$ 的结点，那就修改 $u$ 的高度。</p>
-<h4 id="1-相关操作">1. 相关操作</h4>
+<h3 id="1-相关操作">1. 相关操作</h3>
 <ol>
 <li>
 <p><strong>高度函数</strong>：维护一个高度映射 $h$。</p>
@@ -443,7 +443,7 @@ $</p>
 </ol>
 </li>
 </ol>
-<h4 id="2-过程及暴力实现">2. 过程及暴力实现</h4>
+<h3 id="2-过程及暴力实现">2. 过程及暴力实现</h3>
 <p>每次扫描整个图，存在结点 $u$ 满足 push 或 relabel 操作的条件则执行对应操作。</p>
 <p>考虑暴力实现：暴力扫描是否有溢出的结点，有就更新。</p>
 <ol>
@@ -484,10 +484,10 @@ $</p>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div></li>
 </ol>
-<h4 id="3-hlpp-算法">3. HLPP 算法</h4>
+<h3 id="3-hlpp-算法">3. HLPP 算法</h3>
 <p>$O(n^2\sqrt{m})$</p>
 <p>在上述过程基础上，优先选择高度最高的溢出结点。</p>
-<h5 id="算法流程-2">算法流程：</h5>
+<h4 id="算法流程-2">算法流程：</h4>
 <ol>
 <li>
 <p>初始化</p>
@@ -502,7 +502,7 @@ $</p>
 <p>没有溢出结点时结束</p>
 </li>
 </ol>
-<h5 id="优化-1">优化：</h5>
+<h4 id="优化-1">优化：</h4>
 <ol>
 <li>
 <p><strong>BFS 优化</strong>：</p>
@@ -514,7 +514,7 @@ $</p>
 <p>如果某一时刻 $h(u)=t$ 的结点个数为 $0$，将 $h(u)&gt;t$ 的结点高度变为至少 $n+1$ 以便尽快推送回 $s$，减少重贴标签次数。</p>
 </li>
 </ol>
-<h5 id="参考代码-2">参考代码：</h5>
+<h4 id="参考代码-2">参考代码：</h4>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;bits/stdc++.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">w</span><span class="p">;</span>
