@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>___INT CONST LEE</title>
+    <link>https://intconstlee.github.io/</link>
+    <description>Recent content on ___INT CONST LEE</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 12 Jun 2023 22:10:25 +0800</lastBuildDate><atom:link href="https://intconstlee.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>后缀自动机</title>
+      <link>https://intconstlee.github.io/posts/suffix-automaton/</link>
+      <pubDate>Mon, 12 Jun 2023 22:10:25 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/posts/suffix-automaton/</guid>
+      <description>后缀自动机 请先行预览自动机概览，可选择性浏览AC自动机 一，概览 后缀自动机（SAM）是一个可以解决许多字符串问题的数据结构。其中不少问题可以在线性时间内通过 SAM 解决。 现给出后缀自动机的定义： 字符串 $s$ 的 SAM 是</description>
+    </item>
+    
+    <item>
+      <title>左偏树</title>
+      <link>https://intconstlee.github.io/posts/left-side-tree/</link>
+      <pubDate>Sat, 10 Jun 2023 10:10:25 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/posts/left-side-tree/</guid>
+      <description>左偏树 左偏树是可并堆的一种，具有堆的性质，可快速合并. 维护如下信息：$\text{val}$：权值，$\text{ls}$：左儿子，$\text{rs}$：右儿子，$\text{dist}$：距离，$</description>
+    </item>
+    
+    <item>
+      <title>AC自动机</title>
+      <link>https://intconstlee.github.io/posts/aho-corasick-automaton/</link>
+      <pubDate>Thu, 08 Jun 2023 10:10:25 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/posts/aho-corasick-automaton/</guid>
+      <description>AC 自动机 AC 自动机是以 Trie 树结构为基础，结合 KMP 思想建立的自动机，用于解决多模式匹配等任务。 一，概览 用两步建立一个 AC 自动机： 建立 Trie 树。（以 Trie 树为基础） 对 Trie 树上的所有结点构造失配指针。（结合 KMP 思想） 之后便可以</description>
+    </item>
+    
+    <item>
+      <title>自动机概览</title>
+      <link>https://intconstlee.github.io/posts/automaton/</link>
+      <pubDate>Wed, 07 Jun 2023 10:10:25 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/posts/automaton/</guid>
+      <description>自动机 自动机是一种对信号序列进行判定的数学模型 一，主观理解 以上为自动机的定义，该定义十分抽象，以下为笔者的主观理解。 1. 自动机建立的基础 即定义中的“信号序列”。 我们可以把这个所谓“信号序列”理解为一个串</description>
+    </item>
+    
+    <item>
+      <title>最大流</title>
+      <link>https://intconstlee.github.io/posts/max-flows/</link>
+      <pubDate>Mon, 05 Jun 2023 10:10:25 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/posts/max-flows/</guid>
+      <description>最大流 两大核心算法：Ford-Fulkerson 增广与Push-Relabel 预流推进算法 一，Ford-Fulkerson 增广 该方法运用贪心思想，通过寻找增广路来更新并求解最大流。 我们将 $G_f$ 上一条从源点</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://intconstlee.github.io/about/</link>
+      <pubDate>Mon, 05 Jun 2023 09:17:22 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/about/</guid>
+      <description>菜菜的 $OieR$ 一只。 学校： CN，HE，石家庄市第二中学 石家庄二中Online_Judge—S2OJ 个人链接： 洛谷：intconstlee github：intconstlee</description>
+    </item>
+    
+    <item>
+      <title>Link</title>
+      <link>https://intconstlee.github.io/link/</link>
+      <pubDate>Mon, 05 Jun 2023 09:17:22 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/link/</guid>
+      <description>友情链接 坤房大佬： 霜木 我要（拿金）退赛！ 博客园 GrainRain /疑问 博客 Tibrella 钛合金伞同学 博客 Shawn 你们真抽象 博客 GCY_XZT 为了没有XZT的明天 洛谷博客 常用OJ： 洛谷，Codeforces，AtCoder，LiberOJ</description>
+    </item>
+    
+    <item>
+      <title>网络流概览</title>
+      <link>https://intconstlee.github.io/posts/network-flows/</link>
+      <pubDate>Sun, 04 Jun 2023 10:10:25 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/posts/network-flows/</guid>
+      <description>网络流初步 网络流简介 - OI Wiki 一，网络及相关概念 网络指一个有向图 $G=(V,E)$。 在一个网络中，每条边的权值 $c(u,v)$ 被称为该条边的容量，其中 $(u,v)\in E$。 当 $(u,v)\notin E$ 时，$c(u,v)=0$。 源点：$s\in V$；汇点：</description>
+    </item>
+    
+  </channel>
+</rss>

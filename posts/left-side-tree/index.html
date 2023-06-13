@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-cn" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="intconstlee" />
+	
+	
+	
+	<title>左偏树 ｜ ___INT CONST LEE</title>
+	
+    
+    
+    <meta name="description" content="左偏树 左偏树是可并堆的一种，具有堆的性质，可快速合并. 维护如下信息：$\text{val}$：权值，$\text{ls}$：左儿子，$\text{rs}$：右儿子，$\text{dist}$：距离，$" />
+    
+
+    
+    
+    <meta name="keywords" content="Hugo, theme, zozo" />
+    
+
+	
+    
+    <link rel="shortcut icon" href="https://intconstlee.github.io/images/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="https://intconstlee.github.io/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://intconstlee.github.io/css/zozo.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://intconstlee.github.io/css/highlight.css" />
+
+    
+    
+</head>
+
+<body>
+    <div class="main animate__animated animate__fadeInDown">
+        <div class="nav_container animated fadeInDown">
+    <div class="site_nav" id="site_nav">
+        <ul>
+            
+            <li>
+                <a href="/">主页</a>
+            </li>
+            
+            <li>
+                <a href="/posts/">文章</a>
+            </li>
+            
+            <li>
+                <a href="/tags/">标签</a>
+            </li>
+            
+            <li>
+                <a href="/about/">关于</a>
+            </li>
+            
+            <li>
+                <a href="/link">友链</a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="menu_icon">
+        <a id="menu_icon"><i class="ri-menu-line"></i></a>
+    </div>
+</div>
+        <div class="header animated fadeInDown">
+    <div class="site_title_container">
+        <div class="site_title">
+            <h1>
+                <a href="https://intconstlee.github.io/">
+                    <span>___INT CONST LEE</span>
+                </a>
+            </h1>
+        </div>
+        <div class="description">
+            <p class="sub_title">an OieR from S2</p>
+            <div class="my_socials">
+                
+                
+                <a href="https://github.com/intconstlee" title="github" target="_blank"><i class="ri-github-fill"></i></a>
+                
+                
+                <a href="https://www.luogu.com.cn/user/812448" type="application/rss+xml" title="洛谷" target="_blank"><i
+                        class="ri-rss-fill"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+        <div class="content">
+            <div class="post_page">
+                <div class="post animate__animated animate__fadeInDown">
+                    <div class="post_title post_detail_title">
+                        <h2><a href='/posts/left-side-tree/'>左偏树</a></h2>
+                        <span class="date">2023.06.10</span>
+                    </div>
+                    <div class="post_content markdown"><h1 id="左偏树">左偏树</h1>
+<p>左偏树是可并堆的一种，具有堆的性质，可快速合并.</p>
+<p>维护如下信息：$\text{val}$：权值，$\text{ls}$：左儿子，$\text{rs}$：右儿子，$\text{dist}$：距离，$\text{fa}$：父亲。</p>
+<h3 id="一dist">一，dist</h3>
+<p>对于一棵二叉树，我们定义外结点为左儿子或右儿子为空的结点。</p>
+<p>定义一个外结点的 $\text{dist}$ 为 $1$，非外结点的 $\text{dist}$ 为其到子树中最近外结点的距离加一，空结点的 $\text{dist}$ 为 $0$。</p>
+<p>现在有一棵 $n$ 个结点的二叉树，则有如下性质：</p>
+<ol>
+<li>
+<p>根的 $\text{dist}$ 不超过 $[log(n+1)]$；</p>
+</li>
+<li>
+<p>若该二叉树根的 $\text{dist}$ 为 $x$，则至少有 $x-1$ 层为满二叉树，至少有 $2^x-1$ 个结点。</p>
+</li>
+</ol>
+<h3 id="二左偏树的性质">二，左偏树的性质</h3>
+<p>左偏树是一棵二叉树，它具有如下性质：</p>
+<ol>
+<li>
+<p>堆的性质；</p>
+</li>
+<li>
+<p>每个结点左儿子的 $\text{dist}$ 大于等于右儿子的 $\text{dist}$；</p>
+</li>
+<li>
+<p>每个结点的 $\text{dist}$ 都等于右儿子的 $\text{dist}+1$。</p>
+</li>
+</ol>
+<p>左偏树的深度无保证，一条向左的链也是左偏树。</p>
+<h3 id="三核心操作合并-merge">三，核心操作——合并 merge</h3>
+<ol>
+<li>
+<p>取值较小的根作为合并后堆的根节点；</p>
+</li>
+<li>
+<p>将这个根的左儿子作为合并后堆的左儿子；</p>
+</li>
+<li>
+<p>递归合并其右儿子和另一个堆，作为合并后堆的右儿子；</p>
+</li>
+<li>
+<p>若合并后左儿子的 $\text{dist}$ 小于右儿子的 $\text{dist}$，交换两儿子。</p>
+</li>
+</ol>
+<p>该操作的时间复杂度是 $O(\log n+\log m)$ 的。</p>
+<p><strong>代码实现</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">merge</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span><span class="kt">int</span> <span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">x</span><span class="o">||!</span><span class="n">y</span><span class="p">)</span> <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">&gt;</span><span class="n">val</span><span class="p">[</span><span class="n">y</span><span class="p">])</span> <span class="n">swap</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">=</span><span class="n">merge</span><span class="p">(</span><span class="n">rs</span><span class="p">[</span><span class="n">x</span><span class="p">],</span><span class="n">y</span><span class="p">),</span><span class="n">fa</span><span class="p">[</span><span class="n">rs</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span><span class="o">=</span><span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">dis</span><span class="p">[</span><span class="n">ls</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span><span class="o">&lt;</span><span class="n">dis</span><span class="p">[</span><span class="n">rs</span><span class="p">[</span><span class="n">x</span><span class="p">]])</span> <span class="n">swap</span><span class="p">(</span><span class="n">ls</span><span class="p">[</span><span class="n">x</span><span class="p">],</span><span class="n">rs</span><span class="p">[</span><span class="n">x</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dis</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">=</span><span class="n">dis</span><span class="p">[</span><span class="n">rs</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="四其他操作">四，其他操作</h3>
+<h4 id="插入结点">插入结点</h4>
+<p>将单个结点视为一个堆，合并即可。</p>
+<h4 id="删除根">删除根</h4>
+<p>合并根的左右儿子。</p>
+<h4 id="删除任意结点">删除任意结点</h4>
+<p>合并左右儿子，自底向上更新 $\text{dist}$，不满足左偏性质时交换左右儿子，$\text{dist}$ 无需更新时结束递归。</p>
+<p>时间复杂度：$O(\log n)$</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">pushup</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">x</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">dis</span><span class="p">[</span><span class="n">ls</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span><span class="o">&lt;</span><span class="n">dis</span><span class="p">[</span><span class="n">rs</span><span class="p">[</span><span class="n">x</span><span class="p">]])</span> <span class="n">swap</span><span class="p">(</span><span class="n">ls</span><span class="p">[</span><span class="n">x</span><span class="p">],</span><span class="n">rs</span><span class="p">[</span><span class="n">x</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">dis</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">!=</span><span class="n">dis</span><span class="p">[</span><span class="n">rs</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dis</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">=</span><span class="n">dis</span><span class="p">[</span><span class="n">rs</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">pushup</span><span class="p">(</span><span class="n">fa</span><span class="p">[</span><span class="n">x</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h4 id="对整个堆进行加减乘运算">对整个堆进行加/减/乘运算</h4>
+<p>在根上打标记，删除根/合并堆时下传即可。</p>
+</div>
+                    <div class="post_footer">
+                        
+                        <div class="meta">
+                            <div class="info">
+                                <span class="field tags">
+                                    <i class="ri-stack-line"></i>
+                                    
+                                    <a href="https://intconstlee.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                                    
+                                    <a href="https://intconstlee.github.io/tags/%E5%8F%AF%E5%B9%B6%E5%A0%86/">可并堆</a>
+                                    
+                                    <a href="https://intconstlee.github.io/tags/%E5%B7%A6%E5%81%8F%E6%A0%91/">左偏树</a>
+                                    
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                
+                
+<div class="doc_comments">
+    <div class="comments_block_title">发表评论</div>
+    <div id="vcomments"></div>
+</div>
+
+<link rel="stylesheet" href="https://intconstlee.github.io/css/comments.css" />
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        appId: 'uMH9PuUssTaZRJFxIir9DSGG-MdYXbMMI',
+        appKey: 'fdmiY9qHLdselve6k9x9sQVF',
+        placeholder: ' ',
+        visitor: 'true',
+    })
+</script>
+                
+            </div>
+        </div>
+    </div>
+    <a id="back_to_top" href="#" class="back_to_top"><i class="ri-arrow-up-s-line"></i></a>
+    <footer class="footer">
+    <div class="powered_by">
+        <a href="https://www.luogu.com.cn/user/812448">belongs to intconstlee,</a>
+        <a href="http://www.gohugo.io/">published with Hugo</a>
+    </div>
+
+    <div class="footer_slogan">
+        <span>My spiritual home</span>
+    </div>
+</footer>
+    <script src="https://intconstlee.github.io/js/jquery-3.5.1.min.js"></script>
+<link href="https://intconstlee.github.io/css/fancybox.min.css" rel="stylesheet">
+<script src="https://intconstlee.github.io/js/fancybox.min.js"></script>
+<script src="https://intconstlee.github.io/js/zozo.js"></script>
+
+
+<script type="text/javascript" async
+    src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\[\[', '\]\]']],
+                processEscapes: true,
+                processEnvironments: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                TeX: {
+                    equationNumbers: { autoNumber: "AMS" },
+                    extensions: ["AMSmath.js", "AMSsymbols.js"]
+                }
+            }
+        });
+
+        MathJax.Hub.Queue(function () {
+            
+            
+            
+            var all = MathJax.Hub.getAllJax(), i;
+            for (i = 0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+<style>
+    code.has-jax {
+        font: inherit;
+        font-size: 100%;
+        background: inherit;
+        border: inherit;
+        color: #515151;
+    }
+</style>
+
+
+
+</body>
+
+</html>
