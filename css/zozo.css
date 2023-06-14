@@ -582,7 +582,7 @@ hr {
 }
 
 table {
-  table-layout: auto;
+  table-layout: fixed;
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
@@ -594,6 +594,7 @@ table th {
 
 table th, table td {
   padding: 10px 20px;
+  word-wrap: break-word;
   border: 0px solid #dfe2e5;
 }
 
