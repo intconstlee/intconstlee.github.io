@@ -668,7 +668,7 @@ a.back_to_top:hover span {
   width: 80px;
   height: 80px;
   background: #ffffff;
-  border-radius: 0px;
+  border-radius: 10px;
   margin: auto;
   margin-top: 25px;
 }
