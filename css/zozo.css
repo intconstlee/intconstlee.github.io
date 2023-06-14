@@ -1,11 +1,12 @@
 @charset "UTF-8";
 /*basic styles starts*/
 html {
-  background-image: url("https://intconstlee.github.io/images/background.png");
+  /*background-image: url("https://intconstlee.github.io/images/background.png");
   min-height: 100%;
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  background-attachment: fixed;
+  background-attachment: fixed;*/
+  background-color: #f7f7f7;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -30,7 +31,7 @@ body {
   font-family: "HarmonyOS Sans SC Medium", "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 16px;
   width: 100%;
-  background-color: #f7f7f700;
+  background-color: #f7f7f7;
   margin: 0;
   padding: 0;
 }
