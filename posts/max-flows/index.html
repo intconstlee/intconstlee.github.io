@@ -421,11 +421,22 @@
 </li>
 <li>
 <p><strong>初始化</strong>：
-$$
-\forall (u,v)\in E,f(u,v)={\begin{cases}c(u,v),&amp;u=s\0,&amp;u\neq s \end{cases}}\
-\forall u\in V,h(u)={\begin{cases}|V|,&amp;u=s\ 0,&amp;u\neq s\ \end{cases}\}\
+<p>$1. 
+\forall (u,v)\in E,f(u,v)={
+    \begin{cases}c(u,v),&amp;u=s\\
+    0,&amp;u\neq s\\
+    \end{cases}
+}$</p>
+<p>$2. 
+\forall u\in V,h(u)={
+    \begin{cases}|V|,&amp;u=s\\
+    0,&amp;u\neq s\\
+    \end{cases}\
+}$</p>
+<p>$3. 
 e(u)=\sum_{(x,u)\in E}f(x,u)-\sum_{(u,y)\in E}f(u,y)
-$$</p>
+$</p>
+</p>
 </li>
 </ol>
 <h3 id="2-过程及暴力实现">2. 过程及暴力实现</h3>
