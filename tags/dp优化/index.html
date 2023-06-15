@@ -8,11 +8,11 @@
 	
 	
 	
-	<title>网络流概览 ｜ ___INT CONST LEE</title>
+	<title>DP优化 ｜ ___INT CONST LEE</title>
 	
     
     
-    <meta name="description" content="网络流初步 网络流简介 - OI Wiki 一，网络及相关概念 网络指一个有向图 $G=(V,E)$。 在一个网络中，每条边的权值 $c(u,v)$ 被称为该条边的容量，其中 $(u,v)\in E$。 当 $(u,v)\notin E$ 时，$c(u,v)=0$。 源点：$s\in V$；汇点：" />
+    <meta name="description" content="Hugo theme zozo example site." />
     
 
     
@@ -21,6 +21,8 @@
     
 
 	
+	<link rel="alternate" type="application/rss+xml" href="https://intconstlee.github.io/tags/dp%E4%BC%98%E5%8C%96/index.xml" title="___INT CONST LEE" />
+    
     
     <link rel="shortcut icon" href="https://intconstlee.github.io/images/favicon.ico" />
 
@@ -90,85 +92,25 @@
     </div>
 </div>
         <div class="content">
-            <div class="post_page">
-                <div class="post animate__animated animate__fadeInDown">
-                    <div class="post_title post_detail_title">
-                        <h2><a href='/posts/network-flows/'>网络流概览</a></h2>
-                        <span class="date">2023.06.04</span>
-                    </div>
-                    <div class="post_content markdown"><h1 id="网络流初步">网络流初步</h1>
-<p><a href="https://oi-wiki.org/graph/flow/">网络流简介 - OI Wiki</a></p>
-<h2 id="一网络及相关概念">一，网络及相关概念</h2>
-<ol>
-<li>
-<p><strong>网络</strong>指一个<strong>有向图</strong> $G=(V,E)$。</p>
-</li>
-<li>
-<p>在一个网络中，每条边的<strong>权值</strong> $c(u,v)$ 被称为该条边的<strong>容量</strong>，其中 $(u,v)\in E$。</p>
-<p>当  $(u,v)\notin E$ 时，$c(u,v)=0$。</p>
-</li>
-<li>
-<p>源点：$s\in V$；汇点：$t\in V$。$(s\neq t)$</p>
-</li>
-</ol>
-<h2 id="二流及相关概念">二，流及相关概念</h2>
-<p>设 $f(u,v)$ 满足：</p>
-<ol>
-<li>
-<p><strong>容量限制</strong>：对于每条边，流量不超过容量；$(f(u,v)\leq c(u,v))$</p>
-</li>
-<li>
-<p><strong>斜对称性</strong>：每条边流量与反向边流量和为 $0$；$(f(u,v)= -f(v,u))$</p>
-</li>
-<li>
-<p><strong>流守恒性</strong>：从源点流出的流量等于汇点流入的流量；</p>
-</li>
-</ol>
-<p>则称 $f$ 为网络 $G$ 的流函数。</p>
-<p>对于 $(u,v)\in E$，$f(u,v)$ 称为边的<strong>流量</strong>，$c(u,v)-f(u,v)$ 称为边的<strong>剩余容量</strong>。</p>
-<p>整个网络流的容量为从源点出发的所有流量之和，即 $\sum_{(s,v)\in E}f(s,v)$。</p>
-<p><em>现给出流函数的形式化定义</em>：</p>
-<p>$$
-f(u,v)=
-\begin{cases}
-f(u,v), &amp; (u,v)\in E\
--f(u,v), &amp; (v,u)\in E\
-0, &amp; (u,v)\notin E,(v,u)\notin E
-\end{cases}
-$$</p>
-<h2 id="三网络流常见问题">三，网络流常见问题</h2>
-<h3 id="1-最大流">1. 最大流</h3>
-<p>给出一张图，求源点向汇点的最大流量。</p>
-<h3 id="2-最小费用最大流">2. 最小费用最大流</h3>
-<p>每条边都有一个费用，在求出最大流的同时要求花费的费用最少。</p>
-<h3 id="3-最小割">3. 最小割</h3>
-<p>割掉 $X$ 条边来让 $S$ 与 $T$ 不互通，并要求 $X$ 条边加起来的流量总和最小。</p>
-</div>
-                    <div class="post_footer">
-                        
-                        <div class="meta">
-                            <div class="info">
-                                <span class="field tags">
-                                    <i class="ri-stack-line"></i>
-                                    
-                                    <a href="https://intconstlee.github.io/tags/%E5%9B%BE%E8%AE%BA/">图论</a>
-                                    
-                                    <a href="https://intconstlee.github.io/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/">网络流</a>
-                                    
-                                </span>
-                            </div>
+            <div class="list_with_title">
+                
+                <div class="listing_title">2023</div>
+                <div class="listing">
+                    
+                    <div class="listing_item">
+                        <div class="listing_post">
+                            <a href="/posts/monotonic-queue-optimization/">单调队列优化 DP</a>
+                            <div class="post_time"><span class="date">06-14</span></div>
                         </div>
-                        
                     </div>
+                    
                 </div>
                 
-                
-                <div class="doc_comments"></div>
-                
             </div>
+            <div class="pagination"></div>
         </div>
+        <a id="back_to_top" href="#" class="back_to_top"><i class="ri-arrow-up-s-line"></i></a>
     </div>
-    <a id="back_to_top" href="#" class="back_to_top"><i class="ri-arrow-up-s-line"></i></a>
     <footer class="footer">
     <div class="powered_by">
         <a href="https://www.luogu.com.cn/user/812448">belongs to intconstlee,</a>

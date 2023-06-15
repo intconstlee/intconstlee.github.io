@@ -6,14 +6,23 @@
     <description>Recent content in Posts on ___INT CONST LEE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 12 Jun 2023 22:10:25 +0800</lastBuildDate><atom:link href="https://intconstlee.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 14 Jun 2023 21:37:16 +0800</lastBuildDate><atom:link href="https://intconstlee.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>后缀自动机</title>
-      <link>https://intconstlee.github.io/posts/suffix-automaton/</link>
-      <pubDate>Mon, 12 Jun 2023 22:10:25 +0800</pubDate>
+      <title>单调队列优化 DP</title>
+      <link>https://intconstlee.github.io/posts/monotonic-queue-optimization/</link>
+      <pubDate>Wed, 14 Jun 2023 21:37:16 +0800</pubDate>
       
-      <guid>https://intconstlee.github.io/posts/suffix-automaton/</guid>
-      <description>后缀自动机 请先行预览自动机概览，可选择性浏览AC自动机 一，概览 后缀自动机（SAM）是一个可以解决许多字符串问题的数据结构。其中不少问题可以在线性时间内通过 SAM 解决。 现给出后缀自动机的定义： 字符串 $s$ 的 SAM 是</description>
+      <guid>https://intconstlee.github.io/posts/monotonic-queue-optimization/</guid>
+      <description>单调队列优化 DP 前置知识：单调队列 一，概览 某些特定 DP，其当前状态的所有值都可以通过上一状态的某个连续段得到，要对这个连续段求区间最值，相邻状态的区间上下界单调变化。 对于这类动态规划问题，发现我们可以在</description>
+    </item>
+    
+    <item>
+      <title>单调队列</title>
+      <link>https://intconstlee.github.io/posts/monotonic-queue/</link>
+      <pubDate>Wed, 14 Jun 2023 20:37:16 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/posts/monotonic-queue/</guid>
+      <description>单调队列 一，概览 单调队列的重点在于单调和队列 单调反映了元素变化的规律是递增或递减； 队列意味着对元素的操作只能在队头和队尾进行。 二，实现 建立一个队列，考虑要向里插入一个元素： 比较要插入的元素和现有的队尾</description>
     </item>
     
     <item>

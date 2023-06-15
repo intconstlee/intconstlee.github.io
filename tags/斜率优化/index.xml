@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>斜率优化 on ___INT CONST LEE</title>
+    <link>https://intconstlee.github.io/tags/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96/</link>
+    <description>Recent content in 斜率优化 on ___INT CONST LEE</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 14 Jun 2023 21:37:16 +0800</lastBuildDate><atom:link href="https://intconstlee.github.io/tags/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>斜率优化</title>
+      <link>https://intconstlee.github.io/posts/convex-hull-trick/</link>
+      <pubDate>Wed, 14 Jun 2023 21:37:16 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/posts/convex-hull-trick/</guid>
+      <description>斜率优化 一，引入 1D 动态规划模型 1D 动态规划模型是 DP 中一类非常基本、非常重要的模型，所求的是最优化问题，1D 动态规划可大致归纳为如下形式 $$ F[i]=min_{L(i)\leq j\leq R(i)}(F[j]+val(i,j)) $$ 接下来对这一通式进行解读。$F[i]$ 和 $F[j]$ 代表 DP 数组，$L</description>
+    </item>
+    
+  </channel>
+</rss>

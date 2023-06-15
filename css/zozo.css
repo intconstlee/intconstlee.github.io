@@ -1,12 +1,13 @@
 @charset "UTF-8";
 /*basic styles starts*/
 html {
-  /*background-image: url("https://intconstlee.github.io/images/background.png");
-  min-height: 100%;
-  background-repeat: no-repeat;
+  background:
+    linear-gradient(to right, #4476ff10 ,#ffffff00),
+    linear-gradient(225deg, #ff444410 ,#ffffff00),
+    linear-gradient(315deg, #ffc44410 ,#ffffff00);
   background-size: 100% 100%;
-  background-attachment: fixed;*/
-  background-color: #f7f7f7;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -31,7 +32,7 @@ body {
   font-family: "HarmonyOS Sans SC Medium", "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 16px;
   width: 100%;
-  background-color: #f7f7f7;
+  background-color: #f7f7f700;
   margin: 0;
   padding: 0;
 }
@@ -75,6 +76,8 @@ hr {
   background: #ffffff;
   width: 800px;
   margin: 60px auto 0;
+  border-radius: 10px;
+  box-shadow: 1px 5px 10px 0px #80808050;
 }
 
 .content {
@@ -111,7 +114,9 @@ hr {
 
 .nav_container .site_nav ul {
   list-style: none;
-  margin: 0;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  margin: 5px;
   padding: 0;
   float: right;
 }
@@ -119,6 +124,7 @@ hr {
 .nav_container .site_nav li,
 .nav_container .site_nav a {
   position: relative;
+  color: #3d3d3d;
 }
 
 .nav_container .site_nav li {
@@ -485,11 +491,15 @@ hr {
 
 .markdown pre,
 .markdown code {
-  font-family: Consolas, "HarmonyOS Sans SC Medium", Menlo, Monaco, "Liberation Mono", "Courier New", monospace, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: Inconsolata, Consolas, "HarmonyOS Sans SC Medium", Menlo, Monaco, "Liberation Mono", "Courier New", monospace, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 0.9em;
-  background: #f8fafc;
+  font-weight: 500;
+  background: rgb(36, 41, 46);
   border: none;
+  border-radius: 10px;
+  margin: 5px;
   white-space: pre;
+  -webkit-font-smoothing: antialiased;
 }
 
 .markdown pre {
@@ -501,15 +511,15 @@ hr {
 }
 
 .markdown code {
-  color: #666666;
+  color: #fdfdfd;
   padding: 4px 5px;
-  border-radius: 2px;
+  border-radius: 10px;
   white-space: nowrap;
 }
 
 .markdown pre code {
   padding: 0;
-  color: #555555;
+  color: #fdfdfd;
   white-space: pre;
 }
 
@@ -599,6 +609,26 @@ table th, table td {
   border: 0px solid #dfe2e5;
 }
 
+details {
+  background-color: #ffffff;
+  margin: 15px 0;
+  border: #448aff;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 12px;
+}
+
+details summary {
+  padding: 2px 15px;
+  background-color: #ecf3ff;
+  color: #272727;
+  border-radius: 11px 11px 11px 11px;
+}
+
+details > p {
+  padding: 2px 15px;
+}
+
 a.back_to_top {
   text-decoration: none;
   position: fixed;
@@ -662,14 +692,14 @@ a.back_to_top:hover span {
   display: block;
   text-align: center;
   padding-top: 3px;
-  font-size: 10px;
+  font-size: 12px;
 }
  
 .card .img {
   width: 80px;
   height: 80px;
   background: #ffffff;
-  border-radius: 10px;
+  border-radius: 0px;
   margin: auto;
   margin-top: 25px;
 }

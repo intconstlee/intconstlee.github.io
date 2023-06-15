@@ -8,11 +8,11 @@
 	
 	
 	
-	<title>网络流概览 ｜ ___INT CONST LEE</title>
+	<title>斜率优化 ｜ ___INT CONST LEE</title>
 	
     
     
-    <meta name="description" content="网络流初步 网络流简介 - OI Wiki 一，网络及相关概念 网络指一个有向图 $G=(V,E)$。 在一个网络中，每条边的权值 $c(u,v)$ 被称为该条边的容量，其中 $(u,v)\in E$。 当 $(u,v)\notin E$ 时，$c(u,v)=0$。 源点：$s\in V$；汇点：" />
+    <meta name="description" content="斜率优化 一，引入 1D 动态规划模型 1D 动态规划模型是 DP 中一类非常基本、非常重要的模型，所求的是最优化问题，1D 动态规划可大致归纳为如下形式 $$ F[i]=min_{L(i)\leq j\leq R(i)}(F[j]&#43;val(i,j)) $$ 接下来对这一通式进行解读。$F[i]$ 和 $F[j]$ 代表 DP 数组，$L" />
     
 
     
@@ -93,56 +93,19 @@
             <div class="post_page">
                 <div class="post animate__animated animate__fadeInDown">
                     <div class="post_title post_detail_title">
-                        <h2><a href='/posts/network-flows/'>网络流概览</a></h2>
-                        <span class="date">2023.06.04</span>
+                        <h2><a href='/posts/convex-hull-trick/'>斜率优化</a></h2>
+                        <span class="date">2023.06.14</span>
                     </div>
-                    <div class="post_content markdown"><h1 id="网络流初步">网络流初步</h1>
-<p><a href="https://oi-wiki.org/graph/flow/">网络流简介 - OI Wiki</a></p>
-<h2 id="一网络及相关概念">一，网络及相关概念</h2>
-<ol>
-<li>
-<p><strong>网络</strong>指一个<strong>有向图</strong> $G=(V,E)$。</p>
-</li>
-<li>
-<p>在一个网络中，每条边的<strong>权值</strong> $c(u,v)$ 被称为该条边的<strong>容量</strong>，其中 $(u,v)\in E$。</p>
-<p>当  $(u,v)\notin E$ 时，$c(u,v)=0$。</p>
-</li>
-<li>
-<p>源点：$s\in V$；汇点：$t\in V$。$(s\neq t)$</p>
-</li>
-</ol>
-<h2 id="二流及相关概念">二，流及相关概念</h2>
-<p>设 $f(u,v)$ 满足：</p>
-<ol>
-<li>
-<p><strong>容量限制</strong>：对于每条边，流量不超过容量；$(f(u,v)\leq c(u,v))$</p>
-</li>
-<li>
-<p><strong>斜对称性</strong>：每条边流量与反向边流量和为 $0$；$(f(u,v)= -f(v,u))$</p>
-</li>
-<li>
-<p><strong>流守恒性</strong>：从源点流出的流量等于汇点流入的流量；</p>
-</li>
-</ol>
-<p>则称 $f$ 为网络 $G$ 的流函数。</p>
-<p>对于 $(u,v)\in E$，$f(u,v)$ 称为边的<strong>流量</strong>，$c(u,v)-f(u,v)$ 称为边的<strong>剩余容量</strong>。</p>
-<p>整个网络流的容量为从源点出发的所有流量之和，即 $\sum_{(s,v)\in E}f(s,v)$。</p>
-<p><em>现给出流函数的形式化定义</em>：</p>
+                    <div class="post_content markdown"><h1 id="斜率优化">斜率优化</h1>
+<h2 id="一引入">一，引入</h2>
+<h3 id="1d-动态规划模型">1D 动态规划模型</h3>
+<p>1D 动态规划模型是 DP 中一类非常基本、非常重要的模型，所求的是最优化问题，1D 动态规划可大致归纳为如下形式</p>
 <p>$$
-f(u,v)=
-\begin{cases}
-f(u,v), &amp; (u,v)\in E\
--f(u,v), &amp; (v,u)\in E\
-0, &amp; (u,v)\notin E,(v,u)\notin E
-\end{cases}
+F[i]=min_{L(i)\leq j\leq R(i)}(F[j]+val(i,j))
 $$</p>
-<h2 id="三网络流常见问题">三，网络流常见问题</h2>
-<h3 id="1-最大流">1. 最大流</h3>
-<p>给出一张图，求源点向汇点的最大流量。</p>
-<h3 id="2-最小费用最大流">2. 最小费用最大流</h3>
-<p>每条边都有一个费用，在求出最大流的同时要求花费的费用最少。</p>
-<h3 id="3-最小割">3. 最小割</h3>
-<p>割掉 $X$ 条边来让 $S$ 与 $T$ 不互通，并要求 $X$ 条边加起来的流量总和最小。</p>
+<p>接下来对这一通式进行解读。$F[i]$ 和 $F[j]$ 代表 DP 数组，$L(i)$ 和 $R(i)$ 是关于变量 $i$ 的一次函数，用于划定 $j$ 的上下界，$val(i,j)$ 为一个关于变量 $i$ 和变量 $j$ 的多项式函数，也是 DP 优化的关键所在。</p>
+<h3 id="状态转移中的斜率">状态转移中的斜率</h3>
+<p>对于一个 1D 动态规划问题，列出其状态转移，发现 $val(i,j)$ 中包含 $i$ 与 $j$ 的乘积项。对于这样一个式子，将其转移到</p>
 </div>
                     <div class="post_footer">
                         
@@ -151,9 +114,11 @@ $$</p>
                                 <span class="field tags">
                                     <i class="ri-stack-line"></i>
                                     
-                                    <a href="https://intconstlee.github.io/tags/%E5%9B%BE%E8%AE%BA/">图论</a>
+                                    <a href="https://intconstlee.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
                                     
-                                    <a href="https://intconstlee.github.io/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/">网络流</a>
+                                    <a href="https://intconstlee.github.io/tags/dp%E4%BC%98%E5%8C%96/">DP优化</a>
+                                    
+                                    <a href="https://intconstlee.github.io/tags/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96/">斜率优化</a>
                                     
                                 </span>
                             </div>
@@ -163,7 +128,25 @@ $$</p>
                 </div>
                 
                 
-                <div class="doc_comments"></div>
+                
+<div class="doc_comments">
+    <div class="comments_block_title">发表评论</div>
+    <div id="vcomments"></div>
+</div>
+
+<link rel="stylesheet" href="https://intconstlee.github.io/css/comments.css" />
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        appId: 'uMH9PuUssTaZRJFxIir9DSGG-MdYXbMMI',
+        appKey: 'fdmiY9qHLdselve6k9x9sQVF',
+        placeholder: ' ',
+        visitor: 'true',
+    })
+</script>
                 
             </div>
         </div>

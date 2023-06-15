@@ -6,7 +6,16 @@
     <description>Recent content in 数据结构 on ___INT CONST LEE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 10 Jun 2023 10:10:25 +0800</lastBuildDate><atom:link href="https://intconstlee.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 14 Jun 2023 20:37:16 +0800</lastBuildDate><atom:link href="https://intconstlee.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>单调队列</title>
+      <link>https://intconstlee.github.io/posts/monotonic-queue/</link>
+      <pubDate>Wed, 14 Jun 2023 20:37:16 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/posts/monotonic-queue/</guid>
+      <description>单调队列 一，概览 单调队列的重点在于单调和队列 单调反映了元素变化的规律是递增或递减； 队列意味着对元素的操作只能在队头和队尾进行。 二，实现 建立一个队列，考虑要向里插入一个元素： 比较要插入的元素和现有的队尾</description>
+    </item>
+    
     <item>
       <title>左偏树</title>
       <link>https://intconstlee.github.io/posts/left-side-tree/</link>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>单调队列 on ___INT CONST LEE</title>
+    <link>https://intconstlee.github.io/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/</link>
+    <description>Recent content in 单调队列 on ___INT CONST LEE</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 14 Jun 2023 20:37:16 +0800</lastBuildDate><atom:link href="https://intconstlee.github.io/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>单调队列</title>
+      <link>https://intconstlee.github.io/posts/monotonic-queue/</link>
+      <pubDate>Wed, 14 Jun 2023 20:37:16 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/posts/monotonic-queue/</guid>
+      <description>单调队列 一，概览 单调队列的重点在于单调和队列 单调反映了元素变化的规律是递增或递减； 队列意味着对元素的操作只能在队头和队尾进行。 二，实现 建立一个队列，考虑要向里插入一个元素： 比较要插入的元素和现有的队尾</description>
+    </item>
+    
+  </channel>
+</rss>
