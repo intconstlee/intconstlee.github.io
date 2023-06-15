@@ -511,7 +511,7 @@ hr {
 }
 
 .markdown code {
-  color: #fdfdfd;
+  color: #202020;
   padding: 4px 5px;
   border-radius: 10px;
   white-space: nowrap;
@@ -519,7 +519,7 @@ hr {
 
 .markdown pre code {
   padding: 0;
-  color: #fdfdfd;
+  color: #202020;
   white-space: pre;
 }
 
