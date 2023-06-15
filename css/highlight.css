@@ -58,7 +58,7 @@
   color: #f97583;
 }
 .chroma .n {
-  color: #e1e4e8;
+  color: #1d1d1d;
 }
 .chroma .nc {
   color: #ffab70;
@@ -218,7 +218,7 @@
   font-style: italic;
 }
 .chroma .g {
-  color: #e1e4e8;
+  color: #292929;
 }
 .chroma .gd {
   color: #ffa198;
@@ -260,5 +260,5 @@
   color: #6e7681;
 }
 .chroma .x {
-  color: #e1e4e8;
+  color: #292929;
 }
