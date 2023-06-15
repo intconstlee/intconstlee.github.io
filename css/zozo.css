@@ -499,7 +499,6 @@ hr {
   border-radius: 10px;
   margin: 5px;
   white-space: pre;
-  -webkit-font-smoothing: antialiased;
 }
 
 .markdown pre {
