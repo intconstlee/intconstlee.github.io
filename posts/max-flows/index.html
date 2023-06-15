@@ -420,18 +420,12 @@
 <p>条件：结点 $u$ 溢出，且 $\forall (u,v)\in E_f,h(u)&lt;h(v)$。</p>
 </li>
 <li>
-<p><strong>初始化</strong>：</p>
-<ol>
-<li>
-<p>$\forall (u,v)\in E,f(u,v)={\begin{cases}c(u,v),&amp;u=s\ 0,&amp;u\neq s\ \end{cases}\}$</p>
-</li>
-<li>
-<p>$\forall u\in V,h(u)={\begin{cases}|V|,&amp;u=s\ 0,&amp;u\neq s\ \end{cases}\}$</p>
-</li>
-<li>
-<p>$e(u)=\sum_{(x,u)\in E}f(x,u)-\sum_{(u,y)\in E}f(u,y)$</p>
-</li>
-</ol>
+<p><strong>初始化</strong>：
+$$
+\forall (u,v)\in E,f(u,v)={\begin{cases}c(u,v),&amp;u=s\0,&amp;u\neq s \end{cases}}\
+\forall u\in V,h(u)={\begin{cases}|V|,&amp;u=s\ 0,&amp;u\neq s\ \end{cases}\}\
+e(u)=\sum_{(x,u)\in E}f(x,u)-\sum_{(u,y)\in E}f(u,y)
+$$</p>
 </li>
 </ol>
 <h3 id="2-过程及暴力实现">2. 过程及暴力实现</h3>
