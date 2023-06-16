@@ -662,9 +662,10 @@ a.back_to_top:hover span {
 .card {
   width: 100%;
   height: 254px;
-  background: #ffffff;
   border-radius: 12px;
-  box-shadow: 1px 5px 10px 0px #80808050;
+  background: #e0e0e0;
+  box-shadow: 33px 33px 72px #c3c3c3,
+              -33px -33px 72px #fdfdfd;
 }
  
 .card .card-border-top {

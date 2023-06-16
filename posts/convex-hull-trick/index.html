@@ -120,6 +120,16 @@
 <p>在刚才的状态转移方程中，我们需要 $j$ 仅仅是为了判断启动了多少次，发现如果没有 $j$，不易得启动了多少次，但可以知道每次启动时间 $S$ 都会累加到此后所有任务的完成时刻中，于是 DP 数组可以维度压缩，设 $F[i]$ 表示把前 $i$ 个元素分若干批完成的最小费用，则：</p>
 <p>$F[i]=$$min_{0\leq j&lt;i}$$(F[j]+$$sumT[i]\times$$(sumC[i]-$$sumC[j])+$$S\times$$(sumC[N]-$$sumC[j]))$</p>
 <p>发现在这一转移方程中，我们把之后的费用提前累加到了答案中，这种“费用提前计算”是一种经典思想。于是时间复杂度可以降至 $O(N^2)$。</p>
+<details class=note close>
+<summary>code</summary>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">long</span> <span class="kt">long</span> <span class="n">f</span><span class="p">[</span><span class="mi">5005</span><span class="p">],</span><span class="n">sumt</span><span class="p">[</span><span class="mi">5005</span><span class="p">],</span><span class="n">sumc</span><span class="p">[</span><span class="mi">5005</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="o">&gt;&gt;</span><span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></details>
 <h3 id="优化二斜率优化">优化二：斜率优化</h3>
 <p>在费用提前计算的基础上进一步优化，对状态转移方程变形得：</p>
 <p>$F[i]=$$min_{0\leq j&lt;i}$$(F[j]-$$sumC[j]\times$$(sumT[i]+$$S)+$$sumT[i]\times $$sumC[i]+$$S\times $$sumC[N]))$</p>
