@@ -663,15 +663,15 @@ a.back_to_top:hover span {
   width: 100%;
   height: 254px;
   border-radius: 12px;
-  background: #e0e0e0;
-  box-shadow: 33px 33px 72px #c3c3c3,
-              -33px -33px 72px #fdfdfd;
+  background: linear-gradient(to right bottom, rgb(254, 249, 195, 0.2), rgb(253, 224, 71, 0.2), rgb(234, 179, 8, 0.2));
+  box-shadow: 30px 30px 30px #c3c3c300,
+          -10px -10px 10px #fdfdfd00;
 }
  
 .card .card-border-top {
   width: 60%;
   height: 3%;
-  background: #ffffff;
+  background: rgb(253, 224, 71);
   margin: auto;
   border-radius: 0px 0px 12px 12px;
 }
@@ -710,13 +710,14 @@ a.back_to_top:hover span {
   border-radius: 8px;
   border: none;
   margin-top: 30px;
-  background: #acacac;
-  color: #ffffff;
-  font-weight: 300;
+  background: #ffffff80;
+  color: #3c3c3c;
+  font-weight: 500;
+  box-shadow: 5px 5px 10px #c3c3c350;
 }
  
 .card button:hover {
-  background: #999999;
+  background: #fdfdfd;
 }
 
 @media print, screen and (max-width: 680px) {
