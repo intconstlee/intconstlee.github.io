@@ -695,7 +695,7 @@ a.back_to_top:hover span {
 }
  
 .card .img {
-  width: auto;
+  width: 40%;
   background: #ffffff00;
   border-radius: 10px;
   margin: auto;
