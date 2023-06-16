@@ -1,11 +1,8 @@
 @charset "UTF-8";
 /*basic styles starts*/
 html {
-  background:
-    linear-gradient(to right, #4476ff10 ,#ffffff00),
-    linear-gradient(225deg, #ff444410 ,#ffffff00),
-    linear-gradient(315deg, #ffc44410 ,#ffffff00);
-  background-size: 100% 100%;
+  background: url("https://pic2.zhimg.com/v2-963c61ed23060b533512091ed5cac633_1440w.jpg?source=172ae18b");
+  background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
@@ -72,11 +69,16 @@ hr {
 
 /*basic styles ends*/
 .main {
-  background: #ffffff;
+  background-color: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
+  -webkit-box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
   width: 800px;
   margin: 60px auto 0;
-  border-radius: 10px;
-  box-shadow: 1px 5px 10px 0px #80808050;
 }
 
 .content {
@@ -113,7 +115,7 @@ hr {
 
 .nav_container .site_nav ul {
   list-style: none;
-  background-color: #f1f1f1;
+  background-color: #ffffff;
   border-radius: 10px;
   margin: 5px;
   padding: 0;
@@ -210,7 +212,7 @@ hr {
 }
 
 .post {
-  background-color: #ffffff;
+  background-color: #ffffff00;
   margin-top: 50px;
 }
 
@@ -263,11 +265,11 @@ hr {
 .post .post_content a {
   text-decoration: none;
   letter-spacing: 1px;
-  color: #e42b2b;
+  color: #5e00aa;
 }
 
 .post .post_content a:hover {
-  color: #8e0000;
+  color: #8d9eff;
 }
 
 .post .post_footer {
@@ -350,12 +352,12 @@ hr {
 }
 
 .footer a {
-  color: #a6a6a6;
+  color: #424242;
   margin: 0 12px;
 }
 
 .footer a:hover {
-  color: #1f1f1f;
+  color: #ffffff;
 }
 
 .footer .powered_by {
@@ -364,12 +366,12 @@ hr {
 }
 
 .footer .powered_by a {
-  color: #cccccc;
+  color: #424242;
   margin: 0 2px;
 }
 
 .footer .powered_by a:hover {
-  color: #1f1f1f;
+  color: #ffffff;
 }
 
 .footer .footer_slogan {
@@ -493,7 +495,7 @@ hr {
   font-family: Consolas, "HarmonyOS Sans SC Medium", Menlo, Monaco, "Liberation Mono", "Courier New", monospace, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 0.9em;
   font-weight: 600;
-  background: #fafafa;
+  background: #3c3c47;
   border: none;
   border-radius: 10px;
   margin: 5px;
@@ -509,7 +511,7 @@ hr {
 }
 
 .markdown code {
-  color: #202020;
+  color: #ffffff;
   padding: 4px 5px;
   border-radius: 10px;
   white-space: nowrap;
@@ -517,7 +519,7 @@ hr {
 
 .markdown pre code {
   padding: 0;
-  color: #202020;
+  color: #ffffff;
   white-space: pre;
 }
 
@@ -598,7 +600,7 @@ table {
 }
 
 table th {
-  background-color: #f6f8fa;
+  background-color: #f6f8fa50;
 }
 
 table th, table td {
@@ -608,9 +610,14 @@ table th, table td {
 }
 
 details {
-  background-color: #ffffff;
+  background-color: #ffffff50;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
+  -webkit-box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
   margin: 15px 0;
-  border: #448aff;
+  border: #ffffff00;
   border-style: solid;
   border-width: 1px;
   border-radius: 12px;
@@ -618,7 +625,10 @@ details {
 
 details summary {
   padding: 2px 15px;
-  background-color: #ecf3ff;
+  background-color: #ffffff90;
+  border-bottom: #c099ff;
+  border-bottom-width: 3px;
+  border-bottom-style: solid;
   color: #272727;
   border-radius: 11px 11px 11px 11px;
 }
@@ -660,14 +670,18 @@ a.back_to_top:hover span {
 }
 
 .card {
+  background-color: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
+  -webkit-box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
   width: 100%;
   height: auto;
-  border-radius: 12px;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  background: linear-gradient(to right bottom, rgb(254, 249, 195, 0.2), rgb(253, 224, 71, 0.2), rgb(234, 179, 8, 0.2));
-  box-shadow: 30px 30px 30px #c3c3c300,
-              -10px -10px 10px #fdfdfd00;
 }
  
 .card .card-border-top {
