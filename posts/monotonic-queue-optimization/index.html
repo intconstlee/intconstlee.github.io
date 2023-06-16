@@ -105,12 +105,10 @@
 <details class=note open>
 <summary>例题：最大子序和</summary>
 <p>
-给定一个长度为 $N$ 的整数序列，从中找出一段长度不超过 $M$ 的连续子序列，使得子序列中所有数的和最大。$N,M\leq 3\times 10^5$。
-<p>对于这道题，其答案可以形式化表示为：
-$$
-ans=max_{1\leq i\leq N}(sum[i]-min_{i-M\leq j\leq i-1}sum[j])
-$$
-其中，$i$ 类似于动态规划中的状态，$j$ 类似于动态规划中的决策。我们从小到大枚举每个 $i\in[1,N]$ 时，当 $i$ 增大 $1$ 时，$j$ 的取值范围 $[i-M,i-1]$ 的上下界也同时增大 $1$，变为 $[i-M+1,i]$。这意味着有一个新的决策 $j=i$ 进入候选集和，同时 $j=i-M$ 这一决策过时，需要从集合中删除。</p>
+<p>给定一个长度为 $N$ 的整数序列，从中找出一段长度不超过 $M$ 的连续子序列，使得子序列中所有数的和最大。$N,M\leq 3\times 10^5$。</p>
+<p>对于这道题，其答案可以形式化表示为：</p>
+<p>$ans=$$max_{1\leq i\leq N}$$(sum[i]-$$min_{i-M\leq j\leq i-1}$$sum[j])$</p>
+<p>其中，$i$ 类似于动态规划中的状态，$j$ 类似于动态规划中的决策。我们从小到大枚举每个 $i\in[1,N]$ 时，当 $i$ 增大 $1$ 时，$j$ 的取值范围 $[i-M,i-1]$ 的上下界也同时增大 $1$，变为 $[i-M+1,i]$。这意味着有一个新的决策 $j=i$ 进入候选集和，同时 $j=i-M$ 这一决策过时，需要从集合中删除。</p>
 </p>
 </details>
 <p>经过分析发现此题取值范围上下界单调变化，每个决策在候选集和中最多被插入或删除一次，所求的是最值，可以使用单调队列优化。</p>
@@ -165,7 +163,7 @@ $$
 </span></span><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">ans</span><span class="o">=</span><span class="n">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 </span></span></code></pre></div></details>
 <h4 id="-二进制拆分法">② 二进制拆分法</h4>
-<p>在 $2$ 的整数次幂中选取若干数相加，可以表示出任意整数，于是对于 $C_i$，将其二进制拆分为 $2^0+2^1+2^2+&hellip;+2^p+R_i$，$R_i&lt;2^{p+1}$，这样便将 $C_i$ 拆分为了 $p+2$ 件物品，其体积与价值分别乘相应倍数后进行 $0/1$ 背包即可，时间复杂度为 $O(M\times \sum_{i=1}^N \log C_i)$。</p>
+<p>在 $2$ 的整数次幂中选取若干数相加，可以表示出任意整数，于是对于 $C_i$，将其二进制拆分为 $2^0+$$2^1+$$2^2+&hellip;+$$2^p+R_i$，$R_i&lt;2^{p+1}$，这样便将 $C_i$ 拆分为了 $p+2$ 件物品，其体积与价值分别乘相应倍数后进行 $0/1$ 背包即可，时间复杂度为 $O(M\times \sum_{i=1}^N \log C_i)$。</p>
 <details class=note close>
 <summary>code</summary>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">c</span><span class="p">[</span><span class="n">maxn</span><span class="o">+</span><span class="mi">5</span><span class="p">],</span><span class="n">v</span><span class="p">[</span><span class="n">maxn</span><span class="o">+</span><span class="mi">5</span><span class="p">],</span><span class="n">w</span><span class="p">[</span><span class="n">maxn</span><span class="o">+</span><span class="mi">5</span><span class="p">];</span>
@@ -187,17 +185,13 @@ $$
 </span></span></code></pre></div></details>
 <h3 id="2-单调队列优化">2. 单调队列优化</h3>
 <p>若使用单调队列，时间复杂度可进一步降至 $O(NM)$。</p>
-<p>当外层循环进行到 $i$ 时，$F[j]$ 表示从前 $i$ 种物品中选若干放入背包使体积之和为 $j$ 时，价值之和最大是多少。倒序循环 $j$，在状态转移时，第 $i$ 种物品个数为 $cnt$，列出状态转移方程：
-$$
-F[j]=max_{1\leq cnt\leq C_i}(F[j-cnt\times V_i]+cnt\times W_i)
-$$
-能够转移到 $j$ 的候选集合为 ${j-cnt\times V_i|1\leq cnt\leq C_i}$。发现相邻状态 $j$ 和 $j-1$ 对应的候选集和没有重叠，很难由 $j-1$ 对应的集合得到 $j$ 对应的集合。但是对于 $j$ 和 $j-V_i$，这两者对应的候选集和重合度较高，由 $j-V_i$ 向 $j$ 转移时，一个已有决策被排除，只有一个新决策加入候选集和，所以我们可以把状态 $j$ 按除以 $V_i$ 的余数分组，对每一组分别计算，不同组之间不会互相转移。</p>
+<p>当外层循环进行到 $i$ 时，$F[j]$ 表示从前 $i$ 种物品中选若干放入背包使体积之和为 $j$ 时，价值之和最大是多少。倒序循环 $j$，在状态转移时，第 $i$ 种物品个数为 $cnt$，列出状态转移方程：</p>
+<p>$F[j]=$$max_{1\leq cnt\leq C_i}$$(F[j-cnt\times V_i]+$$cnt\times $$W_i)$</p>
+<p>能够转移到 $j$ 的候选集合为 ${j-cnt\times V_i|1\leq cnt\leq C_i}$。发现相邻状态 $j$ 和 $j-1$ 对应的候选集和没有重叠，很难由 $j-1$ 对应的集合得到 $j$ 对应的集合。但是对于 $j$ 和 $j-V_i$，这两者对应的候选集和重合度较高，由 $j-V_i$ 向 $j$ 转移时，一个已有决策被排除，只有一个新决策加入候选集和，所以我们可以把状态 $j$ 按除以 $V_i$ 的余数分组，对每一组分别计算，不同组之间不会互相转移。</p>
 <p>新的 DP 过程如下：</p>
-<p>对于每个余数 $u\in [0,V_i-1]$，倒序循环 $p\in [1,\lfloor(M-u)/V_i\rfloor]$，则对应的状态 $j$ 可表示为 $j=u+p\times V_i$。第 $i$ 种物品有 $C-i$ 个。故能转移到 $j=u+p\times V_i$ 的候选集和就是 ${u+k\times V_i|p-C_i\leq k\leq p-1}$。写出新的状态转移方程：
-$$
-F[u+p\times V_i]=max_{p-C_i\leq k\leq p-1}(F[u+k\times V_i]+(p-k)\times W_i)
-$$
-把外层条件 $i$ 和 $u$ 看作定值，内层循环 $p$ 减小 $1$ 时，决策 $k$ 的取值范围 $[p-C_i,p-1]$ 的上下界均单调减小。状态转移方程等号右侧的式子仍然可以分为两部分，仅包含变量 $p$ 的 $p\times W_i$ 和仅包含变量 $k$ 的 $F[u+k\times V_i]-k\times W_i$。于是可以建立一个 $k$ 单调递减，$F[u+k\times V_i]-k\times W_i$ 也单调递减的队列维护候选集和，对于每个 $p$，执行单调队列有以下三个操作：</p>
+<p>对于每个余数 $u\in [0,V_i-1]$，倒序循环 $p\in [1,\lfloor(M-u)/V_i\rfloor]$，则对应的状态 $j$ 可表示为 $j=u+p\times V_i$。第 $i$ 种物品有 $C-i$ 个。故能转移到 $j=u+p\times V_i$ 的候选集和就是 ${u+k\times V_i|p-C_i\leq k\leq p-1}$。写出新的状态转移方程：</p>
+<p>$F[u+p\times V_i]=$$max_{p-C_i\leq k\leq p-1}$$(F[u+k\times V_i]+$$(p-k)\times $$W_i)$</p>
+<p>把外层条件 $i$ 和 $u$ 看作定值，内层循环 $p$ 减小 $1$ 时，决策 $k$ 的取值范围 $[p-C_i,p-1]$ 的上下界均单调减小。状态转移方程等号右侧的式子仍然可以分为两部分，仅包含变量 $p$ 的 $p\times W_i$ 和仅包含变量 $k$ 的 $F[u+k\times V_i]-k\times W_i$。于是可以建立一个 $k$ 单调递减，$F[u+k\times V_i]-k\times W_i$ 也单调递减的队列维护候选集和，对于每个 $p$，执行单调队列有以下三个操作：</p>
 <ol>
 <li>检查队头合法性，把大于 $p-1$ 的决策出队。</li>
 <li>取队头为最优策略</li>
@@ -290,13 +284,12 @@ $$
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div></details>
 <h2 id="四总结">四，总结</h2>
-<p>对于可以使用单调队列优化的题目，可以总结出如下通式：
-$$
-F[i]=min_{L(i)\leq j\leq R(i)}(F[j]+val(i,j))
-$$
-其中 $val(i,j)$ 可分为两部分，一部分仅与 $i$ 有关，另一部分仅与 $j$ 有关。</p>
+<p>对于可以使用单调队列优化的题目，可以总结出如下通式：</p>
+<p>$F[i]=$$min_{L(i)\leq j\leq R(i)}$$(F[j]+$$val(i,j))$</p>
+<p>其中 $val(i,j)$ 可分为两部分，一部分仅与 $i$ 有关，另一部分仅与 $j$ 有关。</p>
 <p>对于每个 $i$，无论采取哪个 $j$ 作为决策，与 $i$ 有关的部分都是相等的，而当 $i$ 变化时，与 $j$ 有关的部分不会发生变化，从而原来较优的决策在 $i$ 改变后仍较优。</p>
 <p>于是我们就可以使用单调队列维护第二部分单调性。</p>
+<p>至于这一通式，在之后的学习中还会遇到。</p>
 <h2 id="五习题">五，习题</h2>
 <h3><a href="https://www.luogu.com.cn/problem/P1776">洛谷P1776 宝物筛选</a></h3>
 <p>套用多重背包板子即可。推荐使用二进制拆分（好写）或数组队列（较快）。</p>
@@ -583,7 +576,7 @@ $$
 <h3><a href="https://www.luogu.com.cn/problem/P3594">洛谷P3594 WIL</a></h3>
 <p>$O(n)$ 做法：题意就是找一段大区间，其中间一段不长于 $d$ 的小区间内所有数变 $0$ 后大区间内所有数的和不大于 $p$，求大区间最长长度。首先有一个显然结论就是变 $0$ 的点越多，答案越优，也就是说必然有 $d$ 个点变 $0$。此外还有大区间某端点一定时，变 $0$ 的小区间原值和越大，答案越优，因为删去的值增大，大区间的另一端点只可能更远离定端点，此时大区间只可能更大。</p>
 <p>接下来考虑 DP，从 $d$ 开始枚举大区间右端点 $i$，大区间左端点初始为 $1$，引入单调递减队列维护变 $0$ 区间的原值和最大值，队列中存小区间左端点。</p>
-<p>首先在保证单调性前提下将以 $i$ 为右端点的小区间的左端点入队。之后比较大区间删去 $sum[q[h]+d-1]-sum[q[h]-1]$ 后的数值和与 $p$ 的关系，若大于 $p$，则大区间左端点 $l$ 需右移，注意右移 $l$ 时还要检查小区间是否包含在大区间内，若不在，更新小区间。</p>
+<p>首先在保证单调性前提下将以 $i$ 为右端点的小区间的左端点入队。之后比较大区间删去 $sum[q[h]+d-1]-$$sum[q[h]-1]$ 后的数值和与 $p$ 的关系，若大于 $p$，则大区间左端点 $l$ 需右移，注意右移 $l$ 时还要检查小区间是否包含在大区间内，若不在，更新小区间。</p>
 <p>最终答案即为 $\max_{r=d}^n(r-l+1)$</p>
 <details class=note close>
 <summary>code</summary>

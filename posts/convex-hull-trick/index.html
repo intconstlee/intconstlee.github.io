@@ -12,7 +12,7 @@
 	
     
     
-    <meta name="description" content="斜率优化 一，引入 1D 动态规划模型 1D 动态规划模型是 DP 中一类非常基本、非常重要的模型，所求的是最优化问题，1D 动态规划可大致归纳为如下形式 $$ F[i]=min_{L(i)\leq j\leq R(i)}(F[j]&#43;val(i,j)) $$ 接下来对这一通式进行解读。$F[i]$ 和 $F[j]$ 代表 DP 数组，$L" />
+    <meta name="description" content="斜率优化 一，引入 1D 动态规划模型 1D 动态规划模型是 DP 中一类非常基本、非常重要的模型，所求的是最优化问题，1D 动态规划可大致归纳为如下形式 $F[i]=$$min_{L(i)\leq j\leq R(i)}$$(F[j]&#43;$$val(i,j))$ 接下来对这一通式进行解读。$F[i]$ 和 $F[j]$ 代表 DP 数组，$L(i" />
     
 
     
@@ -94,18 +94,38 @@
                 <div class="post animate__animated animate__fadeInDown">
                     <div class="post_title post_detail_title">
                         <h2><a href='/posts/convex-hull-trick/'>斜率优化</a></h2>
-                        <span class="date">2023.06.14</span>
+                        <span class="date">2023.06.15</span>
                     </div>
                     <div class="post_content markdown"><h1 id="斜率优化">斜率优化</h1>
 <h2 id="一引入">一，引入</h2>
 <h3 id="1d-动态规划模型">1D 动态规划模型</h3>
 <p>1D 动态规划模型是 DP 中一类非常基本、非常重要的模型，所求的是最优化问题，1D 动态规划可大致归纳为如下形式</p>
-<p>$$
-F[i]=min_{L(i)\leq j\leq R(i)}(F[j]+val(i,j))
-$$</p>
+<p>$F[i]=$$min_{L(i)\leq j\leq R(i)}$$(F[j]+$$val(i,j))$</p>
 <p>接下来对这一通式进行解读。$F[i]$ 和 $F[j]$ 代表 DP 数组，$L(i)$ 和 $R(i)$ 是关于变量 $i$ 的一次函数，用于划定 $j$ 的上下界，$val(i,j)$ 为一个关于变量 $i$ 和变量 $j$ 的多项式函数，也是 DP 优化的关键所在。</p>
 <h3 id="状态转移中的斜率">状态转移中的斜率</h3>
-<p>对于一个 1D 动态规划问题，列出其状态转移，发现 $val(i,j)$ 中包含 $i$ 与 $j$ 的乘积项。对于这样一个式子，将其转移到</p>
+<p>对于一个 1D 动态规划问题，列出其状态转移，发现 $val(i,j)$ 中包含 $i$ 与 $j$ 的乘积项。最简单的形如</p>
+<p>$F[i]=$$F[j]+$$b_ib_j$$\Longleftrightarrow $$F[i]=$$b_jb_i+$$F[j]$</p>
+<p>发现若 $b_j$ 与 $F[j]$ 已知时，$F[i]$ 的表达形如 $y=kx+b$，为一个一次函数，斜率为 $b_j$。与直线 $x=b_i$ 的截距即为 $F[i]$。斜率优化将动态规划转化为数学中的线性规划问题。下文将详细讲解。</p>
+<h2 id="二思路">二，思路</h2>
+<details class=note open>
+<summary>例题：任务安排</summary>
+<p>
+<p>有 $N$ 个有序任务，第 $i$ 个任务耗时 $T_i$，费用系数 $C_i$，将任务分组顺序执行，执行每组前需要 $S$ 的启动时间，一组中的所有任务将顺序执行，每个任务的完成时刻是其所在组全部任务的完成时刻，每个任务的花费是完成时刻乘费用系数。求最小总费用。</p>
+<p>对于 $T$ 和 $C$，可以求出前缀和数组 $sumT,sumC$，$F[i][j]$ 表示将前 $i$ 个任务分成 $j$ 批执行的最小费用，第 $j$ 批任务的完成时刻是 $j\times S+sumT[i]$，状态转移方程如下：</p>
+<p>$F[i][j]=$$min_{0\leq k&lt;i}$$(F[k][j-1]+$$(S\times $$j+$$sumT[i])\times $$(sumC[i]-$$sumC[k]))$</p>
+<p>直接 DP，复杂度为 $O(N^3)$，考虑优化。</p>
+</p>
+</details>
+<h3 id="优化一费用提前计算">优化一：费用提前计算</h3>
+<p>在刚才的状态转移方程中，我们需要 $j$ 仅仅是为了判断启动了多少次，发现如果没有 $j$，不易得启动了多少次，但可以知道每次启动时间 $S$ 都会累加到此后所有任务的完成时刻中，于是 DP 数组可以维度压缩，设 $F[i]$ 表示把前 $i$ 个元素分若干批完成的最小费用，则：</p>
+<p>$F[i]=$$min_{0\leq j&lt;i}$$(F[j]+$$sumT[i]\times$$(sumC[i]-$$sumC[j])+$$S\times$$(sumC[N]-$$sumC[j]))$</p>
+<p>发现在这一转移方程中，我们把之后的费用提前累加到了答案中，这种“费用提前计算”是一种经典思想。于是时间复杂度可以降至 $O(N^2)$。</p>
+<h3 id="优化二斜率优化">优化二：斜率优化</h3>
+<p>在费用提前计算的基础上进一步优化，对状态转移方程变形得：</p>
+<p>$F[i]=$$min_{0\leq j&lt;i}$$(F[j]-$$sumC[j]\times$$(sumT[i]+$$S)+$$sumT[i]\times $$sumC[i]+$$S\times $$sumC[N]))$</p>
+<p>把 $min$ 函数去掉，将关于 $j$ 的值 $F[j]$ 和 $sumC[j]$ 看作变量，其余部分作为常量，得到</p>
+<p>$F[j]=$$(sumT[i]+$$S)\times$$sumC[j]+$$F[i]-$$sumT[i]\times $$sumC[i]-$$S\times $$sumC[N]$</p>
+<p>在以 $sumC[j]$ 为横坐标，$F[j]$ 为纵坐标的平面直角坐标系中，这是一条以 $(sumT[i]+$$S)$ 为斜率，以 $F[i]-$$sumT[i]\times $$sumC[i]-$$S\times $$sumC[N]$ 为截距的直线。其中斜率为已知量，截距中除 $F[i]$ 外均为已知量。则候选决策为坐标中的点集，每个 $j$ 对应一个 $(sumC[j],F[j])$，而每个 $F[i]$ 也都对应了一个截距，当截距最小时 $F[i]$ 取到最小值。</p>
 </div>
                     <div class="post_footer">
                         
@@ -128,25 +148,7 @@ $$</p>
                 </div>
                 
                 
-                
-<div class="doc_comments">
-    <div class="comments_block_title">发表评论</div>
-    <div id="vcomments"></div>
-</div>
-
-<link rel="stylesheet" href="https://intconstlee.github.io/css/comments.css" />
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-
-<script type="text/javascript">
-    new Valine({
-        el: '#vcomments',
-        appId: 'uMH9PuUssTaZRJFxIir9DSGG-MdYXbMMI',
-        appKey: 'fdmiY9qHLdselve6k9x9sQVF',
-        placeholder: ' ',
-        visitor: 'true',
-    })
-</script>
+                <div class="doc_comments"></div>
                 
             </div>
         </div>

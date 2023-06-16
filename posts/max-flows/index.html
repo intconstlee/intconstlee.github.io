@@ -392,7 +392,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><h2 id="二push-relabel-预流推进算法">二，Push-Relabel 预流推进算法</h2>
 <p>该方法在求解过程中忽略流的守恒性，每次对一个结点更新答案以求最大流。</p>
-<p><strong>超额流</strong>：对于一个结点，进入结点的流若超出流出结点的流，超出部分即为该结点的超额流 $e(u)$，形式化地，$e(u)=\sum_{(x,u)\in E}f(x,u)-\sum_{(u,y)\in E}f(u,y)$。</p>
+<p><strong>超额流</strong>：对于一个结点，进入结点的流若超出流出结点的流，超出部分即为该结点的超额流 $e(u)$，形式化地，$e(u)=$$\sum_{(x,u)\in E}f(x,u)-$$\sum_{(u,y)\in E}f(u,y)$。</p>
 <p><strong>溢出</strong>：超额流 $e(u)&gt;0$ 时，称结点 $u$ 溢出（不包括 $s$ 与 $t$）。</p>
 <p>预流推进算法维护每个结点的高度 $h(u)$，并且规定溢出的结点 $u$ 如果要推送超额流，只能向高度小于 $u$ 的结点推送；如果 $u$ 没有相邻的高度小于 $u$ 的结点，那就修改 $u$ 的高度。</p>
 <h3 id="1-相关操作">1. 相关操作</h3>
@@ -401,10 +401,10 @@
 <p><strong>高度函数</strong>：维护一个高度映射 $h$。</p>
 <ol>
 <li>
-<p>$h(s)=|V|,h(t)=0$</p>
+<p>$h(s)=|V|,$$h(t)=0$</p>
 </li>
 <li>
-<p>$\forall (u,v)\in E_f,h(u)\leq h(v)+1$</p>
+<p>$\forall (u,v)\in E_f,$$h(u)\leq h(v)+1$</p>
 </li>
 </ol>
 <p>称为 $h$ 是残量网络 $G_f=(V_f,E_f)$ 的高度函数。</p>
@@ -412,29 +412,29 @@
 </li>
 <li>
 <p><strong>推送\push</strong>：将超额流从 $u$ 推送到 $v$。</p>
-<p>条件：点 $u$ 溢出，点 $v$ 满足 $(u,v)\in E_f,c(u,v)&gt;f(u,v),h(u)=h(v)+1$。</p>
+<p>条件：点 $u$ 溢出，点 $v$ 满足 $(u,v)\in E_f,$$c(u,v)&gt;f(u,v),$$h(u)=h(v)+1$。</p>
 <p>如果 $(u,v)$ 在推送完之后满流，将其从残量网络中删除。</p>
 </li>
 <li>
 <p><strong>重贴标签\relabel</strong>：将 $h(u)$ 更新为 $\min_{(u,v)\in E_f}h(v)+1$。</p>
-<p>条件：结点 $u$ 溢出，且 $\forall (u,v)\in E_f,h(u)&lt;h(v)$。</p>
+<p>条件：结点 $u$ 溢出，且 $\forall (u,v)\in E_f,$$h(u)&lt;h(v)$。</p>
 </li>
 <li>
 <p><strong>初始化</strong>：
 <p>$1. 
-\forall (u,v)\in E,f(u,v)={
-    \begin{cases}c(u,v),&amp;u=s\\
-    0,&amp;u\neq s\\
+\forall (u,v)\in E,$$f(u,v)={
+    \begin{cases}c(u,v),u=s\\
+    0,u\neq s\\
     \end{cases}
 }$</p>
 <p>$2. 
-\forall u\in V,h(u)={
-    \begin{cases}|V|,&amp;u=s\\
-    0,&amp;u\neq s\\
+\forall u\in V,$$h(u)={
+    \begin{cases}|V|,u=s\\
+    0,u\neq s\\
     \end{cases}\
 }$</p>
 <p>$3. 
-e(u)=\sum_{(x,u)\in E}f(x,u)-\sum_{(u,y)\in E}f(u,y)
+e(u)=$$\sum_{(x,u)\in E}f(x,u)-$$\sum_{(u,y)\in E}f(u,y)
 $</p>
 </p>
 </li>

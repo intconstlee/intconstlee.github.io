@@ -128,14 +128,12 @@
 <p>对于 $(u,v)\in E$，$f(u,v)$ 称为边的<strong>流量</strong>，$c(u,v)-f(u,v)$ 称为边的<strong>剩余容量</strong>。</p>
 <p>整个网络流的容量为从源点出发的所有流量之和，即 $\sum_{(s,v)\in E}f(s,v)$。</p>
 <p><em>现给出流函数的形式化定义</em>：</p>
-<p>$$
-f(u,v)=
-\begin{cases}
-f(u,v), &amp; (u,v)\in E\
--f(u,v), &amp; (v,u)\in E\
-0, &amp; (u,v)\notin E,(v,u)\notin E
-\end{cases}
-$$</p>
+<p>$
+f(u,v)=$${
+   \begin{cases}f(u,v),(u,v)\in E\\
+   -f(u,v),(v,u)\in E\\
+   0,(u,v)\notin E,(v,u)\notin E\end{cases}
+}$</p>
 <h2 id="三网络流常见问题">三，网络流常见问题</h2>
 <h3 id="1-最大流">1. 最大流</h3>
 <p>给出一张图，求源点向汇点的最大流量。</p>
