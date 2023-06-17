@@ -3,6 +3,7 @@
 html {
   background: url("https://pic2.zhimg.com/v2-963c61ed23060b533512091ed5cac633_1440w.jpg?source=172ae18b");
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
