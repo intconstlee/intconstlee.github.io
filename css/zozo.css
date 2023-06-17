@@ -266,11 +266,11 @@ hr {
 .post .post_content a {
   text-decoration: none;
   letter-spacing: 1px;
-  color: #a45fff;
+  color: #2e1d75;
 }
 
 .post .post_content a:hover {
-  color: #4c5588;
+  color: #5d648d;
 }
 
 .post .post_footer {
@@ -304,7 +304,7 @@ hr {
 }
 
 .post .post_footer .meta .tags a:hover {
-  color: #563a81;
+  color: #5d648d;
 }
 
 .page_tags {
