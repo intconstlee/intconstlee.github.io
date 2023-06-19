@@ -325,7 +325,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div></details>
 <h3><a href="https://www.luogu.com.cn/problem/P4360">洛谷P4360 锯木厂选址</a></h3>
-<p>$O(n)$ 做法：修建两个锯木厂，将山坡划分为了三段，锯木厂直接修建在某棵树所在的位置显然比修建在该棵树与下一棵之间更优，设 $d[i]$ 表示在第 $i$ 棵树所在地修建锯木厂省下的距离，即第 $i$ 棵树到山脚的距离，$w[i]$ 表示在前 $i$ 棵树的重量和，则在第 $i$ 棵树所在地建锯木厂可省下花费 $d[i]\times w[i]$，于是得到第一个（距离山顶最近）的锯木厂修在 $i$，第二个锯木厂修建在 $j$ 的最小花费为 $ans=min(sum-$$d[j]w[j]-$$d<a href="w%5Bi%5D-$$w%5Bj%5D">i</a>)$。去掉 $min$ 函数，移项，得到：$d[j]w[j]=-d[i]w[j]+$$sum-$$ans-$$d[i]w[i]$，套用斜率优化，注意到斜率单调递减，故凸壳单调性与此前相反。</p>
+<p>$O(n)$ 做法：修建两个锯木厂，将山坡划分为了三段，锯木厂直接修建在某棵树所在的位置显然比修建在该棵树与下一棵之间更优，设 $d[i]$ 表示在第 $i$ 棵树所在地修建锯木厂省下的距离，即第 $i$ 棵树到山脚的距离，$w[i]$ 表示在前 $i$ 棵树的重量和，则在第 $i$ 棵树所在地建锯木厂可省下花费 $d[i]\times w[i]$，于是得到第一个（距离山顶最近）的锯木厂修在 $i$，第二个锯木厂修建在 $j$ 的最小花费为 $ans=min(sum-$$d[j]w[j]-$$d<a href="w%5Bi%5D-$$w%5Bj%5D">i</a>)$。去掉 $min$ 函数，移项，得到：$d[j]w[j]=$$-d[i]w[j]+$$sum-$$ans-$$d[i]w[i]$，套用斜率优化，注意到斜率单调递减，故凸壳单调性与此前相反。</p>
 <details class=note close>
 <summary>code</summary>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;bits/stdc++.h&gt;</span><span class="cp">
