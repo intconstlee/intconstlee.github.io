@@ -6,7 +6,16 @@
     <description>Recent content on ___INT CONST LEE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 19 Jun 2023 21:53:46 +0800</lastBuildDate><atom:link href="https://intconstlee.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 20 Jun 2023 07:22:30 +0800</lastBuildDate><atom:link href="https://intconstlee.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>最大流重制版</title>
+      <link>https://intconstlee.github.io/posts/max-flows-remake/</link>
+      <pubDate>Tue, 20 Jun 2023 07:22:30 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/posts/max-flows-remake/</guid>
+      <description>最大流 前置知识：网络流概览，请确保已熟悉网络流相关概念以及流的性质。 两大核心算法：Ford-Fulkerson 增广与Push-Relabel 预流推进算法 一，概览 对于一个给定网络，有许多合法的流函数 $f</description>
+    </item>
+    
     <item>
       <title>网络流概览重制版</title>
       <link>https://intconstlee.github.io/posts/network-flows-remake/</link>
