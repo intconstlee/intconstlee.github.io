@@ -127,10 +127,14 @@
 <h3 id="1理解-fail-指针">1.理解 fail 指针</h3>
 <p>fail 指针从一个状态 $u$ 出发，指向一个状态 $v$，Trie 树中每个状态对应一个由根结点出发的字符串，状态 $v$ 所对应字符串是状态 $u$ 所对应字符串的最长后缀。</p>
 <p>有图为证：</p>
+<center>
 <p><img src="https://github.com/intconstlee/intconstlee.github.io/blob/master/images/fail%E7%9A%84%E6%9E%84%E5%BB%BA1.png?raw=true" alt=""></p>
 <p><img src="https://github.com/intconstlee/intconstlee.github.io/blob/master/images/fail%E7%9A%84%E6%9E%84%E5%BB%BA2.png?raw=true" alt=""></p>
+</center>
 <p>fail 指针可以从 Trie 树上任意结点出发，其指向的结点可能为普通结点，也可能为模式串匹配结点，通过跳 fail 可以使同一位上匹配多个模式串，详细的运作规律将在下文讲解。</p>
+<center>
 <p><img src="https://github.com/intconstlee/intconstlee.github.io/blob/master/images/fail%E7%9A%84%E6%9E%84%E5%BB%BA3.png?raw=true" alt=""></p>
+</center>
 <h3 id="实现-fail-指针">实现 fail 指针</h3>
 <p>当前结点为 $u$，其父结点为 $p$，$p$ 通过字符 $c$ 指向 $u$，即 $\delta(p,c)=u$，若深度小于 $u$ 的结点的 fail 指针均已知：</p>
 <ol>
