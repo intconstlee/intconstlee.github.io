@@ -276,9 +276,13 @@
 </span></span></code></pre></div></details>
 <h3><a href="https://www.luogu.com.cn/problem/P2900">洛谷P2900 Land Acquisition G</a></h3>
 <p>$O(n)$ 做法：设 $f[i]$ 表示前 $i$ 块地被分为若干组，列出状态转移方程：$f[i]=$$min_{0\leq j&lt;i}(f[j]+$$max_{j&lt;k\leq i}w[k]\times $$max_{j&lt;k\leq i}l[k])$，发现在 $min$ 函数中还有 $max$ 函数，不容易优化，考虑先对这些土地排序，以长度为第一关键字递增，宽度为第二关键字递减排序，排序过程中发现如果一块地的长度和宽度都比另一块地小，则它可以被包含于另一块地的费用中，之后不需要再考虑该块地，所以在排序过程中还需要将这种“可以被包含”的地块删去。最后剩下的地块类似于下图：</p>
-<p><img src="https://github.com/intconstlee/intconstlee.github.io/blob/master/images/LandAcquisitionG1.png?raw=true" alt=""></p>
+<center>
+<img src="https://github.com/intconstlee/intconstlee.github.io/blob/master/images/LandAcquisitionG1.png?raw=true">示例</img>
+</center>
 <p>排序后，发现对于一个地块，如果排名在它前后的地块被分到了同一组，那么这一地块可以被分到该组而不产生贡献，如下图：</p>
-<p><img src="https://github.com/intconstlee/intconstlee.github.io/blob/master/images/LandAcquisitionG2.png?raw=true" alt=""></p>
+<center>
+<img src="https://github.com/intconstlee/intconstlee.github.io/blob/master/images/LandAcquisitionG2.png?raw=true">示例</img>
+</center>
 <p>所以如果选中了两个不相邻的地块，把它们之间的地块也选入是更优解，从而最优的分组应该是若干连续段，得到新的状态转移方程：$f[i]=$$min_{0\leq j&lt;i}(f[j]+l[j+1]\times $$w[i])$，去掉 $min$ 函数，移项，得到：$f[j]=$$-w[i]l[j+1]+$$f[i]$，这里需要注意新的分组是从 $j+1$ 到 $i$ 的。之后套用斜率优化即可。这里排序的时间复杂度是 $O(\log n)$ 的，去重是 $O(n)$ 的，DP 是 $O(n)$ 的，总复杂度近似为 $O(n)$。</p>
 <details class=note close>
 <summary>code</summary>
