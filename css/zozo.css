@@ -539,14 +539,14 @@ hr {
 }
 
 .markdown pre::-webkit-scrollbar-track {
-  background: white;
+  background: #ffffff00;
 }
 
 .markdown pre::-webkit-scrollbar-thumb {
   min-height: 1rem;
   background-color: #cccccc;
   background-clip: padding-box;
-  border: 3px solid #fdfdfd;
+  border: 3px solid #3c3c4700;
   border-radius: 5px;
 }
 
