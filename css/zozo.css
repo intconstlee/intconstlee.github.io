@@ -613,13 +613,14 @@ table th, table td {
 }
 
 details {
-  background-color: #ffffff50;
+  background-color: #45454580;
+  color: #fdfdfd;
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
   -webkit-box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
-  margin: 15px;
+  margin: 15px 0;
   border: #ffffff00;
   border-style: solid;
   border-width: 1px;
@@ -628,10 +629,7 @@ details {
 
 details summary {
   padding: 2px 15px;
-  background-color: #ffffff90;
-  border-bottom: #c099ff;
-  border-bottom-width: 3px;
-  border-bottom-style: solid;
+  background-color: #ffffff95;
   color: #272727;
   border-radius: 11px 11px 11px 11px;
 }
@@ -736,6 +734,11 @@ a.back_to_top:hover span {
  
 .card button:hover {
   background: #fdfdfd;
+}
+
+img {
+  border-radius: 20px;
+  margin: 10px 0;
 }
 
 @media print, screen and (max-width: 680px) {
