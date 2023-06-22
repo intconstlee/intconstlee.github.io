@@ -117,6 +117,8 @@ hr {
 .nav_container .site_nav ul {
   list-style: none;
   background-color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
   border-radius: 10px;
   margin: 5px;
   padding: 0;
@@ -611,14 +613,13 @@ table th, table td {
 }
 
 details {
-  background-color: #45454580;
-  color: #fdfdfd;
+  background-color: #ffffff50;
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
   -webkit-box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
-  margin: 15px 0;
+  margin: 15px;
   border: #ffffff00;
   border-style: solid;
   border-width: 1px;
@@ -627,7 +628,10 @@ details {
 
 details summary {
   padding: 2px 15px;
-  background-color: #ffffff95;
+  background-color: #ffffff90;
+  border-bottom: #c099ff;
+  border-bottom-width: 3px;
+  border-bottom-style: solid;
   color: #272727;
   border-radius: 11px 11px 11px 11px;
 }
@@ -734,11 +738,6 @@ a.back_to_top:hover span {
   background: #fdfdfd;
 }
 
-img {
-  border-radius: 20px;
-  margin: 10px 0;
-}
-
 @media print, screen and (max-width: 680px) {
   .nav_container {
     position: relative;
@@ -748,10 +747,11 @@ img {
     display: none;
     position: fixed;
     right: 0;
-    top: 60px;
-    padding: 10px 0;
-    width: 100%;
-    background-color: #ffffff;
+    top: 50px;
+    padding: 0;
+    max-width: 50%;
+    width: 200px;
+    background-color: #ffffff00;
   }
   .nav_container .site_nav ul {
     float: none;
