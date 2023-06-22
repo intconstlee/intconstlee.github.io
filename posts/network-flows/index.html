@@ -164,13 +164,16 @@ f(u,v)=$${
                 
 
 
+<p>
+    以下为评论系统，引自 Remerkbox，支持markdown语法，甚至可以插入代码块，评论完后需要自填邮箱（该邮箱不会被显示且不会被后台截取），提交后会弹出登陆界面，如果想匿名评论请忽略登陆界面，刷新，会发现你的评论已发出。
+</p>
 <div id="remarkbox-div">
     <noscript>
       <iframe id=remarkbox-iframe src="https://my.remarkbox.com/embed?nojs=true" style="height:600px;width:100%;border:none!important" tabindex=0></iframe>
     </noscript>
-  </div>
-  <script src="https://my.remarkbox.com/static/js/iframe-resizer/iframeResizer.min.js"></script>
-  <script>
+</div>
+<script src="https://my.remarkbox.com/static/js/iframe-resizer/iframeResizer.min.js"></script>
+<script>
     var rb_owner_key = "20c70e25-09b0-11ee-939a-83aad5f5c937";
     var thread_uri = window.location.href;
     var thread_title = window.document.title;
@@ -182,7 +185,6 @@ f(u,v)=$${
         "&thread_title=" + encodeURI(thread_title) +
         "&thread_uri=" + encodeURIComponent(thread_uri) + 
         thread_fragment;
-  
     function create_remarkbox_iframe() {
       var ifrm = document.createElement("iframe");
       ifrm.setAttribute("id", "remarkbox-iframe");
@@ -203,7 +205,7 @@ f(u,v)=$${
       },
       document.getElementById("remarkbox-iframe")
     );
-  </script>
+</script>
                 
             </div>
         </div>
