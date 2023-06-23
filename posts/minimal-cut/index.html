@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-cn" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="intconstlee" />
+	
+	
+	
+	<title>最小割 ｜ ___INT CONST LEE</title>
+	
+    
+    
+    <meta name="description" content="最小割 一，相关概念 割： 对于一个网络流图 $G=(V,E)$，将所有点划分为两个集合 $S$ 与 $T$，该划分满足： $$ \begin{array}{ll} 1.&amp;amp; s\in S,t\in T\ 2.&amp;amp; S\cap T=\varnothing,S\cup T=V \end{array} $$ 称这种点的划分方式为割。 割的容量： 割 $(S,T)$ 的容量为所有从 $S$ 到 $T$ 的边的容量之和" />
+    
+
+    
+    
+    <meta name="keywords" content="Hugo, theme, zozo" />
+    
+
+	
+    
+    <link rel="shortcut icon" href="https://intconstlee.github.io/images/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="https://intconstlee.github.io/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://intconstlee.github.io/css/zozo.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://intconstlee.github.io/css/highlight.css" />
+
+    
+    
+</head>
+
+<body>
+    <div class="main animate__animated animate__fadeInDown">
+        <div class="nav_container animated fadeInDown">
+    <div class="site_nav" id="site_nav">
+        <ul>
+            
+            <li>
+                <a href="/">主页</a>
+            </li>
+            
+            <li>
+                <a href="/posts/">文章</a>
+            </li>
+            
+            <li>
+                <a href="/tags/">标签</a>
+            </li>
+            
+            <li>
+                <a href="/about/">关于</a>
+            </li>
+            
+            <li>
+                <a href="/link">友链</a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="menu_icon">
+        <a id="menu_icon"><i class="ri-menu-line"></i></a>
+    </div>
+</div>
+        <div class="header animated fadeInDown">
+    <div class="site_title_container">
+        <div class="site_title">
+            <h1>
+                <a href="https://intconstlee.github.io/">
+                    <span>___INT CONST LEE</span>
+                </a>
+            </h1>
+        </div>
+        <div class="description">
+            <p class="sub_title">an OieR from S2</p>
+            <div class="my_socials">
+                
+                
+                <a href="https://github.com/intconstlee" title="github" target="_blank"><i class="ri-github-fill"></i></a>
+                
+                
+                <a href="https://www.luogu.com.cn/user/812448" type="application/rss+xml" title="洛谷" target="_blank"><i
+                        class="ri-rss-fill"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+        <div class="content">
+            <div class="post_page">
+                <div class="post animate__animated animate__fadeInDown">
+                    <div class="post_title post_detail_title">
+                        <h2><a href='/posts/minimal-cut/'>最小割</a></h2>
+                        <span class="date">2023.06.20</span>
+                    </div>
+                    <div class="post_content markdown"><h1 id="最小割">最小割</h1>
+<h3 id="一相关概念">一，相关概念</h3>
+<h3 id="割">割：</h3>
+<p>对于一个网络流图 $G=(V,E)$，将所有点划分为两个集合 $S$ 与 $T$，该划分满足：</p>
+<p>$$
+\begin{array}{ll}
+1.&amp; s\in S,t\in T\
+2.&amp; S\cap T=\varnothing,S\cup T=V
+\end{array}
+$$</p>
+<p>称这种点的划分方式为割。</p>
+<h3 id="割的容量">割的容量：</h3>
+<p>割 $(S,T)$ 的容量为所有从 $S$ 到 $T$ 的边的容量之和，即：</p>
+<p>$$
+c(S,T)=\sum_{u\in S,v\in T}c(u,v)
+$$</p>
+<p>也可以表示为$c(s,t)$。</p>
+<h3 id="最小割-1">最小割</h3>
+<p>求一个割 $(S,T)$ 使得 $c(S,T)$ 最小。</p>
+<h2 id="二最小割求法">二，最小割求法</h2>
+<h3 id="最大流最小割">最大流最小割</h3>
+<p>对于一个网络流图，其最大流与最小割相等，即：</p>
+<p>$$
+f(s,t)<em>{\max}=c(s,t)</em>{\min}
+$$</p>
+<details class=note open>
+<summary>证明</summary>
+<p>根据流量守恒特性可以得到 $\forall u\in V-{s,t}$，$\sum_{v\in V}f(u,v)-$$\sum_{v\in V}f(v,u)=$$0$。</p>
+<p>根据流的定义，$|f|=$$\sum_{v\in V}f(s,v)-$$\sum_{v\in V}f(v,s)$。</p>
+<p>变形，得：</p>
+<p>$
+|f| = $$\sum_{v \in V}f(s,v) - $$\sum_{v \in V}f(v,s) + $$\sum_{u \in S-{s}}(\sum_{v \in V}f(u,v) - $$\sum_{v \in V}f(v,u))
+$</p>
+<p>$
+|f| = $$\sum_{v \in V}f(s,v) - $$\sum_{v \in V}f(v,s) + $$\sum_{u \in S-{s}}\sum_{v \in V}f(u,v) - $$\sum_{u \in S-{s}}\sum_{v \in V}f(v,u)
+$</p>
+<p>$
+|f| = $$\sum_{v \in V}(f(s,v) + $$\sum_{u \in S-{s}}f(u,v)) - $$\sum_{v \in V}(f(v,u) + $$\sum_{u \in S-{s}}f(v,u))
+$</p>
+<p>$
+|f| = $$\sum_{v \in V}\sum_{u \in S}f(u,v) - $$\sum_{v \in V}\sum_{u \in S}f(v,u)
+$</p>
+<p>$
+|f| = $$\sum_{v\in V-S}\sum_{u \in S}f(u,v) + $$\sum_{v\in S}\sum_{u\in S}f(u,v) - $$(\sum_{v\in V-S}\sum_{u\in S}f(v,u) + $$\sum_{v\in S}\sum_{u\in S}f(v,u))
+$</p>
+<p>$
+|f| = $$(\sum_{v\in T}\sum_{u \in S}f(u,v) - $$\sum_{v\in T}\sum_{u\in S}f(v,u)) +$$( \sum_{v\in S}\sum_{u\in S}f(u,v) - $$\sum_{v\in S}\sum_{u\in S}f(v,u))
+$</p>
+<p>即：$|f|=$$f(S,T)+0=$$f(S,T)$。</p>
+<p>即任意横跨切割的流量等于网络的流量，又有横跨任意切割的流量不大于切割的容量，可知，网络的流量不大于任意切割的容量，即 $f(S,T)\leq c(S,T)$，$\forall c(S,T)$。</p>
+<p>于是一个网络最大流的值就等于最小切割的容量，这就是最大流最小割定理。</p>
+</details>
+<p>通过最大流最小割定理，我们可以直接通过求最大流来获得最小割。</p>
+<h3 id="最小割方案">最小割方案</h3>
+<h4 id="最小割的可行边">最小割的可行边</h4>
+<p>条件：</p>
+<ol>
+<li>
+<p>满流；</p>
+</li>
+<li>
+<p>在残余网络中不连通。</p>
+</li>
+</ol>
+<p>做完最大流后，求残量网络的 SCC。设点 $x$ 所在的 SCC 为 $\text{SCC}[x]$。对于饱和边 $(u,v)$，若 $\text{SCC}[u]\neq $$\text{SCC}[ v ]$，则边 $(u,v)$ 可以在最小割上。</p>
+<details class=note open>
+<summary>原因</summary>
+<p>
+<p>$\text{SCC}[u]\neq $$\text{SCC}[ v ]$，则说明 $u$ 和 $v$ 在残量网络中不连通，也就相当于跑最大流的时候 $(u,v)$ 满流被删去，又知最小割上的所有边都是满流的，则 $(u,v)$ 可在最小割上。</p>
+</p>
+</details>
+<h4 id="最小割的必须边">最小割的必须边</h4>
+<p>条件：</p>
+<ol>
+<li>
+<p>满流；</p>
+</li>
+<li>
+<p>在残量网络中一端与源点联通，另一端与汇点联通。</p>
+</li>
+</ol>
+<p>做完最大流后，求残量网络的 SCC。设点 $x$ 所在的 SCC 为 $\text{SCC}[x]$。对于饱和边 $(u,v)$，若 $\text{SCC}[u]= $$\text{SCC}[ s ]$，$\text{SCC}[v]= $$\text{SCC}[ t ]$，则边 $(u,v)$ 必须在最小割上。</p>
+<details class=note open>
+<summary>原因</summary>
+<p>
+<p>最小割的必须边意味着如果未选中这条边，得到的一定不是最小割，即可以理解为增加容量后可以改变最大流的边，发现对于一条增广路，若其上容量最小的边唯一，那么增大它的容量将会增大整条增广路的流量，于是这条边必须在最小割上，而发现其性质之一是满流，性质之二便是在残量网络中一端与源点联通一端与汇点联通。</p>
+</p>
+</details>
+<h4 id="最小割点集划分方案">最小割点集划分方案</h4>
+<p>从源点 $s$ 开始 DFS，每次走残量大于 $0$ 的边，便能找到 $S$ 内所有的点了，$T$ 中的点同理。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vis</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">];</span><span class="n">i</span><span class="p">;</span><span class="n">i</span><span class="o">=</span><span class="n">edge</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">nxt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">v</span><span class="o">=</span><span class="n">edge</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">to</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">vis</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">&amp;&amp;</span><span class="n">edge</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">flow</span><span class="o">&lt;</span><span class="n">edge</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">cap</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">dfs</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h4 id="最小割任意割边方案">最小割任意割边方案</h4>
+<p>法一：</p>
+<p>在残量网络中，DFS 出 $s$ 能到达的集合 $S$，$S$ 向外连出的所有满流的边即是最小割方案之一。</p>
+<p>法二：</p>
+<p>每次选取一条满流边 $(u,v)$ DFS 判断在残量网络中能否从 $v$ 到达 $u$，且不经过反向边 $(v,u)$，若能则 $(u,v)$ 在最小割集中，输出即可。</p>
+<p>但注意选取了 $(u,v)$ 后，某些满流边不再是最小割，所以考虑对 $(u,v)$ 退流，后删去边 $(u,v)$ 及其反向边。</p>
+<h4 id="最小割最小字典序割边方案">最小割最小字典序割边方案</h4>
+<p>类似于上文法二，但从编号小的满流边开始枚举。</p>
+<h4 id="最少割边最小割方案">最少割边最小割方案</h4>
+<p>做完一次最小割后领满流边容量为1，非满流边容量正无穷，再做一次最小割，此时最小割的流量就是选取的边数，任意最小割方案割边都最少。</p>
+<h2 id="三习题">三，习题</h2>
+<p>若无特殊情况，所有习题均只给出主函数建图代码，其余代码套用模板</p>
+<h3><a href="https://www.luogu.com.cn/problem/P3931">洛谷P3931 一道难题</a></h3>
+<p>根节点可看成源点，但发现没有汇点，建立一个超级汇点，在树中找到所有叶子节点，全部以正无穷的容量（保证在最小割中不会被选到）连向超级汇点，求最小割即可，记得开 long long。</p>
+<details class=note close>
+<summary>code</summary>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="o">&gt;&gt;</span><span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">t</span><span class="o">=</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="n">ll</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">u</span><span class="o">&gt;&gt;</span><span class="n">v</span><span class="o">&gt;&gt;</span><span class="n">w</span><span class="p">,</span><span class="n">addedge</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">w</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">dfs</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="n">ll</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">indg</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="o">&amp;&amp;</span><span class="n">i</span><span class="o">!=</span><span class="n">s</span><span class="p">)</span> <span class="n">addin</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="mf">1e18</span><span class="p">);</span>
+</span></span></code></pre></div></details>
+<h3><a href="https://www.luogu.com.cn/problem/P1345">洛谷P1345 奶牛的电信</a></h3>
+<p>发现求的是使两点不连通的最小割点，考虑割点转割边，于是可以把每个点拆成两个点，一个入点和一个出点，容量为 $1$，这样就把点转为了边，其余所有边容量均为正无穷防止被选中。这一思路比较巧妙，其他题目也会用到类似这种点边转化的思想。</p>
+<details class=note close>
+<summary>code</summary>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="o">&gt;&gt;</span><span class="n">m</span><span class="o">&gt;&gt;</span><span class="n">s</span><span class="o">&gt;&gt;</span><span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="o">+</span><span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">addin</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="n">n</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">u</span><span class="o">&gt;&gt;</span><span class="n">v</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">addin</span><span class="p">(</span><span class="n">u</span><span class="o">+</span><span class="n">n</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="mh">0x3f3f3f3f</span><span class="p">),</span><span class="n">addin</span><span class="p">(</span><span class="n">v</span><span class="o">+</span><span class="n">n</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="mh">0x3f3f3f3f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></details>
+<h3><a href="https://www.luogu.com.cn/problem/P2994">洛谷P2994 Earthquake Damage G</a></h3>
+<p>与上一题类似，割点转割边，注意到没有汇点，对于所有求救的奶牛，可知其与源点的路径上必有割点，对答案有贡献，于是将所有求救奶牛的出点连向超级汇点，之后建立出点和入点间的边，容量为 $1$，注意对于求救奶牛，其农场未被摧毁，容量应为正无穷防止被选中。</p>
+<details class=note close>
+<summary>code</summary>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="o">&gt;&gt;</span><span class="n">m</span><span class="o">&gt;&gt;</span><span class="n">p</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">t</span><span class="o">=</span><span class="n">n</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">u</span><span class="o">&gt;&gt;</span><span class="n">v</span><span class="p">,</span><span class="n">addin</span><span class="p">(</span><span class="n">u</span><span class="o">+</span><span class="n">n</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">inf</span><span class="p">),</span><span class="n">addin</span><span class="p">(</span><span class="n">v</span><span class="o">+</span><span class="n">n</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="n">inf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">p</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">u</span><span class="p">,</span><span class="n">vis</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">addin</span><span class="p">(</span><span class="n">u</span><span class="o">+</span><span class="n">n</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">inf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vis</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">?</span><span class="n">addin</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="n">n</span><span class="p">,</span><span class="n">inf</span><span class="p">)</span><span class="o">:</span><span class="n">addin</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="n">n</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</span></span></code></pre></div></details>
+<h3><a href="https://www.luogu.com.cn/problem/P2057">洛谷P2057 善意的投票</a></h3>
+<p>经典模型之分两个集合。先根据意愿将小朋友分为两派，一派连源点，一派连汇点，对于一对好朋友，连一条正反容量均为1的边即可。</p>
+<details class=note close>
+<summary>code</summary>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="o">&gt;&gt;</span><span class="n">m</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">t</span><span class="o">=</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">u</span><span class="p">,</span><span class="n">u</span><span class="o">?</span><span class="n">addin</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">:</span><span class="n">addin</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">u</span><span class="o">&gt;&gt;</span><span class="n">v</span><span class="p">,</span><span class="n">addin</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">addin</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</span></span></code></pre></div></details></div>
+                    <div class="post_footer">
+                        
+                        <div class="meta">
+                            <div class="info">
+                                <span class="field tags">
+                                    <i class="ri-stack-line"></i>
+                                    
+                                    <a href="https://intconstlee.github.io/tags/%E5%9B%BE%E8%AE%BA/">图论</a>
+                                    
+                                    <a href="https://intconstlee.github.io/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/">网络流</a>
+                                    
+                                    <a href="https://intconstlee.github.io/tags/%E6%9C%80%E5%B0%8F%E5%89%B2/">最小割</a>
+                                    
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                
+                
+
+
+
+<script>
+  var idcomments_acct = 'b410743bff5f49334ced60f8877278d5';
+  var idcomments_post_id;
+  var idcomments_post_url;
+  </script>
+<span id="IDCommentsPostTitle" style="display:none"></span>
+<script type='text/javascript' src='https://www.intensedebate.com/js/genericCommentWrapperV2.js'></script>
+
+<script>
+  var idcomments_acct = 'b410743bff5f49334ced60f8877278d5';
+  var idcomments_post_id;
+  var idcomments_post_url;
+  </script>
+<script type="text/javascript" src="https://www.intensedebate.com/js/genericLinkWrapperV2.js"></script>
+                
+            </div>
+        </div>
+    </div>
+    <a id="back_to_top" href="#" class="back_to_top"><i class="ri-arrow-up-s-line"></i></a>
+    <footer class="footer">
+    <div class="powered_by">
+        <a href="https://www.luogu.com.cn/user/812448">belongs to intconstlee,</a>
+        <a href="http://www.gohugo.io/">published with Hugo</a>
+    </div>
+
+    <div class="footer_slogan">
+        <span>My spiritual home</span>
+    </div>
+</footer>
+    <script src="https://intconstlee.github.io/js/jquery-3.5.1.min.js"></script>
+<link href="https://intconstlee.github.io/css/fancybox.min.css" rel="stylesheet">
+<script src="https://intconstlee.github.io/js/fancybox.min.js"></script>
+<script src="https://intconstlee.github.io/js/zozo.js"></script>
+
+
+<script type="text/javascript" async
+    src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\[\[', '\]\]']],
+                processEscapes: true,
+                processEnvironments: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                TeX: {
+                    equationNumbers: { autoNumber: "AMS" },
+                    extensions: ["AMSmath.js", "AMSsymbols.js"]
+                }
+            }
+        });
+
+        MathJax.Hub.Queue(function () {
+            
+            
+            
+            var all = MathJax.Hub.getAllJax(), i;
+            for (i = 0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+<style>
+    code.has-jax {
+        font: inherit;
+        font-size: 100%;
+        background: inherit;
+        border: inherit;
+        color: #515151;
+    }
+</style>
+
+
+
+</body>
+
+</html>

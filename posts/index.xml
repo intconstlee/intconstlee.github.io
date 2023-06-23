@@ -6,7 +6,16 @@
     <description>Recent content in Posts on ___INT CONST LEE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 20 Jun 2023 07:22:30 +0800</lastBuildDate><atom:link href="https://intconstlee.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 20 Jun 2023 19:42:12 +0800</lastBuildDate><atom:link href="https://intconstlee.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>最小割</title>
+      <link>https://intconstlee.github.io/posts/minimal-cut/</link>
+      <pubDate>Tue, 20 Jun 2023 19:42:12 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/posts/minimal-cut/</guid>
+      <description>最小割 一，相关概念 割： 对于一个网络流图 $G=(V,E)$，将所有点划分为两个集合 $S$ 与 $T$，该划分满足： $$ \begin{array}{ll} 1.&amp;amp; s\in S,t\in T\ 2.&amp;amp; S\cap T=\varnothing,S\cup T=V \end{array} $$ 称这种点的划分方式为割。 割的容量： 割 $(S,T)$ 的容量为所有从 $S$ 到 $T$ 的边的容量之和</description>
+    </item>
+    
     <item>
       <title>最大流重制版</title>
       <link>https://intconstlee.github.io/posts/max-flows-remake/</link>
