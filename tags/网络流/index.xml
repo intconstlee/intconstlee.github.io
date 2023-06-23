@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>网络流 on ___INT CONST LEE</title>
+    <link>https://intconstlee.github.io/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/</link>
+    <description>Recent content in 网络流 on ___INT CONST LEE</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 20 Jun 2023 07:22:30 +0800</lastBuildDate><atom:link href="https://intconstlee.github.io/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>最大流重制版</title>
+      <link>https://intconstlee.github.io/posts/max-flows-remake/</link>
+      <pubDate>Tue, 20 Jun 2023 07:22:30 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/posts/max-flows-remake/</guid>
+      <description>最大流 前置知识：网络流概览，请确保已熟悉网络流相关概念以及流的性质。 两大核心算法：Ford-Fulkerson 增广与Push-Relabel 预流推进算法 一，概览 对于一个给定网络，有许多合法的流函数 $f</description>
+    </item>
+    
+    <item>
+      <title>网络流概览重制版</title>
+      <link>https://intconstlee.github.io/posts/network-flows-remake/</link>
+      <pubDate>Mon, 19 Jun 2023 21:53:46 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/posts/network-flows-remake/</guid>
+      <description>网络流概览 网络流是一种类比水流解决问题的办法。 一，相关概念 网络：指一张有向图 $G=(V,E)$； 弧：即网络中的有向边。 容量：网络中每条边的权值，即 $(u,v)\in E$ 的权值 $c(u,v)$。规定当 $(u,v)\notin E$ 时，$c(u,v</description>
+    </item>
+    
+    <item>
+      <title>最大流</title>
+      <link>https://intconstlee.github.io/posts/max-flows/</link>
+      <pubDate>Mon, 05 Jun 2023 10:10:25 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/posts/max-flows/</guid>
+      <description>最大流 两大核心算法：Ford-Fulkerson 增广与Push-Relabel 预流推进算法 一，Ford-Fulkerson 增广 该方法运用贪心思想，通过寻找增广路来更新并求解最大流。 我们将 $G_f$ 上一条从源点</description>
+    </item>
+    
+    <item>
+      <title>网络流概览</title>
+      <link>https://intconstlee.github.io/posts/network-flows/</link>
+      <pubDate>Sun, 04 Jun 2023 10:10:25 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/posts/network-flows/</guid>
+      <description>网络流初步 网络流简介 - OI Wiki 一，网络及相关概念 网络指一个有向图 $G=(V,E)$。 在一个网络中，每条边的权值 $c(u,v)$ 被称为该条边的容量，其中 $(u,v)\in E$。 当 $(u,v)\notin E$ 时，$c(u,v)=0$。 源点：$s\in V$；汇点：</description>
+    </item>
+    
+  </channel>
+</rss>

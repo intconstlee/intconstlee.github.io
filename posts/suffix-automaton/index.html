@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-cn" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="intconstlee" />
+	
+	
+	
+	<title>后缀自动机 ｜ ___INT CONST LEE</title>
+	
+    
+    
+    <meta name="description" content="后缀自动机 请先行预览自动机概览，可选择性浏览AC自动机 一，概览 后缀自动机（SAM）是一个可以解决许多字符串问题的数据结构。其中不少问题可以在线性时间内通过 SAM 解决。 现给出后缀自动机的定义： 字符串 $s$ 的 SAM 是" />
+    
+
+    
+    
+    <meta name="keywords" content="Hugo, theme, zozo" />
+    
+
+	
+    
+    <link rel="shortcut icon" href="https://intconstlee.github.io/images/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="https://intconstlee.github.io/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://intconstlee.github.io/css/zozo.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://intconstlee.github.io/css/highlight.css" />
+
+    
+    
+</head>
+
+<body>
+    <div class="main animate__animated animate__fadeInDown">
+        <div class="nav_container animated fadeInDown">
+    <div class="site_nav" id="site_nav">
+        <ul>
+            
+            <li>
+                <a href="/">主页</a>
+            </li>
+            
+            <li>
+                <a href="/posts/">文章</a>
+            </li>
+            
+            <li>
+                <a href="/tags/">标签</a>
+            </li>
+            
+            <li>
+                <a href="/about/">关于</a>
+            </li>
+            
+            <li>
+                <a href="/link">友链</a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="menu_icon">
+        <a id="menu_icon"><i class="ri-menu-line"></i></a>
+    </div>
+</div>
+        <div class="header animated fadeInDown">
+    <div class="site_title_container">
+        <div class="site_title">
+            <h1>
+                <a href="https://intconstlee.github.io/">
+                    <span>___INT CONST LEE</span>
+                </a>
+            </h1>
+        </div>
+        <div class="description">
+            <p class="sub_title">an OieR from S2</p>
+            <div class="my_socials">
+                
+                
+                <a href="https://github.com/intconstlee" title="github" target="_blank"><i class="ri-github-fill"></i></a>
+                
+                
+                <a href="https://www.luogu.com.cn/user/812448" type="application/rss+xml" title="洛谷" target="_blank"><i
+                        class="ri-rss-fill"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+        <div class="content">
+            <div class="post_page">
+                <div class="post animate__animated animate__fadeInDown">
+                    <div class="post_title post_detail_title">
+                        <h2><a href='/posts/suffix-automaton/'>后缀自动机</a></h2>
+                        <span class="date">2023.06.12</span>
+                    </div>
+                    <div class="post_content markdown"><h1 id="后缀自动机">后缀自动机</h1>
+<p>请先行预览<a href="https://intconstlee.github.io/posts/automaton/">自动机概览</a>，可选择性浏览<a href="https://intconstlee.github.io/posts/aho-corasick-automaton/">AC自动机</a></p>
+<h2 id="一概览">一，概览</h2>
+<p>后缀自动机（SAM）是一个可以解决许多字符串问题的数据结构。其中不少问题可以在线性时间内通过 SAM 解决。</p>
+<h4 id="现给出后缀自动机的定义">现给出后缀自动机的定义：</h4>
+<p>字符串 $s$ 的 SAM 是一个接受 $s$ 的所有后缀的最小 DFA。</p>
+<h4 id="形式化地描述-sam">形式化地描述 SAM：</h4>
+<ol>
+<li>SAM 是一张无向图，结点为状态，边为转移。</li>
+<li>图中存在一个初始状态 $t_0$，其他各个结点均可以由 $t_0$ 出发到达。</li>
+<li>每个转移都有一些字符，从每个结点出发的所有转移均不同。</li>
+<li>存在一个或多个终止状态，使得从 $t_0$ 出发到终止状态路径上的所有状态连接起来一定是 $s$ 的一个后缀，$s$ 的每一个后缀均可以用一条从 $t+0$ 到某个终止状态的路径构成。</li>
+<li>满足以上所有条件的自动机中，SAM 的结点数是最少的。</li>
+</ol>
+<h2 id="二性质">二，性质</h2>
+<p>SAM 最简单、最重要的性质是它包含关于字符串 $s$ 的所有子串的信息。任意从初始状态 $t_0$ 开始的路径都会形成 $s$ 的一个子串，$s$ 的每个子串对应从 $t_0$ 开始的某条路径。</p>
+<p>需要注意，到达某个状态的路径可能不只有一条，因此一个状态对应的是一些字符串集合。</p>
+<h2 id="三构建">三，构建</h2>
+<h3 id="1-暴力构建">1. 暴力构建</h3>
+<p>直接建立字典树，把每个后缀依次插入字典树。</p>
+<h3 id="2-在线性时间内构造">2. 在线性时间内构造</h3>
+<p>需要引入部分概念：</p>
+<h4 id="结束位置endpos">结束位置/endpos：</h4>
+<p>考虑字符串 $s$ 的任意非空子串 $t$，我们记 $\text{endpos}(t)$ 为在字符串 $s$ 中 $t$ 的所有结束位置。</p>
+<p><em>eg</em>. 在字符串 $\text{abcbc}$ 中，$\text{endpos}(\text{bc})=2,4$。</p>
+<p>两个子串 $t_1$ 和 $t_2$ 的 $\text{endpos}$ 集合可能相等，</p>
+</div>
+                    <div class="post_footer">
+                        
+                        <div class="meta">
+                            <div class="info">
+                                <span class="field tags">
+                                    <i class="ri-stack-line"></i>
+                                    
+                                    <a href="https://intconstlee.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+                                    
+                                    <a href="https://intconstlee.github.io/tags/%E8%87%AA%E5%8A%A8%E6%9C%BA/">自动机</a>
+                                    
+                                    <a href="https://intconstlee.github.io/tags/%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA/">后缀自动机</a>
+                                    
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                
+                
+<div class="doc_comments">
+    <div class="comments_block_title">发表评论</div>
+    <div id="vcomments"></div>
+</div>
+
+<link rel="stylesheet" href="https://intconstlee.github.io/css/comments.css" />
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        appId: 'uMH9PuUssTaZRJFxIir9DSGG-MdYXbMMI',
+        appKey: 'fdmiY9qHLdselve6k9x9sQVF',
+        placeholder: ' ',
+        visitor: 'true',
+    })
+</script>
+                
+            </div>
+        </div>
+    </div>
+    <a id="back_to_top" href="#" class="back_to_top"><i class="ri-arrow-up-s-line"></i></a>
+    <footer class="footer">
+    <div class="powered_by">
+        <a href="https://www.luogu.com.cn/user/812448">belongs to intconstlee,</a>
+        <a href="http://www.gohugo.io/">published with Hugo</a>
+    </div>
+
+    <div class="footer_slogan">
+        <span>My spiritual home</span>
+    </div>
+</footer>
+    <script src="https://intconstlee.github.io/js/jquery-3.5.1.min.js"></script>
+<link href="https://intconstlee.github.io/css/fancybox.min.css" rel="stylesheet">
+<script src="https://intconstlee.github.io/js/fancybox.min.js"></script>
+<script src="https://intconstlee.github.io/js/zozo.js"></script>
+
+
+<script type="text/javascript" async
+    src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\[\[', '\]\]']],
+                processEscapes: true,
+                processEnvironments: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                TeX: {
+                    equationNumbers: { autoNumber: "AMS" },
+                    extensions: ["AMSmath.js", "AMSsymbols.js"]
+                }
+            }
+        });
+
+        MathJax.Hub.Queue(function () {
+            
+            
+            
+            var all = MathJax.Hub.getAllJax(), i;
+            for (i = 0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+<style>
+    code.has-jax {
+        font: inherit;
+        font-size: 100%;
+        background: inherit;
+        border: inherit;
+        color: #515151;
+    }
+</style>
+
+
+
+</body>
+
+</html>

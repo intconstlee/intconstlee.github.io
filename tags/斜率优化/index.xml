@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>斜率优化 on ___INT CONST LEE</title>
+    <link>https://intconstlee.github.io/tags/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96/</link>
+    <description>Recent content in 斜率优化 on ___INT CONST LEE</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 15 Jun 2023 21:37:16 +0800</lastBuildDate><atom:link href="https://intconstlee.github.io/tags/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>斜率优化</title>
+      <link>https://intconstlee.github.io/posts/convex-hull-trick/</link>
+      <pubDate>Thu, 15 Jun 2023 21:37:16 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/posts/convex-hull-trick/</guid>
+      <description>斜率优化 斜率优化的核心在于推导状态转移方程使之变为斜率一定的一次函数，使 $f[i]$ 与截距相关，将求 $f[i]$ 最值转化为用一条定斜率的直线去过平面上的点，使截距取到最值。 一，引入 1D 动态规划模型 1D 动态规划模型是 DP 中一类非</description>
+    </item>
+    
+  </channel>
+</rss>
