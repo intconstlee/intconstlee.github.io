@@ -12,7 +12,7 @@
 	
     
     
-    <meta name="description" content="最小割 一，相关概念 割： 对于一个网络流图 $G=(V,E)$，将所有点划分为两个集合 $S$ 与 $T$，该划分满足： $$ \begin{array}{ll} 1.&amp;amp; s\in S,t\in T\ 2.&amp;amp; S\cap T=\varnothing,S\cup T=V \end{array} $$ 称这种点的划分方式为割。 割的容量： 割 $(S,T)$ 的容量为所有从 $S$ 到 $T$ 的边的容量之和" />
+    <meta name="description" content="最小割 一，相关概念 割： 对于一个网络流图 $G=(V,E)$，将所有点划分为两个集合 $S$ 与 $T$，该划分满足： $s\in S,$$t\in T$ $S\cap T=\varnothing,$$S\cup T=V$ 称这种点的划分方式为割。 割的容量： 割 $(S,T)$ 的容量为所有从 $S$ 到 $T$ 的边的容量之和，即： $c(S,T)=$$\sum_{u\in S,v\in T}c(u,v)$" />
     
 
     
@@ -100,27 +100,21 @@
 <h2 id="一相关概念">一，相关概念</h2>
 <h3 id="割">割：</h3>
 <p>对于一个网络流图 $G=(V,E)$，将所有点划分为两个集合 $S$ 与 $T$，该划分满足：</p>
-<p>$$
-\begin{array}{ll}
-1.&amp; s\in S,t\in T\
-2.&amp; S\cap T=\varnothing,S\cup T=V
-\end{array}
-$$</p>
+<ol>
+<li>$s\in S,$$t\in T$</li>
+<li>$S\cap T=\varnothing,$$S\cup T=V$</li>
+</ol>
 <p>称这种点的划分方式为割。</p>
 <h3 id="割的容量">割的容量：</h3>
 <p>割 $(S,T)$ 的容量为所有从 $S$ 到 $T$ 的边的容量之和，即：</p>
-<p>$$
-c(S,T)=\sum_{u\in S,v\in T}c(u,v)
-$$</p>
+<p>$c(S,T)=$$\sum_{u\in S,v\in T}c(u,v)$</p>
 <p>也可以表示为$c(s,t)$。</p>
 <h3 id="最小割-1">最小割</h3>
 <p>求一个割 $(S,T)$ 使得 $c(S,T)$ 最小。</p>
 <h2 id="二最小割求法">二，最小割求法</h2>
 <h3 id="最大流最小割">最大流最小割</h3>
 <p>对于一个网络流图，其最大流与最小割相等，即：</p>
-<p>$$
-f(s,t)<em>{\max}=c(s,t)</em>{\min}
-$$</p>
+<p>$f(s,t)<em>{max}=c$$(s,t)</em>{min}$</p>
 <details class=note open>
 <summary>证明</summary>
 <p>根据流量守恒特性可以得到 $\forall u\in V-{s,t}$，$\sum_{v\in V}f(u,v)-$$\sum_{v\in V}f(v,u)=$$0$。</p>
