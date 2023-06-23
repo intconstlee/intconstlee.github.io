@@ -187,7 +187,7 @@ $</p>
 <p>发现在这里 $|f|=c(S,T)$ 取到了等号，说明 $c(S,T)$ 是原网络的最小切割，否则若存在更小切割，$|f|$ 将会大于 $c(S,T)$。于是 $|f|$ 为原网络的最大流，Ford-Fulkerson 增广正确性证明完毕。</p>
 </details>
 <p>时间复杂度上界：$O(|E||f|)$，单轮增广的时间复杂度是 $O(|E|)$，而增广轮数不可能超过 $|f|$。</p>
-<p>接下来将介绍两个 Ford-Fulkerson 增广的主流实现方式：EK 算法和 Dinic 算法。以及一个比较快但并不主流的实现方式：ISAP 算法</p>
+<p>接下来将介绍两个 Ford-Fulkerson 增广的主流实现方式：EK 算法和 Dinic 算法。以及一个比较快但并不主流的实现方式：ISAP 算法。</p>
 <h3 id="edmonds-karp-算法">Edmonds-Karp 算法</h3>
 <p>$O(nm^2)$</p>
 <h4 id="算法流程">算法流程：</h4>
@@ -518,7 +518,7 @@ $</p>
 </ol>
 <h4 id="优化-1">优化</h4>
 <p>和 Dinic 类似，ISAP 中也存在当前弧优化。</p>
-<p>ISAP 还有另一个优化，我们记录层数为 $i$ 的点数量为 $num_i$，每当将一个点的层数从 $x$ 更新到 $y$ 时，更新 $num$ 数组的值，若更新后 $num_x=0$，意味着图中出现断层，此时无增广路，可直接终止算法，该优化被称为 GAP 优化</p>
+<p>ISAP 还有另一个优化，我们记录层数为 $i$ 的点数量为 $num_i$，每当将一个点的层数从 $x$ 更新到 $y$ 时，更新 $num$ 数组的值，若更新后 $num_x=0$，意味着图中出现断层，此时无增广路，可直接终止算法，该优化被称为 GAP 优化。</p>
 <h4 id="代码实现">代码实现</h4>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;bits/stdc++.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#define ll long long
