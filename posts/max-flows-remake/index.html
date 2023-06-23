@@ -187,7 +187,7 @@ $</p>
 <p>发现在这里 $|f|=c(S,T)$ 取到了等号，说明 $c(S,T)$ 是原网络的最小切割，否则若存在更小切割，$|f|$ 将会大于 $c(S,T)$。于是 $|f|$ 为原网络的最大流，Ford-Fulkerson 增广正确性证明完毕。</p>
 </details>
 <p>时间复杂度上界：$O(|E||f|)$，单轮增广的时间复杂度是 $O(|E|)$，而增广轮数不可能超过 $|f|$。</p>
-<p>接下来将介绍两个 Ford-Fulkerson 增广的主流实现方式：EK 算法和 Dinic 算法。</p>
+<p>接下来将介绍两个 Ford-Fulkerson 增广的主流实现方式：EK 算法和 Dinic 算法。以及一个比较快但并不主流的实现方式：ISAP 算法</p>
 <h3 id="edmonds-karp-算法">Edmonds-Karp 算法</h3>
 <p>$O(nm^2)$</p>
 <h4 id="算法流程">算法流程：</h4>
@@ -373,7 +373,7 @@ $</p>
 <p>如果我们在层次图上找到了一条从 $s$ 到 $t$ 的增广路 $p$，则接下来我们未必需要重新从 $s$ 出发找下一条增广路，而可能从 $p$ 上最后一个仍有剩余容量的位置出发寻找一条岔路进行增广。</p>
 </li>
 </ol>
-<p>需要注意，弧优化适用于保证 Dinic 算法正确性的一部分，而多路增广只是一个不影响复杂度的常数优化。</p>
+<p>需要注意，弧优化是用于保证 Dinic 算法正确性的一部分，而多路增广只是一个不影响复杂度的常数优化。</p>
 <h4 id="参考代码-1">参考代码：</h4>
 <h5 id="vector版本-1">vector版本</h5>
 <ol>
@@ -500,6 +500,91 @@ $</p>
 </span></span><span class="line"><span class="cl">    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">maxflow</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="isap-算法">ISAP 算法</h3>
+<p>首先，ISAP 基于 Dinic。</p>
+<h4 id="算法思想-1">算法思想</h4>
+<p>在 Dinic 算法中，每次求完增广路中都要再跑 BFS 来分层，在某些时候不够高效，ISAP 的核心思想就是分层一次，之后再增广过程中完成重分层过程。</p>
+<h4 id="算法流程-2">算法流程</h4>
+<ol>
+<li>
+<p>先跑 BFS 对图上点进行分层，不过 BFS 方向是由 $t$ 向 $s$ （其意义参见第三步）。</p>
+</li>
+<li>
+<p>增广，增广过程与 Dinic 类似，只选择层数多 $1$ 的进行增广。设 $i$ 号点的层数为 $d_i$，在结束 $i$ 号点的增广过程后，遍历残量网络中 $i$ 的所有出边，找到层数最小的出点 $j$，随后令 $d_i=d_j+1$。特别地，若残量网络中 $i$ 无出边，令 $d_i=n$。</p>
+</li>
+<li>
+<p>当 $d_s\geq n$ 时，图上不存在增广路，此时可终止算法。</p>
+</li>
+</ol>
+<h4 id="优化-1">优化</h4>
+<p>和 Dinic 类似，ISAP 中也存在当前弧优化。</p>
+<p>ISAP 还有另一个优化，我们记录层数为 $i$ 的点数量为 $num_i$，每当将一个点的层数从 $x$ 更新到 $y$ 时，更新 $num$ 数组的值，若更新后 $num_x=0$，意味着图中出现断层，此时无增广路，可直接终止算法，该优化被称为 GAP 优化</p>
+<h4 id="代码实现">代码实现</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;bits/stdc++.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define ll long long
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">cnt</span><span class="p">,</span><span class="n">head</span><span class="p">[</span><span class="mi">100005</span><span class="p">],</span><span class="n">dep</span><span class="p">[</span><span class="mi">100005</span><span class="p">],</span><span class="n">gap</span><span class="p">[</span><span class="mi">100005</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Edge</span> <span class="p">{</span><span class="kt">int</span> <span class="n">to</span><span class="p">,</span><span class="n">nxt</span><span class="p">,</span><span class="n">flow</span><span class="p">;}</span> <span class="n">edge</span><span class="p">[</span><span class="mi">2000005</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kr">inline</span> <span class="kt">void</span> <span class="nf">addin</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span><span class="kt">int</span> <span class="n">y</span><span class="p">,</span><span class="kt">int</span> <span class="n">w</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">edge</span><span class="p">[</span><span class="o">++</span><span class="n">cnt</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="n">y</span><span class="p">,</span><span class="n">head</span><span class="p">[</span><span class="n">x</span><span class="p">],</span><span class="n">w</span><span class="p">},</span><span class="n">head</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">=</span><span class="n">cnt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">edge</span><span class="p">[</span><span class="o">++</span><span class="n">cnt</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="n">x</span><span class="p">,</span><span class="n">head</span><span class="p">[</span><span class="n">y</span><span class="p">],</span><span class="mi">0</span><span class="p">},</span><span class="n">head</span><span class="p">[</span><span class="n">y</span><span class="p">]</span><span class="o">=</span><span class="n">cnt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">inline</span> <span class="kt">void</span> <span class="nf">bfs</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">t</span><span class="p">),</span><span class="n">dep</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">gap</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">u</span><span class="o">=</span><span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span> <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">];</span><span class="n">i</span><span class="p">;</span><span class="n">i</span><span class="o">=</span><span class="n">edge</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">nxt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">v</span><span class="o">=</span><span class="n">edge</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">to</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">dep</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">v</span><span class="p">),</span><span class="n">dep</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">=</span><span class="n">dep</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">gap</span><span class="p">[</span><span class="n">dep</span><span class="p">[</span><span class="n">v</span><span class="p">]]</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">ll</span> <span class="n">mxf</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span><span class="kt">int</span> <span class="n">f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">u</span><span class="o">==</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span><span class="n">mxf</span><span class="o">+=</span><span class="mi">1ll</span><span class="o">*</span><span class="n">f</span><span class="p">;</span><span class="k">return</span> <span class="n">f</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">lst</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">];</span><span class="n">i</span><span class="p">;</span><span class="n">i</span><span class="o">=</span><span class="n">edge</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">nxt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">v</span><span class="o">=</span><span class="n">edge</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">to</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">dep</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="o">!=</span><span class="n">dep</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">||!</span><span class="n">edge</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">flow</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="n">dfs</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">min</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">flow</span><span class="p">,</span><span class="n">f</span><span class="o">-</span><span class="n">lst</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="n">edge</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">flow</span><span class="o">-=</span><span class="n">k</span><span class="p">,</span><span class="n">edge</span><span class="p">[</span><span class="n">i</span><span class="o">^</span><span class="mi">1</span><span class="p">].</span><span class="n">flow</span><span class="o">+=</span><span class="n">k</span><span class="p">,</span><span class="n">lst</span><span class="o">+=</span><span class="n">k</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">lst</span><span class="o">==</span><span class="n">f</span><span class="p">)</span> <span class="k">return</span> <span class="n">f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">--</span><span class="n">gap</span><span class="p">[</span><span class="n">dep</span><span class="p">[</span><span class="n">u</span><span class="p">]];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">gap</span><span class="p">[</span><span class="n">dep</span><span class="p">[</span><span class="n">u</span><span class="p">]]</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="n">dep</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">=</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dep</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">++</span><span class="p">,</span><span class="n">gap</span><span class="p">[</span><span class="n">dep</span><span class="p">[</span><span class="n">u</span><span class="p">]]</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">lst</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">rd</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="kt">char</span> <span class="n">ch</span><span class="o">=</span><span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">ch</span><span class="o">&lt;</span><span class="sc">&#39;0&#39;</span><span class="o">||</span><span class="n">ch</span><span class="o">&gt;</span><span class="sc">&#39;9&#39;</span><span class="p">)</span> <span class="n">ch</span><span class="o">=</span><span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">ch</span><span class="o">&gt;=</span><span class="sc">&#39;0&#39;</span><span class="o">&amp;&amp;</span><span class="n">ch</span><span class="o">&lt;=</span><span class="sc">&#39;9&#39;</span><span class="p">)</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="o">*</span><span class="mi">10</span><span class="o">+</span><span class="n">ch</span><span class="o">-</span><span class="sc">&#39;0&#39;</span><span class="p">,</span><span class="n">ch</span><span class="o">=</span><span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">inline</span> <span class="kt">void</span> <span class="nf">wt</span><span class="p">(</span><span class="n">ll</span> <span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">x</span><span class="o">&gt;</span><span class="mi">9</span><span class="p">)</span> <span class="n">wt</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">putchar</span><span class="p">(</span><span class="n">x</span><span class="o">%</span><span class="mi">10</span><span class="o">+</span><span class="sc">&#39;0&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">signed</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">n</span><span class="o">=</span><span class="n">rd</span><span class="p">(),</span><span class="n">m</span><span class="o">=</span><span class="n">rd</span><span class="p">(),</span><span class="n">s</span><span class="o">=</span><span class="n">rd</span><span class="p">(),</span><span class="n">t</span><span class="o">=</span><span class="n">rd</span><span class="p">(),</span><span class="n">cnt</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">u</span><span class="o">=</span><span class="n">rd</span><span class="p">(),</span><span class="n">v</span><span class="o">=</span><span class="n">rd</span><span class="p">(),</span><span class="n">w</span><span class="o">=</span><span class="n">rd</span><span class="p">(),</span><span class="n">addin</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">w</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">bfs</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">dep</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">)</span> <span class="n">dfs</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="mh">0x3f3f3f3f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">wt</span><span class="p">(</span><span class="n">mxf</span><span class="p">),</span><span class="n">putchar</span><span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><h2 id="二push-relabel-预流推进算法">二，Push-Relabel 预流推进算法</h2>
 <p>该方法在求解过程中忽略流的守恒性，每次对一个结点更新答案以求最大流。</p>
 <p><strong>超额流</strong>：对于一个结点，进入结点的流若超出流出结点的流，超出部分即为该结点的超额流 $e(u)$，形式化地，$e(u)=$$\sum_{(x,u)\in E}f(x,u)-$$\sum_{(u,y)\in E}f(u,y)$。</p>
@@ -593,7 +678,7 @@ $</p>
 <h3 id="3-hlpp-算法">3. HLPP 算法</h3>
 <p>$O(n^2\sqrt{m})$</p>
 <p>在上述过程基础上，优先选择高度最高的溢出结点。</p>
-<h4 id="算法流程-2">算法流程：</h4>
+<h4 id="算法流程-3">算法流程：</h4>
 <ol>
 <li>
 <p>初始化</p>
@@ -608,11 +693,11 @@ $</p>
 <p>没有溢出结点时结束</p>
 </li>
 </ol>
-<h4 id="优化-1">优化：</h4>
+<h4 id="优化-2">优化：</h4>
 <ol>
 <li>
 <p><strong>BFS 优化</strong>：</p>
-<p>初始化时使用 BFS，初始化$h(u)$ 为 $u$ 到 $t$ 的最短距离，特别地使 $h(s)=n$。</p>
+<p>初始化时使用 BFS，初始化 $h(u)$ 为 $u$ 到 $t$ 的最短距离，特别地使 $h(s)=n$。</p>
 <p>在BFS的同时检查连通性排除无解情况。</p>
 </li>
 <li>
