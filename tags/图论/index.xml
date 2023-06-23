@@ -6,7 +6,16 @@
     <description>Recent content in 图论 on ___INT CONST LEE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 20 Jun 2023 19:42:12 +0800</lastBuildDate><atom:link href="https://intconstlee.github.io/tags/%E5%9B%BE%E8%AE%BA/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Jun 2023 08:42:20 +0800</lastBuildDate><atom:link href="https://intconstlee.github.io/tags/%E5%9B%BE%E8%AE%BA/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>费用流</title>
+      <link>https://intconstlee.github.io/posts/minimal-cost-flows/</link>
+      <pubDate>Fri, 23 Jun 2023 08:42:20 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/posts/minimal-cost-flows/</guid>
+      <description>费用流 一，相关概念 给定一网络 $G=(V,E)$，除了有容量限制 $c(u,v)$ 外，还给出了单位流量费用 $w(u,v)$，要求在最大化 $\sum_{(s,v)\in E}f(s,v)$ 即网络总流量的情况下最小化 $\sum_{(u,v)\in E}f(u,v)\times $$w(u,v)$。这种问题被称为最小费用最大流</description>
+    </item>
+    
     <item>
       <title>最小割</title>
       <link>https://intconstlee.github.io/posts/minimal-cut/</link>

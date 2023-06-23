@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>费用流 on ___INT CONST LEE</title>
+    <link>https://intconstlee.github.io/tags/%E8%B4%B9%E7%94%A8%E6%B5%81/</link>
+    <description>Recent content in 费用流 on ___INT CONST LEE</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 23 Jun 2023 08:42:20 +0800</lastBuildDate><atom:link href="https://intconstlee.github.io/tags/%E8%B4%B9%E7%94%A8%E6%B5%81/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>费用流</title>
+      <link>https://intconstlee.github.io/posts/minimal-cost-flows/</link>
+      <pubDate>Fri, 23 Jun 2023 08:42:20 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/posts/minimal-cost-flows/</guid>
+      <description>费用流 一，相关概念 给定一网络 $G=(V,E)$，除了有容量限制 $c(u,v)$ 外，还给出了单位流量费用 $w(u,v)$，要求在最大化 $\sum_{(s,v)\in E}f(s,v)$ 即网络总流量的情况下最小化 $\sum_{(u,v)\in E}f(u,v)\times $$w(u,v)$。这种问题被称为最小费用最大流</description>
+    </item>
+    
+  </channel>
+</rss>
