@@ -1,2 +1,4 @@
 # intconstlee.github.io
-Sorry, this blog had been deleted.
+intconstlee's personal blog.
+
+theme: zo zo, but it has been changed a lot by myself.
