@@ -629,6 +629,9 @@ details {
 
 details summary {
   padding: 2px 15px;
+  border: #ffffff00;
+  border-style: solid;
+  border-width: 1px;
   background-color: #fdfdfd;
   color: #3c3c47;
   border-radius: 11px 11px 11px 11px;
