@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-cn" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="intconstlee" />
+	
+	
+	
+	<title>李超线段树 ｜ ___INT CONST LEE</title>
+	
+    
+    
+    <meta name="description" content="李超线段树 一，问题背景 要求在平面直角坐标系上维护 $n$ 个操作，操作有如下两种（强制在线）： 在平面上加入一条线段，给出两端点横纵坐标 $(x_0,y_0)$，$(x_1,y_1)$。 给定一个横坐标的值 $k$，" />
+    
+
+    
+    
+    <meta name="keywords" content="blog, oier, zozo" />
+    
+
+	
+    
+    <link rel="shortcut icon" href="https://intconstlee.github.io/images/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="https://intconstlee.github.io/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://intconstlee.github.io/css/zozo.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://intconstlee.github.io/css/highlight.css" />
+
+    
+    
+</head>
+
+<body>
+    <div class="main animate__animated animate__fadeInDown">
+        <div class="nav_container animated fadeInDown">
+    <div class="site_nav" id="site_nav">
+        <ul>
+            
+            <li>
+                <a href="/">主页</a>
+            </li>
+            
+            <li>
+                <a href="/posts/">文章</a>
+            </li>
+            
+            <li>
+                <a href="/tags/">标签</a>
+            </li>
+            
+            <li>
+                <a href="/about/">关于</a>
+            </li>
+            
+            <li>
+                <a href="/link">友链</a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="menu_icon">
+        <a id="menu_icon"><i class="ri-menu-line"></i></a>
+    </div>
+</div>
+        <div class="header animated fadeInDown">
+    <div class="site_title_container">
+        <div class="site_title">
+            <h1>
+                <a href="https://intconstlee.github.io/">
+                    <span>___INT CONST LEE</span>
+                </a>
+            </h1>
+        </div>
+        <div class="description">
+            <p class="sub_title">an OieR from S2</p>
+            <div class="my_socials">
+                
+                
+                <a href="https://github.com/intconstlee" title="github" target="_blank"><i class="ri-github-fill"></i></a>
+                
+                
+                <a href="https://www.luogu.com.cn/user/812448" type="application/rss+xml" title="洛谷" target="_blank"><i
+                        class="ri-rss-fill"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+        <div class="content">
+            <div class="post_page">
+                <div class="post animate__animated animate__fadeInDown">
+                    <div class="post_title post_detail_title">
+                        <h2><a href='/posts/lichao-segment-tree/'>李超线段树</a></h2>
+                        <span class="date">2023.06.26</span>
+                    </div>
+                    <div class="post_content markdown"><h1 id="李超线段树">李超线段树</h1>
+<h2 id="一问题背景">一，问题背景</h2>
+<p>要求在平面直角坐标系上维护 $n$ 个操作，操作有如下两种（强制在线）：</p>
+<ol>
+<li>
+<p>在平面上加入一条线段，给出两端点横纵坐标 $(x_0,y_0)$，$(x_1,y_1)$。</p>
+</li>
+<li>
+<p>给定一个横坐标的值 $k$，求当 $x=k$ 时平面中使得 $y$ 最大的直线的编号（若有多条取编号最小的），若不存在，输出 $0$。</p>
+</li>
+</ol>
+<p>数据范围：$1\leq n\leq 10^5$，$1\leq k$, $x_0$, $x_1\leq 4\times 10^4$，$1\leq y_0$, $y_1\leq 10^9$。</p>
+<p>分析：在这样一个问题中，操作一相当于对一段区间进行修改，操作二相当于对某一点进行查询，容易想到线段树。由于我们只关心最优解，所以在插入线段时，如果它比原来的线段更优，我们便不再需要记录原来的线段了，所以在线段树中记录每个区间中有可能成为最优解的线段即可。</p>
+<h2 id="二实现过程">二，实现过程</h2>
+<p>首先对于区间修改，按线段树问题的常用方法，可以给每个结点打一个懒标记，每个结点的懒标记都是一条线段，包含斜率和截距。</p>
+<p>现在考虑插入线段 $f$ 的过程：</p>
+<ol>
+<li>
+<p>如果当前区间没有被任何一条线段覆盖，直接修改。</p>
+</li>
+<li>
+<p>比较端点，如果新线段被原有线段完全覆盖，直接返回。</p>
+</li>
+<li>
+<p>比较端点，如果新线段可完全覆盖原有线段，直接修改。</p>
+</li>
+<li>
+<p>通过区间中点大小和端点值大小判断新旧线段覆盖的长度关系，覆盖长度长的记录在该结点，短的由于只覆盖了左区间或右区间的一部分，可以递归入左或右子树。</p>
+</li>
+</ol>
+<p>现在考虑单点查询的过程：</p>
+<p>对于给定的横坐标，将递归子区间过程中所经过的每一条被记录的线段都拿出来比较。</p>
+<details class=note open>
+<summary>为什么要全部比较<summary>
+<p>
+在插入线段的过程中，我们发现标记之间很难合并，所以采用的是标记永久化策略，所以在单点查询递归子区间的过程中要取出所有经过区间的标记。
+</p>
+</details>
+<h3 id="参考代码">参考代码</h3>
+<p>变量声明：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;bits/stdc++.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define ls rt&lt;&lt;1
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define rs rt&lt;&lt;1|1
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define pr pair&lt;double,int&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">double</span> <span class="k">const</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="k">const</span> <span class="n">mod1</span><span class="o">=</span><span class="mi">39989</span><span class="p">,</span><span class="n">mod2</span><span class="o">=</span><span class="mf">1e9</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">op</span><span class="p">,</span><span class="n">X0</span><span class="p">,</span><span class="n">X1</span><span class="p">,</span><span class="n">Y0</span><span class="p">,</span><span class="n">Y1</span><span class="p">,</span><span class="n">lst</span><span class="p">,</span><span class="n">tr</span><span class="p">[</span><span class="mi">200005</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">line</span> <span class="p">{</span><span class="kt">double</span> <span class="n">k</span><span class="p">,</span><span class="n">b</span><span class="p">;}</span> <span class="n">l</span><span class="p">[</span><span class="mi">100005</span><span class="p">];</span>
+</span></span></code></pre></div><p>下传标记：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">cmp</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span><span class="kt">double</span> <span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">y</span><span class="o">&gt;</span><span class="n">eps</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">x</span><span class="o">&gt;</span><span class="n">eps</span><span class="p">)</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">update</span><span class="p">(</span><span class="kt">int</span> <span class="n">rt</span><span class="p">,</span><span class="kt">int</span> <span class="n">l</span><span class="p">,</span><span class="kt">int</span> <span class="n">r</span><span class="p">,</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="o">&amp;</span><span class="n">y</span><span class="o">=</span><span class="n">tr</span><span class="p">[</span><span class="n">rt</span><span class="p">],</span><span class="n">mid</span><span class="o">=</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="n">r</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">cmp</span><span class="p">(</span><span class="n">Y</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">mid</span><span class="p">),</span><span class="n">Y</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">mid</span><span class="p">))</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="n">swap</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">cl</span><span class="o">=</span><span class="n">cmp</span><span class="p">(</span><span class="n">Y</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">l</span><span class="p">),</span><span class="n">Y</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">l</span><span class="p">)),</span><span class="n">cr</span><span class="o">=</span><span class="n">cmp</span><span class="p">(</span><span class="n">Y</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">r</span><span class="p">),</span><span class="n">Y</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">r</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">cl</span><span class="o">==</span><span class="mi">1</span><span class="o">||</span><span class="p">(</span><span class="o">!</span><span class="n">cl</span><span class="o">&amp;&amp;</span><span class="n">x</span><span class="o">&lt;</span><span class="n">y</span><span class="p">))</span> <span class="n">update</span><span class="p">(</span><span class="n">ls</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">mid</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">cr</span><span class="o">==</span><span class="mi">1</span><span class="o">||</span><span class="p">(</span><span class="o">!</span><span class="n">cr</span><span class="o">&amp;&amp;</span><span class="n">x</span><span class="o">&lt;</span><span class="n">y</span><span class="p">))</span> <span class="n">update</span><span class="p">(</span><span class="n">rs</span><span class="p">,</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">r</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>拆分线段：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">change</span><span class="p">(</span><span class="kt">int</span> <span class="n">rt</span><span class="p">,</span><span class="kt">int</span> <span class="n">l</span><span class="p">,</span><span class="kt">int</span> <span class="n">r</span><span class="p">,</span><span class="kt">int</span> <span class="n">L</span><span class="p">,</span><span class="kt">int</span> <span class="n">R</span><span class="p">,</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="o">&gt;</span><span class="n">R</span><span class="o">||</span><span class="n">r</span><span class="o">&lt;</span><span class="n">L</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="o">&gt;=</span><span class="n">L</span><span class="o">&amp;&amp;</span><span class="n">r</span><span class="o">&lt;=</span><span class="n">R</span><span class="p">)</span> <span class="p">{</span><span class="n">update</span><span class="p">(</span><span class="n">rt</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">r</span><span class="p">,</span><span class="n">x</span><span class="p">);</span><span class="k">return</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">mid</span><span class="o">=</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="n">r</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">change</span><span class="p">(</span><span class="n">ls</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">mid</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">R</span><span class="p">,</span><span class="n">x</span><span class="p">),</span><span class="n">change</span><span class="p">(</span><span class="n">rs</span><span class="p">,</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">r</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">R</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>单点查询：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kr">inline</span> <span class="n">pr</span> <span class="nf">mx</span><span class="p">(</span><span class="n">pr</span> <span class="n">x</span><span class="p">,</span><span class="n">pr</span> <span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">cmp</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">first</span><span class="p">,</span><span class="n">y</span><span class="p">.</span><span class="n">first</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">cmp</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">first</span><span class="p">,</span><span class="n">y</span><span class="p">.</span><span class="n">first</span><span class="p">)</span><span class="o">==-</span><span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="n">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span><span class="p">.</span><span class="n">second</span><span class="o">&lt;</span><span class="n">y</span><span class="p">.</span><span class="n">second</span><span class="o">?</span><span class="nl">x</span><span class="p">:</span><span class="n">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">pr</span> <span class="n">query</span><span class="p">(</span><span class="kt">int</span> <span class="n">rt</span><span class="p">,</span><span class="kt">int</span> <span class="n">l</span><span class="p">,</span><span class="kt">int</span> <span class="n">r</span><span class="p">,</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">x</span><span class="o">&gt;</span><span class="n">r</span><span class="o">||</span><span class="n">x</span><span class="o">&lt;</span><span class="n">l</span><span class="p">)</span> <span class="k">return</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">mid</span><span class="o">=</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="n">r</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">ret</span><span class="o">=</span><span class="n">Y</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="n">rt</span><span class="p">],</span><span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="o">==</span><span class="n">r</span><span class="p">)</span> <span class="k">return</span> <span class="p">{</span><span class="n">ret</span><span class="p">,</span><span class="n">tr</span><span class="p">[</span><span class="n">rt</span><span class="p">]};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">mx</span><span class="p">({</span><span class="n">ret</span><span class="p">,</span><span class="n">tr</span><span class="p">[</span><span class="n">rt</span><span class="p">]},</span><span class="n">mx</span><span class="p">(</span><span class="n">query</span><span class="p">(</span><span class="n">ls</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">mid</span><span class="p">,</span><span class="n">x</span><span class="p">),</span><span class="n">query</span><span class="p">(</span><span class="n">rs</span><span class="p">,</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">r</span><span class="p">,</span><span class="n">x</span><span class="p">)));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>完整代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;bits/stdc++.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define ls rt&lt;&lt;1
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define rs rt&lt;&lt;1|1
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define pr pair&lt;double,int&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">double</span> <span class="k">const</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="k">const</span> <span class="n">mod1</span><span class="o">=</span><span class="mi">39989</span><span class="p">,</span><span class="n">mod2</span><span class="o">=</span><span class="mf">1e9</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">op</span><span class="p">,</span><span class="n">X0</span><span class="p">,</span><span class="n">X1</span><span class="p">,</span><span class="n">Y0</span><span class="p">,</span><span class="n">Y1</span><span class="p">,</span><span class="n">lst</span><span class="p">,</span><span class="n">tr</span><span class="p">[</span><span class="mi">200005</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">line</span> <span class="p">{</span><span class="kt">double</span> <span class="n">k</span><span class="p">,</span><span class="n">b</span><span class="p">;}</span> <span class="n">l</span><span class="p">[</span><span class="mi">100005</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">cmp</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span><span class="kt">double</span> <span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">y</span><span class="o">&gt;</span><span class="n">eps</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">x</span><span class="o">&gt;</span><span class="n">eps</span><span class="p">)</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">inline</span> <span class="n">pr</span> <span class="nf">mx</span><span class="p">(</span><span class="n">pr</span> <span class="n">x</span><span class="p">,</span><span class="n">pr</span> <span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">cmp</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">first</span><span class="p">,</span><span class="n">y</span><span class="p">.</span><span class="n">first</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">cmp</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">first</span><span class="p">,</span><span class="n">y</span><span class="p">.</span><span class="n">first</span><span class="p">)</span><span class="o">==-</span><span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="n">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span><span class="p">.</span><span class="n">second</span><span class="o">&lt;</span><span class="n">y</span><span class="p">.</span><span class="n">second</span><span class="o">?</span><span class="nl">x</span><span class="p">:</span><span class="n">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">inline</span> <span class="kt">double</span> <span class="nf">Y</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">k</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">inline</span> <span class="kt">void</span> <span class="nf">newline</span><span class="p">(</span><span class="kt">int</span> <span class="n">X0</span><span class="p">,</span><span class="kt">int</span> <span class="n">Y0</span><span class="p">,</span><span class="kt">int</span> <span class="n">X1</span><span class="p">,</span><span class="kt">int</span> <span class="n">Y1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">++</span><span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">X0</span><span class="o">==</span><span class="n">X1</span><span class="p">)</span> <span class="n">l</span><span class="p">[</span><span class="n">t</span><span class="p">].</span><span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">l</span><span class="p">[</span><span class="n">t</span><span class="p">].</span><span class="n">b</span><span class="o">=</span><span class="n">max</span><span class="p">(</span><span class="n">Y0</span><span class="p">,</span><span class="n">Y1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="n">l</span><span class="p">[</span><span class="n">t</span><span class="p">].</span><span class="n">k</span><span class="o">=</span><span class="p">(</span><span class="n">Y1</span><span class="o">-</span><span class="n">Y0</span><span class="p">)</span><span class="o">*</span><span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="n">X1</span><span class="o">-</span><span class="n">X0</span><span class="p">),</span><span class="n">l</span><span class="p">[</span><span class="n">t</span><span class="p">].</span><span class="n">b</span><span class="o">=</span><span class="n">Y0</span><span class="o">-</span><span class="n">l</span><span class="p">[</span><span class="n">t</span><span class="p">].</span><span class="n">k</span><span class="o">*</span><span class="n">X0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">update</span><span class="p">(</span><span class="kt">int</span> <span class="n">rt</span><span class="p">,</span><span class="kt">int</span> <span class="n">l</span><span class="p">,</span><span class="kt">int</span> <span class="n">r</span><span class="p">,</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="o">&amp;</span><span class="n">y</span><span class="o">=</span><span class="n">tr</span><span class="p">[</span><span class="n">rt</span><span class="p">],</span><span class="n">mid</span><span class="o">=</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="n">r</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">cmp</span><span class="p">(</span><span class="n">Y</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">mid</span><span class="p">),</span><span class="n">Y</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">mid</span><span class="p">))</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="n">swap</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">cl</span><span class="o">=</span><span class="n">cmp</span><span class="p">(</span><span class="n">Y</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">l</span><span class="p">),</span><span class="n">Y</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">l</span><span class="p">)),</span><span class="n">cr</span><span class="o">=</span><span class="n">cmp</span><span class="p">(</span><span class="n">Y</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">r</span><span class="p">),</span><span class="n">Y</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">r</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">cl</span><span class="o">==</span><span class="mi">1</span><span class="o">||</span><span class="p">(</span><span class="o">!</span><span class="n">cl</span><span class="o">&amp;&amp;</span><span class="n">x</span><span class="o">&lt;</span><span class="n">y</span><span class="p">))</span> <span class="n">update</span><span class="p">(</span><span class="n">ls</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">mid</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">cr</span><span class="o">==</span><span class="mi">1</span><span class="o">||</span><span class="p">(</span><span class="o">!</span><span class="n">cr</span><span class="o">&amp;&amp;</span><span class="n">x</span><span class="o">&lt;</span><span class="n">y</span><span class="p">))</span> <span class="n">update</span><span class="p">(</span><span class="n">rs</span><span class="p">,</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">r</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">change</span><span class="p">(</span><span class="kt">int</span> <span class="n">rt</span><span class="p">,</span><span class="kt">int</span> <span class="n">l</span><span class="p">,</span><span class="kt">int</span> <span class="n">r</span><span class="p">,</span><span class="kt">int</span> <span class="n">L</span><span class="p">,</span><span class="kt">int</span> <span class="n">R</span><span class="p">,</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="o">&gt;</span><span class="n">R</span><span class="o">||</span><span class="n">r</span><span class="o">&lt;</span><span class="n">L</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="o">&gt;=</span><span class="n">L</span><span class="o">&amp;&amp;</span><span class="n">r</span><span class="o">&lt;=</span><span class="n">R</span><span class="p">)</span> <span class="p">{</span><span class="n">update</span><span class="p">(</span><span class="n">rt</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">r</span><span class="p">,</span><span class="n">x</span><span class="p">);</span><span class="k">return</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">mid</span><span class="o">=</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="n">r</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">change</span><span class="p">(</span><span class="n">ls</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">mid</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">R</span><span class="p">,</span><span class="n">x</span><span class="p">),</span><span class="n">change</span><span class="p">(</span><span class="n">rs</span><span class="p">,</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">r</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">R</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">pr</span> <span class="nf">query</span><span class="p">(</span><span class="kt">int</span> <span class="n">rt</span><span class="p">,</span><span class="kt">int</span> <span class="n">l</span><span class="p">,</span><span class="kt">int</span> <span class="n">r</span><span class="p">,</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">x</span><span class="o">&gt;</span><span class="n">r</span><span class="o">||</span><span class="n">x</span><span class="o">&lt;</span><span class="n">l</span><span class="p">)</span> <span class="k">return</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">mid</span><span class="o">=</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="n">r</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">ret</span><span class="o">=</span><span class="n">Y</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="n">rt</span><span class="p">],</span><span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="o">==</span><span class="n">r</span><span class="p">)</span> <span class="k">return</span> <span class="p">{</span><span class="n">ret</span><span class="p">,</span><span class="n">tr</span><span class="p">[</span><span class="n">rt</span><span class="p">]};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">mx</span><span class="p">({</span><span class="n">ret</span><span class="p">,</span><span class="n">tr</span><span class="p">[</span><span class="n">rt</span><span class="p">]},</span><span class="n">mx</span><span class="p">(</span><span class="n">query</span><span class="p">(</span><span class="n">ls</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">mid</span><span class="p">,</span><span class="n">x</span><span class="p">),</span><span class="n">query</span><span class="p">(</span><span class="n">rs</span><span class="p">,</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">r</span><span class="p">,</span><span class="n">x</span><span class="p">)));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">rd</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="kt">char</span> <span class="n">ch</span><span class="o">=</span><span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">ch</span><span class="o">&lt;</span><span class="sc">&#39;0&#39;</span><span class="o">||</span><span class="n">ch</span><span class="o">&gt;</span><span class="sc">&#39;9&#39;</span><span class="p">)</span> <span class="n">ch</span><span class="o">=</span><span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">ch</span><span class="o">&gt;=</span><span class="sc">&#39;0&#39;</span><span class="o">&amp;&amp;</span><span class="n">ch</span><span class="o">&lt;=</span><span class="sc">&#39;9&#39;</span><span class="p">)</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="o">*</span><span class="mi">10</span><span class="o">+</span><span class="n">ch</span><span class="o">-</span><span class="sc">&#39;0&#39;</span><span class="p">,</span><span class="n">ch</span><span class="o">=</span><span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">inline</span> <span class="kt">void</span> <span class="nf">wt</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">x</span><span class="o">&gt;</span><span class="mi">9</span><span class="p">)</span> <span class="n">wt</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">putchar</span><span class="p">(</span><span class="n">x</span><span class="o">%</span><span class="mi">10</span><span class="o">+</span><span class="sc">&#39;0&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">signed</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">n</span><span class="o">=</span><span class="n">rd</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">op</span><span class="o">=</span><span class="n">rd</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">op</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">X0</span><span class="o">=</span><span class="n">rd</span><span class="p">(),</span><span class="n">Y0</span><span class="o">=</span><span class="n">rd</span><span class="p">(),</span><span class="n">X1</span><span class="o">=</span><span class="n">rd</span><span class="p">(),</span><span class="n">Y1</span><span class="o">=</span><span class="n">rd</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">X0</span><span class="o">=</span><span class="p">(</span><span class="n">X0</span><span class="o">+</span><span class="n">lst</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="n">mod1</span><span class="p">)</span><span class="o">%</span><span class="n">mod1</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">X1</span><span class="o">=</span><span class="p">(</span><span class="n">X1</span><span class="o">+</span><span class="n">lst</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="n">mod1</span><span class="p">)</span><span class="o">%</span><span class="n">mod1</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Y0</span><span class="o">=</span><span class="p">(</span><span class="n">Y0</span><span class="o">+</span><span class="n">lst</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="n">mod2</span><span class="p">)</span><span class="o">%</span><span class="n">mod2</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">Y1</span><span class="o">=</span><span class="p">(</span><span class="n">Y1</span><span class="o">+</span><span class="n">lst</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="n">mod2</span><span class="p">)</span><span class="o">%</span><span class="n">mod2</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">X0</span><span class="o">&gt;</span><span class="n">X1</span><span class="p">)</span> <span class="n">swap</span><span class="p">(</span><span class="n">X0</span><span class="p">,</span><span class="n">X1</span><span class="p">),</span><span class="n">swap</span><span class="p">(</span><span class="n">Y0</span><span class="p">,</span><span class="n">Y1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">newline</span><span class="p">(</span><span class="n">X0</span><span class="p">,</span><span class="n">Y0</span><span class="p">,</span><span class="n">X1</span><span class="p">,</span><span class="n">Y1</span><span class="p">),</span><span class="n">change</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">mod1</span><span class="p">,</span><span class="n">X0</span><span class="p">,</span><span class="n">X1</span><span class="p">,</span><span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">X0</span><span class="o">=</span><span class="n">rd</span><span class="p">(),</span><span class="n">X0</span><span class="o">=</span><span class="p">(</span><span class="n">X0</span><span class="o">+</span><span class="n">lst</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="n">mod1</span><span class="p">)</span><span class="o">%</span><span class="n">mod1</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">lst</span><span class="o">=</span><span class="n">query</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">mod1</span><span class="p">,</span><span class="n">X0</span><span class="p">).</span><span class="n">second</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">wt</span><span class="p">(</span><span class="n">lst</span><span class="p">),</span><span class="n">putchar</span><span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></div>
+                    <div class="post_footer">
+                        
+                        <div class="meta">
+                            <div class="info">
+                                <span class="field tags">
+                                    <i class="ri-stack-line"></i>
+                                    
+                                    <a href="https://intconstlee.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                                    
+                                    <a href="https://intconstlee.github.io/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/">线段树</a>
+                                    
+                                    <a href="https://intconstlee.github.io/tags/%E6%9D%8E%E8%B6%85%E7%BA%BF%E6%AE%B5%E6%A0%91/">李超线段树</a>
+                                    
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                
+                
+<div class="doc_comments">
+    <div class="comments_block_title">发表评论</div>
+    <div id="vcomments"></div>
+</div>
+
+<link rel="stylesheet" href="https://intconstlee.github.io/css/comments.css" />
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        appId: 'JoCtOtxj1X3f15WY8f6y2tRL-gzGzoHsz',
+        appKey: '2Wxl1jDvPe63XmiaVL7sIDGS',
+        placeholder: ' ',
+        visitor: 'true',
+    })
+</script>
+
+
+
+
+                
+            </div>
+        </div>
+    </div>
+    <a id="back_to_top" href="#" class="back_to_top"><i class="ri-arrow-up-s-line"></i></a>
+    <footer class="footer">
+    <div class="powered_by">
+        <a href="https://www.luogu.com.cn/user/812448">belongs to intconstlee,</a>
+        <a href="http://www.gohugo.io/">published with Hugo</a>
+    </div>
+
+    <div class="footer_slogan">
+        <span>My spiritual home</span>
+    </div>
+</footer>
+    <script src="https://intconstlee.github.io/js/jquery-3.5.1.min.js"></script>
+<link href="https://intconstlee.github.io/css/fancybox.min.css" rel="stylesheet">
+<script src="https://intconstlee.github.io/js/fancybox.min.js"></script>
+<script src="https://intconstlee.github.io/js/zozo.js"></script>
+
+
+<script type="text/javascript" async
+    src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\[\[', '\]\]']],
+                processEscapes: true,
+                processEnvironments: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                TeX: {
+                    equationNumbers: { autoNumber: "AMS" },
+                    extensions: ["AMSmath.js", "AMSsymbols.js"]
+                }
+            }
+        });
+
+        MathJax.Hub.Queue(function () {
+            
+            
+            
+            var all = MathJax.Hub.getAllJax(), i;
+            for (i = 0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+<style>
+    code.has-jax {
+        font: inherit;
+        font-size: 100%;
+        background: inherit;
+        border: inherit;
+        color: #515151;
+    }
+</style>
+
+
+
+</body>
+
+</html>

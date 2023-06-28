@@ -6,7 +6,16 @@
     <description>Recent content on ___INT CONST LEE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 23 Jun 2023 08:42:20 +0800</lastBuildDate><atom:link href="https://intconstlee.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 Jun 2023 14:24:02 +0800</lastBuildDate><atom:link href="https://intconstlee.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>李超线段树</title>
+      <link>https://intconstlee.github.io/posts/lichao-segment-tree/</link>
+      <pubDate>Mon, 26 Jun 2023 14:24:02 +0800</pubDate>
+      
+      <guid>https://intconstlee.github.io/posts/lichao-segment-tree/</guid>
+      <description>李超线段树 一，问题背景 要求在平面直角坐标系上维护 $n$ 个操作，操作有如下两种（强制在线）： 在平面上加入一条线段，给出两端点横纵坐标 $(x_0,y_0)$，$(x_1,y_1)$。 给定一个横坐标的值 $k$，</description>
+    </item>
+    
     <item>
       <title>费用流</title>
       <link>https://intconstlee.github.io/posts/minimal-cost-flows/</link>

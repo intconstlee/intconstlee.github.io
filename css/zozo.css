@@ -613,7 +613,7 @@ table th, table td {
 }
 
 details {
-  background-color: #45454580;
+  background-color: #3c3c47;
   color: #fdfdfd;
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
@@ -629,8 +629,8 @@ details {
 
 details summary {
   padding: 2px 15px;
-  background-color: #ffffff95;
-  color: #272727;
+  background-color: #fdfdfd;
+  color: #3c3c47;
   border-radius: 11px 11px 11px 11px;
 }
 
