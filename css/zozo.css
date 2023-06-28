@@ -70,7 +70,7 @@ hr {
 
 /*basic styles ends*/
 .main {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.65);
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -268,11 +268,11 @@ hr {
 .post .post_content a {
   text-decoration: none;
   letter-spacing: 1px;
-  color: #2e1d75;
+  color: #7f64ee;
 }
 
 .post .post_content a:hover {
-  color: #5d648d;
+  color: #9c8aff;
 }
 
 .post .post_footer {
@@ -325,7 +325,7 @@ hr {
   position: relative;
   top: -8px;
   right: -2px;
-  color: #c5c5c5;
+  color: #177fc5;
   font-size: 12px;
 }
 
@@ -422,7 +422,7 @@ hr {
 
 .list_with_title .listing .listing_post .post_time {
   float: right;
-  color: #c5c5c5;
+  color: #8b9bc5;
   font-size: 14px;
 }
 
@@ -621,24 +621,22 @@ details {
   box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
   -webkit-box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
   margin: 15px 0;
-  border: #ffffff00;
+  padding: 0 1rem;
+  border: seagreen;
   border-style: solid;
   border-width: 1px;
   border-radius: 12px;
 }
 
 details summary {
+  margin: 0 -1rem;
   padding: 2px 15px;
   border: #ffffff00;
   border-style: solid;
   border-width: 1px;
-  background-color: #fdfdfd;
+  background-color: rgb(196, 255, 222);
   color: #3c3c47;
   border-radius: 11px 11px 11px 11px;
-}
-
-details > p {
-  padding: 2px 15px;
 }
 
 a.back_to_top {
@@ -646,7 +644,7 @@ a.back_to_top {
   position: fixed;
   bottom: 40px;
   right: 30px;
-  background: #cfcfcf;
+  background: rgb(227, 255, 239);
   height: 40px;
   width: 40px;
   border-radius: 50%;
@@ -661,16 +659,16 @@ a.back_to_top {
 }
 
 a.back_to_top span {
-  color: #888888;
+  color: #000000;
 }
 
 a.back_to_top:hover {
   cursor: pointer;
-  background: #b3b3b3;
+  background: rgb(187, 230, 205);
 }
 
 a.back_to_top:hover span {
-  color: #555555;
+  color: #ffffff;
 }
 
 .card {
@@ -736,7 +734,7 @@ a.back_to_top:hover span {
 }
  
 .card button:hover {
-  background: #fdfdfd;
+  background: #e2fff2;
 }
 
 img {
