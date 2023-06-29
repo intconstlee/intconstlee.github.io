@@ -31,7 +31,7 @@
       <pubDate>Tue, 20 Jun 2023 07:22:30 +0800</pubDate>
       
       <guid>https://intconstlee.github.io/posts/max-flows-remake/</guid>
-      <description>最大流 前置知识：网络流概览，请确保已熟悉网络流相关概念以及流的性质。 两大核心算法：Ford-Fulkerson 增广与Push-Relabel 预流推进算法 一，概览 对于一个给定网络，有许多合法的流函数 $f</description>
+      <description>最大流 前置知识：网络流概览，请确保已熟悉网络流相关概念以及流的性质。 两大核心算法：Ford-Fulkerson 增广与Push-Relabel 预流推进算法 这是嵌入 Microsoft Office 演示文稿，由 Office 提供支持。 一，概览 对于</description>
     </item>
     
     <item>
