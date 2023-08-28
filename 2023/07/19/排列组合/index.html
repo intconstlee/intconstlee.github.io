@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="true" > 
+<link href="/fontawesome/css/fontawesome.css" rel="stylesheet">
+<link href="/fontawesome/css/brands.css" rel="stylesheet">
+<link href="/fontawesome/css/solid.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>排列组合 | intconstlee</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/MaterialSymbolsRounded.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+  <meta name="description" content="排列组合 一，概念 排列：指从给定个数的元素中取出指定个数的元素进行排序； 组合：从给定个数的元素中仅仅取出指定个数的元素，不考虑排序。 排列组合的中心问题是研究给定要求的排列和组合可能出现的情况总数。排列组合与古典概率论关系密切。 二，原理 1. 加法原理 设集合 \(S\) 被划分为两两不相交的若干部分 \(S_1,S_2,...,S_n\)，则 \(S\) 的对象数目可以通">
+<meta property="og:type" content="article">
+<meta property="og:title" content="排列组合">
+<meta property="og:url" content="https://intconstlee.github.io/2023/07/19/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/index.html">
+<meta property="og:site_name" content="intconstlee">
+<meta property="og:description" content="排列组合 一，概念 排列：指从给定个数的元素中取出指定个数的元素进行排序； 组合：从给定个数的元素中仅仅取出指定个数的元素，不考虑排序。 排列组合的中心问题是研究给定要求的排列和组合可能出现的情况总数。排列组合与古典概率论关系密切。 二，原理 1. 加法原理 设集合 \(S\) 被划分为两两不相交的若干部分 \(S_1,S_2,...,S_n\)，则 \(S\) 的对象数目可以通">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-07-18T22:25:29.000Z">
+<meta property="article:modified_time" content="2023-07-24T00:32:29.073Z">
+<meta property="article:author" content="intconstlee">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="组合数学">
+<meta property="article:tag" content="排列组合">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="intconstlee" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  
+  
+    
+<div id="banner" class="">
+  <img src="/images/banner.jpg" itemprop="image">
+  <div id="banner-dim"></div>
+</div>
+ 
+   
+  <div id="main-grid" class="shadow   ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>intconstlee </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="material-symbols-rounded light-mode-icon">wb_sunny</span>
+      <span class="material-symbols-rounded dark-mode-icon">dark_mode</span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS Feed">
+        <span class="material-symbols-rounded rss">rss_feed</span>
+      </a>
+    
+    <a id="nav-search-btn" class="nav-icon" title="Search" style="display: none;">
+      <span class="material-symbols-rounded">search</span>
+    </a>
+    <div id="nav-menu-btn" class="nav-icon">
+      <span class="material-symbols-rounded">menu</span>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS Feed">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+        <image src=/812448.jpg></image>
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">intconstlee </div>
+      <div class="dot"></div>
+      <div class="subtitle">an OieR from S2 </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://twitter.com" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://store.steampowered.com" title="Steam"><i class="fa-brands fa-steam"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/intconstlee" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Tags</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/AC%E8%87%AA%E5%8A%A8%E6%9C%BA/" rel="tag">AC自动机</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/DP%E4%BC%98%E5%8C%96/" rel="tag">DP优化</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/" rel="tag">单调队列</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" rel="tag">单调队列优化</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8F%AF%E5%B9%B6%E5%A0%86/" rel="tag">可并堆</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%9B%BE%E8%AE%BA/" rel="tag">图论</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%B7%A6%E5%81%8F%E6%A0%91/" rel="tag">左偏树</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" rel="tag">排列组合</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96/" rel="tag">斜率优化</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E5%89%B2/" rel="tag">最小割</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9D%8E%E8%B6%85%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">李超线段树</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" rel="tag">组合数学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/" rel="tag">网络流</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E6%9C%BA/" rel="tag">自动机</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%B4%B9%E7%94%A8%E6%B5%81/" rel="tag">费用流</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Archives</h3>
+      
+      
+        <a class="archive-link" href="/archives/2023/07 ">
+          七月 2023 
+          <div class="archive-count">1 </div>
+        </a>
+      
+        <a class="archive-link" href="/archives/2023/06 ">
+          六月 2023 
+          <div class="archive-count">11 </div>
+        </a>
+      
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Recent Posts</h3>
+      <ul>
+        
+          <a class="recent-link" href="/2023/07/19/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" title="排列组合" >
+            <div class="recent-link-text">
+              排列组合
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2023/06/26/%E6%9D%8E%E8%B6%85%E7%BA%BF%E6%AE%B5%E6%A0%91/" title="李超线段树" >
+            <div class="recent-link-text">
+              李超线段树
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2023/06/23/%E8%B4%B9%E7%94%A8%E6%B5%81/" title="费用流" >
+            <div class="recent-link-text">
+              费用流
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2023/06/20/%E6%9C%80%E5%B0%8F%E5%89%B2/" title="最小割" >
+            <div class="recent-link-text">
+              最小割
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2023/06/19/%E6%9C%80%E5%A4%A7%E6%B5%81%E9%87%8D%E5%88%B6%E7%89%88/" title="最大流重制版" >
+            <div class="recent-link-text">
+              最大流重制版
+            </div>
+          </a>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+<article id="post-排列组合" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        排列组合
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2023-07-18T22:25:29.000Z" itemprop="datePublished">2023-07-19</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+             words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" rel="tag">排列组合</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" rel="tag">组合数学</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h1 id="排列组合">排列组合</h1>
+<h2 id="一概念">一，概念</h2>
+<p>排列：指从给定个数的元素中取出指定个数的元素进行排序；</p>
+<p>组合：从给定个数的元素中仅仅取出指定个数的元素，不考虑排序。</p>
+<p>排列组合的中心问题是研究给定要求的排列和组合可能出现的情况总数。排列组合与古典概率论关系密切。</p>
+<h2 id="二原理">二，原理</h2>
+<h3 id="加法原理">1. 加法原理</h3>
+<p>设集合 <span class="math inline">\(S\)</span>
+被划分为两两不相交的若干部分 <span
+class="math inline">\(S_1,S_2,...,S_n\)</span>，则 <span
+class="math inline">\(S\)</span>
+的对象数目可以通过确定它的每一部分对象数目并如此相加得到，符号化表示为
+<span class="math inline">\(|S|=|S_1|+|S_2|+...+|S_n|\)</span>。</p>
+<details class="note" close>
+<summary>
+例子
+</summary>
+<p>
+<p>设学校田径运动会中，学生要从田赛或径赛中选一个项目。若选田赛，则有三种选择。若选径赛，则有两种选择。</p>
+<p>使用加法原理，共有 <span class="math inline">\(3+2=5\)</span>
+种报名方案。</p>
+</p>
+</details>
+<h3 id="乘法原理">2. 乘法原理</h3>
+<p>令 <span class="math inline">\(S\)</span> 是对象的有序对 <span
+class="math inline">\((a,b)\)</span> 的集合，其中第一个对象 <span
+class="math inline">\(a\)</span> 来自大小为 <span
+class="math inline">\(p\)</span> 的一个集合，而对于对象 <span
+class="math inline">\(a\)</span> 的每一个选择，对象 <span
+class="math inline">\(b\)</span> 有 <span
+class="math inline">\(q\)</span> 种选择，于是集合 <span
+class="math inline">\(S\)</span> 的大小为 <span
+class="math inline">\(p\times q\)</span>，符号化表示为 <span
+class="math inline">\(|S|=p\times q\)</span></p>
+<details class="note" close>
+<summary>
+例子
+</summary>
+<p>
+<p>设在面馆要点一碗面，面的粗细有三种，而配料有两种，任选一种粗细并搭配任意一种配料。</p>
+<p>使用乘法原理，共有 <span class="math inline">\(3\times 2=6\)</span>
+种配搭。</p>
+</p>
+</details>
+<p>事实上，乘法原理是加法原理的一个推论，根据对象 <span
+class="math inline">\(a\)</span> 的不同选择 <span
+class="math inline">\(a_1,a_2,...,a_p\)</span> 将 <span
+class="math inline">\(S\)</span> 划分为不相交的集合 <span
+class="math inline">\(S_1,S_2,...,S_p\)</span>，由于 <span
+class="math inline">\(b\)</span> 的选择不受 <span
+class="math inline">\(a\)</span> 的选择的影响，故每个 <span
+class="math inline">\(S_i\)</span> 的大小都是 <span
+class="math inline">\(q\)</span>，于是根据加法原理，我们可以得到 <span
+class="math inline">\(|S|=\)</span> <span
+class="math inline">\(|S_1|+|S_2|+...+|S_n|=\)</span> <span
+class="math inline">\(q+q+...+q=p\times q\)</span>。</p>
+<h2 id="三计算">三，计算</h2>
+<h3 id="排列数">1. 排列数</h3>
+<p>从 <span class="math inline">\(n\)</span> 个不同的元素中，任取 <span
+class="math inline">\(m\)</span> 个元素按照一定的顺序排成一列，叫做从
+<span class="math inline">\(n\)</span> 个不同元素中取出 <span
+class="math inline">\(m\)</span>
+个元素的一个排列，所有此类排列的总数叫做从 <span
+class="math inline">\(n\)</span> 个不同元素中取出 <span
+class="math inline">\(m\)</span> 个元素的排列数，用符号 <span
+class="math inline">\(A_n^m\)</span> 表示。</p>
+<p>排列数的计算公式如下：</p>
+<p><span class="math inline">\(A_n^m=\)</span> <span
+class="math inline">\(n(n-1)(n-2)...(n-m+1)=\)</span> <span
+class="math inline">\(\frac{n!}{(n-m)!}\)</span></p>
+<p>特别地，当 <span class="math inline">\(m\)</span> 等于 <span
+class="math inline">\(n\)</span>
+时，这类排列被称为全排列，全排列的排列数 <span
+class="math inline">\(A_n^n=n!\)</span>。</p>
+<h3 id="组合数">2. 组合数</h3>
+<p>从 <span class="math inline">\(n\)</span> 个不同的元素中，任取 <span
+class="math inline">\(m\)</span> 个元素组成一个集合，叫做从 <span
+class="math inline">\(n\)</span> 个不同元素中取出 <span
+class="math inline">\(m\)</span>
+个元素的一个组合，所有此类组合的总数叫做从 <span
+class="math inline">\(n\)</span> 个不同元素中取出 <span
+class="math inline">\(m\)</span> 个元素的组合数，用 <span
+class="math inline">\(\binom{n}{m}\)</span> 表示，读作“<span
+class="math inline">\(n\)</span> 选 <span
+class="math inline">\(m\)</span>”。</p>
+<p>组合数的计算公式如下：</p>
+<p><span class="math inline">\(\binom{n}{m}=\)</span> <span
+class="math inline">\(\frac{A_n^m}{m!}=\)</span> <span
+class="math inline">\(\frac{n!}{m!(n-m)!}\)</span></p>
+<p>组合数也可以表示为 <span class="math inline">\(C_n^m\)</span>，但
+<span class="math inline">\(\binom{n}{m}\)</span> 被较为普遍地采用。</p>
+<h2 id="四性质">四，性质</h2>
+<h3 id="简单组合数性质">简单组合数性质</h3>
+<ol type="1">
+<li><p><span
+class="math inline">\(\binom{n}{m}=\binom{n-1}{m}+\binom{n-1}{m-1}\)</span></p></li>
+<li><p><span
+class="math inline">\(\binom{n}{m}=\binom{n}{n-m}\)</span></p></li>
+<li><p><span
+class="math inline">\(\binom{n+r+1}{r}=\sum_{i=0}^r\binom{n+i}{i}\)</span></p></li>
+<li><p><span
+class="math inline">\(\binom{n}{m}\binom{m}{r}=\binom{n}{r}\binom{n-r}{m-r}\)</span></p></li>
+<li><p><span
+class="math inline">\(m\binom{n}{m}=n\binom{n-1}{m-1}\)</span></p></li>
+<li><p><span
+class="math inline">\(\binom{n+m}{r}=\sum_{i=0}^r\binom{n}{i}\binom{m}{r-i}\)</span></p></li>
+<li><p><span class="math inline">\(\sum_{i=0}^n
+i\binom{n}{i}=n2^{n-1}\)</span></p></li>
+</ol>
+<h2 id="五技巧">五，技巧</h2>
+<h3 id="插板法">插板法</h3>
+<p>插板法是用于求一类给相同元素分组方案数的技巧，也可用于求一类先行不定方程的解的组数。以下是插板法的几个经典应用场景</p>
+<h4 id="正整数和的数目">正整数和的数目</h4>
+<p>现有 <span class="math inline">\(n\)</span>
+个完全相同的元素，要求将其分为 <span class="math inline">\(k\)</span>
+组，保证每组至少有一个元素，一共有多少种分法。</p>
+<p>考虑拿 <span class="math inline">\(k-1\)</span> 块板子插入到 <span
+class="math inline">\(n\)</span> 个元素两两形成的 <span
+class="math inline">\(n-1\)</span> 个空隙里，可以将 <span
+class="math inline">\(n\)</span> 个元素分为 <span
+class="math inline">\(k\)</span> 组。</p>
+<p>因为元素是完全相同的，所以答案是 <span
+class="math inline">\(\binom{n-1}{k-1}\)</span>。</p>
+<p>本质是求 <span class="math inline">\(x_1+x_2+...+x_k=n\)</span>
+的方案数。</p>
+<h4 id="非负整数和的数目">非负整数和的数目</h4>
+<p>此时若直接插板，可能会出现多块板子插到一个空里的情况，这时我们可以创造
+<span class="math inline">\(k\)</span>
+个虚拟元素依次填入每一组，转化为上问的问题，于是答案为 <span
+class="math inline">\(\binom{n+k-1}{k-1}\)</span>，也就是 <span
+class="math inline">\(\binom{n+k-1}{n}\)</span>。</p>
+<h4 id="不同下界整数和的数目">不同下界整数和的数目</h4>
+<p>本质是求 <span class="math inline">\(x_1+x_2+...+x_k=n\)</span>
+的方案数，并要求 <span class="math inline">\(x_i\geq a_i\)</span>。</p>
+<p>类比无限制情况，创造 <span class="math inline">\(\sum a_i\)</span>
+个虚拟元素保证第 <span class="math inline">\(i\)</span> 组分到 <span
+class="math inline">\(a_i\)</span> 个，之后插板即可。</p>
+<p>答案为 <span class="math inline">\(\binom{n-\sum a_i+k-1}{n-\sum
+a_i}\)</span></p>
+<h2 id="六斯特林数">六，斯特林数</h2>
+<h3 id="第一类斯特林数">1. 第一类斯特林数</h3>
+<p>又称斯特林轮换数，表示将 <span class="math inline">\(n\)</span>
+个元素划分为 <span class="math inline">\(k\)</span>
+个圆排列的方案数。</p>
+<p>排成 <span class="math inline">\(k\)</span> 个圆排列可以理解成求
+<span class="math inline">\(1~n\)</span> 排列的个数中满足 <span
+class="math inline">\(i\)</span> 向 <span
+class="math inline">\(p_i\)</span> 连一条边后，形成 <span
+class="math inline">\(k\)</span> 个环的图的个数。</p>
+<p>对这样的图计数可以推出 <span class="math inline">\(n\brack m\)</span>
+的递推式，考虑加入点 <span
+class="math inline">\(n\)</span>，第一种情况是 <span
+class="math inline">\(n\)</span> 形成了一个新的环，方案数 <span
+class="math inline">\(n-1\brack
+m-1\)</span>；另一种情况是插入已有的环中，由于每个点有唯一后继，所以可以插入任一点及其后缀之间，方案数为
+<span class="math inline">\((n-1){n-1\brack m}\)</span>。</p>
+<p>综上，我们可以得到 <span class="math inline">\({n\brack m}={n-1\brack
+m-1}+(n-1){n-1\brack m}\)</span>。</p>
+<h3 id="第二类斯特林数">2. 第二类斯特林数</h3>
+<p>又称斯特林子集数，表示将 <span class="math inline">\(n\)</span>
+个元素划分为 <span class="math inline">\(k\)</span> 个集合的方案数。</p>
+<p>依旧考虑递推 <span class="math inline">\(n\brace
+m\)</span>，考虑加入最后一个元素的方案数。第一种情况是单独加入一个新集合，对应方案数为
+<span class="math inline">\(n-1\brace
+m-1\)</span>；否则选择一个新的集合加入，对应方案数为 <span
+class="math inline">\(m{n-1\brace m}\)</span>。</p>
+<p>综上，我们可以得到 <span class="math inline">\({n\brace m}={n-1\brace
+m-1}+m{n-1\brace m}\)</span>。</p>
+<p>在实际应用中，第二类斯特林数更为常见。</p>
+<h2 id="七卡特兰数">七，卡特兰数</h2>
+<h3 id="引入">引入</h3>
+<p>考虑如下问题：</p>
+<ol type="1">
+<li><p><span class="math inline">\(n\)</span> 个数 <span
+class="math inline">\(1,2,...,n\)</span>
+依次进栈，问有多少种不同的出栈序列。</p></li>
+<li><p>求长为 <span class="math inline">\(2n\)</span>
+的合法括号序列的数量。</p></li>
+<li><p>求 <span class="math inline">\(2n+1\)</span>
+个点，每个非叶子节点都恰有两个儿子的有根无号区分左右儿子二叉树的数量。</p></li>
+<li><p>给定 <span class="math inline">\((n+1)\times (n+1)\)</span>
+的网格图，问有多少种从 <span class="math inline">\((1,1)\)</span> 出发到
+<span class="math inline">\((n+1,n+1)\)</span>
+的不越过对角线的路径数量。</p></li>
+</ol>
+<p>这四个问题其实是等价的。</p>
+<p>对于 2，左括号看作入栈，右括号看作出栈，转化为问题 1；对于
+3，考虑树的 dfs 序，左儿子看作左括号，右儿子看作右括号，则 dfs 序与长为
+<span class="math inline">\(2n\)</span> 的合法括号序列对应；对于
+4，向右走看作入栈，向上走看作出栈，等价于 1。</p>
+<p>这些问题的答案被称为卡特兰数，记作 <span
+class="math inline">\(C_n\)</span>。</p>
+<h3 id="推导">推导</h3>
+<p>我们可以由第四个问题推出卡特兰数的表达式。首先，如果没有不能越过对角线这一性质，方案数显然是
+<span
+class="math inline">\(\binom{2n}{n}\)</span>，在越过对角线的方案中路径一定解除了次对角线
+<span
+class="math inline">\(y=x+1\)</span>，将路径第一次与次对角线接触位置之后的部分关于这条次对角线对称，路径终点变成了
+<span
+class="math inline">\((n-1,n+2)\)</span>，发现这样操作后不合法方案与
+<span class="math inline">\((1,1)\)</span> 到 <span
+class="math inline">\((n-1,n+2)\)</span> 的路径一一对应，所以最终 <span
+class="math inline">\(C_n=\)</span> <span
+class="math inline">\(\binom{2n}{n}-\binom{2n}{n-1}=\)</span> <span
+class="math inline">\(\frac{\binom{2n}{n}}{n+1}\)</span>。</p>
+<h3 id="递推式">递推式</h3>
+<p><span class="math inline">\(C_n\)</span> 满足递推式 <span
+class="math inline">\(C_n=\sum_{i\geq 0}C_iC_{n-1-i}\)</span>。</p>
+<details class="note" open>
+<summary>
+证明
+</summary>
+<p>
+<p>考虑括号序列，左括号视为 +1，右括号视为
+-1，合法括号序列等价于前缀和恒费负且序列和为 0 的序列。</p>
+<p>枚举第一个前缀和为 <span class="math inline">\(0\)</span>
+的位置，并以此将括号序列分为两部分，前一部分是长为 <span
+class="math inline">\(2(i-1)\)</span> 的合法括号序列，后一部分是长为
+<span class="math inline">\(2*(n-i)\)</span>
+的合法括号序列，于是可以得到 <span class="math inline">\(C_n\)</span>
+满足递推式 <span class="math inline">\(C_n=\sum_{i\geq
+0}C_iC_{n-1-i}\)</span>。</p>
+</p>
+</details>
+<h2 id="八容斥">八，容斥</h2>
+<h3 id="容斥原理">1. 容斥原理</h3>
+<p>若 <span class="math inline">\(A_1,A_2,...,A_n\)</span> 为有限集，则
+<span class="math inline">\(|\bigcup_{i=1}^n A_i|=\)</span> <span
+class="math inline">\(\sum_{1\leq i\leq n}A_i-\)</span> <span
+class="math inline">\(\sum_{1\leq i\leq j\leq n}|A_i\cap
+A_j|+...+\)</span> <span class="math inline">\((-1)^{n-1}|A_1\cap
+...\cap A_n|\)</span>。</p>
+<h3 id="子集容斥">2. 子集容斥</h3>
+<p><span class="math inline">\(g(S)=\sum_{T\subset
+S}f(T)\)</span>，<span class="math inline">\(f(S)=\sum_{T\subset
+S}(-1)^{|S|-|T|}g(T)\)</span>。</p>
+<p>证明：</p>
+<p><span class="math inline">\(\sum_{T\subset
+S}(-1)^{|S|-|T|}g(T)\)</span></p>
+<p><span class="math inline">\(=\sum_{T\subset
+S}(-1)^{|S|-|T|}\sum_{R\subset T}f(R)\)</span></p>
+<p><span class="math inline">\(=\sum_{R\subset S}f(R)\sum_{R\subset
+T\subset S}(-1)^{|S|-|T|}\)</span></p>
+<p>当 <span class="math inline">\(R=S\)</span> 时，<span
+class="math inline">\(\sum_{R\subset T\subset
+S}(-1)^{|S|-|T|}=1\)</span> 否则 <span class="math inline">\(\forall
+a\in S-R\)</span>，<span class="math inline">\(f:T\leftrightarrow
+T\oplus {a}\)</span> 为双射，故 <span
+class="math inline">\(\sum_{R\subset T\subset
+S}(-1)^{|S|-|T|}=0\)</span></p>
+<p>于是 <span class="math inline">\(f(S)=\sum_{T\subset
+S}(-1)^{|S|-|T|}g(T)\)</span>。</p>
+<h2 id="九二项式">九，二项式</h2>
+<h3 id="二项式定理">1. 二项式定理</h3>
+<p><span class="math inline">\(n\in
+ℕ,(x+y)^n=\sum_{k=0}^n\binom{n}{k}x^ky^{n-k}\)</span></p>
+<p>此外还有广义二项式定义：<span
+class="math inline">\(|x|&lt;1,\alpha\in ℝ\)</span>，则 <span
+class="math inline">\((x+1)^{\alpha}=\sum_{k=0}^{\infty}\binom{\alpha}{k}x^k\)</span>，此处的
+<span
+class="math inline">\(\binom{\alpha}{k}:=\frac{a^{\underline{k}}}{k!}\)</span>。<span
+class="math inline">\(|x|\geq 1\)</span> 时，右侧幂级数不一定收敛。</p>
+<h3 id="二项式反演">2. 二项式反演</h3>
+<p><span class="math inline">\(g_i=\)</span> <span
+class="math inline">\(\sum_{k\geq i}\binom{k}{i}f_k\)</span>，<span
+class="math inline">\(f_i=\)</span> <span
+class="math inline">\(\sum{k\geq
+i}\binom{k}{i}(-1)^{k-i}g_k\)</span></p>
+<p>证明：</p>
+<p><span class="math inline">\(\sum_{k\geq
+i}\binom{k}{i}(-1)^{k-i}g_k\)</span></p>
+<p><span class="math inline">\(=\sum_{k\geq
+i}\binom{k}{i}(-1)^{k-i}\sum_{j\geq k}\binom{j}{k}f_j\)</span></p>
+<p><span class="math inline">\(=\sum_{j\geq i}f_j\sum_{i\leq k\leq
+j}\binom{k}{i}\binom{j}{k}(-1)^{k-i}\)</span></p>
+<p><span class="math inline">\(=\sum_{j\geq
+i}f_j\frac{j!}{i!}\sum_{i\leq k\leq
+j}\frac{1}{(j-k)!(k-i)!}(-1)^{k-i}\)</span></p>
+<p><span class="math inline">\(=\sum_{k\geq i}\sum_{j\geq
+k}f_j\frac{j!(-1)^{k-i}}{i!(j-k)!(k-i)!}\)</span></p>
+<p><span class="math inline">\(=\sum_{k\geq i}\sum_{j\geq
+k}f_j\binom{j}{k}\binom{k}{i}(-1)^{k-i}\)</span><br />
+</p>
+<p><span class="math inline">\(=\sum_{k\geq i}\sum_{j\geq
+k}f_j\binom{j}{i}\binom{j-i}{k-i}1^{j-k}(-1)^{k-i}\)</span></p>
+<p><span class="math inline">\(=\sum_{j\geq
+i}f_j\binom{j}{i}(1-1)^{j-i}\)</span></p>
+<p><span class="math inline">\(=\sum_{j\geq
+i}f_j\binom{j}{i}0^{j-i}\)</span></p>
+<p>仅当 <span class="math inline">\(j=i\)</span> 时，<span
+class="math inline">\(f_j\binom{j}{i}0^{j-i}\)</span> 有值，值为 <span
+class="math inline">\(f_i\)</span>，故 <span
+class="math inline">\(f_i=\)</span> <span
+class="math inline">\(\sum{k\geq
+i}\binom{k}{i}(-1)^{k-i}g_k\)</span>。</p>
+<p>类似地：</p>
+<p><span class="math inline">\(g_i=\)</span> <span
+class="math inline">\(\sum_{k\leq i}\binom{i}{k}f_k\)</span>，<span
+class="math inline">\(f_i=\)</span> <span
+class="math inline">\(\sum{k\leq
+i}\binom{i}{k}(-1)^{i-k}g_k\)</span></p>
+<h3 id="二项式反演应用">3. 二项式反演应用</h3>
+<p>共有 <span class="math inline">\(n\)</span> 个位置，需要令恰好 <span
+class="math inline">\(k\)</span> 个位置满足某个限制，我们可以钦定 <span
+class="math inline">\(k\)</span>
+个位置满足该性质，未钦定部分算出所有可能方案，利用二项式反演算出恰好
+<span class="math inline">\(k\)</span> 个的方案数。</p>
+<details class="note" open>
+<summary>
+例子：求长为 n 的错排个数
+</summary>
+<p>
+<p>钦定 <span class="math inline">\(k\)</span> 个位置不是错排，<span
+class="math inline">\(f_k\)</span> 表示恰好 <span
+class="math inline">\(k\)</span> 个位置不是错排的数量，<span
+class="math inline">\(g_k\)</span> 表示 <span
+class="math inline">\(k\)</span>
+个位置是错排，其余部分任意的排列数量，于是我们要求的是 <span
+class="math inline">\(f_0\)</span>，根据二项式反演，<span
+class="math inline">\(f_0=\)</span> <span
+class="math inline">\(\sum_{k\geq 0}\binom{k}{0}(-1)^{k-0}g_k=\)</span>
+<span class="math inline">\(\sum_{k\geq 0}(-1)^kg_k\)</span>。</p>
+<p>易得 <span
+class="math inline">\(g_k=\binom{n}{k}(n-k)!\)</span>，即从 <span
+class="math inline">\(n\)</span> 个位置中选 <span
+class="math inline">\(k\)</span>
+个使强制满足条件，余下部分求全排列数量。</p>
+<p>故 <span class="math inline">\(f_0=\)</span> <span
+class="math inline">\(\sum_{k\geq
+0}(-1)^k\binom{n}{k}(n-k)!\)</span>。</p>
+</p>
+</details>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left  disabled "
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2023/06/26/%E6%9D%8E%E8%B6%85%E7%BA%BF%E6%AE%B5%E6%A0%91/"
+      title="李超线段树"
+     >
+
+    <p class="title-text">
+      
+        李超线段树
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <div id="comment-card" class="comment-card">
+    <div class="main-title-bar">
+      <div class="main-title-dot"></div>
+      <div class="main-title">Comments </div>
+    </div>
+    <div id="vcomments"></div>
+  </div>
+  <script>
+      new Valine({"enable":true,"appId":"JoCtOtxj1X3f15WY8f6y2tRL-gzGzoHsz","appKey":"2Wxl1jDvPe63XmiaVL7sIDGS","placeholder":"发条评论吧","pageSize":10,"highlight":true,"serverURLs":null,"el":"#vcomments"});
+  </script>
+ 
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2023 intconstlee<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <span class="material-symbols-rounded">keyboard_arrow_up</span>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>

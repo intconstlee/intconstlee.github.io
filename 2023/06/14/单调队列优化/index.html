@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="true" > 
+<link href="/fontawesome/css/fontawesome.css" rel="stylesheet">
+<link href="/fontawesome/css/brands.css" rel="stylesheet">
+<link href="/fontawesome/css/solid.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>单调队列优化 DP | intconstlee</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/MaterialSymbolsRounded.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+  <meta name="description" content="单调队列优化 DP 前置知识：单调队列 一，概览 某些特定 DP，其当前状态的所有值都可以通过上一状态的某个连续段得到，要对这个连续段求区间最值，相邻状态的区间上下界单调变化。 对于这类动态规划问题，发现我们可以在状态转移当中引入单调队列，对 DP 进行优化。 二，思路   例题：最大子序和   给定一个长度为 \(N\) 的整数序列，从中找出一段长度不超过 \(M\)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单调队列优化 DP">
+<meta property="og:url" content="https://intconstlee.github.io/2023/06/14/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="intconstlee">
+<meta property="og:description" content="单调队列优化 DP 前置知识：单调队列 一，概览 某些特定 DP，其当前状态的所有值都可以通过上一状态的某个连续段得到，要对这个连续段求区间最值，相邻状态的区间上下界单调变化。 对于这类动态规划问题，发现我们可以在状态转移当中引入单调队列，对 DP 进行优化。 二，思路   例题：最大子序和   给定一个长度为 \(N\) 的整数序列，从中找出一段长度不超过 \(M\)">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-06-14T05:37:16.000Z">
+<meta property="article:modified_time" content="2023-07-24T00:35:10.098Z">
+<meta property="article:author" content="intconstlee">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="DP优化">
+<meta property="article:tag" content="单调队列优化">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="intconstlee" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  
+  
+    
+<div id="banner" class="">
+  <img src="/images/banner.jpg" itemprop="image">
+  <div id="banner-dim"></div>
+</div>
+ 
+   
+  <div id="main-grid" class="shadow   ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>intconstlee </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="material-symbols-rounded light-mode-icon">wb_sunny</span>
+      <span class="material-symbols-rounded dark-mode-icon">dark_mode</span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS Feed">
+        <span class="material-symbols-rounded rss">rss_feed</span>
+      </a>
+    
+    <a id="nav-search-btn" class="nav-icon" title="Search" style="display: none;">
+      <span class="material-symbols-rounded">search</span>
+    </a>
+    <div id="nav-menu-btn" class="nav-icon">
+      <span class="material-symbols-rounded">menu</span>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS Feed">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+        <image src=/812448.jpg></image>
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">intconstlee </div>
+      <div class="dot"></div>
+      <div class="subtitle">an OieR from S2 </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://twitter.com" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://store.steampowered.com" title="Steam"><i class="fa-brands fa-steam"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/intconstlee" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Tags</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/AC%E8%87%AA%E5%8A%A8%E6%9C%BA/" rel="tag">AC自动机</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/DP%E4%BC%98%E5%8C%96/" rel="tag">DP优化</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/" rel="tag">单调队列</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" rel="tag">单调队列优化</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8F%AF%E5%B9%B6%E5%A0%86/" rel="tag">可并堆</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%9B%BE%E8%AE%BA/" rel="tag">图论</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%B7%A6%E5%81%8F%E6%A0%91/" rel="tag">左偏树</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" rel="tag">排列组合</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96/" rel="tag">斜率优化</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E5%89%B2/" rel="tag">最小割</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9D%8E%E8%B6%85%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">李超线段树</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" rel="tag">组合数学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/" rel="tag">网络流</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E6%9C%BA/" rel="tag">自动机</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%B4%B9%E7%94%A8%E6%B5%81/" rel="tag">费用流</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Archives</h3>
+      
+      
+        <a class="archive-link" href="/archives/2023/07 ">
+          七月 2023 
+          <div class="archive-count">1 </div>
+        </a>
+      
+        <a class="archive-link" href="/archives/2023/06 ">
+          六月 2023 
+          <div class="archive-count">11 </div>
+        </a>
+      
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Recent Posts</h3>
+      <ul>
+        
+          <a class="recent-link" href="/2023/07/19/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" title="排列组合" >
+            <div class="recent-link-text">
+              排列组合
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2023/06/26/%E6%9D%8E%E8%B6%85%E7%BA%BF%E6%AE%B5%E6%A0%91/" title="李超线段树" >
+            <div class="recent-link-text">
+              李超线段树
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2023/06/23/%E8%B4%B9%E7%94%A8%E6%B5%81/" title="费用流" >
+            <div class="recent-link-text">
+              费用流
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2023/06/20/%E6%9C%80%E5%B0%8F%E5%89%B2/" title="最小割" >
+            <div class="recent-link-text">
+              最小割
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2023/06/19/%E6%9C%80%E5%A4%A7%E6%B5%81%E9%87%8D%E5%88%B6%E7%89%88/" title="最大流重制版" >
+            <div class="recent-link-text">
+              最大流重制版
+            </div>
+          </a>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+<article id="post-单调队列优化" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        单调队列优化 DP
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2023-06-14T05:37:16.000Z" itemprop="datePublished">2023-06-14</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+             words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP%E4%BC%98%E5%8C%96/" rel="tag">DP优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" rel="tag">单调队列优化</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h1 id="单调队列优化-dp">单调队列优化 DP</h1>
+<p>前置知识：<a
+href="https://intconstlee.github.io/posts/monotonic-queue/">单调队列</a></p>
+<h2 id="一概览">一，概览</h2>
+<p>某些特定
+DP，其当前状态的所有值都可以通过上一状态的某个连续段得到，要对这个连续段求区间最值，相邻状态的区间上下界单调变化。</p>
+<p>对于这类动态规划问题，发现我们可以在状态转移当中引入单调队列，对 DP
+进行优化。</p>
+<h2 id="二思路">二，思路</h2>
+<details class="note" open>
+<summary>
+例题：最大子序和
+</summary>
+<p>
+<p>给定一个长度为 <span class="math inline">\(N\)</span>
+的整数序列，从中找出一段长度不超过 <span
+class="math inline">\(M\)</span>
+的连续子序列，使得子序列中所有数的和最大。<span
+class="math inline">\(N,M\leq 3\times 10^5\)</span>。</p>
+<p>对于这道题，其答案可以形式化表示为：</p>
+<p><span class="math inline">\(ans=\)</span> <span
+class="math inline">\(max_{1\leq i\leq N}\)</span> <span
+class="math inline">\((sum[i]-\)</span> <span
+class="math inline">\(min_{i-M\leq j\leq i-1}\)</span> <span
+class="math inline">\(sum[j])\)</span></p>
+<p>其中，<span class="math inline">\(i\)</span>
+类似于动态规划中的状态，<span class="math inline">\(j\)</span>
+类似于动态规划中的决策。我们从小到大枚举每个 <span
+class="math inline">\(i\in[1,N]\)</span> 时，当 <span
+class="math inline">\(i\)</span> 增大 <span
+class="math inline">\(1\)</span> 时，<span
+class="math inline">\(j\)</span> 的取值范围 <span
+class="math inline">\([i-M,i-1]\)</span> 的上下界也同时增大 <span
+class="math inline">\(1\)</span>，变为 <span
+class="math inline">\([i-M+1,i]\)</span>。这意味着有一个新的决策 <span
+class="math inline">\(j=i\)</span> 进入候选集和，同时 <span
+class="math inline">\(j=i-M\)</span>
+这一决策过时，需要从集合中删除。</p>
+</p>
+</details>
+<p>经过分析发现此题取值范围上下界单调变化，每个决策在候选集和中最多被插入或删除一次，所求的是最值，可以使用单调队列优化。</p>
+<p>首先求出每个元素的前缀和，建立前缀和数组。由于要求的是区间前缀和最小值，建立一个单调递增队列，以使队头为最小值，并保证了队头弹出后新队头为新的最小值。对于前缀和数组中的的每个数按一定规则依次插入，假设待插入元素下标为
+<span class="math inline">\(i\)</span>，值为 <span
+class="math inline">\(s[i]\)</span>，则插入规则可表示如下：</p>
+<ol type="1">
+<li>若队头元素的下标 <span class="math inline">\(j\)</span> 满足 <span
+class="math inline">\(j&lt;i-M\)</span>，弹出队头；</li>
+<li>查询最优决策时队头即为所求；</li>
+<li>当队尾元素的值 <span class="math inline">\(s[j]\)</span> 足 <span
+class="math inline">\(s[j]&gt;s[i]\)</span>
+时，弹出队尾直到队列为空或满足单调性；</li>
+<li>插入新元素的下标。</li>
+</ol>
+<p>对于第二条规则，由于 <span class="math inline">\(j\)</span>
+的取值最多到 <span class="math inline">\(i-1\)</span>，故让 <span
+class="math inline">\(i\)</span>
+先入队再查询是不正确的，而应该先查询。</p>
+<p>对于第三条规则，<span class="math inline">\(s[j]&gt;s[i]\)</span>
+时，维护队列单调性。分析发现对于 <span class="math inline">\(i\)</span>
+之后的状态，取区间最小值时在 <span class="math inline">\(i\)</span> 和
+<span class="math inline">\(j\)</span> 中选择 <span
+class="math inline">\(i\)</span> 更优，<span
+class="math inline">\(j\)</span> 不会再有贡献，所以将队尾 <span
+class="math inline">\(j\)</span> 弹出直到队列单调是正确的。</p>
+<p>对于第四条规则，在单调队列中仅需要插入下标即可，根据下标访问前缀和数组可得取值。</p>
+<details class="note" close>
+<summary>
+code
+</summary>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,m,ans,a[<span class="number">300005</span>];</span><br><span class="line">deque&lt;<span class="type">int</span>&gt; q;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) cin&gt;&gt;a[i],a[i]+=a[i<span class="number">-1</span>];</span><br><span class="line">    q.<span class="built_in">push_back</span>(<span class="number">0</span>),ans=<span class="number">-0x3f3f3f3f</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(q.<span class="built_in">size</span>()&amp;&amp;q.<span class="built_in">front</span>()&lt;i-m) q.<span class="built_in">pop_front</span>();</span><br><span class="line">        ans=<span class="built_in">max</span>(ans,a[i]-a[q.<span class="built_in">front</span>()]);</span><br><span class="line">        <span class="keyword">while</span>(q.<span class="built_in">size</span>()&amp;&amp;a[q.<span class="built_in">back</span>()]&gt;=a[i]) q.<span class="built_in">pop_back</span>();</span><br><span class="line">        q.<span class="built_in">push_back</span>(i);</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h2 id="三单调队列优化多重背包">三，单调队列优化多重背包</h2>
+<p>给出问题模型：</p>
+<p>给定 <span class="math inline">\(N\)</span> 种物品，其中第 <span
+class="math inline">\(i\)</span> 种物品体积为 <span
+class="math inline">\(V_i\)</span>，价值为 <span
+class="math inline">\(W_i\)</span>，数量为 <span
+class="math inline">\(C_i\)</span>。有一个容积为 <span
+class="math inline">\(M\)</span>
+的背包，要求选择若干物品放入背包，使得物品总体积不超过 <span
+class="math inline">\(M\)</span> 的前提下价值之和最大</p>
+<h3 id="回顾多重背包的解法">1. 回顾：多重背包的解法</h3>
+<h4 id="朴素解法">① 朴素解法</h4>
+<p>把第 <span class="math inline">\(i\)</span> 种物品看作独立的 <span
+class="math inline">\(C_i\)</span> 件物品，转化为 <span
+class="math inline">\(\sum_{i=1}^N C_i\)</span> 个物品的 <span
+class="math inline">\(0/1\)</span> 背包。时间复杂度为 <span
+class="math inline">\(O(M\times \sum_{i=1}^N C_i)\)</span>。</p>
+<details class="note" close>
+<summary>
+code
+</summary>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> c[maxn+<span class="number">5</span>],v[maxn+<span class="number">5</span>],w[maxn+<span class="number">5</span>];</span><br><span class="line"><span class="type">int</span> f[maxm+<span class="number">5</span>];</span><br><span class="line"><span class="built_in">memset</span>(f,<span class="number">0xc0</span>,<span class="built_in">sizeof</span>(f))   <span class="comment">//-inf</span></span><br><span class="line">f[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=c[i];j++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> k=m;k&gt;=v[i];k--)</span><br><span class="line">            f[k]=<span class="built_in">max</span>(f[k],f[k-v[i]]+w[i]);</span><br><span class="line"><span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=m;i++) ans=<span class="built_in">max</span>(ans,f[i]);</span><br></pre></td></tr></table></figure>
+</details>
+<h4 id="二进制拆分法">② 二进制拆分法</h4>
+<p>在 <span class="math inline">\(2\)</span>
+的整数次幂中选取若干数相加，可以表示出任意整数，于是对于 <span
+class="math inline">\(C_i\)</span>，将其二进制拆分为 <span
+class="math inline">\(2^0+\)</span> <span
+class="math inline">\(2^1+\)</span> <span
+class="math inline">\(2^2+...+\)</span> <span
+class="math inline">\(2^p+R_i\)</span>，<span
+class="math inline">\(R_i&lt;2^{p+1}\)</span>，这样便将 <span
+class="math inline">\(C_i\)</span> 拆分为了 <span
+class="math inline">\(p+2\)</span>
+件物品，其体积与价值分别乘相应倍数后进行 <span
+class="math inline">\(0/1\)</span> 背包即可，时间复杂度为 <span
+class="math inline">\(O(M\times \sum_{i=1}^N \log C_i)\)</span>。</p>
+<details class="note" close>
+<summary>
+code
+</summary>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> c[maxn+<span class="number">5</span>],v[maxn+<span class="number">5</span>],w[maxn+<span class="number">5</span>];</span><br><span class="line"><span class="type">int</span> t,val[maxN+<span class="number">5</span>],wei[maxN+<span class="number">5</span>]</span><br><span class="line"><span class="type">int</span> f[maxm+<span class="number">5</span>];</span><br><span class="line"><span class="built_in">memset</span>(f,<span class="number">0xc0</span>,<span class="built_in">sizeof</span>(f))   <span class="comment">//-inf</span></span><br><span class="line">f[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=c[i];j&lt;&lt;=<span class="number">1</span>)</span><br><span class="line">        wei[++t]=v[i]*j,val[t]=w[i]*j,c[i]-=j;</span><br><span class="line">    <span class="keyword">if</span>(c[i]) wei[++t]=v[i]*c[i],val[t]=w[i]*c[i];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=cnt;i++)</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=m;j&gt;=wei[i];j--)</span><br><span class="line">        f[j]=<span class="built_in">max</span>(f[j],f[j-wei[i]]+val[i]);</span><br><span class="line"><span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=m;i++) ans=<span class="built_in">max</span>(ans,f[i]);</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="单调队列优化">2. 单调队列优化</h3>
+<p>若使用单调队列，时间复杂度可进一步降至 <span
+class="math inline">\(O(NM)\)</span>。</p>
+<p>当外层循环进行到 <span class="math inline">\(i\)</span> 时，<span
+class="math inline">\(F[j]\)</span> 表示从前 <span
+class="math inline">\(i\)</span> 种物品中选若干放入背包使体积之和为
+<span class="math inline">\(j\)</span> 时，价值之和最大是多少。倒序循环
+<span class="math inline">\(j\)</span>，在状态转移时，第 <span
+class="math inline">\(i\)</span> 种物品个数为 <span
+class="math inline">\(cnt\)</span>，列出状态转移方程：</p>
+<p><span class="math inline">\(F[j]=\)</span> <span
+class="math inline">\(max_{1\leq cnt\leq C_i}\)</span> <span
+class="math inline">\((F[j-cnt\times V_i]+\)</span> <span
+class="math inline">\(cnt\times\)</span> <span
+class="math inline">\(W_i)\)</span></p>
+<p>能够转移到 <span class="math inline">\(j\)</span> 的候选集合为 <span
+class="math inline">\(\{j-cnt\times V_i|1\leq cnt\leq
+C_i\}\)</span>。发现相邻状态 <span class="math inline">\(j\)</span> 和
+<span class="math inline">\(j-1\)</span> 对应的候选集和没有重叠，很难由
+<span class="math inline">\(j-1\)</span> 对应的集合得到 <span
+class="math inline">\(j\)</span> 对应的集合。但是对于 <span
+class="math inline">\(j\)</span> 和 <span
+class="math inline">\(j-V_i\)</span>，这两者对应的候选集和重合度较高，由
+<span class="math inline">\(j-V_i\)</span> 向 <span
+class="math inline">\(j\)</span>
+转移时，一个已有决策被排除，只有一个新决策加入候选集和，所以我们可以把状态
+<span class="math inline">\(j\)</span> 按除以 <span
+class="math inline">\(V_i\)</span>
+的余数分组，对每一组分别计算，不同组之间不会互相转移。</p>
+<p>新的 DP 过程如下：</p>
+<p>对于每个余数 <span class="math inline">\(u\in
+[0,V_i-1]\)</span>，倒序循环 <span class="math inline">\(p\in
+[1,\lfloor(M-u)/V_i\rfloor]\)</span>，则对应的状态 <span
+class="math inline">\(j\)</span> 可表示为 <span
+class="math inline">\(j=u+p\times V_i\)</span>。第 <span
+class="math inline">\(i\)</span> 种物品有 <span
+class="math inline">\(C-i\)</span> 个。故能转移到 <span
+class="math inline">\(j=u+p\times V_i\)</span> 的候选集和就是 <span
+class="math inline">\(\{u+k\times V_i|p-C_i\leq k\leq
+p-1\}\)</span>。写出新的状态转移方程：</p>
+<p><span class="math inline">\(F[u+p\times V_i]=\)</span> <span
+class="math inline">\(max_{p-C_i\leq k\leq p-1}\)</span> <span
+class="math inline">\((F[u+k\times V_i]+\)</span> <span
+class="math inline">\((p-k)\times\)</span> <span
+class="math inline">\(W_i)\)</span></p>
+<p>把外层条件 <span class="math inline">\(i\)</span> 和 <span
+class="math inline">\(u\)</span> 看作定值，内层循环 <span
+class="math inline">\(p\)</span> 减小 <span
+class="math inline">\(1\)</span> 时，决策 <span
+class="math inline">\(k\)</span> 的取值范围 <span
+class="math inline">\([p-C_i,p-1]\)</span>
+的上下界均单调减小。状态转移方程等号右侧的式子仍然可以分为两部分，仅包含变量
+<span class="math inline">\(p\)</span> 的 <span
+class="math inline">\(p\times W_i\)</span> 和仅包含变量 <span
+class="math inline">\(k\)</span> 的 <span
+class="math inline">\(F[u+k\times V_i]-k\times
+W_i\)</span>。于是可以建立一个 <span class="math inline">\(k\)</span>
+单调递减，<span class="math inline">\(F[u+k\times V_i]-k\times
+W_i\)</span> 也单调递减的队列维护候选集和，对于每个 <span
+class="math inline">\(p\)</span>，执行单调队列有以下三个操作：</p>
+<ol type="1">
+<li>检查队头合法性，把大于 <span class="math inline">\(p-1\)</span>
+的决策出队。</li>
+<li>取队头为最优策略</li>
+<li>检查队尾单调性，弹出无用决策。</li>
+<li>把决策 <span class="math inline">\(k=p-C_i-1\)</span> 入队。</li>
+</ol>
+<details class="note" close>
+<summary>
+code：双端队列版（不推荐）
+</summary>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">calc</span><span class="params">(<span class="type">int</span> i,<span class="type">int</span> u,<span class="type">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> f[u+k*V[i]]-k*W[i];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    <span class="built_in">memset</span>(f,<span class="number">0x80</span>,<span class="built_in">sizeof</span>(f));</span><br><span class="line">    f[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> u=<span class="number">0</span>;u&lt;V[i];u++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> maxn=(m-u)/V[i];</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> k=maxn<span class="number">-1</span>;k&gt;=<span class="built_in">max</span>(maxn-C[i],<span class="number">0</span>);k--)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span>(!q.<span class="built_in">empty</span>()&amp;&amp;<span class="built_in">calc</span>(i,u,q.<span class="built_in">back</span>())&lt;=<span class="built_in">calc</span>(i,u,k))</span><br><span class="line">                    q.<span class="built_in">pop_back</span>();</span><br><span class="line">                q.<span class="built_in">push_back</span>(k);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> p=maxn;p&gt;=<span class="number">0</span>;p--)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span>(!q.<span class="built_in">empty</span>()&amp;&amp;q.<span class="built_in">front</span>()&gt;p<span class="number">-1</span>) q.<span class="built_in">pop_front</span>();</span><br><span class="line">                <span class="keyword">if</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">                    f[u+p*V[i]]=<span class="built_in">max</span>(f[u+p*V[i]],<span class="built_in">calc</span>(i,u,q.<span class="built_in">front</span>())+p*W[i]);</span><br><span class="line">                <span class="keyword">if</span>(p-C[i]<span class="number">-1</span>&gt;=<span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>()&amp;&amp;<span class="built_in">calc</span>(i,u,q.<span class="built_in">back</span>())&lt;=<span class="built_in">calc</span>(i,u,p-C[i]<span class="number">-1</span>))</span><br><span class="line">                        q.<span class="built_in">pop_back</span>();</span><br><span class="line">                    q.<span class="built_in">push_back</span>(p-C[i]<span class="number">-1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<details class="note" close>
+<summary>
+code：数组版
+</summary>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,m,v,w,c,mx,ans,f[<span class="number">40005</span>];</span><br><span class="line"><span class="type">int</span> h,t,q[<span class="number">100005</span>];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">rd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> x=<span class="number">0</span>;<span class="type">char</span> ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&lt;<span class="string">&#x27;0&#x27;</span>||ch&gt;<span class="string">&#x27;9&#x27;</span>) ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&gt;=<span class="string">&#x27;0&#x27;</span>&amp;&amp;ch&lt;=<span class="string">&#x27;9&#x27;</span>) x=x*<span class="number">10</span>+ch-<span class="string">&#x27;0&#x27;</span>,ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">wt</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&gt;<span class="number">9</span>) <span class="built_in">wt</span>(x/<span class="number">10</span>);</span><br><span class="line">    <span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    n=<span class="built_in">rd</span>(),m=<span class="built_in">rd</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        v=<span class="built_in">rd</span>(),w=<span class="built_in">rd</span>(),c=<span class="built_in">rd</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> u=<span class="number">0</span>;u&lt;w;u++)</span><br><span class="line">        &#123;</span><br><span class="line">            h=<span class="number">1</span>,t=<span class="number">0</span>,mx=(m-u)/w;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> k=mx<span class="number">-1</span>;k&gt;=<span class="built_in">max</span>(mx-c,<span class="number">0</span>);k--)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span>(h&lt;=t&amp;&amp;f[u+q[t]*w]&lt;=f[u+k*w]+(q[t]-k)*v) t--;</span><br><span class="line">                q[++t]=k;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> p=mx;p&gt;=<span class="number">0</span>;p--)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span>(h&lt;=t&amp;&amp;q[h]&gt;p<span class="number">-1</span>) h++;</span><br><span class="line">                <span class="keyword">if</span>(h&lt;=t) f[u+p*w]=<span class="built_in">max</span>(f[u+p*w],f[u+q[h]*w]+(p-q[h])*v);</span><br><span class="line">                <span class="keyword">if</span>(p-c<span class="number">-1</span>&lt;<span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">while</span>(h&lt;=t&amp;&amp;f[u+q[t]*w]&lt;=f[u+(p-c<span class="number">-1</span>)*w]+(q[t]-(p-c<span class="number">-1</span>))*v) t--;</span><br><span class="line">                q[++t]=p-c<span class="number">-1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++) ans=<span class="built_in">max</span>(ans,f[i]);</span><br><span class="line">    <span class="built_in">wt</span>(ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h2 id="四总结">四，总结</h2>
+<p>对于可以使用单调队列优化的题目，可以总结出如下通式：</p>
+<p><span class="math inline">\(F[i]=\)</span> <span
+class="math inline">\(min_{L(i)\leq j\leq R(i)}\)</span> <span
+class="math inline">\((F[j]+\)</span> <span
+class="math inline">\(val(i,j))\)</span></p>
+<p>其中 <span class="math inline">\(val(i,j)\)</span>
+可分为两部分，一部分仅与 <span class="math inline">\(i\)</span>
+有关，另一部分仅与 <span class="math inline">\(j\)</span> 有关。</p>
+<p>对于每个 <span class="math inline">\(i\)</span>，无论采取哪个 <span
+class="math inline">\(j\)</span> 作为决策，与 <span
+class="math inline">\(i\)</span> 有关的部分都是相等的，而当 <span
+class="math inline">\(i\)</span> 变化时，与 <span
+class="math inline">\(j\)</span>
+有关的部分不会发生变化，从而原来较优的决策在 <span
+class="math inline">\(i\)</span> 改变后仍较优。</p>
+<p>于是我们就可以使用单调队列维护第二部分单调性。</p>
+<p>至于这一通式，在之后的学习中还会遇到。</p>
+<h2 id="五习题">五，习题</h2>
+<h3>
+<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1776">洛谷P1776 宝物筛选</a>
+</h3>
+<p>套用多重背包板子即可。推荐使用二进制拆分（好写）或数组队列（较快）。</p>
+<details class="note" close>
+<summary>
+code：双端队列
+</summary>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,m,ans,v[<span class="number">100005</span>],w[<span class="number">100005</span>],c[<span class="number">100005</span>],f[<span class="number">40005</span>];</span><br><span class="line">deque&lt;<span class="type">int</span>&gt; q;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">calc</span><span class="params">(<span class="type">int</span> i,<span class="type">int</span> u,<span class="type">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> f[u+k*w[i]]-k*v[i];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">rd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> x=<span class="number">0</span>;<span class="type">char</span> ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&lt;<span class="string">&#x27;0&#x27;</span>||ch&gt;<span class="string">&#x27;9&#x27;</span>) ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&gt;=<span class="string">&#x27;0&#x27;</span>&amp;&amp;ch&lt;=<span class="string">&#x27;9&#x27;</span>) x=x*<span class="number">10</span>+ch-<span class="string">&#x27;0&#x27;</span>,ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">wt</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&gt;<span class="number">9</span>) <span class="built_in">wt</span>(x/<span class="number">10</span>);</span><br><span class="line">    <span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    n=<span class="built_in">rd</span>(),m=<span class="built_in">rd</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        v[i]=<span class="built_in">rd</span>(),w[i]=<span class="built_in">rd</span>(),c[i]=<span class="built_in">rd</span>();</span><br><span class="line">        <span class="keyword">if</span>(w[i]==<span class="number">0</span>) &#123;ans+=w[i]*c[i];<span class="keyword">continue</span>;&#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> u=<span class="number">0</span>;u&lt;w[i];u++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> mx=(m-u)/w[i];</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> k=mx<span class="number">-1</span>;k&gt;=<span class="built_in">max</span>(mx-c[i],<span class="number">0</span>);k--)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span>(!q.<span class="built_in">empty</span>()&amp;&amp;<span class="built_in">calc</span>(i,u,q.<span class="built_in">back</span>())&lt;=<span class="built_in">calc</span>(i,u,k))</span><br><span class="line">                    q.<span class="built_in">pop_back</span>();</span><br><span class="line">                q.<span class="built_in">push_back</span>(k);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> p=mx;p&gt;=<span class="number">0</span>;p--)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span>(!q.<span class="built_in">empty</span>()&amp;&amp;q.<span class="built_in">front</span>()&gt;p<span class="number">-1</span>) q.<span class="built_in">pop_front</span>();</span><br><span class="line">                <span class="keyword">if</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">                    f[u+p*w[i]]=<span class="built_in">max</span>(f[u+p*w[i]],<span class="built_in">calc</span>(i,u,q.<span class="built_in">front</span>())+p*v[i]);</span><br><span class="line">                <span class="keyword">if</span>(p-c[i]<span class="number">-1</span>&gt;=<span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>()&amp;&amp;<span class="built_in">calc</span>(i,u,q.<span class="built_in">back</span>())&lt;=<span class="built_in">calc</span>(i,u,p-c[i]<span class="number">-1</span>))</span><br><span class="line">                        q.<span class="built_in">pop_back</span>();</span><br><span class="line">                    q.<span class="built_in">push_back</span>(p-c[i]<span class="number">-1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++) ans=<span class="built_in">max</span>(ans,f[i]);</span><br><span class="line">    <span class="built_in">wt</span>(ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<details class="note" close>
+<summary>
+code：数组队列
+</summary>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,m,v,w,c,mx,ans,f[<span class="number">40005</span>];</span><br><span class="line"><span class="type">int</span> h,t,q[<span class="number">100005</span>];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">rd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> x=<span class="number">0</span>;<span class="type">char</span> ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&lt;<span class="string">&#x27;0&#x27;</span>||ch&gt;<span class="string">&#x27;9&#x27;</span>) ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&gt;=<span class="string">&#x27;0&#x27;</span>&amp;&amp;ch&lt;=<span class="string">&#x27;9&#x27;</span>) x=x*<span class="number">10</span>+ch-<span class="string">&#x27;0&#x27;</span>,ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">wt</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&gt;<span class="number">9</span>) <span class="built_in">wt</span>(x/<span class="number">10</span>);</span><br><span class="line">    <span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    n=<span class="built_in">rd</span>(),m=<span class="built_in">rd</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        v=<span class="built_in">rd</span>(),w=<span class="built_in">rd</span>(),c=<span class="built_in">rd</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> u=<span class="number">0</span>;u&lt;w;u++)</span><br><span class="line">        &#123;</span><br><span class="line">            h=<span class="number">1</span>,t=<span class="number">0</span>,mx=(m-u)/w;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> k=mx<span class="number">-1</span>;k&gt;=<span class="built_in">max</span>(mx-c,<span class="number">0</span>);k--)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span>(h&lt;=t&amp;&amp;f[u+q[t]*w]&lt;=f[u+k*w]+(q[t]-k)*v) t--;</span><br><span class="line">                q[++t]=k;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> p=mx;p&gt;=<span class="number">0</span>;p--)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span>(h&lt;=t&amp;&amp;q[h]&gt;p<span class="number">-1</span>) h++;</span><br><span class="line">                <span class="keyword">if</span>(h&lt;=t) f[u+p*w]=<span class="built_in">max</span>(f[u+p*w],f[u+q[h]*w]+(p-q[h])*v);</span><br><span class="line">                <span class="keyword">if</span>(p-c<span class="number">-1</span>&lt;<span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">while</span>(h&lt;=t&amp;&amp;f[u+q[t]*w]&lt;=f[u+(p-c<span class="number">-1</span>)*w]+(q[t]-(p-c<span class="number">-1</span>))*v) t--;</span><br><span class="line">                q[++t]=p-c<span class="number">-1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++) ans=<span class="built_in">max</span>(ans,f[i]);</span><br><span class="line">    <span class="built_in">wt</span>(ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<details class="note" close>
+<summary>
+code：二进制拆分
+</summary>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> N,W,val,wei,num;</span><br><span class="line"><span class="type">int</span> v[<span class="number">2000000</span>],w[<span class="number">2000000</span>],f[<span class="number">2000000</span>];</span><br><span class="line"><span class="type">int</span> cnt;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">rd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> x=<span class="number">0</span>;<span class="type">char</span> ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&lt;<span class="string">&#x27;0&#x27;</span>||ch&gt;<span class="string">&#x27;9&#x27;</span>) ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&gt;=<span class="string">&#x27;0&#x27;</span>&amp;&amp;ch&lt;=<span class="string">&#x27;9&#x27;</span>) x=x*<span class="number">10</span>+ch-<span class="string">&#x27;0&#x27;</span>,ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    N=<span class="built_in">rd</span>(),W=<span class="built_in">rd</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        val=<span class="built_in">rd</span>(),wei=<span class="built_in">rd</span>(),num=<span class="built_in">rd</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=num;j&lt;&lt;=<span class="number">1</span>)</span><br><span class="line">            v[++cnt]=val*j,w[cnt]=wei*j,num-=j;</span><br><span class="line">        <span class="keyword">if</span>(num)</span><br><span class="line">            v[++cnt]=val*num,w[cnt]=wei*num;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=cnt;i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=W;j&gt;=w[i];j--)</span><br><span class="line">            f[j]=<span class="built_in">max</span>(f[j],f[j-w[i]]+v[i]);</span><br><span class="line">    cout&lt;&lt;f[W];</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3>
+<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2254">洛谷P2254
+瑰丽华尔兹</a>
+</h3>
+<p><span class="math inline">\(O(NMK)\)</span> 做法：设 <span
+class="math inline">\(f[i][j][k]\)</span> 代表第 <span
+class="math inline">\(i\)</span> 个时间段结束时到达 <span
+class="math inline">\((j,k)\)</span>
+的最长滑行距离，初始为负无穷，起点为 <span
+class="math inline">\(0\)</span>。对于每一次询问，给出 <span
+class="math inline">\(s,t\)</span>
+之后可以得到最大滑行长度，之后按方向遍历每一行（列），运用单调队列滑动窗口优化，可以在
+<span class="math inline">\(O(NM)\)</span> 时间复杂度得到一次移动后的 DP
+数组，总共 <span class="math inline">\(K\)</span> 次询问，总复杂度 <span
+class="math inline">\(O(NMK)\)</span>。</p>
+<details class="note" close>
+<summary>
+code
+</summary>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> <span class="type">const</span> D[<span class="number">2</span>][<span class="number">6</span>]=&#123;&#123;<span class="number">0</span>,<span class="number">-1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>&#125;,&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">-1</span>,<span class="number">1</span>&#125;&#125;;</span><br><span class="line"><span class="type">char</span> mp[<span class="number">205</span>][<span class="number">205</span>];</span><br><span class="line"><span class="type">int</span> n,m,x,y,k,s,t,d,mx,ans,f[<span class="number">205</span>][<span class="number">205</span>];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">que</span> &#123;<span class="type">int</span> dp,len;&#125; q[<span class="number">205</span>];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y,<span class="type">int</span> mx,<span class="type">int</span> d)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> h=<span class="number">1</span>,t=<span class="number">0</span>,l=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(;x&gt;=<span class="number">0</span>&amp;&amp;x&lt;n&amp;&amp;y&gt;=<span class="number">0</span>&amp;&amp;y&lt;m;x+=D[<span class="number">0</span>][d],y+=D[<span class="number">1</span>][d],l++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(mp[x][y]==<span class="string">&#x27;x&#x27;</span>) &#123;h=<span class="number">1</span>,t=<span class="number">0</span>;<span class="keyword">continue</span>;&#125;</span><br><span class="line">        <span class="keyword">while</span>(h&lt;=t&amp;&amp;q[t].dp+l-q[t].len&lt;f[x][y]) t--;</span><br><span class="line">        q[++t]=&#123;f[x][y],l&#125;;</span><br><span class="line">        <span class="keyword">if</span>(h&lt;=t&amp;&amp;q[t].len-q[h].len&gt;mx) h++;</span><br><span class="line">        f[x][y]=q[h].dp+l-q[h].len,ans=<span class="built_in">max</span>(ans,f[x][y]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">rd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> x=<span class="number">0</span>;<span class="type">char</span> ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&lt;<span class="string">&#x27;0&#x27;</span>||ch&gt;<span class="string">&#x27;9&#x27;</span>) ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&gt;=<span class="string">&#x27;0&#x27;</span>&amp;&amp;ch&lt;=<span class="string">&#x27;9&#x27;</span>) x=x*<span class="number">10</span>+ch-<span class="string">&#x27;0&#x27;</span>,ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">wt</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&gt;<span class="number">9</span>) <span class="built_in">wt</span>(x/<span class="number">10</span>);</span><br><span class="line">    <span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    n=<span class="built_in">rd</span>(),m=<span class="built_in">rd</span>(),x=<span class="built_in">rd</span>()<span class="number">-1</span>,y=<span class="built_in">rd</span>()<span class="number">-1</span>,k=<span class="built_in">rd</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++) <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,mp[i]);</span><br><span class="line">    <span class="built_in">memset</span>(f,<span class="number">-1</span>,<span class="built_in">sizeof</span>(f)),f[x][y]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=k;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        s=<span class="built_in">rd</span>(),t=<span class="built_in">rd</span>(),d=<span class="built_in">rd</span>(),mx=t-s+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(d==<span class="number">1</span>) <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;m;j++) <span class="built_in">solve</span>(n<span class="number">-1</span>,j,mx,d);</span><br><span class="line">        <span class="keyword">if</span>(d==<span class="number">2</span>) <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;m;j++) <span class="built_in">solve</span>(<span class="number">0</span>,j,mx,d);</span><br><span class="line">        <span class="keyword">if</span>(d==<span class="number">3</span>) <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++) <span class="built_in">solve</span>(j,m<span class="number">-1</span>,mx,d);</span><br><span class="line">        <span class="keyword">if</span>(d==<span class="number">4</span>) <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++) <span class="built_in">solve</span>(j,<span class="number">0</span>,mx,d);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">wt</span>(ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3>
+<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2569">洛谷P2569 股票交易</a>
+</h3>
+<p><span class="math inline">\(O(T·MaxP)\)</span> 做法：设 <span
+class="math inline">\(f[i][j]\)</span> 代表第 <span
+class="math inline">\(i\)</span> 天结束时持有 <span
+class="math inline">\(j\)</span> 股时收益最大值，第 <span
+class="math inline">\(0\)</span> 天初始负无穷，<span
+class="math inline">\(f[0][0]=0\)</span>。之后考虑转移，对于每一天有如下三种情况：
+1. 可以不进行交易，此时 <span
+class="math inline">\(f[i][j]=f[i-1][j]\)</span>； 2. 可以买入，此时第
+<span class="math inline">\(i\)</span> 天的结果将由第 <span
+class="math inline">\(\max(i-w-1,0)\)</span> 天转移得到，以 <span
+class="math inline">\(as\)</span>
+为滑动窗口大小，引入单调队列优化进行转移。 3. 可以卖出，同样由第 <span
+class="math inline">\(\max(i-w-1,0)\)</span> 天转移得到，以 <span
+class="math inline">\(bs\)</span> 为窗口大小单调队列优化。</p>
+<p>需要注意，买入时持有 <span class="math inline">\(j\)</span>
+股的状态只能由比 <span class="math inline">\(j\)</span>
+小的状态得到，所以正序枚举 <span
+class="math inline">\(j\)</span>，类似的，卖出时持有 <span
+class="math inline">\(j\)</span> 股的状态只能由比 <span
+class="math inline">\(j\)</span> 大的状态得到，所以倒序枚举 <span
+class="math inline">\(j\)</span>。</p>
+<p>显然转移到最后一天时，若手中有股票，全部卖出会得到更优解，于是答案取
+<span class="math inline">\(f[T][0]\)</span>。</p>
+<details class="note" close>
+<summary>
+code
+</summary>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,m,w,ap,bp,as,bs,lst,h,t,f[<span class="number">2005</span>][<span class="number">2005</span>],q[<span class="number">2005</span>];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">rd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> x=<span class="number">0</span>;<span class="type">char</span> ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&lt;<span class="string">&#x27;0&#x27;</span>||ch&gt;<span class="string">&#x27;9&#x27;</span>) ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&gt;=<span class="string">&#x27;0&#x27;</span>&amp;&amp;ch&lt;=<span class="string">&#x27;9&#x27;</span>) x=x*<span class="number">10</span>+ch-<span class="string">&#x27;0&#x27;</span>,ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">wt</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&gt;<span class="number">9</span>) <span class="built_in">wt</span>(x/<span class="number">10</span>);</span><br><span class="line">    <span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    n=<span class="built_in">rd</span>(),m=<span class="built_in">rd</span>(),w=<span class="built_in">rd</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++) f[<span class="number">0</span>][i]=<span class="number">-0x3f3f3f3f</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        ap=<span class="built_in">rd</span>(),bp=<span class="built_in">rd</span>(),as=<span class="built_in">rd</span>(),bs=<span class="built_in">rd</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;=m;j++) f[i][j]=f[i<span class="number">-1</span>][j];</span><br><span class="line">        lst=<span class="built_in">max</span>(i-w<span class="number">-1</span>,<span class="number">0</span>),h=<span class="number">1</span>,t=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;=m;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span>(h&lt;=t&amp;&amp;q[h]&lt;j-as) h++;</span><br><span class="line">            <span class="keyword">while</span>(h&lt;=t&amp;&amp;f[lst][q[t]]+(q[t]-j)*ap&lt;f[lst][j]) t--;</span><br><span class="line">            q[++t]=j,f[i][j]=<span class="built_in">max</span>(f[i][j],f[lst][q[h]]+(q[h]-j)*ap);</span><br><span class="line">        &#125;</span><br><span class="line">        h=<span class="number">1</span>,t=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=m;j&gt;=<span class="number">0</span>;j--)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span>(h&lt;=t&amp;&amp;q[h]&gt;j+bs) h++;</span><br><span class="line">            <span class="keyword">while</span>(h&lt;=t&amp;&amp;f[lst][q[t]]+(q[t]-j)*bp&lt;f[lst][j]) t--;</span><br><span class="line">            q[++t]=j,f[i][j]=<span class="built_in">max</span>(f[i][j],f[lst][q[h]]+(q[h]-j)*bp);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;f[n][<span class="number">0</span>]&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3>
+<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3572">洛谷P3572 PTA-Little
+Bird</a>
+</h3>
+<p><span class="math inline">\(O(qn)\)</span> 做法：设 <span
+class="math inline">\(f[i]\)</span> 代表一只鸟飞到第 <span
+class="math inline">\(i\)</span> 棵树的最小疲劳值，初始为正无穷，<span
+class="math inline">\(f[1]=0\)</span>。<span
+class="math inline">\(f[i]\)</span> 可以由 <span
+class="math inline">\(f[i-k]\)</span> 到 <span
+class="math inline">\(f[i-1]\)</span> 转移而来，于是引入单调队列优化
+DP。建立一个单调递增队列维护，队头为疲劳值最小值，但注意到转移还与树的高度有关，应是队头元素的高度最大以使转移中尽量不增加疲劳值。由于转移中疲劳值至多增加一，故取疲劳值低的转移一定不劣于取疲劳值高的转移，故单调队列应以疲劳值为第一关键字单调递减，相同疲劳值以树高为第二关键字比较，在队列中保留树高较高的即可。答案取
+<span class="math inline">\(f[n]\)</span>。</p>
+<details class="note" close>
+<summary>
+code
+</summary>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,m,k,h,t,d[<span class="number">1000005</span>],f[<span class="number">1000005</span>],q[<span class="number">1000005</span>];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">rd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> x=<span class="number">0</span>;<span class="type">char</span> ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&lt;<span class="string">&#x27;0&#x27;</span>||ch&gt;<span class="string">&#x27;9&#x27;</span>) ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&gt;=<span class="string">&#x27;0&#x27;</span>&amp;&amp;ch&lt;=<span class="string">&#x27;9&#x27;</span>) x=x*<span class="number">10</span>+ch-<span class="string">&#x27;0&#x27;</span>,ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">wt</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&gt;<span class="number">9</span>) <span class="built_in">wt</span>(x/<span class="number">10</span>);</span><br><span class="line">    <span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    n=<span class="built_in">rd</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) d[i]=<span class="built_in">rd</span>();</span><br><span class="line">    m=<span class="built_in">rd</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        k=<span class="built_in">rd</span>(),h=<span class="number">1</span>,t=<span class="number">1</span>,q[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">        <span class="built_in">memset</span>(f,<span class="number">0x3f</span>,<span class="built_in">sizeof</span>(f)),f[<span class="number">1</span>]=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">2</span>;j&lt;=n;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span>(h&lt;=t&amp;&amp;q[h]&lt;j-k) h++;</span><br><span class="line">            f[j]=f[q[h]]+(d[q[h]]&lt;=d[j]);</span><br><span class="line">            <span class="keyword">while</span>(h&lt;=t&amp;&amp;(f[q[t]]==f[j]?d[j]&gt;d[q[t]]:f[j]&lt;f[q[t]])) t--;</span><br><span class="line">            q[++t]=j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">wt</span>(f[n]),<span class="built_in">putchar</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3>
+<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3594">洛谷P3594 WIL</a>
+</h3>
+<p><span class="math inline">\(O(n)\)</span>
+做法：题意就是找一段大区间，其中间一段不长于 <span
+class="math inline">\(d\)</span> 的小区间内所有数变 <span
+class="math inline">\(0\)</span> 后大区间内所有数的和不大于 <span
+class="math inline">\(p\)</span>，求大区间最长长度。首先有一个显然结论就是变
+<span class="math inline">\(0\)</span>
+的点越多，答案越优，也就是说必然有 <span
+class="math inline">\(d\)</span> 个点变 <span
+class="math inline">\(0\)</span>。此外还有大区间某端点一定时，变 <span
+class="math inline">\(0\)</span>
+的小区间原值和越大，答案越优，因为删去的值增大，大区间的另一端点只可能更远离定端点，此时大区间只可能更大。</p>
+<p>接下来考虑 DP，从 <span class="math inline">\(d\)</span>
+开始枚举大区间右端点 <span
+class="math inline">\(i\)</span>，大区间左端点初始为 <span
+class="math inline">\(1\)</span>，引入单调递减队列维护变 <span
+class="math inline">\(0\)</span>
+区间的原值和最大值，队列中存小区间左端点。</p>
+<p>首先在保证单调性前提下将以 <span class="math inline">\(i\)</span>
+为右端点的小区间的左端点入队。之后比较大区间删去 <span
+class="math inline">\(sum[q[h]+d-1]-\)</span> <span
+class="math inline">\(sum[q[h]-1]\)</span> 后的数值和与 <span
+class="math inline">\(p\)</span> 的关系，若大于 <span
+class="math inline">\(p\)</span>，则大区间左端点 <span
+class="math inline">\(l\)</span> 需右移，注意右移 <span
+class="math inline">\(l\)</span>
+时还要检查小区间是否包含在大区间内，若不在，更新小区间。</p>
+<p>最终答案即为 <span
+class="math inline">\(\max_{r=d}^n(r-l+1)\)</span></p>
+<details class="note" close>
+<summary>
+code
+</summary>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ll long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">ll n,p,d,h,t,l,ans,w[<span class="number">2000005</span>],q[<span class="number">2000005</span>];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">rd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> x=<span class="number">0</span>;<span class="type">char</span> ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&lt;<span class="string">&#x27;0&#x27;</span>||ch&gt;<span class="string">&#x27;9&#x27;</span>) ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&gt;=<span class="string">&#x27;0&#x27;</span>&amp;&amp;ch&lt;=<span class="string">&#x27;9&#x27;</span>) x=x*<span class="number">10</span>+ch-<span class="string">&#x27;0&#x27;</span>,ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">wt</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&gt;<span class="number">9</span>) <span class="built_in">wt</span>(x/<span class="number">10</span>);</span><br><span class="line">    <span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    n=<span class="built_in">rd</span>(),p=<span class="built_in">rd</span>(),d=<span class="built_in">rd</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) w[i]=<span class="built_in">rd</span>(),w[i]+=w[i<span class="number">-1</span>];</span><br><span class="line">    ans=d,l=<span class="number">1</span>,h=<span class="number">1</span>,t=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=d;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(h&lt;=t&amp;&amp;w[q[t]+d<span class="number">-1</span>]-w[q[t]<span class="number">-1</span>]&lt;=w[i]-w[i-d]) t--;</span><br><span class="line">        q[++t]=i-d+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(i-l+<span class="number">1</span>&gt;d&amp;&amp;w[i]-w[l<span class="number">-1</span>]-w[q[h]+d<span class="number">-1</span>]+w[q[h]<span class="number">-1</span>]&gt;p)</span><br><span class="line">            &#123;l++;<span class="keyword">if</span>(h&lt;=t&amp;&amp;q[h]&lt;l) h++;&#125;</span><br><span class="line">        ans=<span class="built_in">max</span>(ans,i-l+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">wt</span>(ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/2023/06/15/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96/"
+      title="斜率优化"
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        斜率优化
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2023/06/14/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/"
+      title="单调队列"
+     >
+
+    <p class="title-text">
+      
+        单调队列
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <div id="comment-card" class="comment-card">
+    <div class="main-title-bar">
+      <div class="main-title-dot"></div>
+      <div class="main-title">Comments </div>
+    </div>
+    <div id="vcomments"></div>
+  </div>
+  <script>
+      new Valine({"enable":true,"appId":"JoCtOtxj1X3f15WY8f6y2tRL-gzGzoHsz","appKey":"2Wxl1jDvPe63XmiaVL7sIDGS","placeholder":"发条评论吧","pageSize":10,"highlight":true,"serverURLs":null,"el":"#vcomments"});
+  </script>
+ 
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2023 intconstlee<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <span class="material-symbols-rounded">keyboard_arrow_up</span>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>
