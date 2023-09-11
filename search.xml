@@ -522,6 +522,79 @@ class="math inline">\(\sum_{k\geq
       </tags>
   </entry>
   <entry>
+    <title>左偏树</title>
+    <url>/2023/06/10/%E5%B7%A6%E5%81%8F%E6%A0%91/</url>
+    <content><![CDATA[<h1 id="左偏树">左偏树</h1>
+<p>左偏树是可并堆的一种，具有堆的性质，可快速合并.</p>
+<p>维护如下信息：<span
+class="math inline">\(\text{val}\)</span>：权值，<span
+class="math inline">\(\text{ls}\)</span>：左儿子，<span
+class="math inline">\(\text{rs}\)</span>：右儿子，<span
+class="math inline">\(\text{dist}\)</span>：距离，<span
+class="math inline">\(\text{fa}\)</span>：父亲。</p>
+<h2 id="一dist">一，dist</h2>
+<p>对于一棵二叉树，我们定义外结点为左儿子或右儿子为空的结点。</p>
+<p>定义一个外结点的 <span class="math inline">\(\text{dist}\)</span> 为
+<span class="math inline">\(1\)</span>，非外结点的 <span
+class="math inline">\(\text{dist}\)</span>
+为其到子树中最近外结点的距离加一，空结点的 <span
+class="math inline">\(\text{dist}\)</span> 为 <span
+class="math inline">\(0\)</span>。</p>
+<p>现在有一棵 <span class="math inline">\(n\)</span>
+个结点的二叉树，则有如下性质：</p>
+<ol type="1">
+<li><p>根的 <span class="math inline">\(\text{dist}\)</span> 不超过
+<span class="math inline">\([log(n+1)]\)</span>；</p></li>
+<li><p>若该二叉树根的 <span class="math inline">\(\text{dist}\)</span>
+为 <span class="math inline">\(x\)</span>，则至少有 <span
+class="math inline">\(x-1\)</span> 层为满二叉树，至少有 <span
+class="math inline">\(2^x-1\)</span> 个结点。</p></li>
+</ol>
+<h2 id="二左偏树的性质">二，左偏树的性质</h2>
+<p>左偏树是一棵二叉树，它具有如下性质：</p>
+<ol type="1">
+<li><p>堆的性质；</p></li>
+<li><p>每个结点左儿子的 <span class="math inline">\(\text{dist}\)</span>
+大于等于右儿子的 <span
+class="math inline">\(\text{dist}\)</span>；</p></li>
+<li><p>每个结点的 <span class="math inline">\(\text{dist}\)</span>
+都等于右儿子的 <span
+class="math inline">\(\text{dist}+1\)</span>。</p></li>
+</ol>
+<p>左偏树的深度无保证，一条向左的链也是左偏树。</p>
+<h2 id="三核心操作合并-merge">三，核心操作——合并 merge</h2>
+<ol type="1">
+<li><p>取值较小的根作为合并后堆的根节点；</p></li>
+<li><p>将这个根的左儿子作为合并后堆的左儿子；</p></li>
+<li><p>递归合并其右儿子和另一个堆，作为合并后堆的右儿子；</p></li>
+<li><p>若合并后左儿子的 <span class="math inline">\(\text{dist}\)</span>
+小于右儿子的 <span
+class="math inline">\(\text{dist}\)</span>，交换两儿子。</p></li>
+</ol>
+<p>该操作的时间复杂度是 <span class="math inline">\(O(\log n+\log
+m)\)</span> 的。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">merge</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!x||!y) <span class="keyword">return</span> x+y;</span><br><span class="line">    <span class="keyword">if</span>(val[x]&gt;val[y]) <span class="built_in">swap</span>(x,y);</span><br><span class="line">    rs[x]=<span class="built_in">merge</span>(rs[x],y),fa[rs[x]]=x;</span><br><span class="line">    <span class="keyword">if</span>(dis[ls[x]]&lt;dis[rs[x]]) <span class="built_in">swap</span>(ls[x],rs[x]);</span><br><span class="line">    dis[x]=dis[rs[x]]+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="四其他操作">四，其他操作</h2>
+<h3 id="插入结点">插入结点</h3>
+<p>将单个结点视为一个堆，合并即可。</p>
+<h3 id="删除根">删除根</h3>
+<p>合并根的左右儿子。</p>
+<h3 id="删除任意结点">删除任意结点</h3>
+<p>合并左右儿子，自底向上更新 <span
+class="math inline">\(\text{dist}\)</span>，不满足左偏性质时交换左右儿子，<span
+class="math inline">\(\text{dist}\)</span> 无需更新时结束递归。</p>
+<p>时间复杂度：<span class="math inline">\(O(\log n)\)</span></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">pushup</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!x) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span>(dis[ls[x]]&lt;dis[rs[x]]) <span class="built_in">swap</span>(ls[x],rs[x]);</span><br><span class="line">    <span class="keyword">if</span>(dis[x]!=dis[rs[x]]+<span class="number">1</span>)</span><br><span class="line">        dis[x]=dis[rs[x]]+<span class="number">1</span>,<span class="built_in">pushup</span>(fa[x]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="对整个堆进行加减乘运算">对整个堆进行加/减/乘运算</h3>
+<p>在根上打标记，删除根/合并堆时下传即可。</p>
+]]></content>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>可并堆</tag>
+        <tag>左偏树</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>单调队列优化 DP</title>
     <url>/2023/06/14/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<h1 id="单调队列优化-dp">单调队列优化 DP</h1>
@@ -872,79 +945,6 @@ code
         <tag>动态规划</tag>
         <tag>DP优化</tag>
         <tag>单调队列优化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>左偏树</title>
-    <url>/2023/06/10/%E5%B7%A6%E5%81%8F%E6%A0%91/</url>
-    <content><![CDATA[<h1 id="左偏树">左偏树</h1>
-<p>左偏树是可并堆的一种，具有堆的性质，可快速合并.</p>
-<p>维护如下信息：<span
-class="math inline">\(\text{val}\)</span>：权值，<span
-class="math inline">\(\text{ls}\)</span>：左儿子，<span
-class="math inline">\(\text{rs}\)</span>：右儿子，<span
-class="math inline">\(\text{dist}\)</span>：距离，<span
-class="math inline">\(\text{fa}\)</span>：父亲。</p>
-<h2 id="一dist">一，dist</h2>
-<p>对于一棵二叉树，我们定义外结点为左儿子或右儿子为空的结点。</p>
-<p>定义一个外结点的 <span class="math inline">\(\text{dist}\)</span> 为
-<span class="math inline">\(1\)</span>，非外结点的 <span
-class="math inline">\(\text{dist}\)</span>
-为其到子树中最近外结点的距离加一，空结点的 <span
-class="math inline">\(\text{dist}\)</span> 为 <span
-class="math inline">\(0\)</span>。</p>
-<p>现在有一棵 <span class="math inline">\(n\)</span>
-个结点的二叉树，则有如下性质：</p>
-<ol type="1">
-<li><p>根的 <span class="math inline">\(\text{dist}\)</span> 不超过
-<span class="math inline">\([log(n+1)]\)</span>；</p></li>
-<li><p>若该二叉树根的 <span class="math inline">\(\text{dist}\)</span>
-为 <span class="math inline">\(x\)</span>，则至少有 <span
-class="math inline">\(x-1\)</span> 层为满二叉树，至少有 <span
-class="math inline">\(2^x-1\)</span> 个结点。</p></li>
-</ol>
-<h2 id="二左偏树的性质">二，左偏树的性质</h2>
-<p>左偏树是一棵二叉树，它具有如下性质：</p>
-<ol type="1">
-<li><p>堆的性质；</p></li>
-<li><p>每个结点左儿子的 <span class="math inline">\(\text{dist}\)</span>
-大于等于右儿子的 <span
-class="math inline">\(\text{dist}\)</span>；</p></li>
-<li><p>每个结点的 <span class="math inline">\(\text{dist}\)</span>
-都等于右儿子的 <span
-class="math inline">\(\text{dist}+1\)</span>。</p></li>
-</ol>
-<p>左偏树的深度无保证，一条向左的链也是左偏树。</p>
-<h2 id="三核心操作合并-merge">三，核心操作——合并 merge</h2>
-<ol type="1">
-<li><p>取值较小的根作为合并后堆的根节点；</p></li>
-<li><p>将这个根的左儿子作为合并后堆的左儿子；</p></li>
-<li><p>递归合并其右儿子和另一个堆，作为合并后堆的右儿子；</p></li>
-<li><p>若合并后左儿子的 <span class="math inline">\(\text{dist}\)</span>
-小于右儿子的 <span
-class="math inline">\(\text{dist}\)</span>，交换两儿子。</p></li>
-</ol>
-<p>该操作的时间复杂度是 <span class="math inline">\(O(\log n+\log
-m)\)</span> 的。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">merge</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!x||!y) <span class="keyword">return</span> x+y;</span><br><span class="line">    <span class="keyword">if</span>(val[x]&gt;val[y]) <span class="built_in">swap</span>(x,y);</span><br><span class="line">    rs[x]=<span class="built_in">merge</span>(rs[x],y),fa[rs[x]]=x;</span><br><span class="line">    <span class="keyword">if</span>(dis[ls[x]]&lt;dis[rs[x]]) <span class="built_in">swap</span>(ls[x],rs[x]);</span><br><span class="line">    dis[x]=dis[rs[x]]+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="四其他操作">四，其他操作</h2>
-<h3 id="插入结点">插入结点</h3>
-<p>将单个结点视为一个堆，合并即可。</p>
-<h3 id="删除根">删除根</h3>
-<p>合并根的左右儿子。</p>
-<h3 id="删除任意结点">删除任意结点</h3>
-<p>合并左右儿子，自底向上更新 <span
-class="math inline">\(\text{dist}\)</span>，不满足左偏性质时交换左右儿子，<span
-class="math inline">\(\text{dist}\)</span> 无需更新时结束递归。</p>
-<p>时间复杂度：<span class="math inline">\(O(\log n)\)</span></p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">pushup</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!x) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span>(dis[ls[x]]&lt;dis[rs[x]]) <span class="built_in">swap</span>(ls[x],rs[x]);</span><br><span class="line">    <span class="keyword">if</span>(dis[x]!=dis[rs[x]]+<span class="number">1</span>)</span><br><span class="line">        dis[x]=dis[rs[x]]+<span class="number">1</span>,<span class="built_in">pushup</span>(fa[x]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="对整个堆进行加减乘运算">对整个堆进行加/减/乘运算</h3>
-<p>在根上打标记，删除根/合并堆时下传即可。</p>
-]]></content>
-      <tags>
-        <tag>数据结构</tag>
-        <tag>可并堆</tag>
-        <tag>左偏树</tag>
       </tags>
   </entry>
   <entry>
