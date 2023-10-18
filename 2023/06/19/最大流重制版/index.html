@@ -21,12 +21,12 @@
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/MaterialSymbolsRounded.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
-  <meta name="description" content="最大流前置知识：网络流概览，请确保已熟悉网络流相关概念以及流的性质。 两大核心算法：Ford-Fulkerson 增广与Push-Relabel 预流推进算法 一，概览对于一个给定网络，有许多合法的流函数 $f$，其中使整个网络的流量 $\sum_{(s,v)\in E}f(s,v)$ 最大的流函数被称为网络的最大流，此时的流量被称为网络的最大流量。 二，Ford-Fulkerson 增广该方法运">
+  <meta name="description" content="最大流 前置知识：网络流概览，请确保已熟悉网络流相关概念以及流的性质。 两大核心算法：Ford-Fulkerson 增广与Push-Relabel 预流推进算法 一，概览 对于一个给定网络，有许多合法的流函数 \(f\)，其中使整个网络的流量 \(\sum_{(s,v)\in E}f(s,v)\) 最大的流函数被称为网络的最大流，此时的流量被称为网络的最大流量。 二，Ford-Fu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="最大流重制版">
 <meta property="og:url" content="https://intconstlee.github.io/2023/06/19/%E6%9C%80%E5%A4%A7%E6%B5%81%E9%87%8D%E5%88%B6%E7%89%88/index.html">
 <meta property="og:site_name" content="intconstlee">
-<meta property="og:description" content="最大流前置知识：网络流概览，请确保已熟悉网络流相关概念以及流的性质。 两大核心算法：Ford-Fulkerson 增广与Push-Relabel 预流推进算法 一，概览对于一个给定网络，有许多合法的流函数 $f$，其中使整个网络的流量 $\sum_{(s,v)\in E}f(s,v)$ 最大的流函数被称为网络的最大流，此时的流量被称为网络的最大流量。 二，Ford-Fulkerson 增广该方法运">
+<meta property="og:description" content="最大流 前置知识：网络流概览，请确保已熟悉网络流相关概念以及流的性质。 两大核心算法：Ford-Fulkerson 增广与Push-Relabel 预流推进算法 一，概览 对于一个给定网络，有许多合法的流函数 \(f\)，其中使整个网络的流量 \(\sum_{(s,v)\in E}f(s,v)\) 最大的流函数被称为网络的最大流，此时的流量被称为网络的最大流量。 二，Ford-Fu">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://img1.imgtp.com/2023/06/27/MHqL47Fm.PNG">
 <meta property="og:image" content="https://img1.imgtp.com/2023/06/27/I5O1Wcuq.PNG">
@@ -92,11 +92,11 @@
       <span class="material-symbols-rounded dark-mode-icon">dark_mode</span>
     </a>
     
-      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS Feed">
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS 订阅">
         <span class="material-symbols-rounded rss">rss_feed</span>
       </a>
     
-    <a id="nav-search-btn" class="nav-icon" title="Search" style="display: none;">
+    <a id="nav-search-btn" class="nav-icon" title="搜索" style="display: none;">
       <span class="material-symbols-rounded">search</span>
     </a>
     <div id="nav-menu-btn" class="nav-icon">
@@ -116,7 +116,7 @@
       <a class="nav-dropdown-link" href="/link">links</a>
     
     
-      <a class="nav-dropdown-link" href="/atom.xml" title="RSS Feed">RSS</a>
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS 订阅">RSS</a>
      
     </div>
 </div>
@@ -167,7 +167,7 @@
       
   <div class="widget-wrap">
     <div class="widget">
-      <h3 class="widget-title">Tags</h3>
+      <h3 class="widget-title">标签</h3>
       <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/AC%E8%87%AA%E5%8A%A8%E6%9C%BA/" rel="tag">AC自动机</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/DP%E4%BC%98%E5%8C%96/" rel="tag">DP优化</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/" rel="tag">单调队列</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" rel="tag">单调队列优化</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8F%AF%E5%B9%B6%E5%A0%86/" rel="tag">可并堆</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%9B%BE%E8%AE%BA/" rel="tag">图论</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%B7%A6%E5%81%8F%E6%A0%91/" rel="tag">左偏树</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" rel="tag">排列组合</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96/" rel="tag">斜率优化</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E5%89%B2/" rel="tag">最小割</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9D%8E%E8%B6%85%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">李超线段树</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%B2%BE%E7%A5%9E%E7%8A%B6%E6%80%81/" rel="tag">精神状态</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" rel="tag">组合数学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/" rel="tag">网络流</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E6%9C%BA/" rel="tag">自动机</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%B4%B9%E7%94%A8%E6%B5%81/" rel="tag">费用流</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E9%97%B2%E8%AF%9D/" rel="tag">闲话</a></li></ul>
     </div>
   </div>
@@ -177,7 +177,7 @@
       
   <div class="widget-wrap">
     <div class="widget">
-      <h3 class="widget-title">Archives</h3>
+      <h3 class="widget-title">归档</h3>
       
       
         <a class="archive-link" href="/archives/2023/10 ">
@@ -208,7 +208,7 @@
       
   <div class="widget-wrap">
     <div class="widget">
-      <h3 class="widget-title">Recent Posts</h3>
+      <h3 class="widget-title">最新文章</h3>
       <ul>
         
           <a class="recent-link" href="/2023/10/17/10-18%E9%97%B2%E8%AF%9D/" title="10.18闲话" >
@@ -278,13 +278,13 @@
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
   
-    Uncategorized 
+    未分类 
    
 </div>
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            7.8k words 
+            7.8k 词 
           </div>
         </div>
         
@@ -293,338 +293,584 @@
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <h1 id="最大流"><a href="#最大流" class="headerlink" title="最大流"></a>最大流</h1><p>前置知识：<a href="https://intconstlee.github.io/posts/network-flows-remake/">网络流概览</a>，请确保已熟悉网络流相关概念以及流的性质。</p>
-<p>两大核心算法：<a target="_blank" rel="noopener" href="https://oi-wiki.org/graph/flow/max-flow/#ford-fulkerson-%E5%A2%9E%E5%B9%BF">Ford-Fulkerson 增广</a>与<a target="_blank" rel="noopener" href="https://oi-wiki.org/graph/flow/max-flow/#push-relabel-%E9%A2%84%E6%B5%81%E6%8E%A8%E8%BF%9B%E7%AE%97%E6%B3%95">Push-Relabel 预流推进算法</a></p>
-<h2 id="一，概览"><a href="#一，概览" class="headerlink" title="一，概览"></a>一，概览</h2><p>对于一个给定网络，有许多合法的流函数 $f$，其中使整个网络的流量 $\sum_{(s,v)\in E}f(s,v)$ 最大的流函数被称为网络的最大流，此时的流量被称为网络的最大流量。</p>
-<h2 id="二，Ford-Fulkerson-增广"><a href="#二，Ford-Fulkerson-增广" class="headerlink" title="二，Ford-Fulkerson 增广"></a>二，Ford-Fulkerson 增广</h2><p>该方法运用贪心思想，通过寻找增广路来更新并求解最大流。</p>
-<p>对于一张初始流量为 $0$ 的零流网络 $G$，找其最大流，核心的思想就是不断找从源点 $s$ 到汇点 $t$ 的路径，直到没有可行选择，这个过程被称为增广。</p>
-<p>我们将 $G_f$ 上一条从源点 $s$ 到汇点 $t$ 的路径称为增广路。对于一条增广路，我们给每一条边 $(u,v)$ 都加上等量的流量，以令整个网络的流量增加，这一过程被称为增广。</p>
+          <h1 id="最大流">最大流</h1>
+<p>前置知识：<a
+href="https://intconstlee.github.io/posts/network-flows-remake/">网络流概览</a>，请确保已熟悉网络流相关概念以及流的性质。</p>
+<p>两大核心算法：<a
+target="_blank" rel="noopener" href="https://oi-wiki.org/graph/flow/max-flow/#ford-fulkerson-%E5%A2%9E%E5%B9%BF">Ford-Fulkerson
+增广</a>与<a
+target="_blank" rel="noopener" href="https://oi-wiki.org/graph/flow/max-flow/#push-relabel-%E9%A2%84%E6%B5%81%E6%8E%A8%E8%BF%9B%E7%AE%97%E6%B3%95">Push-Relabel
+预流推进算法</a></p>
+<h2 id="一概览">一，概览</h2>
+<p>对于一个给定网络，有许多合法的流函数 <span
+class="math inline">\(f\)</span>，其中使整个网络的流量 <span
+class="math inline">\(\sum_{(s,v)\in E}f(s,v)\)</span>
+最大的流函数被称为网络的最大流，此时的流量被称为网络的最大流量。</p>
+<h2 id="二ford-fulkerson-增广">二，Ford-Fulkerson 增广</h2>
+<p>该方法运用贪心思想，通过寻找增广路来更新并求解最大流。</p>
+<p>对于一张初始流量为 <span class="math inline">\(0\)</span> 的零流网络
+<span
+class="math inline">\(G\)</span>，找其最大流，核心的思想就是不断找从源点
+<span class="math inline">\(s\)</span> 到汇点 <span
+class="math inline">\(t\)</span>
+的路径，直到没有可行选择，这个过程被称为增广。</p>
+<p>我们将 <span class="math inline">\(G_f\)</span> 上一条从源点 <span
+class="math inline">\(s\)</span> 到汇点 <span
+class="math inline">\(t\)</span>
+的路径称为增广路。对于一条增广路，我们给每一条边 <span
+class="math inline">\((u,v)\)</span>
+都加上等量的流量，以令整个网络的流量增加，这一过程被称为增广。</p>
 <p>由此，最大流的求解可以被视为若干次增广分别得到的流的叠加。</p>
-<p>值得注意的是，根据流的斜对称性，$f(u,v)=-f(v,u)$，于是当我们给 $f(u,v)$ 增加一个流量时，$f(v,u)$ 也应减少等量的流量，该操作被称为退流。</p>
-<details class=note open>
-<summary>解释</summary>
+<p>值得注意的是，根据流的斜对称性，<span
+class="math inline">\(f(u,v)=-f(v,u)\)</span>，于是当我们给 <span
+class="math inline">\(f(u,v)\)</span> 增加一个流量时，<span
+class="math inline">\(f(v,u)\)</span>
+也应减少等量的流量，该操作被称为退流。</p>
+<details class="note" open>
+<summary>
+解释
+</summary>
 <p>
-
-在最大流的实现过程中，需要经常进行访问反向边的操作，一条边和它的反向边都加等量流量，相当于这一条边未被访问过，通过访问反向边，我们可以在找到更优方案的时候进行退流操作，从而更新答案。具体内容请见下文示例。
-
+<p>在最大流的实现过程中，需要经常进行访问反向边的操作，一条边和它的反向边都加等量流量，相当于这一条边未被访问过，通过访问反向边，我们可以在找到更优方案的时候进行退流操作，从而更新答案。具体内容请见下文示例。</p>
 </p>
 </details>
-
 <center>
 <img src="https://img1.imgtp.com/2023/06/27/MHqL47Fm.PNG" alt="最大流示意1.PNG" title="最大流示意1.PNG" />
 </center>
-
 <center>
 <img src="https://img1.imgtp.com/2023/06/27/I5O1Wcuq.PNG" alt="最大流示意2.PNG" title="最大流示意2.PNG" />
 </center>
-
 <center>
 <img src="https://img1.imgtp.com/2023/06/27/5xISwJQX.PNG" alt="最大流示意3.PNG" title="最大流示意3.PNG" />
 </center>
-
 <p>通过这个例子，我们能看出，退流操作带来的“抵消”效果可以更新更优答案，只要存在增广路，就可以令其总流量增加，直到找不到增广路，总流量达到最大。</p>
 <p>总结一下 Ford-Fulkerson 增广的步骤：</p>
-<ol>
-<li><p>初始化图中流的值；</p>
-</li>
-<li><p>在残量网络中找到增广路；</p>
-</li>
-<li><p>增加总流量，并重复步骤 2-3 直到不存在增广路为止。</p>
-</li>
+<ol type="1">
+<li><p>初始化图中流的值；</p></li>
+<li><p>在残量网络中找到增广路；</p></li>
+<li><p>增加总流量，并重复步骤 2-3 直到不存在增广路为止。</p></li>
 </ol>
 <details class=note close>
-<summary>Ford-Fulkerson 增广正确性证明</summary>
+<summary>
+Ford-Fulkerson 增广正确性证明
+</summary>
 <p>
-
-首先引入割的概念（在最小割中还会详细讲）：定义一个网络流的割为一种点的划分方式 $(S,T)$，其中 $S\cap T=\varnothing$，$S\cup T=V$，$s\in S$，$t\in T$。即在一张网络中使源点和汇点不连通的切割（删边）方案。
-
-割的净流量：$f(S,T)=$ $\sum_{u\in S}\sum_{v\in T}f(u,v)-$ $\sum_{u\in S}\sum_{v\in T}f(v,u)$；
-
-割的容量：$c(S,T)=$ $\sum_{u\in S}\sum_{v\in T}c(u,v)$
-
-引入一个引理：设 $f$ 为流网络中的一个流，横跨任何切割的净流量都相同，且都为网络的流量，即都为 $|f|$，即 $|f|=f(S,T)$。
-
-<details class=note close>
-<summary>引理的证明</summary>
+<p>首先引入割的概念（在最小割中还会详细讲）：定义一个网络流的割为一种点的划分方式
+<span class="math inline">\((S,T)\)</span>，其中 <span
+class="math inline">\(S\cap T=\varnothing\)</span>，<span
+class="math inline">\(S\cup T=V\)</span>，<span
+class="math inline">\(s\in S\)</span>，<span class="math inline">\(t\in
+T\)</span>。即在一张网络中使源点和汇点不连通的切割（删边）方案。</p>
+<p>割的净流量：<span class="math inline">\(f(S,T)=\)</span> <span
+class="math inline">\(\sum_{u\in S}\sum_{v\in T}f(u,v)-\)</span> <span
+class="math inline">\(\sum_{u\in S}\sum_{v\in T}f(v,u)\)</span>；</p>
+<p>割的容量：<span class="math inline">\(c(S,T)=\)</span> <span
+class="math inline">\(\sum_{u\in S}\sum_{v\in T}c(u,v)\)</span></p>
+<p>引入一个引理：设 <span class="math inline">\(f\)</span>
+为流网络中的一个流，横跨任何切割的净流量都相同，且都为网络的流量，即都为
+<span class="math inline">\(|f|\)</span>，即 <span
+class="math inline">\(|f|=f(S,T)\)</span>。</p>
+<details class="note" close>
+<summary>
+引理的证明
+</summary>
 <p>
-
-可以从流的定义直观理解：网络流中 $f$ 的值是从 $s$ 流出的流量之和，给出任意切割，这些流量都经过该切割，于是割的流量即整个网络的流量。下面为数学证明.
-
-根据流量守恒特性可以得到 $\forall u\in V-\{s,t\}$，$\sum_{v\in V}f(u,v)-$ $\sum_{v\in V}f(v,u)=$ $0$。
-
-根据流的定义，$|f|=$ $\sum_{v\in V}f(s,v)-$ $\sum_{v\in V}f(v,s)$。
-
-变形，得：
-
-$|f| = $ $\sum_{v \in V}f(s,v) -$ $\sum_{v \in V}f(v,s) +$ $\sum_{u \in S-\{s\}}(\sum_{v \in V}f(u,v) -$ $\sum_{v \in V}f(v,u))$
-
-$|f| = $ $\sum_{v \in V}f(s,v) -$ $\sum_{v \in V}f(v,s) +$ $\sum_{u \in S-\{s\}}\sum_{v \in V}f(u,v) -$ $\sum_{u \in S-\{s\}}\sum_{v \in V}f(v,u)$
-
-$|f| = $ $\sum_{v \in V}(f(s,v) +$ $\sum_{u \in S-\{s\}}f(u,v)) -$ $\sum_{v \in V}(f(v,u) +$ $\sum_{u \in S-\{s\}}f(v,u))$
-
-$|f| = $ $\sum_{v \in V}\sum_{u \in S}f(u,v) -$ $\sum_{v \in V}\sum_{u \in S}f(v,u)$
-
-$|f| = $ $\sum_{v\in V-S}\sum_{u \in S}f(u,v) +$ $\sum_{v\in S}\sum_{u\in S}f(u,v) -$ $(\sum_{v\in V-S}\sum_{u\in S}f(v,u) +$ $\sum_{v\in S}\sum_{u\in S}f(v,u))$
-
-$|f| = $ $(\sum_{v\in T}\sum_{u \in S}f(u,v) -$ $\sum_{v\in T}\sum_{u\in S}f(v,u)) +$ $( \sum_{v\in S}\sum_{u\in S}f(u,v) -$ $\sum_{v\in S}\sum_{u\in S}f(v,u))$
-
-即：$|f|=$ $f(S,T)+0=$ $f(S,T)$，证毕。
-
+<p>可以从流的定义直观理解：网络流中 <span
+class="math inline">\(f\)</span> 的值是从 <span
+class="math inline">\(s\)</span>
+流出的流量之和，给出任意切割，这些流量都经过该切割，于是割的流量即整个网络的流量。下面为数学证明.</p>
+<p>根据流量守恒特性可以得到 <span class="math inline">\(\forall u\in
+V-\{s,t\}\)</span>，<span class="math inline">\(\sum_{v\in
+V}f(u,v)-\)</span> <span class="math inline">\(\sum_{v\in
+V}f(v,u)=\)</span> <span class="math inline">\(0\)</span>。</p>
+<p>根据流的定义，<span class="math inline">\(|f|=\)</span> <span
+class="math inline">\(\sum_{v\in V}f(s,v)-\)</span> <span
+class="math inline">\(\sum_{v\in V}f(v,s)\)</span>。</p>
+<p>变形，得：</p>
+<p>$|f| = $ <span class="math inline">\(\sum_{v \in V}f(s,v) -\)</span>
+<span class="math inline">\(\sum_{v \in V}f(v,s) +\)</span> <span
+class="math inline">\(\sum_{u \in S-\{s\}}(\sum_{v \in V}f(u,v)
+-\)</span> <span class="math inline">\(\sum_{v \in
+V}f(v,u))\)</span></p>
+<p>$|f| = $ <span class="math inline">\(\sum_{v \in V}f(s,v) -\)</span>
+<span class="math inline">\(\sum_{v \in V}f(v,s) +\)</span> <span
+class="math inline">\(\sum_{u \in S-\{s\}}\sum_{v \in V}f(u,v)
+-\)</span> <span class="math inline">\(\sum_{u \in S-\{s\}}\sum_{v \in
+V}f(v,u)\)</span></p>
+<p>$|f| = $ <span class="math inline">\(\sum_{v \in V}(f(s,v) +\)</span>
+<span class="math inline">\(\sum_{u \in S-\{s\}}f(u,v)) -\)</span> <span
+class="math inline">\(\sum_{v \in V}(f(v,u) +\)</span> <span
+class="math inline">\(\sum_{u \in S-\{s\}}f(v,u))\)</span></p>
+<p>$|f| = $ <span class="math inline">\(\sum_{v \in V}\sum_{u \in
+S}f(u,v) -\)</span> <span class="math inline">\(\sum_{v \in V}\sum_{u
+\in S}f(v,u)\)</span></p>
+<p>$|f| = $ <span class="math inline">\(\sum_{v\in V-S}\sum_{u \in
+S}f(u,v) +\)</span> <span class="math inline">\(\sum_{v\in S}\sum_{u\in
+S}f(u,v) -\)</span> <span class="math inline">\((\sum_{v\in
+V-S}\sum_{u\in S}f(v,u) +\)</span> <span
+class="math inline">\(\sum_{v\in S}\sum_{u\in S}f(v,u))\)</span></p>
+<p>$|f| = $ <span class="math inline">\((\sum_{v\in T}\sum_{u \in
+S}f(u,v) -\)</span> <span class="math inline">\(\sum_{v\in T}\sum_{u\in
+S}f(v,u)) +\)</span> <span class="math inline">\(( \sum_{v\in
+S}\sum_{u\in S}f(u,v) -\)</span> <span class="math inline">\(\sum_{v\in
+S}\sum_{u\in S}f(v,u))\)</span></p>
+<p>即：<span class="math inline">\(|f|=\)</span> <span
+class="math inline">\(f(S,T)+0=\)</span> <span
+class="math inline">\(f(S,T)\)</span>，证毕。</p>
 </p>
 </details>
-
-<p>由任意横跨切割的流量等于网络的流量，又有横跨任意切割的流量不大于切割的容量，可知，网络的流量不大于任意切割的容量，即 $f(S,T)\leq c(S,T)$，$\forall c(S,T)$。</p>
+<p>由任意横跨切割的流量等于网络的流量，又有横跨任意切割的流量不大于切割的容量，可知，网络的流量不大于任意切割的容量，即
+<span class="math inline">\(f(S,T)\leq c(S,T)\)</span>，<span
+class="math inline">\(\forall c(S,T)\)</span>。</p>
 <p>于是一个网络最大流的值就等于最小切割的容量，这就是最大流-最小割定理。</p>
-<p>现在我们回到对增广正确性的证明。形式化地表示增广的结束条件为：残量网络 $G_f$ 不包含任何增广路。而我们要证明的就是在这一条件下得到的 $f$ 是原网络 $G$ 的一个最大流。</p>
-<p>首先，若残量网络 $G_f$ 不包含任何增广路，则其可被划分为两部分 $(S,T)$，其中 $S$ 定义为在 $G_f$ 中存在一条由 $s$ 到 $v$ 路径的 $v$ 的集合，$T=V-S$。对于 $\forall u\in S$，$\forall v\in T$：</p>
-<ol>
-<li>$f(u,v)=c(u,v)$：如果该条件不成立，那么 $G_f$ 中必然还存在 $s$ 到 $t$ 的通路，此时未完成增广；</li>
-<li>$f(v,u)=0$：对于 $(v,u)\notin E$，该结论显然，对于 $(v,u)\in E$，若 $f(v,u)\neq 0$，则 $G_f$ 中还存在一条 $(u,v)$ 的路径，与 $u\in S$，$v\in T$ 矛盾。</li>
+<p>现在我们回到对增广正确性的证明。形式化地表示增广的结束条件为：残量网络
+<span class="math inline">\(G_f\)</span>
+不包含任何增广路。而我们要证明的就是在这一条件下得到的 <span
+class="math inline">\(f\)</span> 是原网络 <span
+class="math inline">\(G\)</span> 的一个最大流。</p>
+<p>首先，若残量网络 <span class="math inline">\(G_f\)</span>
+不包含任何增广路，则其可被划分为两部分 <span
+class="math inline">\((S,T)\)</span>，其中 <span
+class="math inline">\(S\)</span> 定义为在 <span
+class="math inline">\(G_f\)</span> 中存在一条由 <span
+class="math inline">\(s\)</span> 到 <span
+class="math inline">\(v\)</span> 路径的 <span
+class="math inline">\(v\)</span> 的集合，<span
+class="math inline">\(T=V-S\)</span>。对于 <span
+class="math inline">\(\forall u\in S\)</span>，<span
+class="math inline">\(\forall v\in T\)</span>：</p>
+<ol type="1">
+<li><span
+class="math inline">\(f(u,v)=c(u,v)\)</span>：如果该条件不成立，那么
+<span class="math inline">\(G_f\)</span> 中必然还存在 <span
+class="math inline">\(s\)</span> 到 <span
+class="math inline">\(t\)</span> 的通路，此时未完成增广；</li>
+<li><span class="math inline">\(f(v,u)=0\)</span>：对于 <span
+class="math inline">\((v,u)\notin E\)</span>，该结论显然，对于 <span
+class="math inline">\((v,u)\in E\)</span>，若 <span
+class="math inline">\(f(v,u)\neq 0\)</span>，则 <span
+class="math inline">\(G_f\)</span> 中还存在一条 <span
+class="math inline">\((u,v)\)</span> 的路径，与 <span
+class="math inline">\(u\in S\)</span>，<span class="math inline">\(v\in
+T\)</span> 矛盾。</li>
 </ol>
-<p>结合割的净流量：$f(S,T)=$ $\sum<em>{u\in S}\sum</em>{v\in T}f(u,v)-$ $\sum<em>{u\in S}\sum</em>{v\in T}f(v,u)$，得：</p>
-<ol>
-<li>$f(S,T)=$ $\sum<em>{u\in S}\sum</em>{v\in T}f(u,v)-$ $0$；</li>
-<li>$f(S,T)=$ $\sum<em>{u\in S}\sum</em>{v\in T}c(u,v)-$ $0=$ $c(S,T)$。</li>
+<p>结合割的净流量：<span class="math inline">\(f(S,T)=\)</span> <span
+class="math inline">\(\sum_{u\in S}\sum_{v\in T}f(u,v)-\)</span> <span
+class="math inline">\(\sum_{u\in S}\sum_{v\in
+T}f(v,u)\)</span>，得：</p>
+<ol type="1">
+<li><span class="math inline">\(f(S,T)=\)</span> <span
+class="math inline">\(\sum_{u\in S}\sum_{v\in T}f(u,v)-\)</span> <span
+class="math inline">\(0\)</span>；</li>
+<li><span class="math inline">\(f(S,T)=\)</span> <span
+class="math inline">\(\sum_{u\in S}\sum_{v\in T}c(u,v)-\)</span> <span
+class="math inline">\(0=\)</span> <span
+class="math inline">\(c(S,T)\)</span>。</li>
 </ol>
-<p>于是 $f(S,T)=c(S,T)$，而 $|f|=f(S,T)$，则 $|f|=c(S,T)$。</p>
-<p>发现在这里 $|f|=c(S,T)$ 取到了等号，说明 $c(S,T)$ 是原网络的最小切割，否则若存在更小切割，$|f|$ 将会大于 $c(S,T)$。于是 $|f|$ 为原网络的最大流，Ford-Fulkerson 增广正确性证明完毕。</p>
-<p>&lt;/details&gt;</p>
-<p>时间复杂度上界：$O(|E||f|)$，单轮增广的时间复杂度是 $O(|E|)$，而增广轮数不可能超过 $|f|$。</p>
-<p>接下来将介绍两个 Ford-Fulkerson 增广的主流实现方式：EK 算法和 Dinic 算法。以及一个比较快但并不主流的实现方式：ISAP 算法。</p>
-<h3 id="Edmonds-Karp-算法"><a href="#Edmonds-Karp-算法" class="headerlink" title="Edmonds-Karp 算法"></a>Edmonds-Karp 算法</h3><p>$O(nm^2)$</p>
-<h4 id="算法流程："><a href="#算法流程：" class="headerlink" title="算法流程："></a>算法流程：</h4><ol>
-<li><p>如果在 $G_f$ 上我们可以从 $s$ 出发 BFS 到 $t$，则我们找到了新的增广路。</p>
-</li>
-<li><p>对于增广路 $p$，我们计算出 $p$ 经过的边的剩余容量的最小值 $\Delta=\min_{(u,v)\in p}c_f(u,v)$。我们给 $p$ 上的每条边都增加 $\Delta$ 的流量，并给它们的反向边退掉 $\Delta$ 的流量，此时最大流增加了 $\Delta$。</p>
-</li>
-<li><p>修改流量后我们得到了新的 $G_f$，在新的 $G_f$ 中重复上述过程直到增广路不存在。 </p>
-</li>
+<p>于是 <span class="math inline">\(f(S,T)=c(S,T)\)</span>，而 <span
+class="math inline">\(|f|=f(S,T)\)</span>，则 <span
+class="math inline">\(|f|=c(S,T)\)</span>。</p>
+<p>发现在这里 <span class="math inline">\(|f|=c(S,T)\)</span>
+取到了等号，说明 <span class="math inline">\(c(S,T)\)</span>
+是原网络的最小切割，否则若存在更小切割，<span
+class="math inline">\(|f|\)</span> 将会大于 <span
+class="math inline">\(c(S,T)\)</span>。于是 <span
+class="math inline">\(|f|\)</span> 为原网络的最大流，Ford-Fulkerson
+增广正确性证明完毕。</p>
+</details>
+<p>时间复杂度上界：<span
+class="math inline">\(O(|E||f|)\)</span>，单轮增广的时间复杂度是 <span
+class="math inline">\(O(|E|)\)</span>，而增广轮数不可能超过 <span
+class="math inline">\(|f|\)</span>。</p>
+<p>接下来将介绍两个 Ford-Fulkerson 增广的主流实现方式：EK 算法和 Dinic
+算法。以及一个比较快但并不主流的实现方式：ISAP 算法。</p>
+<h3 id="edmonds-karp-算法">Edmonds-Karp 算法</h3>
+<p><span class="math inline">\(O(nm^2)\)</span></p>
+<h4 id="算法流程">算法流程：</h4>
+<ol type="1">
+<li><p>如果在 <span class="math inline">\(G_f\)</span> 上我们可以从
+<span class="math inline">\(s\)</span> 出发 BFS 到 <span
+class="math inline">\(t\)</span>，则我们找到了新的增广路。</p></li>
+<li><p>对于增广路 <span class="math inline">\(p\)</span>，我们计算出
+<span class="math inline">\(p\)</span> 经过的边的剩余容量的最小值 <span
+class="math inline">\(\Delta=\min_{(u,v)\in p}c_f(u,v)\)</span>。我们给
+<span class="math inline">\(p\)</span> 上的每条边都增加 <span
+class="math inline">\(\Delta\)</span> 的流量，并给它们的反向边退掉 <span
+class="math inline">\(\Delta\)</span> 的流量，此时最大流增加了 <span
+class="math inline">\(\Delta\)</span>。</p></li>
+<li><p>修改流量后我们得到了新的 <span
+class="math inline">\(G_f\)</span>，在新的 <span
+class="math inline">\(G_f\)</span>
+中重复上述过程直到增广路不存在。</p></li>
 </ol>
-<h4 id="参考代码："><a href="#参考代码：" class="headerlink" title="参考代码："></a>参考代码：</h4><h5 id="vector版本"><a href="#vector版本" class="headerlink" title="vector版本"></a>vector版本</h5><ol>
+<h4 id="参考代码">参考代码：</h4>
+<h5 id="vector版本">vector版本</h5>
+<ol type="1">
 <li><p>变量声明与初始化：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n,m;    <span class="comment">// n：点数，m：边数</span></span><br><span class="line"><span class="type">int</span> a[maxn],p[maxn];    <span class="comment">// a：BFS到 x 的最大流，p：BFS中 x 的前驱</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123;<span class="type">int</span> from,to,cap,flow;&#125;;    <span class="comment">// cap：容量，flow：流量</span></span><br><span class="line">vector&lt;Edge&gt; edge;    <span class="comment">// edge：所有边的集合</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; id[maxn];    <span class="comment">// id：x 相邻所有点的下标</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++) id[i].<span class="built_in">clear</span>();</span><br><span class="line">    edge.<span class="built_in">clear</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n,m;    <span class="comment">// n：点数，m：边数</span></span><br><span class="line"><span class="type">int</span> a[maxn],p[maxn];    <span class="comment">// a：BFS到 x 的最大流，p：BFS中 x 的前驱</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123;<span class="type">int</span> from,to,cap,flow;&#125;;    <span class="comment">// cap：容量，flow：流量</span></span><br><span class="line">vector&lt;Edge&gt; edge;    <span class="comment">// edge：所有边的集合</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; id[maxn];    <span class="comment">// id：x 相邻所有点的下标</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++) id[i].<span class="built_in">clear</span>();</span><br><span class="line">    edge.<span class="built_in">clear</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>建图</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">addin</span><span class="params">(<span class="type">int</span> from,<span class="type">int</span> to,<span class="type">int</span> cap)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    edge.<span class="built_in">push_back</span>(&#123;from,to,cap,<span class="number">0</span>&#125;);</span><br><span class="line">    edge.<span class="built_in">push_back</span>(&#123;to,from,<span class="number">0</span>,<span class="number">0</span>&#125;);</span><br><span class="line">    m=edge.<span class="built_in">size</span>();</span><br><span class="line">    id[from].<span class="built_in">push_back</span>(m<span class="number">-2</span>);</span><br><span class="line">    id[to].<span class="built_in">push_back</span>(m<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">addin</span><span class="params">(<span class="type">int</span> from,<span class="type">int</span> to,<span class="type">int</span> cap)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    edge.<span class="built_in">push_back</span>(&#123;from,to,cap,<span class="number">0</span>&#125;);</span><br><span class="line">    edge.<span class="built_in">push_back</span>(&#123;to,from,<span class="number">0</span>,<span class="number">0</span>&#125;);</span><br><span class="line">    m=edge.<span class="built_in">size</span>();</span><br><span class="line">    id[from].<span class="built_in">push_back</span>(m<span class="number">-2</span>);</span><br><span class="line">    id[to].<span class="built_in">push_back</span>(m<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>BFS求最大流</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">maxflow</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> flow=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">memset</span>(a,<span class="number">0</span>,<span class="built_in">sizeof</span>(a));</span><br><span class="line">        queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">        q.<span class="built_in">push</span>(s),a[s]=inf;    <span class="comment">//源点自己到自己流量正无穷</span></span><br><span class="line">        <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> u=q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;id[u].<span class="built_in">size</span>();i++)    <span class="comment">//遍历临点</span></span><br><span class="line">            &#123;</span><br><span class="line">                Edge e=edge[id[u][i]];</span><br><span class="line">                <span class="keyword">if</span>(a[e.to]||e.flow&gt;=e.cap) <span class="keyword">continue</span>;    <span class="comment">//搜过或已饱和</span></span><br><span class="line">                p[e.to]=id[u][i];    <span class="comment">//记录前驱，方便回溯</span></span><br><span class="line">                a[e.to]=<span class="built_in">min</span>(a[u],e.cap-e.flow);    <span class="comment">//向下赋流，求前缀最小值</span></span><br><span class="line">                q.<span class="built_in">push</span>(e.to);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(a[t]) <span class="keyword">break</span>;    <span class="comment">//汇点接到流，增广成功</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!a[t]) <span class="keyword">break</span>;    <span class="comment">//找不到增广路了</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> u=t;u!=s;u=edge[p[u]].from)</span><br><span class="line">        &#123;</span><br><span class="line">            edge[p[u]].flow+=a[t];    <span class="comment">//正向路径增加</span></span><br><span class="line">            edge[p[u]^<span class="number">1</span>].flow-=a[t];    <span class="comment">//反向路径减小</span></span><br><span class="line">        &#125;</span><br><span class="line">        flow+=a[t];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> flow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">maxflow</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> flow=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">memset</span>(a,<span class="number">0</span>,<span class="built_in">sizeof</span>(a));</span><br><span class="line">        queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">        q.<span class="built_in">push</span>(s),a[s]=inf;    <span class="comment">//源点自己到自己流量正无穷</span></span><br><span class="line">        <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> u=q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;id[u].<span class="built_in">size</span>();i++)    <span class="comment">//遍历临点</span></span><br><span class="line">            &#123;</span><br><span class="line">                Edge e=edge[id[u][i]];</span><br><span class="line">                <span class="keyword">if</span>(a[e.to]||e.flow&gt;=e.cap) <span class="keyword">continue</span>;    <span class="comment">//搜过或已饱和</span></span><br><span class="line">                p[e.to]=id[u][i];    <span class="comment">//记录前驱，方便回溯</span></span><br><span class="line">                a[e.to]=<span class="built_in">min</span>(a[u],e.cap-e.flow);    <span class="comment">//向下赋流，求前缀最小值</span></span><br><span class="line">                q.<span class="built_in">push</span>(e.to);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(a[t]) <span class="keyword">break</span>;    <span class="comment">//汇点接到流，增广成功</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!a[t]) <span class="keyword">break</span>;    <span class="comment">//找不到增广路了</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> u=t;u!=s;u=edge[p[u]].from)</span><br><span class="line">        &#123;</span><br><span class="line">            edge[p[u]].flow+=a[t];    <span class="comment">//正向路径增加</span></span><br><span class="line">            edge[p[u]^<span class="number">1</span>].flow-=a[t];    <span class="comment">//反向路径减小</span></span><br><span class="line">        &#125;</span><br><span class="line">        flow+=a[t];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> flow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h5 id="链式前向星版本"><a href="#链式前向星版本" class="headerlink" title="链式前向星版本"></a>链式前向星版本</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,m,s,t,u,v,w,maxflow;</span><br><span class="line"><span class="type">int</span> a[<span class="number">1000</span>],p[<span class="number">1000</span>],vis[<span class="number">1000</span>];</span><br><span class="line"><span class="type">int</span> cnt,head[<span class="number">1000</span>];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123;<span class="type">int</span> to,nxt,cap,flow;&#125; edge[<span class="number">100005</span>];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">addin</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y,<span class="type">int</span> z)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    edge[++cnt]=&#123;y,head[x],z,<span class="number">0</span>&#125;;</span><br><span class="line">    head[x]=cnt;</span><br><span class="line">    edge[++cnt]=&#123;x,head[y],<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    head[y]=cnt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">bfs</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="built_in">sizeof</span>(vis));</span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">    q.<span class="built_in">push</span>(s),a[s]=<span class="number">0x3f3f3f3f</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> u=q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=head[u];i;i=edge[i].nxt)</span><br><span class="line">        &#123;</span><br><span class="line">            Edge e=edge[i];</span><br><span class="line">            <span class="keyword">if</span>(vis[e.to]||e.flow&gt;=e.cap) <span class="keyword">continue</span>;</span><br><span class="line">            p[e.to]=i,a[e.to]=<span class="built_in">min</span>(a[u],e.cap-e.flow);</span><br><span class="line">            q.<span class="built_in">push</span>(e.to),vis[e.to]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(e.to==t) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">update</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> u=t;u!=s;u=edge[p[u]^<span class="number">1</span>].to)</span><br><span class="line">    &#123;</span><br><span class="line">        edge[p[u]].flow+=a[t];</span><br><span class="line">        edge[p[u]^<span class="number">1</span>].flow-=a[t];</span><br><span class="line">    &#125;</span><br><span class="line">    maxflow+=a[t];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>),cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m&gt;&gt;s&gt;&gt;t,cnt=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">        cin&gt;&gt;u&gt;&gt;v&gt;&gt;w,<span class="built_in">addin</span>(u,v,w);</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">bfs</span>(s,t)) <span class="built_in">update</span>(s,t);</span><br><span class="line">    cout&lt;&lt;maxflow&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="链式前向星版本">链式前向星版本</h5>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,m,s,t,u,v,w,maxflow;</span><br><span class="line"><span class="type">int</span> a[<span class="number">1000</span>],p[<span class="number">1000</span>],vis[<span class="number">1000</span>];</span><br><span class="line"><span class="type">int</span> cnt,head[<span class="number">1000</span>];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123;<span class="type">int</span> to,nxt,cap,flow;&#125; edge[<span class="number">100005</span>];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">addin</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y,<span class="type">int</span> z)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    edge[++cnt]=&#123;y,head[x],z,<span class="number">0</span>&#125;;</span><br><span class="line">    head[x]=cnt;</span><br><span class="line">    edge[++cnt]=&#123;x,head[y],<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    head[y]=cnt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">bfs</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="built_in">sizeof</span>(vis));</span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">    q.<span class="built_in">push</span>(s),a[s]=<span class="number">0x3f3f3f3f</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> u=q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=head[u];i;i=edge[i].nxt)</span><br><span class="line">        &#123;</span><br><span class="line">            Edge e=edge[i];</span><br><span class="line">            <span class="keyword">if</span>(vis[e.to]||e.flow&gt;=e.cap) <span class="keyword">continue</span>;</span><br><span class="line">            p[e.to]=i,a[e.to]=<span class="built_in">min</span>(a[u],e.cap-e.flow);</span><br><span class="line">            q.<span class="built_in">push</span>(e.to),vis[e.to]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(e.to==t) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">update</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> u=t;u!=s;u=edge[p[u]^<span class="number">1</span>].to)</span><br><span class="line">    &#123;</span><br><span class="line">        edge[p[u]].flow+=a[t];</span><br><span class="line">        edge[p[u]^<span class="number">1</span>].flow-=a[t];</span><br><span class="line">    &#125;</span><br><span class="line">    maxflow+=a[t];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>),cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m&gt;&gt;s&gt;&gt;t,cnt=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">        cin&gt;&gt;u&gt;&gt;v&gt;&gt;w,<span class="built_in">addin</span>(u,v,w);</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">bfs</span>(s,t)) <span class="built_in">update</span>(s,t);</span><br><span class="line">    cout&lt;&lt;maxflow&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>但是在某些情况下 EK 算法极其低效，其原因是：</p>
-<ol>
-<li><p>某些边被反复搜到又被反复退流；</p>
-</li>
-<li><p>每次只能搜到一条增广路，各次搜索之间相互独立。</p>
-</li>
+<ol type="1">
+<li><p>某些边被反复搜到又被反复退流；</p></li>
+<li><p>每次只能搜到一条增广路，各次搜索之间相互独立。</p></li>
 </ol>
 <p>于是我们考虑使用新的算法。</p>
-<h3 id="Dinic-算法"><a href="#Dinic-算法" class="headerlink" title="Dinic 算法"></a>Dinic 算法</h3><p>$O(n^2m)$</p>
-<h4 id="算法思想："><a href="#算法思想：" class="headerlink" title="算法思想："></a>算法思想：</h4><p>从上文中 EK 低效的原因出发：</p>
-<p>针对第一点，发现每次去寻找最短增广路，可以避免绕路，从而也不会反复经过同一条边，此处的“短”，指经过的边数，而不指容量。我们可以想到对残量网络 BFS 分层，这样就能找到最短的增广路径。</p>
-<p>针对第二条，发现建立分层图之后我们可以使用 DFS 对增广路进行搜索，每次找到增广路后回退到分叉点，可继续寻找下一条增广路，从而一次找到多条。</p>
+<h3 id="dinic-算法">Dinic 算法</h3>
+<p><span class="math inline">\(O(n^2m)\)</span></p>
+<h4 id="算法思想">算法思想：</h4>
+<p>从上文中 EK 低效的原因出发：</p>
+<p>针对第一点，发现每次去寻找最短增广路，可以避免绕路，从而也不会反复经过同一条边，此处的“短”，指经过的边数，而不指容量。我们可以想到对残量网络
+BFS 分层，这样就能找到最短的增广路径。</p>
+<p>针对第二条，发现建立分层图之后我们可以使用 DFS
+对增广路进行搜索，每次找到增广路后回退到分叉点，可继续寻找下一条增广路，从而一次找到多条。</p>
 <p>系统地阐述 Dinic 算法：</p>
-<p>考虑在增广前先对 $G_f$ 做 BFS 分层，即根据结点 $u$ 到源点 $s$ 的距离 $d(u)$ 把结点分成若干层。令经过 $u$ 的流量只能流向下一层的结点 $v$，即删除 $u$ 向层数标号相等或更小的结点的出边，我们称 $G_f$ 剩下的部分为层次图。形式化地，我们称 $G_L$ 是 $G_f$ 的层次图，其中 $E_L = $ ${ (u, v) $ $| (u, v) \in E_f, $ $d(u) + 1 = $ $d(v) }$。</p>
-<p>如果我们在层次图 $G_L$ 上找到一个最大的增广流 $f_b$，使得仅在 $G_L$ 上是不可能找出更大的增广流的，则我们称 $f_b$ 是 $G_L$ 的阻塞流。直观上理解阻塞流为在层次图的残量图中使得 $s$ 与 $t$ 不连通的那个最大增广流。</p>
-<h4 id="算法流程：-1"><a href="#算法流程：-1" class="headerlink" title="算法流程："></a>算法流程：</h4><ol>
-<li><p>在 $G_f$ 上 BFS 出层次图 $G_L$。</p>
-</li>
-<li><p>在 $G_L$ 上 DFS 出阻塞流 $f_b$。</p>
-</li>
-<li><p>将 $f_b$ 并到原先的 $f$ 中去。</p>
-</li>
-<li><p>重复以上过程直到不存在 $s$ 到 $t$ 的路径。</p>
-</li>
+<p>考虑在增广前先对 <span class="math inline">\(G_f\)</span> 做 BFS
+分层，即根据结点 <span class="math inline">\(u\)</span> 到源点 <span
+class="math inline">\(s\)</span> 的距离 <span
+class="math inline">\(d(u)\)</span> 把结点分成若干层。令经过 <span
+class="math inline">\(u\)</span> 的流量只能流向下一层的结点 <span
+class="math inline">\(v\)</span>，即删除 <span
+class="math inline">\(u\)</span> 向层数标号相等或更小的结点的出边，我们称 <span
+class="math inline">\(G_f\)</span> 剩下的部分为层次图。形式化地，我们称 <span
+class="math inline">\(G_L\)</span> 是 <span
+class="math inline">\(G_f\)</span> 的层次图，其中 $E_L = $ ${ (u, v) $
+$| (u, v) E_f, $ $d(u) + 1 = $ <span class="math inline">\(d(v)
+\}\)</span>。</p>
+<p>如果我们在层次图 <span
+class="math inline">\(G_L\)</span> 上找到一个最大的增广流 <span
+class="math inline">\(f_b\)</span>，使得仅在 <span
+class="math inline">\(G_L\)</span> 上是不可能找出更大的增广流的，则我们称 <span
+class="math inline">\(f_b\)</span> 是 <span
+class="math inline">\(G_L\)</span> 的阻塞流。直观上理解阻塞流为在层次图的残量图中使得
+<span class="math inline">\(s\)</span> 与 <span
+class="math inline">\(t\)</span> 不连通的那个最大增广流。</p>
+<h4 id="算法流程-1">算法流程：</h4>
+<ol type="1">
+<li><p>在 <span class="math inline">\(G_f\)</span> 上 BFS 出层次图 <span
+class="math inline">\(G_L\)</span>。</p></li>
+<li><p>在 <span class="math inline">\(G_L\)</span> 上 DFS 出阻塞流 <span
+class="math inline">\(f_b\)</span>。</p></li>
+<li><p>将 <span class="math inline">\(f_b\)</span> 并到原先的 <span
+class="math inline">\(f\)</span> 中去。</p></li>
+<li><p>重复以上过程直到不存在 <span class="math inline">\(s\)</span> 到
+<span class="math inline">\(t\)</span> 的路径。</p></li>
 </ol>
-<p>此时 $f$ 即为最大流。</p>
-<h4 id="优化："><a href="#优化：" class="headerlink" title="优化："></a>优化：</h4><ol>
+<p>此时 <span class="math inline">\(f\)</span> 即为最大流。</p>
+<h4 id="优化">优化：</h4>
+<ol type="1">
 <li><p><strong>弧优化</strong>：</p>
-<p>如果某一时刻我们已经知道边 $(u,v)$ 已经增广到极限（边 $(u,v)$ 已无剩余容量或 $v$ 的后侧已增广至阻塞），则 $u$ 的流量没有必要再尝试流向出边 $(u,v)$。据此，对于每个结点 $u$，我们维护 $u$ 的出边表中第一条还有必要尝试的出边。称维护的这个指针为当前弧，称这个做法为当前弧优化。</p>
-</li>
+<p>如果某一时刻我们已经知道边 <span
+class="math inline">\((u,v)\)</span> 已经增广到极限（边 <span
+class="math inline">\((u,v)\)</span> 已无剩余容量或 <span
+class="math inline">\(v\)</span> 的后侧已增广至阻塞），则 <span
+class="math inline">\(u\)</span> 的流量没有必要再尝试流向出边 <span
+class="math inline">\((u,v)\)</span>。据此，对于每个结点 <span
+class="math inline">\(u\)</span>，我们维护 <span
+class="math inline">\(u\)</span> 的出边表中第一条还有必要尝试的出边。称维护的这个指针为当前弧，称这个做法为当前弧优化。</p></li>
 <li><p><strong>多路增广</strong>：</p>
-<p>如果我们在层次图上找到了一条从 $s$ 到 $t$ 的增广路 $p$，则接下来我们未必需要重新从 $s$ 出发找下一条增广路，而可能从 $p$ 上最后一个仍有剩余容量的位置出发寻找一条岔路进行增广。</p>
-</li>
+<p>如果我们在层次图上找到了一条从 <span
+class="math inline">\(s\)</span> 到 <span
+class="math inline">\(t\)</span> 的增广路 <span
+class="math inline">\(p\)</span>，则接下来我们未必需要重新从 <span
+class="math inline">\(s\)</span> 出发找下一条增广路，而可能从 <span
+class="math inline">\(p\)</span> 上最后一个仍有剩余容量的位置出发寻找一条岔路进行增广。</p></li>
 </ol>
-<p>需要注意，弧优化是用于保证 Dinic 算法正确性的一部分，而多路增广只是一个不影响复杂度的常数优化。</p>
-<h4 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><p>（参考文献：《浅谈基于分层思想的网络流算法》——王欣上 2007国家集训队论文）</p>
-<p>首先我们需要重新审视“层次图”的概念：一个点的层次即它在残量网络中到源点 $s$ 的最短路；层次图即是建立在残量网络中的最短路图。</p>
-<p>Dinic 算法的复杂度可以分为建立层次图和找增广路两部分。首先分析建立层次图的复杂度。</p>
-<p>在这里我们需要给出一个定理：对于有 $n$ 个点的流量网络，层次图最多被建立 $n$ 次。证明如下：一张网络中的边可以被划分为如下类型：一种是层次图中的边，一种是从某个层次较高的点出发连向层次较低的点的边，可以证明不会存在从某个点出发连向层次比它高且高度差大于 $1$ 的点的边，因为如果存在这样的边，便不满足层次图是“最短路图”的性质了。当我们对一条增广路径增广后，会删除一条或多条增广路径中的饱和边，并向剩余图给反向边增流，相当于我们会删去一些第一类边，并增添一些第二类边。找到阻塞流后，不存在从源点到汇点的增广路了，这时我们回看整个残量网络，如果还存在源点到汇点的路径，一定是从原点出发，沿第一类边走到某一点后跳转至第二类边，之后又走第一类边直到汇点，如果此前层次图的层数为 $k$，这条新找到的路径由于经过了第二类边，相当于在层次图中逆层跳转，此时这条路路径的长度一定大于 $k$，于是我们可得层次图中的增广路长度随阶段严格递增，而在 $n$ 个点的图中，增广路的最短长度是 $1$，最长长度是 $n-1$（链），还需要注意最后还会构建一次汇点不在图中的层次图来判定算法结束，所以层次图最多被构建 $n$ 次，换而言之，Dinic 算法最多有 $n$ 个阶段。</p>
+<p>需要注意，弧优化是用于保证 Dinic
+算法正确性的一部分，而多路增广只是一个不影响复杂度的常数优化。</p>
+<h4 id="复杂度分析">复杂度分析</h4>
+<p>（参考文献：《浅谈基于分层思想的网络流算法》——王欣上
+2007国家集训队论文）</p>
+<p>首先我们需要重新审视“层次图”的概念：一个点的层次即它在残量网络中到源点
+<span class="math inline">\(s\)</span>
+的最短路；层次图即是建立在残量网络中的最短路图。</p>
+<p>Dinic
+算法的复杂度可以分为建立层次图和找增广路两部分。首先分析建立层次图的复杂度。</p>
+<p>在这里我们需要给出一个定理：对于有 <span
+class="math inline">\(n\)</span> 个点的流量网络，层次图最多被建立 <span
+class="math inline">\(n\)</span>
+次。证明如下：一张网络中的边可以被划分为如下类型：一种是层次图中的边，一种是从某个层次较高的点出发连向层次较低的点的边，可以证明不会存在从某个点出发连向层次比它高且高度差大于
+<span class="math inline">\(1\)</span>
+的点的边，因为如果存在这样的边，便不满足层次图是“最短路图”的性质了。当我们对一条增广路径增广后，会删除一条或多条增广路径中的饱和边，并向剩余图给反向边增流，相当于我们会删去一些第一类边，并增添一些第二类边。找到阻塞流后，不存在从源点到汇点的增广路了，这时我们回看整个残量网络，如果还存在源点到汇点的路径，一定是从原点出发，沿第一类边走到某一点后跳转至第二类边，之后又走第一类边直到汇点，如果此前层次图的层数为
+<span
+class="math inline">\(k\)</span>，这条新找到的路径由于经过了第二类边，相当于在层次图中逆层跳转，此时这条路路径的长度一定大于
+<span
+class="math inline">\(k\)</span>，于是我们可得层次图中的增广路长度随阶段严格递增，而在
+<span class="math inline">\(n\)</span> 个点的图中，增广路的最短长度是
+<span class="math inline">\(1\)</span>，最长长度是 <span
+class="math inline">\(n-1\)</span>（链），还需要注意最后还会构建一次汇点不在图中的层次图来判定算法结束，所以层次图最多被构建
+<span class="math inline">\(n\)</span> 次，换而言之，Dinic 算法最多有
+<span class="math inline">\(n\)</span> 个阶段。</p>
 <p>接下来分析一个阶段中找增广路的复杂度。</p>
-<p>注意到每增广一次，层次图中必定有一条边被删除（满流或者后侧增广至阻塞流，这一条件与当前弧优化中弧指针转移条件相同，于是所谓删除就是指当前弧优化中弧指针的移动）。层次图中最多有 $m$ 条边，所以增广最多进行 $m$ 次，在 DFS 遍历时，存在前进与后退两种操作，如果当前路径的最后一个顶点能够继续扩展，则一定是沿着上文提及的层次图第一类边向汇点前进了一步。因为增广路径长度最长为 $n$，所以最多连续前进n步后就会遇到汇点，于是单次前进时间复杂度为 $O(n)$，类似地一次增广后在增广路中后退的时间复杂度上界也是 $O(n)$，所以一个阶段中寻找增广路的复杂度是 $O(m\times (n+n))=$ $O(mn)$。</p>
-<p>综合上述两个阶段，Dinic 的时间复杂度是 阶段数 * 某阶段增广复杂度 即为 $O(n^2m)$。</p>
-<h4 id="参考代码：-1"><a href="#参考代码：-1" class="headerlink" title="参考代码："></a>参考代码：</h4><h5 id="vector版本-1"><a href="#vector版本-1" class="headerlink" title="vector版本"></a>vector版本</h5><ol>
+<p>注意到每增广一次，层次图中必定有一条边被删除（满流或者后侧增广至阻塞流，这一条件与当前弧优化中弧指针转移条件相同，于是所谓删除就是指当前弧优化中弧指针的移动）。层次图中最多有
+<span class="math inline">\(m\)</span> 条边，所以增广最多进行 <span
+class="math inline">\(m\)</span> 次，在 DFS
+遍历时，存在前进与后退两种操作，如果当前路径的最后一个顶点能够继续扩展，则一定是沿着上文提及的层次图第一类边向汇点前进了一步。因为增广路径长度最长为
+<span
+class="math inline">\(n\)</span>，所以最多连续前进n步后就会遇到汇点，于是单次前进时间复杂度为
+<span
+class="math inline">\(O(n)\)</span>，类似地一次增广后在增广路中后退的时间复杂度上界也是
+<span
+class="math inline">\(O(n)\)</span>，所以一个阶段中寻找增广路的复杂度是
+<span class="math inline">\(O(m\times (n+n))=\)</span> <span
+class="math inline">\(O(mn)\)</span>。</p>
+<p>综合上述两个阶段，Dinic 的时间复杂度是 阶段数 * 某阶段增广复杂度 即为
+<span class="math inline">\(O(n^2m)\)</span>。</p>
+<h4 id="参考代码-1">参考代码：</h4>
+<h5 id="vector版本-1">vector版本</h5>
+<ol type="1">
 <li><p>变量声明与初始化：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n,m,s,t;</span><br><span class="line"><span class="type">int</span> maxflow;</span><br><span class="line"><span class="type">int</span> dep[maxn];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123;<span class="type">int</span> from,to,cap,flow;&#125;;</span><br><span class="line">vector&lt;Edge&gt; edge;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; id[maxn];</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n,m,s,t;</span><br><span class="line"><span class="type">int</span> maxflow;</span><br><span class="line"><span class="type">int</span> dep[maxn];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123;<span class="type">int</span> from,to,cap,flow;&#125;;</span><br><span class="line">vector&lt;Edge&gt; edge;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; id[maxn];</span><br></pre></td></tr></table></figure></li>
 <li><p>建图</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">addin</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y,<span class="type">int</span> z)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    edge.<span class="built_in">push_back</span>(&#123;x,y,z,<span class="number">0</span>&#125;);</span><br><span class="line">    edge.<span class="built_in">push_back</span>(&#123;y,x,<span class="number">0</span>,<span class="number">0</span>&#125;);</span><br><span class="line">    id[x].<span class="built_in">push_back</span>(edge.<span class="built_in">size</span>()<span class="number">-2</span>);</span><br><span class="line">    id[y].<span class="built_in">push_back</span>(edge.<span class="built_in">size</span>()<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">addin</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y,<span class="type">int</span> z)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    edge.<span class="built_in">push_back</span>(&#123;x,y,z,<span class="number">0</span>&#125;);</span><br><span class="line">    edge.<span class="built_in">push_back</span>(&#123;y,x,<span class="number">0</span>,<span class="number">0</span>&#125;);</span><br><span class="line">    id[x].<span class="built_in">push_back</span>(edge.<span class="built_in">size</span>()<span class="number">-2</span>);</span><br><span class="line">    id[y].<span class="built_in">push_back</span>(edge.<span class="built_in">size</span>()<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>BFS出层次图</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">bfs</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(dep,<span class="number">0</span>,<span class="built_in">sizeof</span>(dep));</span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">    q.<span class="built_in">push</span>(s),dep[s]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> u=q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;id[u].<span class="built_in">size</span>();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            Edge e=edge[id[u][i]];</span><br><span class="line">            <span class="keyword">if</span>(dep[e.to]||e.flow&gt;=e.cap) <span class="keyword">continue</span>;</span><br><span class="line">            dep[e.to]=dep[u]+<span class="number">1</span>,q.<span class="built_in">push</span>(e.to);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dep[t];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">bfs</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(dep,<span class="number">0</span>,<span class="built_in">sizeof</span>(dep));</span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">    q.<span class="built_in">push</span>(s),dep[s]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> u=q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;id[u].<span class="built_in">size</span>();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            Edge e=edge[id[u][i]];</span><br><span class="line">            <span class="keyword">if</span>(dep[e.to]||e.flow&gt;=e.cap) <span class="keyword">continue</span>;</span><br><span class="line">            dep[e.to]=dep[u]+<span class="number">1</span>,q.<span class="built_in">push</span>(e.to);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dep[t];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>DFS寻找流</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> u,<span class="type">int</span> flow)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(u==t||!flow) <span class="keyword">return</span> flow;</span><br><span class="line">    <span class="type">int</span> ret=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;id[u].<span class="built_in">size</span>();i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> j=id[u][i]; Edge e=edge[j];</span><br><span class="line">        <span class="keyword">if</span>(dep[e.to]!=dep[u]+<span class="number">1</span>||e.flow&gt;=e.cap) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="type">int</span> d=<span class="built_in">dfs</span>(e.to,<span class="built_in">min</span>(flow-ret,e.cap-e.flow));</span><br><span class="line">        <span class="keyword">if</span>(!d) dep[e.to]=<span class="number">0</span>;</span><br><span class="line">        ret+=d,edge[j].flow+=d,edge[j^<span class="number">1</span>].flow-=d;</span><br><span class="line">        <span class="keyword">if</span>(ret==flow) <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dinic</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">bfs</span>(s,t))</span><br><span class="line">        maxflow+=<span class="built_in">dfs</span>(s,<span class="number">0x3f3f3f3f</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> u,<span class="type">int</span> flow)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(u==t||!flow) <span class="keyword">return</span> flow;</span><br><span class="line">    <span class="type">int</span> ret=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;id[u].<span class="built_in">size</span>();i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> j=id[u][i]; Edge e=edge[j];</span><br><span class="line">        <span class="keyword">if</span>(dep[e.to]!=dep[u]+<span class="number">1</span>||e.flow&gt;=e.cap) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="type">int</span> d=<span class="built_in">dfs</span>(e.to,<span class="built_in">min</span>(flow-ret,e.cap-e.flow));</span><br><span class="line">        <span class="keyword">if</span>(!d) dep[e.to]=<span class="number">0</span>;</span><br><span class="line">        ret+=d,edge[j].flow+=d,edge[j^<span class="number">1</span>].flow-=d;</span><br><span class="line">        <span class="keyword">if</span>(ret==flow) <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dinic</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">bfs</span>(s,t))</span><br><span class="line">        maxflow+=<span class="built_in">dfs</span>(s,<span class="number">0x3f3f3f3f</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h5 id="链式前向星版本-1"><a href="#链式前向星版本-1" class="headerlink" title="链式前向星版本"></a>链式前向星版本</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,m,s,t,u,v,w,maxflow,dep[<span class="number">1000</span>],cur[<span class="number">1000</span>];</span><br><span class="line"><span class="type">int</span> cnt,head[<span class="number">1000</span>];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123;<span class="type">int</span> to,nxt,cap,flow;&#125; edge[<span class="number">100005</span>];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">addin</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y,<span class="type">int</span> z)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    edge[++cnt]=&#123;y,head[x],z,<span class="number">0</span>&#125;;</span><br><span class="line">    head[x]=cnt;</span><br><span class="line">    edge[++cnt]=&#123;x,head[y],<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    head[y]=cnt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">bfs</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(dep,<span class="number">0</span>,<span class="built_in">sizeof</span>(dep));</span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">    q.<span class="built_in">push</span>(s),dep[s]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> u=q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=head[u];i;i=edge[i].nxt)</span><br><span class="line">        &#123;</span><br><span class="line">            Edge e=edge[i];</span><br><span class="line">            <span class="keyword">if</span>(dep[e.to]||e.flow&gt;=e.cap) <span class="keyword">continue</span>;</span><br><span class="line">            dep[e.to]=dep[u]+<span class="number">1</span>,q.<span class="built_in">push</span>(e.to);</span><br><span class="line">            <span class="keyword">if</span>(e.to==t) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">dinic</span><span class="params">(<span class="type">int</span> u,<span class="type">int</span> Flow)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(u==t) <span class="keyword">return</span> Flow;</span><br><span class="line">    <span class="type">int</span> lst=Flow;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=head[u];i&amp;&amp;lst;i=edge[i].nxt)</span><br><span class="line">    &#123;</span><br><span class="line">        Edge e=edge[i];</span><br><span class="line">        <span class="keyword">if</span>(dep[e.to]!=dep[u]+<span class="number">1</span>||e.flow&gt;=e.cap) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="type">int</span> k=<span class="built_in">dinic</span>(e.to,<span class="built_in">min</span>(lst,e.cap-e.flow));</span><br><span class="line">        <span class="keyword">if</span>(!k) dep[e.to]=<span class="number">0</span>;</span><br><span class="line">        edge[i].flow+=k,edge[i^<span class="number">1</span>].flow-=k,lst-=k;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Flow-lst;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>),cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m&gt;&gt;s&gt;&gt;t,cnt=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">        cin&gt;&gt;u&gt;&gt;v&gt;&gt;w,<span class="built_in">addin</span>(u,v,w);</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">bfs</span>(s,t))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> flow=<span class="built_in">dinic</span>(s,<span class="number">0x3f3f3f3f</span>);</span><br><span class="line">        <span class="keyword">while</span>(flow) maxflow+=flow,flow=<span class="built_in">dinic</span>(s,<span class="number">0x3f3f3f3f</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;maxflow&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="ISAP-算法"><a href="#ISAP-算法" class="headerlink" title="ISAP 算法"></a>ISAP 算法</h3><p>首先，ISAP 基于 Dinic。</p>
-<h4 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h4><p>在 Dinic 算法中，每次求完增广路中都要再跑 BFS 来分层，在某些时候不够高效，ISAP 的核心思想就是分层一次，之后再增广过程中完成重分层过程。</p>
-<h4 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h4><ol>
-<li><p>先跑 BFS 对图上点进行分层，不过 BFS 方向是由 $t$ 向 $s$ （其意义参见第三步）。</p>
-</li>
-<li><p>增广，增广过程与 Dinic 类似，只选择层数多 $1$ 的进行增广。设 $i$ 号点的层数为 $d_i$，在结束 $i$ 号点的增广过程后，若 $i$ 的流量未全部流出，遍历残量网络中 $i$ 的所有出边，找到层数最小的出点 $j$，随后令 $d_i=d_j+1$。特别地，若残量网络中 $i$ 无出边，令 $d_i=n$（优化：最短路的修改具有连续性，即我们不需要每次求后继的标号最小值，而是直接给标号加一）。</p>
-</li>
-<li><p>当 $d_s\geq n$ 时，图上不存在增广路，此时可终止算法。</p>
-</li>
+<h5 id="链式前向星版本-1">链式前向星版本</h5>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,m,s,t,u,v,w,maxflow,dep[<span class="number">1000</span>],cur[<span class="number">1000</span>];</span><br><span class="line"><span class="type">int</span> cnt,head[<span class="number">1000</span>];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123;<span class="type">int</span> to,nxt,cap,flow;&#125; edge[<span class="number">100005</span>];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">addin</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y,<span class="type">int</span> z)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    edge[++cnt]=&#123;y,head[x],z,<span class="number">0</span>&#125;;</span><br><span class="line">    head[x]=cnt;</span><br><span class="line">    edge[++cnt]=&#123;x,head[y],<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    head[y]=cnt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">bfs</span><span class="params">(<span class="type">int</span> s,<span class="type">int</span> t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(dep,<span class="number">0</span>,<span class="built_in">sizeof</span>(dep));</span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">    q.<span class="built_in">push</span>(s),dep[s]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> u=q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=head[u];i;i=edge[i].nxt)</span><br><span class="line">        &#123;</span><br><span class="line">            Edge e=edge[i];</span><br><span class="line">            <span class="keyword">if</span>(dep[e.to]||e.flow&gt;=e.cap) <span class="keyword">continue</span>;</span><br><span class="line">            dep[e.to]=dep[u]+<span class="number">1</span>,q.<span class="built_in">push</span>(e.to);</span><br><span class="line">            <span class="keyword">if</span>(e.to==t) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">dinic</span><span class="params">(<span class="type">int</span> u,<span class="type">int</span> Flow)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(u==t) <span class="keyword">return</span> Flow;</span><br><span class="line">    <span class="type">int</span> lst=Flow;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=head[u];i&amp;&amp;lst;i=edge[i].nxt)</span><br><span class="line">    &#123;</span><br><span class="line">        Edge e=edge[i];</span><br><span class="line">        <span class="keyword">if</span>(dep[e.to]!=dep[u]+<span class="number">1</span>||e.flow&gt;=e.cap) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="type">int</span> k=<span class="built_in">dinic</span>(e.to,<span class="built_in">min</span>(lst,e.cap-e.flow));</span><br><span class="line">        <span class="keyword">if</span>(!k) dep[e.to]=<span class="number">0</span>;</span><br><span class="line">        edge[i].flow+=k,edge[i^<span class="number">1</span>].flow-=k,lst-=k;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Flow-lst;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>),cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m&gt;&gt;s&gt;&gt;t,cnt=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">        cin&gt;&gt;u&gt;&gt;v&gt;&gt;w,<span class="built_in">addin</span>(u,v,w);</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">bfs</span>(s,t))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> flow=<span class="built_in">dinic</span>(s,<span class="number">0x3f3f3f3f</span>);</span><br><span class="line">        <span class="keyword">while</span>(flow) maxflow+=flow,flow=<span class="built_in">dinic</span>(s,<span class="number">0x3f3f3f3f</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;maxflow&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="isap-算法">ISAP 算法</h3>
+<p>首先，ISAP 基于 Dinic。</p>
+<h4 id="算法思想-1">算法思想</h4>
+<p>在 Dinic 算法中，每次求完增广路中都要再跑 BFS
+来分层，在某些时候不够高效，ISAP
+的核心思想就是分层一次，之后再增广过程中完成重分层过程。</p>
+<h4 id="算法流程-2">算法流程</h4>
+<ol type="1">
+<li><p>先跑 BFS 对图上点进行分层，不过 BFS 方向是由 <span
+class="math inline">\(t\)</span> 向 <span
+class="math inline">\(s\)</span> （其意义参见第三步）。</p></li>
+<li><p>增广，增广过程与 Dinic 类似，只选择层数多 <span
+class="math inline">\(1\)</span> 的进行增广。设 <span
+class="math inline">\(i\)</span> 号点的层数为 <span
+class="math inline">\(d_i\)</span>，在结束 <span
+class="math inline">\(i\)</span> 号点的增广过程后，若 <span
+class="math inline">\(i\)</span> 的流量未全部流出，遍历残量网络中 <span
+class="math inline">\(i\)</span> 的所有出边，找到层数最小的出点 <span
+class="math inline">\(j\)</span>，随后令 <span
+class="math inline">\(d_i=d_j+1\)</span>。特别地，若残量网络中 <span
+class="math inline">\(i\)</span> 无出边，令 <span
+class="math inline">\(d_i=n\)</span>（优化：最短路的修改具有连续性，即我们不需要每次求后继的标号最小值，而是直接给标号加一）。</p></li>
+<li><p>当 <span class="math inline">\(d_s\geq n\)</span>
+时，图上不存在增广路，此时可终止算法。</p></li>
 </ol>
-<details class=note open>
-<summary>正确性证明</summary>
+<details class="note" open>
+<summary>
+正确性证明
+</summary>
 <p>
-某一个点接受一定量的流量，并向外推流。
-
-根据上面的算法步骤，当一个点推流推完的时候，这个点的层数不提高。因为此时这个点的层数已经足够其推流了，不需要再提高，而且根据算法的要求，流量只能在相邻层之间移动。
-
-假设当前点推流推不出去，需要提高层数，当前的点无法推流了，前面的点也无法推流，因此如果我们提高了这个点的层数，前面的点也必须要提高层数（否则无法推流），此时就能够保证至少这个点接受流量不变。
-
-提高层数后，如果后面的点有层次更高的点，就可以继续推流，存在增广路；如果没有了，都是层次比较低的点，若这些点推流完毕没法提高层次，就会出现断层，满足算法结束条件。
-
+<p>某一个点接受一定量的流量，并向外推流。</p>
+<p>根据上面的算法步骤，当一个点推流推完的时候，这个点的层数不提高。因为此时这个点的层数已经足够其推流了，不需要再提高，而且根据算法的要求，流量只能在相邻层之间移动。</p>
+<p>假设当前点推流推不出去，需要提高层数，当前的点无法推流了，前面的点也无法推流，因此如果我们提高了这个点的层数，前面的点也必须要提高层数（否则无法推流），此时就能够保证至少这个点接受流量不变。</p>
+<p>提高层数后，如果后面的点有层次更高的点，就可以继续推流，存在增广路；如果没有了，都是层次比较低的点，若这些点推流完毕没法提高层次，就会出现断层，满足算法结束条件。</p>
 综上，算法正确性成立。
 </p>
 </details>
-
-<h4 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h4><p>和 Dinic 类似，ISAP 中也存在当前弧优化。</p>
-<p>ISAP 还有另一个优化，我们记录层数为 $i$ 的点数量为 $num_i$，每当将一个点的层数从 $x$ 更新到 $y$ 时，更新 $num$ 数组的值，若更新后 $num_x=0$，意味着图中出现断层，此时无增广路，可直接终止算法，该优化被称为 GAP 优化。</p>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ll long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,m,s,t,u,v,w,cnt,head[<span class="number">100005</span>],dep[<span class="number">100005</span>],gap[<span class="number">100005</span>];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123;<span class="type">int</span> to,nxt,flow;&#125; edge[<span class="number">2000005</span>];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">addin</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y,<span class="type">int</span> w)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    edge[++cnt]=&#123;y,head[x],w&#125;,head[x]=cnt;</span><br><span class="line">    edge[++cnt]=&#123;x,head[y],<span class="number">0</span>&#125;,head[y]=cnt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">bfs</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">    q.<span class="built_in">push</span>(t),dep[t]=<span class="number">1</span>,gap[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> u=q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=head[u];i;i=edge[i].nxt)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> v=edge[i].to;</span><br><span class="line">            <span class="keyword">if</span>(dep[v]) <span class="keyword">continue</span>;</span><br><span class="line">            q.<span class="built_in">push</span>(v),dep[v]=dep[u]+<span class="number">1</span>,gap[dep[v]]++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line">ll mxf;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> u,<span class="type">int</span> f)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(u==t) &#123;mxf+=<span class="number">1ll</span>*f;<span class="keyword">return</span> f;&#125;</span><br><span class="line">    <span class="type">int</span> lst=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=head[u];i;i=edge[i].nxt)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> v=edge[i].to;</span><br><span class="line">        <span class="keyword">if</span>(dep[v]+<span class="number">1</span>!=dep[u]||!edge[i].flow) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="type">int</span> k=<span class="built_in">dfs</span>(v,<span class="built_in">min</span>(edge[i].flow,f-lst));</span><br><span class="line">        <span class="keyword">if</span>(k) edge[i].flow-=k,edge[i^<span class="number">1</span>].flow+=k,lst+=k;</span><br><span class="line">        <span class="keyword">if</span>(lst==f) <span class="keyword">return</span> f;</span><br><span class="line">    &#125;</span><br><span class="line">    --gap[dep[u]];</span><br><span class="line">    <span class="keyword">if</span>(gap[dep[u]]==<span class="number">0</span>) dep[s]=n+<span class="number">1</span>;</span><br><span class="line">    dep[u]++,gap[dep[u]]++;</span><br><span class="line">    <span class="keyword">return</span> lst;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">rd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> x=<span class="number">0</span>;<span class="type">char</span> ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&lt;<span class="string">&#x27;0&#x27;</span>||ch&gt;<span class="string">&#x27;9&#x27;</span>) ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&gt;=<span class="string">&#x27;0&#x27;</span>&amp;&amp;ch&lt;=<span class="string">&#x27;9&#x27;</span>) x=x*<span class="number">10</span>+ch-<span class="string">&#x27;0&#x27;</span>,ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">wt</span><span class="params">(ll x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&gt;<span class="number">9</span>) <span class="built_in">wt</span>(x/<span class="number">10</span>);</span><br><span class="line">    <span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    n=<span class="built_in">rd</span>(),m=<span class="built_in">rd</span>(),s=<span class="built_in">rd</span>(),t=<span class="built_in">rd</span>(),cnt=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++) u=<span class="built_in">rd</span>(),v=<span class="built_in">rd</span>(),w=<span class="built_in">rd</span>(),<span class="built_in">addin</span>(u,v,w);</span><br><span class="line">    <span class="built_in">bfs</span>();</span><br><span class="line">    <span class="keyword">while</span>(dep[s]&lt;=n) <span class="built_in">dfs</span>(s,<span class="number">0x3f3f3f3f</span>);</span><br><span class="line">    <span class="built_in">wt</span>(mxf),<span class="built_in">putchar</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="二，Push-Relabel-预流推进算法"><a href="#二，Push-Relabel-预流推进算法" class="headerlink" title="二，Push-Relabel 预流推进算法"></a>二，Push-Relabel 预流推进算法</h2><p>该方法在求解过程中忽略流的守恒性，每次对一个结点更新答案以求最大流。</p>
-<p><strong>超额流</strong>：对于一个结点，进入结点的流若超出流出结点的流，超出部分即为该结点的超额流 $e(u)$，形式化地，$e(u)=$ $\sum<em>{(x,u)\in E}f(x,u)-$ $\sum</em>{(u,y)\in E}f(u,y)$。</p>
-<p><strong>溢出</strong>：超额流 $e(u)&gt;0$ 时，称结点 $u$ 溢出（不包括 $s$ 与 $t$）。</p>
-<p>预流推进算法维护每个结点的高度 $h(u)$，并且规定溢出的结点 $u$ 如果要推送超额流，只能向高度小于 $u$ 的结点推送；如果 $u$ 没有相邻的高度小于 $u$ 的结点，那就修改 $u$ 的高度。</p>
-<h3 id="1-相关操作"><a href="#1-相关操作" class="headerlink" title="1. 相关操作"></a>1. 相关操作</h3><ol>
-<li>
-<p><strong>高度函数</strong>：维护一个高度映射 $h$。</p>
+<h4 id="优化-1">优化</h4>
+<p>和 Dinic 类似，ISAP 中也存在当前弧优化。</p>
+<p>ISAP 还有另一个优化，我们记录层数为 <span
+class="math inline">\(i\)</span> 的点数量为 <span
+class="math inline">\(num_i\)</span>，每当将一个点的层数从 <span
+class="math inline">\(x\)</span> 更新到 <span
+class="math inline">\(y\)</span> 时，更新 <span
+class="math inline">\(num\)</span> 数组的值，若更新后 <span
+class="math inline">\(num_x=0\)</span>，意味着图中出现断层，此时无增广路，可直接终止算法，该优化被称为
+GAP 优化。</p>
+<h4 id="代码实现">代码实现</h4>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ll long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,m,s,t,u,v,w,cnt,head[<span class="number">100005</span>],dep[<span class="number">100005</span>],gap[<span class="number">100005</span>];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123;<span class="type">int</span> to,nxt,flow;&#125; edge[<span class="number">2000005</span>];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">addin</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y,<span class="type">int</span> w)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    edge[++cnt]=&#123;y,head[x],w&#125;,head[x]=cnt;</span><br><span class="line">    edge[++cnt]=&#123;x,head[y],<span class="number">0</span>&#125;,head[y]=cnt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">bfs</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">    q.<span class="built_in">push</span>(t),dep[t]=<span class="number">1</span>,gap[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> u=q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=head[u];i;i=edge[i].nxt)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> v=edge[i].to;</span><br><span class="line">            <span class="keyword">if</span>(dep[v]) <span class="keyword">continue</span>;</span><br><span class="line">            q.<span class="built_in">push</span>(v),dep[v]=dep[u]+<span class="number">1</span>,gap[dep[v]]++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line">ll mxf;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> u,<span class="type">int</span> f)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(u==t) &#123;mxf+=<span class="number">1ll</span>*f;<span class="keyword">return</span> f;&#125;</span><br><span class="line">    <span class="type">int</span> lst=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=head[u];i;i=edge[i].nxt)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> v=edge[i].to;</span><br><span class="line">        <span class="keyword">if</span>(dep[v]+<span class="number">1</span>!=dep[u]||!edge[i].flow) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="type">int</span> k=<span class="built_in">dfs</span>(v,<span class="built_in">min</span>(edge[i].flow,f-lst));</span><br><span class="line">        <span class="keyword">if</span>(k) edge[i].flow-=k,edge[i^<span class="number">1</span>].flow+=k,lst+=k;</span><br><span class="line">        <span class="keyword">if</span>(lst==f) <span class="keyword">return</span> f;</span><br><span class="line">    &#125;</span><br><span class="line">    --gap[dep[u]];</span><br><span class="line">    <span class="keyword">if</span>(gap[dep[u]]==<span class="number">0</span>) dep[s]=n+<span class="number">1</span>;</span><br><span class="line">    dep[u]++,gap[dep[u]]++;</span><br><span class="line">    <span class="keyword">return</span> lst;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">rd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> x=<span class="number">0</span>;<span class="type">char</span> ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&lt;<span class="string">&#x27;0&#x27;</span>||ch&gt;<span class="string">&#x27;9&#x27;</span>) ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&gt;=<span class="string">&#x27;0&#x27;</span>&amp;&amp;ch&lt;=<span class="string">&#x27;9&#x27;</span>) x=x*<span class="number">10</span>+ch-<span class="string">&#x27;0&#x27;</span>,ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">wt</span><span class="params">(ll x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&gt;<span class="number">9</span>) <span class="built_in">wt</span>(x/<span class="number">10</span>);</span><br><span class="line">    <span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    n=<span class="built_in">rd</span>(),m=<span class="built_in">rd</span>(),s=<span class="built_in">rd</span>(),t=<span class="built_in">rd</span>(),cnt=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++) u=<span class="built_in">rd</span>(),v=<span class="built_in">rd</span>(),w=<span class="built_in">rd</span>(),<span class="built_in">addin</span>(u,v,w);</span><br><span class="line">    <span class="built_in">bfs</span>();</span><br><span class="line">    <span class="keyword">while</span>(dep[s]&lt;=n) <span class="built_in">dfs</span>(s,<span class="number">0x3f3f3f3f</span>);</span><br><span class="line">    <span class="built_in">wt</span>(mxf),<span class="built_in">putchar</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="二push-relabel-预流推进算法">二，Push-Relabel 预流推进算法</h2>
+<p>该方法在求解过程中忽略流的守恒性，每次对一个结点更新答案以求最大流。</p>
+<p><strong>超额流</strong>：对于一个结点，进入结点的流若超出流出结点的流，超出部分即为该结点的超额流
+<span class="math inline">\(e(u)\)</span>，形式化地，<span
+class="math inline">\(e(u)=\)</span> <span
+class="math inline">\(\sum_{(x,u)\in E}f(x,u)-\)</span> <span
+class="math inline">\(\sum_{(u,y)\in E}f(u,y)\)</span>。</p>
+<p><strong>溢出</strong>：超额流 <span
+class="math inline">\(e(u)&gt;0\)</span> 时，称结点 <span
+class="math inline">\(u\)</span> 溢出（不包括 <span
+class="math inline">\(s\)</span> 与 <span
+class="math inline">\(t\)</span>）。</p>
+<p>预流推进算法维护每个结点的高度 <span
+class="math inline">\(h(u)\)</span>，并且规定溢出的结点 <span
+class="math inline">\(u\)</span> 如果要推送超额流，只能向高度小于 <span
+class="math inline">\(u\)</span> 的结点推送；如果 <span
+class="math inline">\(u\)</span> 没有相邻的高度小于 <span
+class="math inline">\(u\)</span> 的结点，那就修改 <span
+class="math inline">\(u\)</span> 的高度。</p>
+<h3 id="相关操作">1. 相关操作</h3>
 <ol>
 <li>
-<p>$h(s)=|V|,$ $h(t)=0$</p>
+<p>
+<strong>高度函数</strong>：维护一个高度映射 <span
+class="math inline">\(h\)</span>。
+</p>
+<ol>
+<li>
+<p>
+<span class="math inline">\(h(s)=|V|,\)</span> <span
+class="math inline">\(h(t)=0\)</span>
+</p>
 </li>
 <li>
-<p>$\forall (u,v)\in E_f,$ $h(u)\leq h(v)+1$</p>
-</li>
-</ol>
-<p>称为 $h$ 是残量网络 $G_f=(V_f,E_f)$ 的高度函数。</p>
-
-引理：设 $G_f$ 上的高度函数为 $h$，对于任意两个节点 $u,v\in V$，如果 $h(u)>h(v)+1$，则 $(u,v)$ 不是 $G_f$ 中的边。
-
-</li>
-<li>
-<p><strong>推送\push</strong>：将超额流从 $u$ 推送到 $v$。</p>
-
-条件：点 $u$ 溢出，点 $v$ 满足 $(u,v)\in E_f,$ $c(u,v)>f(u,v),$ $h(u)=h(v)+1$。
-
-<p>如果 $(u,v)$ 在推送完之后满流，将其从残量网络中删除。</p>
-</li>
-<li>
-<p><strong>重贴标签\relabel</strong>：将 $h(u)$ 更新为 $\min_{(u,v)\in E_f}h(v)+1$。</p>
-
-条件：结点 $u$ 溢出，且 $\forall (u,v)\in E_f,$ $h(u)<h(v)$。
-
-</li>
-<li>
-<p><strong>初始化</strong>：
-<p>$1. 
-\forall (u,v)\in E,$ $f(u,v)={
-    \begin{cases}c(u,v),u=s\\
-    0,u\neq s\\
-    \end{cases}
-}$</p>
-<p>$2. 
-\forall u\in V,$ $h(u)={
-    \begin{cases}|V|,u=s\\
-    0,u\neq s\\
-    \end{cases}\
-}$</p>
-<p>$3. 
-e(u)=$ $\sum_{(x,u)\in E}f(x,u)-$ $\sum_{(u,y)\in E}f(u,y)
-$</p>
+<p>
+<span class="math inline">\(\forall (u,v)\in E_f,\)</span> <span
+class="math inline">\(h(u)\leq h(v)+1\)</span>
 </p>
 </li>
 </ol>
-
-<h3 id="2-过程及暴力实现"><a href="#2-过程及暴力实现" class="headerlink" title="2. 过程及暴力实现"></a>2. 过程及暴力实现</h3><p>每次扫描整个图，存在结点 $u$ 满足 push 或 relabel 操作的条件则执行对应操作。</p>
+<p>
+称为 <span class="math inline">\(h\)</span> 是残量网络 <span
+class="math inline">\(G_f=(V_f,E_f)\)</span> 的高度函数。
+</p>
+<p>引理：设 <span class="math inline">\(G_f\)</span> 上的高度函数为
+<span class="math inline">\(h\)</span>，对于任意两个节点 <span
+class="math inline">\(u,v\in V\)</span>，如果 <span
+class="math inline">\(h(u)&gt;h(v)+1\)</span>，则 <span
+class="math inline">\((u,v)\)</span> 不是 <span
+class="math inline">\(G_f\)</span> 中的边。</p>
+</li>
+<li>
+<p>
+<strong>推送</strong>：将超额流从 <span class="math inline">\(u\)</span>
+推送到 <span class="math inline">\(v\)</span>。
+</p>
+<p>条件：点 <span class="math inline">\(u\)</span> 溢出，点 <span
+class="math inline">\(v\)</span> 满足 <span
+class="math inline">\((u,v)\in E_f,\)</span> <span
+class="math inline">\(c(u,v)&gt;f(u,v),\)</span> <span
+class="math inline">\(h(u)=h(v)+1\)</span>。</p>
+<p>
+如果 <span class="math inline">\((u,v)\)</span>
+在推送完之后满流，将其从残量网络中删除。
+</p>
+</li>
+<li>
+<p>
+<strong>重贴标签</strong>：将 <span class="math inline">\(h(u)\)</span>
+更新为 <span class="math inline">\(\min_{(u,v)\in E_f}h(v)+1\)</span>。
+</p>
+<p>条件：结点 <span class="math inline">\(u\)</span> 溢出，且 <span
+class="math inline">\(\forall (u,v)\in E_f,\)</span> <span
+class="math inline">\(h(u)&lt;h(v)\)</span>。</p>
+</li>
+<li>
+<p>
+<strong>初始化</strong>：
+<p>
+<span class="math inline">\(1. \forall (u,v)\in E,\)</span> <span
+class="math inline">\(f(u,v)={  \begin{cases}c(u,v),u=s\\  0,u\neq
+s\\  \end{cases} }\)</span>
+</p>
+<p>
+<span class="math inline">\(2. \forall u\in V,\)</span> <span
+class="math inline">\(h(u)={  \begin{cases}|V|,u=s\\  0,u\neq
+s\\  \end{cases}\
+}\)</span>
+</p>
+<p>
+<span class="math inline">\(3. e(u)=\)</span> <span
+class="math inline">\(\sum_{(x,u)\in E}f(x,u)-\)</span> $_{(u,y)E}f(u,y)
+$
+</p>
+</p>
+</li>
+</ol>
+<h3 id="过程及暴力实现">2. 过程及暴力实现</h3>
+<p>每次扫描整个图，存在结点 <span class="math inline">\(u\)</span> 满足
+push 或 relabel 操作的条件则执行对应操作。</p>
 <p>考虑暴力实现：暴力扫描是否有溢出的结点，有就更新。</p>
-<ol>
-<li><p>变量声明及建图：略</p>
-</li>
+<ol type="1">
+<li><p>变量声明及建图：略</p></li>
 <li><p>初始化</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=head[s];ili=edge[i].nxt)</span><br><span class="line">    &#123;</span><br><span class="line">        Edge e=edge[i];</span><br><span class="line">        ex[e.to]=e.flow,ex[s]-=ex[e.to];</span><br><span class="line">        edge[i].flow=<span class="number">0</span>,edge[i^<span class="number">1</span>].flow=e.flow;</span><br><span class="line">    &#125;</span><br><span class="line">    h[s]=n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=head[s];ili=edge[i].nxt)</span><br><span class="line">    &#123;</span><br><span class="line">        Edge e=edge[i];</span><br><span class="line">        ex[e.to]=e.flow,ex[s]-=ex[e.to];</span><br><span class="line">        edge[i].flow=<span class="number">0</span>,edge[i^<span class="number">1</span>].flow=e.flow;</span><br><span class="line">    &#125;</span><br><span class="line">    h[s]=n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>推送</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">push</span><span class="params">(<span class="type">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> u=edge[i^<span class="number">1</span>].to,v=edge[i].to,flow=<span class="built_in">max</span>(ex[u],edge[i].flow);</span><br><span class="line">    ex[u]-=flow,ex[v]+=flow;</span><br><span class="line">    edge[i].flow-=flow,edge[i^<span class="number">1</span>].flow+=flow;</span><br><span class="line">    <span class="keyword">return</span> ex[u];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">push</span><span class="params">(<span class="type">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> u=edge[i^<span class="number">1</span>].to,v=edge[i].to,flow=<span class="built_in">max</span>(ex[u],edge[i].flow);</span><br><span class="line">    ex[u]-=flow,ex[v]+=flow;</span><br><span class="line">    edge[i].flow-=flow,edge[i^<span class="number">1</span>].flow+=flow;</span><br><span class="line">    <span class="keyword">return</span> ex[u];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>重贴标签</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">relabel</span><span class="params">(<span class="type">int</span> u)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    h[u]=<span class="number">0x3f3f3f3f</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=head[u];i;i=edge[i].nxt)</span><br><span class="line">        <span class="keyword">if</span>(edge[i].flow) h[u]=<span class="built_in">min</span>(h[u],h[edge[i].to]);</span><br><span class="line">    ++h[u];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">relabel</span><span class="params">(<span class="type">int</span> u)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    h[u]=<span class="number">0x3f3f3f3f</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=head[u];i;i=edge[i].nxt)</span><br><span class="line">        <span class="keyword">if</span>(edge[i].flow) h[u]=<span class="built_in">min</span>(h[u],h[edge[i].to]);</span><br><span class="line">    ++h[u];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="3-HLPP-算法"><a href="#3-HLPP-算法" class="headerlink" title="3. HLPP 算法"></a>3. HLPP 算法</h3><p>$O(n^2\sqrt{m})$</p>
+<h3 id="hlpp-算法">3. HLPP 算法</h3>
+<p><span class="math inline">\(O(n^2\sqrt{m})\)</span></p>
 <p>在上述过程基础上，优先选择高度最高的溢出结点。</p>
-<h4 id="算法流程：-2"><a href="#算法流程：-2" class="headerlink" title="算法流程："></a>算法流程：</h4><ol>
-<li><p>初始化</p>
-</li>
-<li><p>选择溢出结点中高度最高的结点并推送</p>
-</li>
-<li><p>如果2中的点仍溢出，重贴标签并回到2</p>
-</li>
-<li><p>没有溢出结点时结束</p>
-</li>
+<h4 id="算法流程-3">算法流程：</h4>
+<ol type="1">
+<li><p>初始化</p></li>
+<li><p>选择溢出结点中高度最高的结点并推送</p></li>
+<li><p>如果2中的点仍溢出，重贴标签并回到2</p></li>
+<li><p>没有溢出结点时结束</p></li>
 </ol>
-<h4 id="优化：-1"><a href="#优化：-1" class="headerlink" title="优化："></a>优化：</h4><ol>
+<h4 id="优化-2">优化：</h4>
+<ol type="1">
 <li><p><strong>BFS 优化</strong>：</p>
-<p>初始化时使用 BFS，初始化 $h(u)$ 为 $u$ 到 $t$ 的最短距离，特别地使 $h(s)=n$。</p>
-<p>在BFS的同时检查连通性排除无解情况。</p>
-</li>
+<p>初始化时使用 BFS，初始化 <span class="math inline">\(h(u)\)</span> 为
+<span class="math inline">\(u\)</span> 到 <span
+class="math inline">\(t\)</span> 的最短距离，特别地使 <span
+class="math inline">\(h(s)=n\)</span>。</p>
+<p>在BFS的同时检查连通性排除无解情况。</p></li>
 <li><p><strong>GAP 优化</strong>：</p>
-<p>如果某一时刻 $h(u)=t$ 的结点个数为 $0$，将 $h(u)&gt;t$ 的结点高度变为至少 $n+1$ 以便尽快推送回 $s$，减少重贴标签次数。</p>
-</li>
+<p>如果某一时刻 <span class="math inline">\(h(u)=t\)</span> 的结点个数为
+<span class="math inline">\(0\)</span>，将 <span
+class="math inline">\(h(u)&gt;t\)</span> 的结点高度变为至少 <span
+class="math inline">\(n+1\)</span> 以便尽快推送回 <span
+class="math inline">\(s\)</span>，减少重贴标签次数。</p></li>
 </ol>
-<h4 id="参考代码：-2"><a href="#参考代码：-2" class="headerlink" title="参考代码："></a>参考代码：</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,m,s,t,u,v,w;</span><br><span class="line"><span class="type">int</span> h[<span class="number">2000</span>],c[<span class="number">2000</span>],num[<span class="number">2000</span>];</span><br><span class="line"><span class="type">int</span> cnt=<span class="number">1</span>,head[<span class="number">2000</span>];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123;<span class="type">int</span> to,nxt,val;&#125; edge[<span class="number">300000</span>];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">addin</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y,<span class="type">int</span> z)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    edge[++cnt]=&#123;y,head[x],z&#125;,head[x]=cnt;</span><br><span class="line">    edge[++cnt]=&#123;x,head[y],<span class="number">0</span>&#125;,head[y]=cnt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> stop;</span><br><span class="line">stack&lt;<span class="type">int</span>&gt; b[<span class="number">2000</span>];</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">init</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(h,<span class="number">0x3f3f3f3f</span>,<span class="built_in">sizeof</span>(h));</span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">    q.<span class="built_in">push</span>(t),h[t]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> u=q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=head[u];i;i=edge[i].nxt)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> v=edge[i].to;</span><br><span class="line">            <span class="keyword">if</span>(edge[i^<span class="number">1</span>].val&amp;&amp;h[v]&gt;h[u]+<span class="number">1</span>)</span><br><span class="line">                h[v]=h[u]+<span class="number">1</span>,q.<span class="built_in">push</span>(v);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> h[s]!=<span class="number">0x3f3f3f3f</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">push</span><span class="params">(<span class="type">int</span> u)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=head[u];i;i=edge[i].nxt)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> v=edge[i].to;</span><br><span class="line">        <span class="keyword">if</span>(!edge[i].val||(u!=s&amp;&amp;h[u]!=h[v]+<span class="number">1</span>)) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>(v!=s&amp;&amp;v!=t&amp;&amp;!c[v]) b[h[v]].<span class="built_in">push</span>(v),stop=<span class="built_in">max</span>(stop,h[v]);</span><br><span class="line">        <span class="type">int</span> d=(u==s)?edge[i].val:<span class="built_in">min</span>(edge[i].val,c[u]);</span><br><span class="line">        c[u]-=d,c[v]+=d,edge[i].val-=d,edge[i^<span class="number">1</span>].val+=d;</span><br><span class="line">        <span class="keyword">if</span>(!c[u]) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">relabel</span><span class="params">(<span class="type">int</span> u)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    h[u]=<span class="number">0x3f3f3f3f</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=head[u];i;i=edge[i].nxt)</span><br><span class="line">        <span class="keyword">if</span>(edge[i].val) h[u]=<span class="built_in">min</span>(h[u],h[edge[i].to]+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span>(h[u]&gt;=n) <span class="keyword">return</span>;</span><br><span class="line">    b[h[u]].<span class="built_in">push</span>(u),stop=<span class="built_in">max</span>(stop,h[u]),++num[h[u]];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">findtop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(b[stop].<span class="built_in">size</span>()==<span class="number">0</span>&amp;&amp;stop&gt;<span class="number">-1</span>) stop--;</span><br><span class="line">    <span class="keyword">return</span> stop==<span class="number">-1</span>?<span class="number">0</span>:b[stop].<span class="built_in">top</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">hlpp</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">init</span>()) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) <span class="keyword">if</span>(h[i]!=<span class="number">0x3f3f3f3f</span>) ++num[h[i]];</span><br><span class="line">    h[s]=n,<span class="built_in">push</span>(s);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> u=<span class="built_in">findtop</span>();u;u=<span class="built_in">findtop</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        b[stop].<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">push</span>(u)) <span class="keyword">continue</span>;</span><br><span class="line">        --num[h[u]];</span><br><span class="line">        <span class="keyword">if</span>(!num[h[u]]) </span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">                <span class="keyword">if</span>(i!=s&amp;&amp;i!=t&amp;&amp;h[i]&gt;h[u]&amp;&amp;h[i]&lt;=n) h[i]=n+<span class="number">1</span>;</span><br><span class="line">        <span class="built_in">relabel</span>(u);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> c[t];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>),cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m&gt;&gt;s&gt;&gt;t;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">        cin&gt;&gt;u&gt;&gt;v&gt;&gt;w,<span class="built_in">addin</span>(u,v,w);</span><br><span class="line">    cout&lt;&lt;<span class="built_in">hlpp</span>()&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="三，习题"><a href="#三，习题" class="headerlink" title="三，习题"></a>三，习题</h2><p>若无特殊情况，所有习题均只给出主函数建图代码，其余代码套用模板</p>
-<h3><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1343">洛谷P1343 地震逃生</a></h3>
-
-<p>每次通过的人数即为最大流，通过的批次即为总人数与单次人数之商上取整。当最大流为 $0$ 的时候，说明无法逃离至 $n$ 点，此时输出无解即可。</p>
-<details class=note close>
-<summary>code</summary>
-
+<h4 id="参考代码-2">参考代码：</h4>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,m,s,t,u,v,w;</span><br><span class="line"><span class="type">int</span> h[<span class="number">2000</span>],c[<span class="number">2000</span>],num[<span class="number">2000</span>];</span><br><span class="line"><span class="type">int</span> cnt=<span class="number">1</span>,head[<span class="number">2000</span>];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123;<span class="type">int</span> to,nxt,val;&#125; edge[<span class="number">300000</span>];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">addin</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y,<span class="type">int</span> z)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    edge[++cnt]=&#123;y,head[x],z&#125;,head[x]=cnt;</span><br><span class="line">    edge[++cnt]=&#123;x,head[y],<span class="number">0</span>&#125;,head[y]=cnt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> stop;</span><br><span class="line">stack&lt;<span class="type">int</span>&gt; b[<span class="number">2000</span>];</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">init</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(h,<span class="number">0x3f3f3f3f</span>,<span class="built_in">sizeof</span>(h));</span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">    q.<span class="built_in">push</span>(t),h[t]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> u=q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=head[u];i;i=edge[i].nxt)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> v=edge[i].to;</span><br><span class="line">            <span class="keyword">if</span>(edge[i^<span class="number">1</span>].val&amp;&amp;h[v]&gt;h[u]+<span class="number">1</span>)</span><br><span class="line">                h[v]=h[u]+<span class="number">1</span>,q.<span class="built_in">push</span>(v);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> h[s]!=<span class="number">0x3f3f3f3f</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">push</span><span class="params">(<span class="type">int</span> u)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=head[u];i;i=edge[i].nxt)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> v=edge[i].to;</span><br><span class="line">        <span class="keyword">if</span>(!edge[i].val||(u!=s&amp;&amp;h[u]!=h[v]+<span class="number">1</span>)) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>(v!=s&amp;&amp;v!=t&amp;&amp;!c[v]) b[h[v]].<span class="built_in">push</span>(v),stop=<span class="built_in">max</span>(stop,h[v]);</span><br><span class="line">        <span class="type">int</span> d=(u==s)?edge[i].val:<span class="built_in">min</span>(edge[i].val,c[u]);</span><br><span class="line">        c[u]-=d,c[v]+=d,edge[i].val-=d,edge[i^<span class="number">1</span>].val+=d;</span><br><span class="line">        <span class="keyword">if</span>(!c[u]) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">relabel</span><span class="params">(<span class="type">int</span> u)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    h[u]=<span class="number">0x3f3f3f3f</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=head[u];i;i=edge[i].nxt)</span><br><span class="line">        <span class="keyword">if</span>(edge[i].val) h[u]=<span class="built_in">min</span>(h[u],h[edge[i].to]+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span>(h[u]&gt;=n) <span class="keyword">return</span>;</span><br><span class="line">    b[h[u]].<span class="built_in">push</span>(u),stop=<span class="built_in">max</span>(stop,h[u]),++num[h[u]];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">findtop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(b[stop].<span class="built_in">size</span>()==<span class="number">0</span>&amp;&amp;stop&gt;<span class="number">-1</span>) stop--;</span><br><span class="line">    <span class="keyword">return</span> stop==<span class="number">-1</span>?<span class="number">0</span>:b[stop].<span class="built_in">top</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">hlpp</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">init</span>()) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) <span class="keyword">if</span>(h[i]!=<span class="number">0x3f3f3f3f</span>) ++num[h[i]];</span><br><span class="line">    h[s]=n,<span class="built_in">push</span>(s);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> u=<span class="built_in">findtop</span>();u;u=<span class="built_in">findtop</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        b[stop].<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">push</span>(u)) <span class="keyword">continue</span>;</span><br><span class="line">        --num[h[u]];</span><br><span class="line">        <span class="keyword">if</span>(!num[h[u]]) </span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">                <span class="keyword">if</span>(i!=s&amp;&amp;i!=t&amp;&amp;h[i]&gt;h[u]&amp;&amp;h[i]&lt;=n) h[i]=n+<span class="number">1</span>;</span><br><span class="line">        <span class="built_in">relabel</span>(u);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> c[t];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>),cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m&gt;&gt;s&gt;&gt;t;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">        cin&gt;&gt;u&gt;&gt;v&gt;&gt;w,<span class="built_in">addin</span>(u,v,w);</span><br><span class="line">    cout&lt;&lt;<span class="built_in">hlpp</span>()&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="三习题">三，习题</h2>
+<p>若无特殊情况，所有习题均只给出主函数建图代码，其余代码套用模板</p>
+<h3>
+<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1343">洛谷P1343 地震逃生</a>
+</h3>
+<p>每次通过的人数即为最大流，通过的批次即为总人数与单次人数之商上取整。当最大流为
+<span class="math inline">\(0\)</span> 的时候，说明无法逃离至 <span
+class="math inline">\(n\)</span> 点，此时输出无解即可。</p>
+<details class="note" close>
+<summary>
+code
+</summary>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">n=<span class="built_in">rd</span>(),m=<span class="built_in">rd</span>(),x=<span class="built_in">rd</span>()；</span><br><span class="line">s=<span class="number">1</span>,t=n,cnt=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">    u=<span class="built_in">rd</span>(),v=<span class="built_in">rd</span>(),w=<span class="built_in">rd</span>(),<span class="built_in">addin</span>(u,v,w);</span><br><span class="line">...</span><br><span class="line"><span class="keyword">if</span>(mxf==<span class="number">0</span>) cout&lt;&lt;<span class="string">&quot;Orz Ni Jinan Saint Cow!&quot;</span>&lt;&lt;endl,<span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">tot=x/mxf+(x%mxf?<span class="number">1</span>:<span class="number">0</span>);</span><br><span class="line"><span class="built_in">wt</span>(mxf),<span class="built_in">putchar</span>(<span class="string">&#x27; &#x27;</span>),<span class="built_in">wt</span>(tot);</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
 </details>
-
-<h3><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1402">洛谷P1402 酒店之王</a></h3>
-
-<p>十分经典的建图思路，将每个客户拆为两个点，代表两个需求，一个与房间代表的点相连，容量为是否喜欢，另一个点与食物代表的点相连，容量为是否喜欢，之后建立超级源点和超级汇点，超级源点连所有房间，容量为 $1$ 代表可选但只可选一次，所有食物连向汇点，容量也为 $1$，求最大流即可。</p>
-<details class=note close>
-<summary>code</summary>
-
+<h3>
+<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1402">洛谷P1402 酒店之王</a>
+</h3>
+<p>十分经典的建图思路，将每个客户拆为两个点，代表两个需求，一个与房间代表的点相连，容量为是否喜欢，另一个点与食物代表的点相连，容量为是否喜欢，之后建立超级源点和超级汇点，超级源点连所有房间，容量为
+<span class="math inline">\(1\)</span>
+代表可选但只可选一次，所有食物连向汇点，容量也为 <span
+class="math inline">\(1\)</span>，求最大流即可。</p>
+<details class="note" close>
+<summary>
+code
+</summary>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">n=<span class="built_in">rd</span>(),p=<span class="built_in">rd</span>(),q=<span class="built_in">rd</span>(),s=<span class="number">0</span>,t=<span class="number">2</span>*n+p+q+<span class="number">1</span>,cnt=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=p;i++) <span class="built_in">addin</span>(s,i,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=p;j++)</span><br><span class="line">		w=<span class="built_in">rd</span>(),<span class="built_in">addin</span>(j,i+p,w);</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) <span class="built_in">addin</span>(i+p,i+p+n,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=q;j++)</span><br><span class="line">		w=<span class="built_in">rd</span>(),<span class="built_in">addin</span>(i+p+n,j+p+<span class="number">2</span>*n,w);</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=q;i++) <span class="built_in">addin</span>(i+p+<span class="number">2</span>*n,t,<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 </details>
-
-<h3><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3254">洛谷P3254 圆桌问题</a></h3>
-
+<h3>
+<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3254">洛谷P3254 圆桌问题</a>
+</h3>
 <p>此题可以贪心，但在此不做讲解。</p>
-<p>考虑将各单位与桌子相连，边权为 $1$ 代表该单位至多派一个人到该桌子，之后建立超级源汇点，将源点与单位连，容量为人数，桌子与汇点连，容量为可容纳人数，之后跑最大流即可。若最大流不等于总人数，说明无解。统计方案时对于每个单位遍历其出边，发现饱和边后输出对应桌子即可。</p>
-<details class=note close>
-<summary>code</summary>
-
+<p>考虑将各单位与桌子相连，边权为 <span class="math inline">\(1\)</span>
+代表该单位至多派一个人到该桌子，之后建立超级源汇点，将源点与单位连，容量为人数，桌子与汇点连，容量为可容纳人数，之后跑最大流即可。若最大流不等于总人数，说明无解。统计方案时对于每个单位遍历其出边，发现饱和边后输出对应桌子即可。</p>
+<details class="note" close>
+<summary>
+code
+</summary>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">m=<span class="built_in">rd</span>(),n=<span class="built_in">rd</span>(),s=<span class="number">0</span>,t=n+m+<span class="number">1</span>,cnt=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++) w=<span class="built_in">rd</span>(),<span class="built_in">addin</span>(s,i,w),sum+=w;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n;j++)</span><br><span class="line">		<span class="built_in">addin</span>(i,j+m,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) w=<span class="built_in">rd</span>(),<span class="built_in">addin</span>(i+m,t,w);</span><br><span class="line">...</span><br><span class="line"><span class="keyword">if</span>(mxf!=sum) <span class="built_in">putchar</span>(<span class="string">&#x27;0&#x27;</span>),<span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line"><span class="built_in">putchar</span>(<span class="string">&#x27;1&#x27;</span>),<span class="built_in">putchar</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> j=head[i];j;j=e[j].nxt)</span><br><span class="line">		<span class="keyword">if</span>(e[j].flow==<span class="number">0</span>) <span class="built_in">wt</span>(e[j].to-m),<span class="built_in">putchar</span>(<span class="string">&#x27; &#x27;</span>);</span><br><span class="line">	<span class="built_in">putchar</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
 </details>
-
-<h3><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4174">洛谷P4174 最大获利</a></h3>
-
+<h3>
+<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4174">洛谷P4174 最大获利</a>
+</h3>
 <p>首先对某一个用户群中，只有同时选中两个中转站才有获益，一件事要发生，它需要的所有前提条件也要发生，在图论中这种任意点的任意后继一定在图中的图叫闭合图，此题即为一个最大权闭合图问题，建立一个超级源点和超级汇点，将源点连向所有中转站，容量为建造费用，将用户群转化为点，连向超级汇点，容量为获益。原图中的边容量为正无穷，跑一遍最大流。一条由源点向汇点的增广路可以被分为三段：源点-中转站，中转站-用户，用户-汇点，其中中转站-用户容量为正无穷，对最大流没有贡献，考虑剩下两段中哪段成为了该条增广路的最大流。如果源点-中转站是最大流，相当于收益大于代价，此时要建造中转站；如果用户-汇点是最大流，相当于代价大于收益，此时不建造中转站。先求出所有用户群都选中的总收益，回看以上两种情况，对于前者，付出了中转站的建造代价，可以看作总收益中的损失；对于后者，失去了该用户群的收益，也可以看作是总收益的损失。推广到整个图中，最终答案就是总收益与最大流的差值。</p>
-<details class=note close>
-<summary>code</summary>
-
+<details class="note" close>
+<summary>
+code
+</summary>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cin&gt;&gt;n&gt;&gt;m,s=<span class="number">0</span>,t=n+m+<span class="number">1</span>,cnt=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) cin&gt;&gt;p,<span class="built_in">addin</span>(s,i,p);</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">&#123;</span><br><span class="line">	cin&gt;&gt;u&gt;&gt;v&gt;&gt;w,sum+=w;</span><br><span class="line">	<span class="built_in">addin</span>(i+n,t,w),<span class="built_in">addin</span>(u,i+n,inf),<span class="built_in">addin</span>(v,i+n,inf);</span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line">cout&lt;&lt;sum-maxflow&lt;&lt;endl;</span><br></pre></td></tr></table></figure>
 </details>
+
         
       </div>
 
@@ -673,7 +919,7 @@ $</p>
   <div id="comment-card" class="comment-card">
     <div class="main-title-bar">
       <div class="main-title-dot"></div>
-      <div class="main-title">Comments </div>
+      <div class="main-title">留言 </div>
     </div>
     <div id="vcomments"></div>
   </div>

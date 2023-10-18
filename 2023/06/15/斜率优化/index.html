@@ -21,12 +21,12 @@
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/MaterialSymbolsRounded.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
-  <meta name="description" content="斜率优化斜率优化的核心在于推导状态转移方程使之变为斜率一定的一次函数，使 $f[i]$ 与截距相关，将求 $f[i]$ 最值转化为用一条定斜率的直线去过平面上的点，使截距取到最值。 一，引入1D 动态规划模型1D 动态规划模型是 DP 中一类非常基本、非常重要的模型，所求的是最优化问题，1D 动态规划可大致归纳为如下形式 $F[i]&#x3D;$ $min_{L(i)\leq j\leq R(i)}$ $(">
+  <meta name="description" content="斜率优化 斜率优化的核心在于推导状态转移方程使之变为斜率一定的一次函数，使 \(f[i]\) 与截距相关，将求 \(f[i]\) 最值转化为用一条定斜率的直线去过平面上的点，使截距取到最值。 一，引入 1D 动态规划模型 1D 动态规划模型是 DP 中一类非常基本、非常重要的模型，所求的是最优化问题，1D 动态规划可大致归纳为如下形式 \(F[i]&#x3D;\) \(min_{L(i)\">
 <meta property="og:type" content="article">
 <meta property="og:title" content="斜率优化">
 <meta property="og:url" content="https://intconstlee.github.io/2023/06/15/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96/index.html">
 <meta property="og:site_name" content="intconstlee">
-<meta property="og:description" content="斜率优化斜率优化的核心在于推导状态转移方程使之变为斜率一定的一次函数，使 $f[i]$ 与截距相关，将求 $f[i]$ 最值转化为用一条定斜率的直线去过平面上的点，使截距取到最值。 一，引入1D 动态规划模型1D 动态规划模型是 DP 中一类非常基本、非常重要的模型，所求的是最优化问题，1D 动态规划可大致归纳为如下形式 $F[i]&#x3D;$ $min_{L(i)\leq j\leq R(i)}$ $(">
+<meta property="og:description" content="斜率优化 斜率优化的核心在于推导状态转移方程使之变为斜率一定的一次函数，使 \(f[i]\) 与截距相关，将求 \(f[i]\) 最值转化为用一条定斜率的直线去过平面上的点，使截距取到最值。 一，引入 1D 动态规划模型 1D 动态规划模型是 DP 中一类非常基本、非常重要的模型，所求的是最优化问题，1D 动态规划可大致归纳为如下形式 \(F[i]&#x3D;\) \(min_{L(i)\">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://oi-wiki.org/dp/images/optimization.svg">
 <meta property="og:image" content="https://img1.imgtp.com/2023/06/27/WAeimyga.png">
@@ -92,11 +92,11 @@
       <span class="material-symbols-rounded dark-mode-icon">dark_mode</span>
     </a>
     
-      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS Feed">
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS 订阅">
         <span class="material-symbols-rounded rss">rss_feed</span>
       </a>
     
-    <a id="nav-search-btn" class="nav-icon" title="Search" style="display: none;">
+    <a id="nav-search-btn" class="nav-icon" title="搜索" style="display: none;">
       <span class="material-symbols-rounded">search</span>
     </a>
     <div id="nav-menu-btn" class="nav-icon">
@@ -116,7 +116,7 @@
       <a class="nav-dropdown-link" href="/link">links</a>
     
     
-      <a class="nav-dropdown-link" href="/atom.xml" title="RSS Feed">RSS</a>
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS 订阅">RSS</a>
      
     </div>
 </div>
@@ -167,7 +167,7 @@
       
   <div class="widget-wrap">
     <div class="widget">
-      <h3 class="widget-title">Tags</h3>
+      <h3 class="widget-title">标签</h3>
       <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/AC%E8%87%AA%E5%8A%A8%E6%9C%BA/" rel="tag">AC自动机</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/DP%E4%BC%98%E5%8C%96/" rel="tag">DP优化</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/" rel="tag">单调队列</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" rel="tag">单调队列优化</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8F%AF%E5%B9%B6%E5%A0%86/" rel="tag">可并堆</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%9B%BE%E8%AE%BA/" rel="tag">图论</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%B7%A6%E5%81%8F%E6%A0%91/" rel="tag">左偏树</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" rel="tag">排列组合</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96/" rel="tag">斜率优化</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E5%89%B2/" rel="tag">最小割</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9D%8E%E8%B6%85%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">李超线段树</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%B2%BE%E7%A5%9E%E7%8A%B6%E6%80%81/" rel="tag">精神状态</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" rel="tag">组合数学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/" rel="tag">网络流</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E6%9C%BA/" rel="tag">自动机</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%B4%B9%E7%94%A8%E6%B5%81/" rel="tag">费用流</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E9%97%B2%E8%AF%9D/" rel="tag">闲话</a></li></ul>
     </div>
   </div>
@@ -177,7 +177,7 @@
       
   <div class="widget-wrap">
     <div class="widget">
-      <h3 class="widget-title">Archives</h3>
+      <h3 class="widget-title">归档</h3>
       
       
         <a class="archive-link" href="/archives/2023/10 ">
@@ -208,7 +208,7 @@
       
   <div class="widget-wrap">
     <div class="widget">
-      <h3 class="widget-title">Recent Posts</h3>
+      <h3 class="widget-title">最新文章</h3>
       <ul>
         
           <a class="recent-link" href="/2023/10/17/10-18%E9%97%B2%E8%AF%9D/" title="10.18闲话" >
@@ -278,13 +278,13 @@
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
   
-    Uncategorized 
+    未分类 
    
 </div>
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            3.6k words 
+            3.6k 词 
           </div>
         </div>
         
@@ -293,112 +293,353 @@
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <h1 id="斜率优化"><a href="#斜率优化" class="headerlink" title="斜率优化"></a>斜率优化</h1><p>斜率优化的核心在于推导状态转移方程使之变为斜率一定的一次函数，使 $f[i]$ 与截距相关，将求 $f[i]$ 最值转化为用一条定斜率的直线去过平面上的点，使截距取到最值。</p>
-<h2 id="一，引入"><a href="#一，引入" class="headerlink" title="一，引入"></a>一，引入</h2><h3 id="1D-动态规划模型"><a href="#1D-动态规划模型" class="headerlink" title="1D 动态规划模型"></a>1D 动态规划模型</h3><p>1D 动态规划模型是 DP 中一类非常基本、非常重要的模型，所求的是最优化问题，1D 动态规划可大致归纳为如下形式</p>
-<p>$F[i]=$ $min_{L(i)\leq j\leq R(i)}$ $(F[j]+$ $val(i,j))$</p>
-<p>接下来对这一通式进行解读。$F[i]$ 和 $F[j]$ 代表 DP 数组，$L(i)$ 和 $R(i)$ 是关于变量 $i$ 的一次函数，用于划定 $j$ 的上下界，$val(i,j)$ 为一个关于变量 $i$ 和变量 $j$ 的多项式函数，也是 DP 优化的关键所在。</p>
-<h3 id="状态转移中的斜率"><a href="#状态转移中的斜率" class="headerlink" title="状态转移中的斜率"></a>状态转移中的斜率</h3><p>对于一个 1D 动态规划问题，列出其状态转移，发现 $val(i,j)$ 中包含 $i$ 与 $j$ 的乘积项。最简单的形如</p>
-<p>$F[i]=$ $F[j]+$ $b_ib_j$ $\Longleftrightarrow$ $F[j]=$ $-b_ib_j+$ $F[i]$</p>
-<p>发现 $F[j]$ 的表达形如 $F[j]=kb_j+b$，为一个一次函数，斜率为 $-b_i$。与直线 $b_j=0$ 的截距即为 $F[i]$。斜率优化将动态规划转化为数学中的线性规划问题。下文将详细讲解。</p>
-<h2 id="二，思路"><a href="#二，思路" class="headerlink" title="二，思路"></a>二，思路</h2><details class=note open>
-<summary>例题：任务安排</summary>
+          <h1 id="斜率优化">斜率优化</h1>
+<p>斜率优化的核心在于推导状态转移方程使之变为斜率一定的一次函数，使
+<span class="math inline">\(f[i]\)</span> 与截距相关，将求 <span
+class="math inline">\(f[i]\)</span>
+最值转化为用一条定斜率的直线去过平面上的点，使截距取到最值。</p>
+<h2 id="一引入">一，引入</h2>
+<h3 id="d-动态规划模型">1D 动态规划模型</h3>
+<p>1D 动态规划模型是 DP
+中一类非常基本、非常重要的模型，所求的是最优化问题，1D
+动态规划可大致归纳为如下形式</p>
+<p><span class="math inline">\(F[i]=\)</span> <span
+class="math inline">\(min_{L(i)\leq j\leq R(i)}\)</span> <span
+class="math inline">\((F[j]+\)</span> <span
+class="math inline">\(val(i,j))\)</span></p>
+<p>接下来对这一通式进行解读。<span class="math inline">\(F[i]\)</span>
+和 <span class="math inline">\(F[j]\)</span> 代表 DP 数组，<span
+class="math inline">\(L(i)\)</span> 和 <span
+class="math inline">\(R(i)\)</span> 是关于变量 <span
+class="math inline">\(i\)</span> 的一次函数，用于划定 <span
+class="math inline">\(j\)</span> 的上下界，<span
+class="math inline">\(val(i,j)\)</span> 为一个关于变量 <span
+class="math inline">\(i\)</span> 和变量 <span
+class="math inline">\(j\)</span> 的多项式函数，也是 DP
+优化的关键所在。</p>
+<h3 id="状态转移中的斜率">状态转移中的斜率</h3>
+<p>对于一个 1D 动态规划问题，列出其状态转移，发现 <span
+class="math inline">\(val(i,j)\)</span> 中包含 <span
+class="math inline">\(i\)</span> 与 <span
+class="math inline">\(j\)</span> 的乘积项。最简单的形如</p>
+<p><span class="math inline">\(F[i]=\)</span> <span
+class="math inline">\(F[j]+\)</span> <span
+class="math inline">\(b_ib_j\)</span> <span
+class="math inline">\(\Longleftrightarrow\)</span> <span
+class="math inline">\(F[j]=\)</span> <span
+class="math inline">\(-b_ib_j+\)</span> <span
+class="math inline">\(F[i]\)</span></p>
+<p>发现 <span class="math inline">\(F[j]\)</span> 的表达形如 <span
+class="math inline">\(F[j]=kb_j+b\)</span>，为一个一次函数，斜率为 <span
+class="math inline">\(-b_i\)</span>。与直线 <span
+class="math inline">\(b_j=0\)</span> 的截距即为 <span
+class="math inline">\(F[i]\)</span>。斜率优化将动态规划转化为数学中的线性规划问题。下文将详细讲解。</p>
+<h2 id="二思路">二，思路</h2>
+<details class="note" open>
+<summary>
+例题：任务安排
+</summary>
 <p>
-
-有 $N$ 个有序任务，第 $i$ 个任务耗时 $T_i$，费用系数 $C_i$，将任务分组顺序执行，执行每组前需要 $S$ 的启动时间，一组中的所有任务将顺序执行，每个任务的完成时刻是其所在组全部任务的完成时刻，每个任务的花费是完成时刻乘费用系数。求最小总费用。
-
-对于 $T$ 和 $C$，可以求出前缀和数组 $sumT,sumC$，$F[i][j]$ 表示将前 $i$ 个任务分成 $j$ 批执行的最小费用，第 $j$ 批任务的完成时刻是 $j\times S+sumT[i]$，状态转移方程如下：
-
-$F[i][j]=$ $min_{0\leq k<i}$ $(F[k][j-1]+$ $(S\times$ $j+$ $sumT[i])\times$ $(sumC[i]-$ $sumC[k]))$
-
-直接 DP，复杂度为 $O(N^3)$，考虑优化。
-
+<p>有 <span class="math inline">\(N\)</span> 个有序任务，第 <span
+class="math inline">\(i\)</span> 个任务耗时 <span
+class="math inline">\(T_i\)</span>，费用系数 <span
+class="math inline">\(C_i\)</span>，将任务分组顺序执行，执行每组前需要
+<span class="math inline">\(S\)</span>
+的启动时间，一组中的所有任务将顺序执行，每个任务的完成时刻是其所在组全部任务的完成时刻，每个任务的花费是完成时刻乘费用系数。求最小总费用。</p>
+<p>对于 <span class="math inline">\(T\)</span> 和 <span
+class="math inline">\(C\)</span>，可以求出前缀和数组 <span
+class="math inline">\(sumT,sumC\)</span>，<span
+class="math inline">\(F[i][j]\)</span> 表示将前 <span
+class="math inline">\(i\)</span> 个任务分成 <span
+class="math inline">\(j\)</span> 批执行的最小费用，第 <span
+class="math inline">\(j\)</span> 批任务的完成时刻是 <span
+class="math inline">\(j\times S+sumT[i]\)</span>，状态转移方程如下：</p>
+<p><span class="math inline">\(F[i][j]=\)</span> <span
+class="math inline">\(min_{0\leq k&lt;i}\)</span> <span
+class="math inline">\((F[k][j-1]+\)</span> <span
+class="math inline">\((S\times\)</span> <span
+class="math inline">\(j+\)</span> <span
+class="math inline">\(sumT[i])\times\)</span> <span
+class="math inline">\((sumC[i]-\)</span> <span
+class="math inline">\(sumC[k]))\)</span></p>
+<p>直接 DP，复杂度为 <span
+class="math inline">\(O(N^3)\)</span>，考虑优化。</p>
 </p>
 </details>
-
-<h3 id="优化一：费用提前计算"><a href="#优化一：费用提前计算" class="headerlink" title="优化一：费用提前计算"></a>优化一：费用提前计算</h3><p>在刚才的状态转移方程中，我们需要 $j$ 仅仅是为了判断启动了多少次，发现如果没有 $j$，不易得启动了多少次，但可以知道每次启动时间 $S$ 都会累加到此后所有任务的完成时刻中，于是 DP 数组可以维度压缩，设 $F[i]$ 表示把前 $i$ 个元素分若干批完成的最小费用，则：</p>
-<p>$F[i]=$ $min_{0\leq j&lt;i}$ $(F[j]+$ $sumT[i]\times$ $(sumC[i]-$ $sumC[j])+$ $S\times$ $(sumC[N]-$ $sumC[j]))$</p>
-<p>发现在这一转移方程中，我们把之后的费用提前累加到了答案中，这种“费用提前计算”是一种经典思想。于是时间复杂度可以降至 $O(N^2)$。</p>
-<details class=note close>
-<summary>code</summary>
-
+<h3 id="优化一费用提前计算">优化一：费用提前计算</h3>
+<p>在刚才的状态转移方程中，我们需要 <span
+class="math inline">\(j\)</span>
+仅仅是为了判断启动了多少次，发现如果没有 <span
+class="math inline">\(j\)</span>，不易得启动了多少次，但可以知道每次启动时间
+<span class="math inline">\(S\)</span>
+都会累加到此后所有任务的完成时刻中，于是 DP 数组可以维度压缩，设 <span
+class="math inline">\(F[i]\)</span> 表示把前 <span
+class="math inline">\(i\)</span> 个元素分若干批完成的最小费用，则：</p>
+<p><span class="math inline">\(F[i]=\)</span> <span
+class="math inline">\(min_{0\leq j&lt;i}\)</span> <span
+class="math inline">\((F[j]+\)</span> <span
+class="math inline">\(sumT[i]\times\)</span> <span
+class="math inline">\((sumC[i]-\)</span> <span
+class="math inline">\(sumC[j])+\)</span> <span
+class="math inline">\(S\times\)</span> <span
+class="math inline">\((sumC[N]-\)</span> <span
+class="math inline">\(sumC[j]))\)</span></p>
+<p>发现在这一转移方程中，我们把之后的费用提前累加到了答案中，这种“费用提前计算”是一种经典思想。于是时间复杂度可以降至
+<span class="math inline">\(O(N^2)\)</span>。</p>
+<details class="note" close>
+<summary>
+code
+</summary>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">long</span> <span class="type">long</span> f[<span class="number">5005</span>],sumt[<span class="number">5005</span>],sumc[<span class="number">5005</span>];</span><br><span class="line"><span class="type">int</span> n,s;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;s;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> t,c;</span><br><span class="line">        cin&gt;&gt;t&gt;&gt;c;</span><br><span class="line">        sumt[i]=sumt[i<span class="number">-1</span>]+t;</span><br><span class="line">        sumc[i]=sumc[i<span class="number">-1</span>]+c;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">memset</span>(f,<span class="number">0x3f</span>,<span class="built_in">sizeof</span>(f));</span><br><span class="line">    f[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;i;j++)</span><br><span class="line">            f[i]=<span class="built_in">min</span>(f[i],f[j]+sumt[i]*(sumc[i]-sumc[j])+s*(sumc[n]-sumc[i]));</span><br><span class="line">    cout&lt;&lt;f[n]&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 </details>
-
-<h3 id="优化二：斜率优化"><a href="#优化二：斜率优化" class="headerlink" title="优化二：斜率优化"></a>优化二：斜率优化</h3><p>在费用提前计算的基础上进一步优化，对状态转移方程变形得：</p>
-<p>$F[i]=$ $min_{0\leq j&lt;i}$ $(F[j]-$ $sumC[j]\times$ $(sumT[i]+$ $S)+$ $sumT[i]\times$ $sumC[i]+$ $S\times$ $sumC[N]))$</p>
-<p>把 $min$ 函数去掉，将关于 $j$ 的值 $F[j]$ 和 $sumC[j]$ 看作变量，其余部分作为常量，得到</p>
-<p>$F[j]=$ $(sumT[i]+$ $S)\times$ $sumC[j]+$ $F[i]-$ $sumT[i]\times$ $sumC[i]-$ $S\times$ $sumC[N]$</p>
-<p>在以 $sumC[j]$ 为横坐标，$F[j]$ 为纵坐标的平面直角坐标系中，这是一条以 $(sumT[i]+$ $S)$ 为斜率，以 $F[i]-$ $sumT[i]\times$ $sumC[i]-$ $S\times$ $sumC[N]$ 为截距的直线。其中斜率为已知量，截距中除 $F[i]$ 外均为已知量。则候选决策为坐标中的点集，每个 $j$ 对应一个 $(sumC[j],F[j])$，而每个 $F[i]$ 也都对应了一个截距，当截距最小时 $F[i]$ 取到最小值。</p>
+<h3 id="优化二斜率优化">优化二：斜率优化</h3>
+<p>在费用提前计算的基础上进一步优化，对状态转移方程变形得：</p>
+<p><span class="math inline">\(F[i]=\)</span> <span
+class="math inline">\(min_{0\leq j&lt;i}\)</span> <span
+class="math inline">\((F[j]-\)</span> <span
+class="math inline">\(sumC[j]\times\)</span> <span
+class="math inline">\((sumT[i]+\)</span> <span
+class="math inline">\(S)+\)</span> <span
+class="math inline">\(sumT[i]\times\)</span> <span
+class="math inline">\(sumC[i]+\)</span> <span
+class="math inline">\(S\times\)</span> <span
+class="math inline">\(sumC[N]))\)</span></p>
+<p>把 <span class="math inline">\(min\)</span> 函数去掉，将关于 <span
+class="math inline">\(j\)</span> 的值 <span
+class="math inline">\(F[j]\)</span> 和 <span
+class="math inline">\(sumC[j]\)</span>
+看作变量，其余部分作为常量，得到</p>
+<p><span class="math inline">\(F[j]=\)</span> <span
+class="math inline">\((sumT[i]+\)</span> <span
+class="math inline">\(S)\times\)</span> <span
+class="math inline">\(sumC[j]+\)</span> <span
+class="math inline">\(F[i]-\)</span> <span
+class="math inline">\(sumT[i]\times\)</span> <span
+class="math inline">\(sumC[i]-\)</span> <span
+class="math inline">\(S\times\)</span> <span
+class="math inline">\(sumC[N]\)</span></p>
+<p>在以 <span class="math inline">\(sumC[j]\)</span> 为横坐标，<span
+class="math inline">\(F[j]\)</span>
+为纵坐标的平面直角坐标系中，这是一条以 <span
+class="math inline">\((sumT[i]+\)</span> <span
+class="math inline">\(S)\)</span> 为斜率，以 <span
+class="math inline">\(F[i]-\)</span> <span
+class="math inline">\(sumT[i]\times\)</span> <span
+class="math inline">\(sumC[i]-\)</span> <span
+class="math inline">\(S\times\)</span> <span
+class="math inline">\(sumC[N]\)</span>
+为截距的直线。其中斜率为已知量，截距中除 <span
+class="math inline">\(F[i]\)</span>
+外均为已知量。则候选决策为坐标中的点集，每个 <span
+class="math inline">\(j\)</span> 对应一个 <span
+class="math inline">\((sumC[j],F[j])\)</span>，而每个 <span
+class="math inline">\(F[i]\)</span> 也都对应了一个截距，当截距最小时
+<span class="math inline">\(F[i]\)</span> 取到最小值。</p>
 <p>于是 DP 问题就被转化为了这样一个线性规划问题</p>
 <center>
 <img src="https://oi-wiki.org/dp/images/optimization.svg" width=60%>示例</img>
 </center>
-
-<p>用一条斜率已知的直线去过平面直角坐标系内的点，使截距最小，发现若这条斜线从下向上平移，接触到第一个点时截距最小。通过推导公式或画图直观感受，我们会发现第一个被斜线接触的点有特殊性质，假设该点为 $j_2$，该点左侧有 $j_1$，右侧有 $j_3$，则</p>
-<p>$\frac{F[j_2]-F[j_1]}{sumC[j_2]-sumC[j_1]}&lt;$ $\frac{F[j_3]-F[j_2]}{sumC[j_3]-sumC[j_2]}$</p>
+<p>用一条斜率已知的直线去过平面直角坐标系内的点，使截距最小，发现若这条斜线从下向上平移，接触到第一个点时截距最小。通过推导公式或画图直观感受，我们会发现第一个被斜线接触的点有特殊性质，假设该点为
+<span class="math inline">\(j_2\)</span>，该点左侧有 <span
+class="math inline">\(j_1\)</span>，右侧有 <span
+class="math inline">\(j_3\)</span>，则</p>
+<p><span
+class="math inline">\(\frac{F[j_2]-F[j_1]}{sumC[j_2]-sumC[j_1]}&lt;\)</span>
+<span
+class="math inline">\(\frac{F[j_3]-F[j_2]}{sumC[j_3]-sumC[j_2]}\)</span></p>
 <p>发现这两个式子恰好斜率，于是我们可以想到要维护一个下凸壳，使所有点包含在这个凸壳内，令直线截距最小的点一定在这个下凸壳上，且两侧斜率一侧大于直线斜率，一侧小于直线斜率。</p>
 <p>接下来只要解决如何维护这个凸壳即可。发现对于凸壳，其斜率单调变化，于是可以建立单调队列来维护，每插入一个点时，将队尾不符合单调性的点弹出，使之被包在凸壳内。</p>
-<p>在本题我们发现斜率 $S+sumT[i]$ 单调递增，所以可以每次把队头斜率小于此的弹出，然后取队头即可，若斜率不满足单调递增，则答案不一定在队头，在队列中二分查找即可。</p>
-<p>整个算法时间复杂度为 $O(N)$。</p>
-<details class=note close>
-<summary>code</summary>
-
+<p>在本题我们发现斜率 <span class="math inline">\(S+sumT[i]\)</span>
+单调递增，所以可以每次把队头斜率小于此的弹出，然后取队头即可，若斜率不满足单调递增，则答案不一定在队头，在队列中二分查找即可。</p>
+<p>整个算法时间复杂度为 <span class="math inline">\(O(N)\)</span>。</p>
+<details class="note" close>
+<summary>
+code
+</summary>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;s;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> t,c;</span><br><span class="line">        cin&gt;&gt;t&gt;&gt;c;</span><br><span class="line">        T[i]=T[i<span class="number">-1</span>]+t,C[i]=C[i<span class="number">-1</span>]+c;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">memset</span>(f,<span class="number">0x3f</span>,<span class="built_in">sizeof</span>(f));</span><br><span class="line">    f[<span class="number">0</span>]=<span class="number">0</span>,q[<span class="number">1</span>]=<span class="number">0</span>;;</span><br><span class="line">    <span class="type">int</span> l=<span class="number">1</span>,r=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(l&lt;r&amp;&amp;(f[q[l+<span class="number">1</span>]]-f[q[l]])&lt;=(s+T[i])*(C[q[l+<span class="number">1</span>]]-C[q[l]]))</span><br><span class="line">            l++;</span><br><span class="line">        f[i]=f[q[l]]-C[q[l]]*(s+T[i])+T[i]*C[i]+s*C[i];</span><br><span class="line">        <span class="keyword">while</span>(l&lt;r&amp;&amp;(f[q[r]]-f[q[r<span class="number">-1</span>]])*(C[i]-C[q[r]])&gt;=(f[i]-f[q[r]])*(C[q[r]]-C[q[r<span class="number">-1</span>]]))</span><br><span class="line">            r--;</span><br><span class="line">        q[++r]=i;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;f[n]&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
-
-<h2 id="三，总结"><a href="#三，总结" class="headerlink" title="三，总结"></a>三，总结</h2><p>概述斜率优化的算法：</p>
-<ol>
+<h2 id="三总结">三，总结</h2>
+<p>概述斜率优化的算法：</p>
+<ol type="1">
 <li>将初始状态入队；</li>
-<li>每次使用一条和 $i$ 相关的直线 $f[i]$ 取切维护的凸壳，找到最优策略，更新 $dp_i$；</li>
-<li>保证单调性地加入状态 $dp_i$。</li>
+<li>每次使用一条和 <span class="math inline">\(i\)</span> 相关的直线
+<span class="math inline">\(f[i]\)</span>
+取切维护的凸壳，找到最优策略，更新 <span
+class="math inline">\(dp_i\)</span>；</li>
+<li>保证单调性地加入状态 <span
+class="math inline">\(dp_i\)</span>。</li>
 </ol>
 <p>斜率优化题目的主要难点在于状态转移方程的推导变形，以及对单调性的判断。</p>
-<h2 id="四，习题"><a href="#四，习题" class="headerlink" title="四，习题"></a>四，习题</h2><h3><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3195">洛谷P3195 玩具装箱</a></h3>
-
-<p>$O(n)$ 做法：设 $f[i]$ 表示前 $i$ 个物品被分为若干组，列出状态转移方程：$f[i]=$ $min_{0\leq j&lt;i}(f[j]+$ $(sum[i]-$ $sum[j]+$ $i-$ $j-$ $l-$ $1)^2)$，去掉 $min$ 函数得：$f[i]=$ $f[j]+$ $((sum[i]+$ $i-$ $l-$ $1)-$ $(sum[j]-$ $j))^2$。设 $a_i=$ $sum[i]+$ $i-$ $l-$ $1$，设 $a_j=$ $sum[j]-$ $j$，则有：$f[i]=$ $f[j]+$ $(a_i-$ $a_j)^2=$ $f[j]+$ $a_i^2+$ $a_j^2+$ $2a_ia_j$，移项，得到：$f[j]+a_j^2=-2a_ia_j-a_i^2+f[i]$，可用斜率优化，套用斜率优化模板即可。</p>
-<details class=note close>
-<summary>code</summary>
-
+<h2 id="四习题">四，习题</h2>
+<h3>
+<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3195">洛谷P3195 玩具装箱</a>
+</h3>
+<p><span class="math inline">\(O(n)\)</span> 做法：设 <span
+class="math inline">\(f[i]\)</span> 表示前 <span
+class="math inline">\(i\)</span>
+个物品被分为若干组，列出状态转移方程：<span
+class="math inline">\(f[i]=\)</span> <span
+class="math inline">\(min_{0\leq j&lt;i}(f[j]+\)</span> <span
+class="math inline">\((sum[i]-\)</span> <span
+class="math inline">\(sum[j]+\)</span> <span
+class="math inline">\(i-\)</span> <span
+class="math inline">\(j-\)</span> <span
+class="math inline">\(l-\)</span> <span
+class="math inline">\(1)^2)\)</span>，去掉 <span
+class="math inline">\(min\)</span> 函数得：<span
+class="math inline">\(f[i]=\)</span> <span
+class="math inline">\(f[j]+\)</span> <span
+class="math inline">\(((sum[i]+\)</span> <span
+class="math inline">\(i-\)</span> <span
+class="math inline">\(l-\)</span> <span
+class="math inline">\(1)-\)</span> <span
+class="math inline">\((sum[j]-\)</span> <span
+class="math inline">\(j))^2\)</span>。设 <span
+class="math inline">\(a_i=\)</span> <span
+class="math inline">\(sum[i]+\)</span> <span
+class="math inline">\(i-\)</span> <span
+class="math inline">\(l-\)</span> <span
+class="math inline">\(1\)</span>，设 <span
+class="math inline">\(a_j=\)</span> <span
+class="math inline">\(sum[j]-\)</span> <span
+class="math inline">\(j\)</span>，则有：<span
+class="math inline">\(f[i]=\)</span> <span
+class="math inline">\(f[j]+\)</span> <span
+class="math inline">\((a_i-\)</span> <span
+class="math inline">\(a_j)^2=\)</span> <span
+class="math inline">\(f[j]+\)</span> <span
+class="math inline">\(a_i^2+\)</span> <span
+class="math inline">\(a_j^2+\)</span> <span
+class="math inline">\(2a_ia_j\)</span>，移项，得到：<span
+class="math inline">\(f[j]+a_j^2=-2a_ia_j-a_i^2+f[i]\)</span>，可用斜率优化，套用斜率优化模板即可。</p>
+<details class="note" close>
+<summary>
+code
+</summary>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ll long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,s,q[<span class="number">50005</span>];</span><br><span class="line">ll c[<span class="number">50005</span>],f[<span class="number">50005</span>];</span><br><span class="line"><span class="function">ll <span class="title">y</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;<span class="keyword">return</span> f[x]+c[x]*c[x];&#125;</span><br><span class="line"><span class="function">ll <span class="title">k</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;<span class="keyword">return</span> <span class="number">2</span>*(c[x]-s);&#125;</span><br><span class="line"><span class="function">ll <span class="title">d</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;<span class="keyword">return</span> (c[x]-s)*(c[x]-s);&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> ll <span class="title">rd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll x=<span class="number">0</span>;<span class="type">char</span> ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&lt;<span class="string">&#x27;0&#x27;</span>||ch&gt;<span class="string">&#x27;9&#x27;</span>) ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&gt;=<span class="string">&#x27;0&#x27;</span>&amp;&amp;ch&lt;=<span class="string">&#x27;9&#x27;</span>) x=x*<span class="number">10</span>+ch-<span class="string">&#x27;0&#x27;</span>,ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">wt</span><span class="params">(ll x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&gt;<span class="number">9</span>) <span class="built_in">wt</span>(x/<span class="number">10</span>);</span><br><span class="line">    <span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    n=<span class="built_in">rd</span>(),s=<span class="built_in">rd</span>(),s++;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) c[i]=<span class="built_in">rd</span>(),c[i]+=c[i<span class="number">-1</span>]+<span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> l=<span class="number">1</span>,r=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)                                </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(l&lt;r&amp;&amp;<span class="built_in">y</span>(q[l+<span class="number">1</span>])-<span class="built_in">y</span>(q[l])&lt;=(c[q[l+<span class="number">1</span>]]-c[q[l]])*<span class="built_in">k</span>(i)) l++;</span><br><span class="line">        f[i]=<span class="built_in">y</span>(q[l])-<span class="built_in">k</span>(i)*c[q[l]]+<span class="built_in">d</span>(i);</span><br><span class="line">        <span class="keyword">while</span>(l&lt;r&amp;&amp;(<span class="built_in">y</span>(q[r])-<span class="built_in">y</span>(q[r<span class="number">-1</span>]))*(c[i]-c[q[r]])&gt;=(<span class="built_in">y</span>(i)-<span class="built_in">y</span>(q[r]))*(c[q[r]]-c[q[r<span class="number">-1</span>]])) r--;</span><br><span class="line">        q[++r]=i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">wt</span>(f[n]),<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
-
-<h3><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3628">洛谷P3628 特别行动队</a></h3>
-
-<p>$O(n)$ 做法：设 $f[i]$ 表示前 $i$ 个士兵被分为若干组，列出状态转移方程：$f[i]=$ $min_{0\leq j&lt;i}(f[j]+$ $a(sum[i]-$ $sum[j])^2+$ $b(sum[i]-$ $sum[j])+$ $c)$，去掉 $min$ 函数得：$f[i]=$ $f[j]+$ $a(sum[i]-$ $sum[j])^2+$ $bsum[i]-$ $bsum[j]+$ $c$，开方得：$f[i]=$ $f[j]+$ $asum[i]^2+$ $asum[j]^2-$ $2asum[i]sum[j]+$ $bsum[i]-$ $bsum[j]+$ $c$，移项，得到：$f[j]+$ $asum[j]^2-$ $bsum[j]=$ $2asum[i]sum[j]+$ $f[i]-$ $asum[i]^2-$ $bsum[i]-$ $c$，可用斜率优化，套用斜率优化模板即可，需要注意 $sum[j]$ 的系数 $2asum[i]&lt;0$，斜率是单调递减的，所以凸壳斜率的单调性与此前相反。</p>
-<details class=note close>
-<summary>code</summary>
-
+<h3>
+<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3628">洛谷P3628
+特别行动队</a>
+</h3>
+<p><span class="math inline">\(O(n)\)</span> 做法：设 <span
+class="math inline">\(f[i]\)</span> 表示前 <span
+class="math inline">\(i\)</span>
+个士兵被分为若干组，列出状态转移方程：<span
+class="math inline">\(f[i]=\)</span> <span
+class="math inline">\(min_{0\leq j&lt;i}(f[j]+\)</span> <span
+class="math inline">\(a(sum[i]-\)</span> <span
+class="math inline">\(sum[j])^2+\)</span> <span
+class="math inline">\(b(sum[i]-\)</span> <span
+class="math inline">\(sum[j])+\)</span> <span
+class="math inline">\(c)\)</span>，去掉 <span
+class="math inline">\(min\)</span> 函数得：<span
+class="math inline">\(f[i]=\)</span> <span
+class="math inline">\(f[j]+\)</span> <span
+class="math inline">\(a(sum[i]-\)</span> <span
+class="math inline">\(sum[j])^2+\)</span> <span
+class="math inline">\(bsum[i]-\)</span> <span
+class="math inline">\(bsum[j]+\)</span> <span
+class="math inline">\(c\)</span>，开方得：<span
+class="math inline">\(f[i]=\)</span> <span
+class="math inline">\(f[j]+\)</span> <span
+class="math inline">\(asum[i]^2+\)</span> <span
+class="math inline">\(asum[j]^2-\)</span> <span
+class="math inline">\(2asum[i]sum[j]+\)</span> <span
+class="math inline">\(bsum[i]-\)</span> <span
+class="math inline">\(bsum[j]+\)</span> <span
+class="math inline">\(c\)</span>，移项，得到：<span
+class="math inline">\(f[j]+\)</span> <span
+class="math inline">\(asum[j]^2-\)</span> <span
+class="math inline">\(bsum[j]=\)</span> <span
+class="math inline">\(2asum[i]sum[j]+\)</span> <span
+class="math inline">\(f[i]-\)</span> <span
+class="math inline">\(asum[i]^2-\)</span> <span
+class="math inline">\(bsum[i]-\)</span> <span
+class="math inline">\(c\)</span>，可用斜率优化，套用斜率优化模板即可，需要注意
+<span class="math inline">\(sum[j]\)</span> 的系数 <span
+class="math inline">\(2asum[i]&lt;0\)</span>，斜率是单调递减的，所以凸壳斜率的单调性与此前相反。</p>
+<details class="note" close>
+<summary>
+code
+</summary>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ll long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">ll n,a,b,c,s[<span class="number">1000005</span>],f[<span class="number">1000005</span>],q[<span class="number">1000005</span>];</span><br><span class="line"><span class="function">ll <span class="title">y</span><span class="params">(ll x)</span> </span>&#123;<span class="keyword">return</span> f[x]+a*s[x]*s[x]-b*s[x];&#125;</span><br><span class="line"><span class="function">ll <span class="title">k</span><span class="params">(ll x)</span> </span>&#123;<span class="keyword">return</span> <span class="number">2</span>*a*s[x];&#125;</span><br><span class="line"><span class="function">ll <span class="title">d</span><span class="params">(ll x)</span> </span>&#123;<span class="keyword">return</span> a*x*x+b*x+c;&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> ll <span class="title">rd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll x=<span class="number">0</span>,f=<span class="number">1</span>;<span class="type">char</span> ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&lt;<span class="string">&#x27;0&#x27;</span>||ch&gt;<span class="string">&#x27;9&#x27;</span>) &#123;<span class="keyword">if</span>(ch==<span class="string">&#x27;-&#x27;</span>) f=<span class="number">-1</span>; ch=<span class="built_in">getchar</span>();&#125;</span><br><span class="line">    <span class="keyword">while</span>(ch&gt;=<span class="string">&#x27;0&#x27;</span>&amp;&amp;ch&lt;=<span class="string">&#x27;9&#x27;</span>) x=x*<span class="number">10</span>+ch-<span class="string">&#x27;0&#x27;</span>,ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">return</span> x*f;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">wt</span><span class="params">(ll x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&lt;<span class="number">0</span>) &#123;<span class="built_in">putchar</span>(<span class="string">&#x27;-&#x27;</span>),<span class="built_in">wt</span>(-x);<span class="keyword">return</span>;&#125;</span><br><span class="line">    <span class="keyword">if</span>(x&gt;<span class="number">9</span>) <span class="built_in">wt</span>(x/<span class="number">10</span>);</span><br><span class="line">    <span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    n=<span class="built_in">rd</span>(),a=<span class="built_in">rd</span>(),b=<span class="built_in">rd</span>(),c=<span class="built_in">rd</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) s[i]=<span class="built_in">rd</span>(),s[i]+=s[i<span class="number">-1</span>];</span><br><span class="line">    <span class="type">int</span> l=<span class="number">1</span>,r=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(l&lt;r&amp;&amp;<span class="built_in">y</span>(q[l+<span class="number">1</span>])-<span class="built_in">y</span>(q[l])&gt;=(s[q[l+<span class="number">1</span>]]-s[q[l]])*<span class="built_in">k</span>(i)) l++;</span><br><span class="line">        f[i]=f[q[l]]+<span class="built_in">d</span>(s[i]-s[q[l]]);</span><br><span class="line">        <span class="keyword">while</span>(l&lt;r&amp;&amp;(<span class="built_in">y</span>(q[r])-<span class="built_in">y</span>(q[r<span class="number">-1</span>]))*(s[i]-s[q[r]])&lt;=(<span class="built_in">y</span>(i)-<span class="built_in">y</span>(q[r]))*(s[q[r]]-s[q[r<span class="number">-1</span>]])) r--;</span><br><span class="line">        q[++r]=i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">wt</span>(f[n]),<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
-
-<h3><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2900">洛谷P2900 Land Acquisition G</a></h3>
-
-<p>$O(n)$ 做法：设 $f[i]$ 表示前 $i$ 块地被分为若干组，列出状态转移方程：$f[i]=$ $min<em>{0\leq j&lt;i}(f[j]+$ $max</em>{j&lt;k\leq i}w[k]\times$ $max_{j&lt;k\leq i}l[k])$，发现在 $min$ 函数中还有 $max$ 函数，不容易优化，考虑先对这些土地排序，以长度为第一关键字递增，宽度为第二关键字递减排序，排序过程中发现如果一块地的长度和宽度都比另一块地小，则它可以被包含于另一块地的费用中，之后不需要再考虑该块地，所以在排序过程中还需要将这种“可以被包含”的地块删去。最后剩下的地块类似于下图：</p>
+<h3>
+<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2900">洛谷P2900 Land
+Acquisition G</a>
+</h3>
+<p><span class="math inline">\(O(n)\)</span> 做法：设 <span
+class="math inline">\(f[i]\)</span> 表示前 <span
+class="math inline">\(i\)</span>
+块地被分为若干组，列出状态转移方程：<span
+class="math inline">\(f[i]=\)</span> <span
+class="math inline">\(min_{0\leq j&lt;i}(f[j]+\)</span> <span
+class="math inline">\(max_{j&lt;k\leq i}w[k]\times\)</span> <span
+class="math inline">\(max_{j&lt;k\leq i}l[k])\)</span>，发现在 <span
+class="math inline">\(min\)</span> 函数中还有 <span
+class="math inline">\(max\)</span>
+函数，不容易优化，考虑先对这些土地排序，以长度为第一关键字递增，宽度为第二关键字递减排序，排序过程中发现如果一块地的长度和宽度都比另一块地小，则它可以被包含于另一块地的费用中，之后不需要再考虑该块地，所以在排序过程中还需要将这种“可以被包含”的地块删去。最后剩下的地块类似于下图：</p>
 <center>
 <img src="https://img1.imgtp.com/2023/06/27/WAeimyga.png" alt="LandAcquisitionG1.png" title="LandAcquisitionG1.png" />
 </center>
-
 <p>排序后，发现对于一个地块，如果排名在它前后的地块被分到了同一组，那么这一地块可以被分到该组而不产生贡献，如下图：</p>
 <center>
 <img src="https://img1.imgtp.com/2023/06/27/Cz3CY5By.png" alt="LandAcquisitionG2.png" title="LandAcquisitionG2.png" />
 </center>
-
-<p>所以如果选中了两个不相邻的地块，把它们之间的地块也选入是更优解，从而最优的分组应该是若干连续段，得到新的状态转移方程：$f[i]=$ $min_{0\leq j&lt;i}(f[j]+l[j+1]\times$ $w[i])$，去掉 $min$ 函数，移项，得到：$f[j]=$ $-w[i]l[j+1]+$ $f[i]$，这里需要注意新的分组是从 $j+1$ 到 $i$ 的。之后套用斜率优化即可。这里排序的时间复杂度是 $O(\log n)$ 的，去重是 $O(n)$ 的，DP 是 $O(n)$ 的，总复杂度近似为 $O(n)$。</p>
-<details class=note close>
-<summary>code</summary>
-
+<p>所以如果选中了两个不相邻的地块，把它们之间的地块也选入是更优解，从而最优的分组应该是若干连续段，得到新的状态转移方程：<span
+class="math inline">\(f[i]=\)</span> <span
+class="math inline">\(min_{0\leq j&lt;i}(f[j]+l[j+1]\times\)</span>
+<span class="math inline">\(w[i])\)</span>，去掉 <span
+class="math inline">\(min\)</span> 函数，移项，得到：<span
+class="math inline">\(f[j]=\)</span> <span
+class="math inline">\(-w[i]l[j+1]+\)</span> <span
+class="math inline">\(f[i]\)</span>，这里需要注意新的分组是从 <span
+class="math inline">\(j+1\)</span> 到 <span
+class="math inline">\(i\)</span>
+的。之后套用斜率优化即可。这里排序的时间复杂度是 <span
+class="math inline">\(O(\log n)\)</span> 的，去重是 <span
+class="math inline">\(O(n)\)</span> 的，DP 是 <span
+class="math inline">\(O(n)\)</span> 的，总复杂度近似为 <span
+class="math inline">\(O(n)\)</span>。</p>
+<details class="note" close>
+<summary>
+code
+</summary>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ll long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">ll n,f[<span class="number">50005</span>],q[<span class="number">50005</span>];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span></span><br><span class="line">&#123;</span><br><span class="line">    ll W,L;</span><br><span class="line">    <span class="type">bool</span> <span class="keyword">operator</span> &lt; (<span class="type">const</span> node &amp;x) <span class="type">const</span></span><br><span class="line">    &#123;<span class="keyword">return</span> W==x.W?L&gt;x.L:W&lt;x.W;&#125;</span><br><span class="line">&#125;land[<span class="number">50005</span>];</span><br><span class="line">ll w[<span class="number">50005</span>],l[<span class="number">50005</span>];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> ll <span class="title">rd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll x=<span class="number">0</span>;<span class="type">char</span> ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&lt;<span class="string">&#x27;0&#x27;</span>||ch&gt;<span class="string">&#x27;9&#x27;</span>) ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&gt;=<span class="string">&#x27;0&#x27;</span>&amp;&amp;ch&lt;=<span class="string">&#x27;9&#x27;</span>) x=x*<span class="number">10</span>+ch-<span class="string">&#x27;0&#x27;</span>,ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    n=<span class="built_in">rd</span>();</span><br><span class="line">    <span class="keyword">for</span>(ll i=<span class="number">1</span>;i&lt;=n;i++) land[i].W=<span class="built_in">rd</span>(),land[i].L=<span class="built_in">rd</span>();</span><br><span class="line">    <span class="built_in">sort</span>(land+<span class="number">1</span>,land+n+<span class="number">1</span>);</span><br><span class="line">    ll h=<span class="number">1</span>,t=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(ll i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(h&lt;=t&amp;&amp;land[q[t]].L&lt;=land[i].L) t--;</span><br><span class="line">        q[++t]=i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(ll i=<span class="number">1</span>;i&lt;=t;i++) w[i]=land[q[i]].W,l[i]=land[q[i]].L;</span><br><span class="line">    n=t,h=<span class="number">1</span>,t=<span class="number">1</span>,q[<span class="number">1</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(ll i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(h&lt;t&amp;&amp;f[q[h+<span class="number">1</span>]]-f[q[h]]&lt;=(l[q[h]+<span class="number">1</span>]-l[q[h+<span class="number">1</span>]+<span class="number">1</span>])*w[i]) h++;</span><br><span class="line">        f[i]=f[q[h]]+l[q[h]+<span class="number">1</span>]*w[i];</span><br><span class="line">        <span class="keyword">while</span>(h&lt;t&amp;&amp;(f[q[t]]-f[q[t<span class="number">-1</span>]])*(l[q[t]+<span class="number">1</span>]-l[i+<span class="number">1</span>])&gt;=(l[q[t<span class="number">-1</span>]+<span class="number">1</span>]-l[q[t]+<span class="number">1</span>])*(f[i]-f[q[t]])) t--;</span><br><span class="line">        q[++t]=i;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;f[n]&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
-
-<h3><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4360">洛谷P4360 锯木厂选址</a></h3>
-
-<p>$O(n)$ 做法：修建两个锯木厂，将山坡划分为了三段，锯木厂直接修建在某棵树所在的位置显然比修建在该棵树与下一棵之间更优，设 $d[i]$ 表示在第 $i$ 棵树所在地修建锯木厂省下的距离，即第 $i$ 棵树到山脚的距离，$w[i]$ 表示在前 $i$ 棵树的重量和，则在第 $i$ 棵树所在地建锯木厂可省下花费 $d[i]\times w[i]$，于是得到第一个（距离山顶最近）的锯木厂修在 $i$，第二个锯木厂修建在 $j$ 的最小花费为 $ans=min(sum-$ $d[j]w[j]-$ $d<a href="w[i] -$ $w[j]">i</a>)$。去掉 $min$ 函数，移项，得到：$d[j]w[j]=$ $-d[ i ]w[ j ]+$ $sum-$ $ans-$ $d[i]w[i]$，套用斜率优化。</p>
-<details class=note close>
-<summary>code</summary>
-
+<h3>
+<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4360">洛谷P4360
+锯木厂选址</a>
+</h3>
+<p><span class="math inline">\(O(n)\)</span>
+做法：修建两个锯木厂，将山坡划分为了三段，锯木厂直接修建在某棵树所在的位置显然比修建在该棵树与下一棵之间更优，设
+<span class="math inline">\(d[i]\)</span> 表示在第 <span
+class="math inline">\(i\)</span> 棵树所在地修建锯木厂省下的距离，即第
+<span class="math inline">\(i\)</span> 棵树到山脚的距离，<span
+class="math inline">\(w[i]\)</span> 表示在前 <span
+class="math inline">\(i\)</span> 棵树的重量和，则在第 <span
+class="math inline">\(i\)</span> 棵树所在地建锯木厂可省下花费 <span
+class="math inline">\(d[i]\times
+w[i]\)</span>，于是得到第一个（距离山顶最近）的锯木厂修在 <span
+class="math inline">\(i\)</span>，第二个锯木厂修建在 <span
+class="math inline">\(j\)</span> 的最小花费为 <span
+class="math inline">\(ans=min(sum-\)</span> <span
+class="math inline">\(d[j]w[j]-\)</span> <span
+class="math inline">\(d[i](w[i] -\)</span> <span
+class="math inline">\(w[j]))\)</span>。去掉 <span
+class="math inline">\(min\)</span> 函数，移项，得到：<span
+class="math inline">\(d[j]w[j]=\)</span> <span class="math inline">\(-d[
+i ]w[ j ]+\)</span> <span class="math inline">\(sum-\)</span> <span
+class="math inline">\(ans-\)</span> <span
+class="math inline">\(d[i]w[i]\)</span>，套用斜率优化。</p>
+<details class="note" close>
+<summary>
+code
+</summary>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ll long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">ll n,sum,ans,l,r,w[<span class="number">20005</span>],d[<span class="number">20005</span>],q[<span class="number">20005</span>];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> ll <span class="title">rd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll x=<span class="number">0</span>;<span class="type">char</span> ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&lt;<span class="string">&#x27;0&#x27;</span>||ch&gt;<span class="string">&#x27;9&#x27;</span>) ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&gt;=<span class="string">&#x27;0&#x27;</span>&amp;&amp;ch&lt;=<span class="string">&#x27;9&#x27;</span>) x=x*<span class="number">10</span>+ch-<span class="string">&#x27;0&#x27;</span>,ch=<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    n=<span class="built_in">rd</span>();</span><br><span class="line">    <span class="keyword">for</span>(ll i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">        w[i]=<span class="built_in">rd</span>(),d[i]=<span class="built_in">rd</span>(),w[i]+=w[i<span class="number">-1</span>],sum+=w[i]*d[i];</span><br><span class="line">    <span class="keyword">for</span>(ll i=n;i;i--) d[i]+=d[i+<span class="number">1</span>];</span><br><span class="line">    ans=<span class="number">0x3f3f3f3f</span>,l=<span class="number">1</span>,r=<span class="number">1</span>,q[<span class="number">1</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(ll i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(l&lt;r&amp;&amp;d[q[l]]*w[q[l]]-d[q[l+<span class="number">1</span>]]*w[q[l+<span class="number">1</span>]]&lt;=(w[q[l]]-w[q[l+<span class="number">1</span>]])*d[i]) l++;</span><br><span class="line">        ans=<span class="built_in">min</span>(ans,sum-d[q[l]]*w[q[l]]-d[i]*(w[i]-w[q[l]]));</span><br><span class="line">        <span class="keyword">while</span>(l&lt;r&amp;&amp;(d[q[r<span class="number">-1</span>]]*w[q[r<span class="number">-1</span>]]-d[q[r]]*w[q[r]])*(w[q[r]]-w[i])&lt;=(w[q[r<span class="number">-1</span>]]-w[q[r]])*(d[q[r]]*w[q[r]]-d[i]*w[i])) r--;</span><br><span class="line">        q[++r]=i;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
+
         
       </div>
 
@@ -447,7 +688,7 @@ $F[i][j]=$ $min_{0\leq k<i}$ $(F[k][j-1]+$ $(S\times$ $j+$ $sumT[i])\times$ $(su
   <div id="comment-card" class="comment-card">
     <div class="main-title-bar">
       <div class="main-title-dot"></div>
-      <div class="main-title">Comments </div>
+      <div class="main-title">留言 </div>
     </div>
     <div id="vcomments"></div>
   </div>
