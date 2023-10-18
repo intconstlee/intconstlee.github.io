@@ -21,12 +21,12 @@
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/MaterialSymbolsRounded.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
-  <meta name="description" content="左偏树 左偏树是可并堆的一种，具有堆的性质，可快速合并. 维护如下信息：\(\text{val}\)：权值，\(\text{ls}\)：左儿子，\(\text{rs}\)：右儿子，\(\text{dist}\)：距离，\(\text{fa}\)：父亲。 一，dist 对于一棵二叉树，我们定义外结点为左儿子或右儿子为空的结点。 定义一个外结点的 \(\text{dist}\) 为 \(1">
+  <meta name="description" content="左偏树左偏树是可并堆的一种，具有堆的性质，可快速合并. 维护如下信息：$\text{val}$：权值，$\text{ls}$：左儿子，$\text{rs}$：右儿子，$\text{dist}$：距离，$\text{fa}$：父亲。 一，dist对于一棵二叉树，我们定义外结点为左儿子或右儿子为空的结点。 定义一个外结点的 $\text{dist}$ 为 $1$，非外结点的 $\text{dist}$">
 <meta property="og:type" content="article">
 <meta property="og:title" content="左偏树">
 <meta property="og:url" content="https://intconstlee.github.io/2023/06/10/%E5%B7%A6%E5%81%8F%E6%A0%91/index.html">
 <meta property="og:site_name" content="intconstlee">
-<meta property="og:description" content="左偏树 左偏树是可并堆的一种，具有堆的性质，可快速合并. 维护如下信息：\(\text{val}\)：权值，\(\text{ls}\)：左儿子，\(\text{rs}\)：右儿子，\(\text{dist}\)：距离，\(\text{fa}\)：父亲。 一，dist 对于一棵二叉树，我们定义外结点为左儿子或右儿子为空的结点。 定义一个外结点的 \(\text{dist}\) 为 \(1">
+<meta property="og:description" content="左偏树左偏树是可并堆的一种，具有堆的性质，可快速合并. 维护如下信息：$\text{val}$：权值，$\text{ls}$：左儿子，$\text{rs}$：右儿子，$\text{dist}$：距离，$\text{fa}$：父亲。 一，dist对于一棵二叉树，我们定义外结点为左儿子或右儿子为空的结点。 定义一个外结点的 $\text{dist}$ 为 $1$，非外结点的 $\text{dist}$">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-06-09T18:10:25.000Z">
 <meta property="article:modified_time" content="2023-07-24T00:41:22.000Z">
@@ -92,7 +92,7 @@
         <span class="material-symbols-rounded rss">rss_feed</span>
       </a>
     
-    <a id="nav-search-btn" class="nav-icon" title="Search" style="display: none;">
+    <a id="nav-search-btn" class="nav-icon" title="搜尋" style="display: none;">
       <span class="material-symbols-rounded">search</span>
     </a>
     <div id="nav-menu-btn" class="nav-icon">
@@ -163,8 +163,8 @@
       
   <div class="widget-wrap">
     <div class="widget">
-      <h3 class="widget-title">Tags</h3>
-      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/AC%E8%87%AA%E5%8A%A8%E6%9C%BA/" rel="tag">AC自动机</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/DP%E4%BC%98%E5%8C%96/" rel="tag">DP优化</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/" rel="tag">单调队列</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" rel="tag">单调队列优化</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8F%AF%E5%B9%B6%E5%A0%86/" rel="tag">可并堆</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%9B%BE%E8%AE%BA/" rel="tag">图论</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%B7%A6%E5%81%8F%E6%A0%91/" rel="tag">左偏树</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" rel="tag">排列组合</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96/" rel="tag">斜率优化</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E5%89%B2/" rel="tag">最小割</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9D%8E%E8%B6%85%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">李超线段树</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" rel="tag">组合数学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/" rel="tag">网络流</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E6%9C%BA/" rel="tag">自动机</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%B4%B9%E7%94%A8%E6%B5%81/" rel="tag">费用流</a></li></ul>
+      <h3 class="widget-title">標籤</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/AC%E8%87%AA%E5%8A%A8%E6%9C%BA/" rel="tag">AC自动机</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/DP%E4%BC%98%E5%8C%96/" rel="tag">DP优化</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/" rel="tag">单调队列</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" rel="tag">单调队列优化</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8F%AF%E5%B9%B6%E5%A0%86/" rel="tag">可并堆</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%9B%BE%E8%AE%BA/" rel="tag">图论</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%B7%A6%E5%81%8F%E6%A0%91/" rel="tag">左偏树</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" rel="tag">排列组合</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96/" rel="tag">斜率优化</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E5%89%B2/" rel="tag">最小割</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%9D%8E%E8%B6%85%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">李超线段树</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%B2%BE%E7%A5%9E%E7%8A%B6%E6%80%81/" rel="tag">精神状态</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" rel="tag">组合数学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/" rel="tag">网络流</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E6%9C%BA/" rel="tag">自动机</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%B4%B9%E7%94%A8%E6%B5%81/" rel="tag">费用流</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E9%97%B2%E8%AF%9D/" rel="tag">闲话</a></li></ul>
     </div>
   </div>
 
@@ -173,8 +173,18 @@
       
   <div class="widget-wrap">
     <div class="widget">
-      <h3 class="widget-title">Archives</h3>
+      <h3 class="widget-title">彙整</h3>
       
+      
+        <a class="archive-link" href="/archives/2023/10 ">
+          十月 2023 
+          <div class="archive-count">1 </div>
+        </a>
+      
+        <a class="archive-link" href="/archives/2023/09 ">
+          九月 2023 
+          <div class="archive-count">1 </div>
+        </a>
       
         <a class="archive-link" href="/archives/2023/07 ">
           七月 2023 
@@ -194,8 +204,20 @@
       
   <div class="widget-wrap">
     <div class="widget">
-      <h3 class="widget-title">Recent Posts</h3>
+      <h3 class="widget-title">最新文章</h3>
       <ul>
+        
+          <a class="recent-link" href="/2023/10/17/10-18%E9%97%B2%E8%AF%9D/" title="10.18闲话" >
+            <div class="recent-link-text">
+              10.18闲话
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2023/09/27/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" title="后缀数组" >
+            <div class="recent-link-text">
+              后缀数组
+            </div>
+          </a>
         
           <a class="recent-link" href="/2023/07/19/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" title="排列组合" >
             <div class="recent-link-text">
@@ -212,18 +234,6 @@
           <a class="recent-link" href="/2023/06/23/%E8%B4%B9%E7%94%A8%E6%B5%81/" title="费用流" >
             <div class="recent-link-text">
               费用流
-            </div>
-          </a>
-        
-          <a class="recent-link" href="/2023/06/20/%E6%9C%80%E5%B0%8F%E5%89%B2/" title="最小割" >
-            <div class="recent-link-text">
-              最小割
-            </div>
-          </a>
-        
-          <a class="recent-link" href="/2023/06/19/%E6%9C%80%E5%A4%A7%E6%B5%81%E9%87%8D%E5%88%B6%E7%89%88/" title="最大流重制版" >
-            <div class="recent-link-text">
-              最大流重制版
             </div>
           </a>
         
@@ -264,13 +274,13 @@
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
   
-    Uncategorized 
+    未分類 
    
 </div>
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            584 words 
+            584 詞 
           </div>
         </div>
         
@@ -279,69 +289,45 @@
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <h1 id="左偏树">左偏树</h1>
-<p>左偏树是可并堆的一种，具有堆的性质，可快速合并.</p>
-<p>维护如下信息：<span
-class="math inline">\(\text{val}\)</span>：权值，<span
-class="math inline">\(\text{ls}\)</span>：左儿子，<span
-class="math inline">\(\text{rs}\)</span>：右儿子，<span
-class="math inline">\(\text{dist}\)</span>：距离，<span
-class="math inline">\(\text{fa}\)</span>：父亲。</p>
-<h2 id="一dist">一，dist</h2>
-<p>对于一棵二叉树，我们定义外结点为左儿子或右儿子为空的结点。</p>
-<p>定义一个外结点的 <span class="math inline">\(\text{dist}\)</span> 为
-<span class="math inline">\(1\)</span>，非外结点的 <span
-class="math inline">\(\text{dist}\)</span>
-为其到子树中最近外结点的距离加一，空结点的 <span
-class="math inline">\(\text{dist}\)</span> 为 <span
-class="math inline">\(0\)</span>。</p>
-<p>现在有一棵 <span class="math inline">\(n\)</span>
-个结点的二叉树，则有如下性质：</p>
-<ol type="1">
-<li><p>根的 <span class="math inline">\(\text{dist}\)</span> 不超过
-<span class="math inline">\([log(n+1)]\)</span>；</p></li>
-<li><p>若该二叉树根的 <span class="math inline">\(\text{dist}\)</span>
-为 <span class="math inline">\(x\)</span>，则至少有 <span
-class="math inline">\(x-1\)</span> 层为满二叉树，至少有 <span
-class="math inline">\(2^x-1\)</span> 个结点。</p></li>
+          <h1 id="左偏树"><a href="#左偏树" class="headerlink" title="左偏树"></a>左偏树</h1><p>左偏树是可并堆的一种，具有堆的性质，可快速合并.</p>
+<p>维护如下信息：$\text{val}$：权值，$\text{ls}$：左儿子，$\text{rs}$：右儿子，$\text{dist}$：距离，$\text{fa}$：父亲。</p>
+<h2 id="一，dist"><a href="#一，dist" class="headerlink" title="一，dist"></a>一，dist</h2><p>对于一棵二叉树，我们定义外结点为左儿子或右儿子为空的结点。</p>
+<p>定义一个外结点的 $\text{dist}$ 为 $1$，非外结点的 $\text{dist}$ 为其到子树中最近外结点的距离加一，空结点的 $\text{dist}$ 为 $0$。</p>
+<p>现在有一棵 $n$ 个结点的二叉树，则有如下性质：</p>
+<ol>
+<li><p>根的 $\text{dist}$ 不超过 $[log(n+1)]$；</p>
+</li>
+<li><p>若该二叉树根的 $\text{dist}$ 为 $x$，则至少有 $x-1$ 层为满二叉树，至少有 $2^x-1$ 个结点。</p>
+</li>
 </ol>
-<h2 id="二左偏树的性质">二，左偏树的性质</h2>
-<p>左偏树是一棵二叉树，它具有如下性质：</p>
-<ol type="1">
-<li><p>堆的性质；</p></li>
-<li><p>每个结点左儿子的 <span class="math inline">\(\text{dist}\)</span>
-大于等于右儿子的 <span
-class="math inline">\(\text{dist}\)</span>；</p></li>
-<li><p>每个结点的 <span class="math inline">\(\text{dist}\)</span>
-都等于右儿子的 <span
-class="math inline">\(\text{dist}+1\)</span>。</p></li>
+<h2 id="二，左偏树的性质"><a href="#二，左偏树的性质" class="headerlink" title="二，左偏树的性质"></a>二，左偏树的性质</h2><p>左偏树是一棵二叉树，它具有如下性质：</p>
+<ol>
+<li><p>堆的性质；</p>
+</li>
+<li><p>每个结点左儿子的 $\text{dist}$ 大于等于右儿子的 $\text{dist}$；</p>
+</li>
+<li><p>每个结点的 $\text{dist}$ 都等于右儿子的 $\text{dist}+1$。</p>
+</li>
 </ol>
 <p>左偏树的深度无保证，一条向左的链也是左偏树。</p>
-<h2 id="三核心操作合并-merge">三，核心操作——合并 merge</h2>
-<ol type="1">
-<li><p>取值较小的根作为合并后堆的根节点；</p></li>
-<li><p>将这个根的左儿子作为合并后堆的左儿子；</p></li>
-<li><p>递归合并其右儿子和另一个堆，作为合并后堆的右儿子；</p></li>
-<li><p>若合并后左儿子的 <span class="math inline">\(\text{dist}\)</span>
-小于右儿子的 <span
-class="math inline">\(\text{dist}\)</span>，交换两儿子。</p></li>
+<h2 id="三，核心操作——合并-merge"><a href="#三，核心操作——合并-merge" class="headerlink" title="三，核心操作——合并 merge"></a>三，核心操作——合并 merge</h2><ol>
+<li><p>取值较小的根作为合并后堆的根节点；</p>
+</li>
+<li><p>将这个根的左儿子作为合并后堆的左儿子；</p>
+</li>
+<li><p>递归合并其右儿子和另一个堆，作为合并后堆的右儿子；</p>
+</li>
+<li><p>若合并后左儿子的 $\text{dist}$ 小于右儿子的 $\text{dist}$，交换两儿子。</p>
+</li>
 </ol>
-<p>该操作的时间复杂度是 <span class="math inline">\(O(\log n+\log
-m)\)</span> 的。</p>
+<p>该操作的时间复杂度是 $O(\log n+\log m)$ 的。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">merge</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!x||!y) <span class="keyword">return</span> x+y;</span><br><span class="line">    <span class="keyword">if</span>(val[x]&gt;val[y]) <span class="built_in">swap</span>(x,y);</span><br><span class="line">    rs[x]=<span class="built_in">merge</span>(rs[x],y),fa[rs[x]]=x;</span><br><span class="line">    <span class="keyword">if</span>(dis[ls[x]]&lt;dis[rs[x]]) <span class="built_in">swap</span>(ls[x],rs[x]);</span><br><span class="line">    dis[x]=dis[rs[x]]+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="四其他操作">四，其他操作</h2>
-<h3 id="插入结点">插入结点</h3>
-<p>将单个结点视为一个堆，合并即可。</p>
-<h3 id="删除根">删除根</h3>
-<p>合并根的左右儿子。</p>
-<h3 id="删除任意结点">删除任意结点</h3>
-<p>合并左右儿子，自底向上更新 <span
-class="math inline">\(\text{dist}\)</span>，不满足左偏性质时交换左右儿子，<span
-class="math inline">\(\text{dist}\)</span> 无需更新时结束递归。</p>
-<p>时间复杂度：<span class="math inline">\(O(\log n)\)</span></p>
+<h2 id="四，其他操作"><a href="#四，其他操作" class="headerlink" title="四，其他操作"></a>四，其他操作</h2><h3 id="插入结点"><a href="#插入结点" class="headerlink" title="插入结点"></a>插入结点</h3><p>将单个结点视为一个堆，合并即可。</p>
+<h3 id="删除根"><a href="#删除根" class="headerlink" title="删除根"></a>删除根</h3><p>合并根的左右儿子。</p>
+<h3 id="删除任意结点"><a href="#删除任意结点" class="headerlink" title="删除任意结点"></a>删除任意结点</h3><p>合并左右儿子，自底向上更新 $\text{dist}$，不满足左偏性质时交换左右儿子，$\text{dist}$ 无需更新时结束递归。</p>
+<p>时间复杂度：$O(\log n)$</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">pushup</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!x) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span>(dis[ls[x]]&lt;dis[rs[x]]) <span class="built_in">swap</span>(ls[x],rs[x]);</span><br><span class="line">    <span class="keyword">if</span>(dis[x]!=dis[rs[x]]+<span class="number">1</span>)</span><br><span class="line">        dis[x]=dis[rs[x]]+<span class="number">1</span>,<span class="built_in">pushup</span>(fa[x]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="对整个堆进行加减乘运算">对整个堆进行加/减/乘运算</h3>
-<p>在根上打标记，删除根/合并堆时下传即可。</p>
+<h3 id="对整个堆进行加-减-乘运算"><a href="#对整个堆进行加-减-乘运算" class="headerlink" title="对整个堆进行加/减/乘运算"></a>对整个堆进行加/减/乘运算</h3><p>在根上打标记，删除根/合并堆时下传即可。</p>
 
         
       </div>
@@ -391,7 +377,7 @@ class="math inline">\(\text{dist}\)</span> 无需更新时结束递归。</p>
   <div id="comment-card" class="comment-card">
     <div class="main-title-bar">
       <div class="main-title-dot"></div>
-      <div class="main-title">Comments </div>
+      <div class="main-title">留言 </div>
     </div>
     <div id="vcomments"></div>
   </div>
