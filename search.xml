@@ -2545,4 +2545,33 @@ boom egg 是吧？你做得好啊~！</p>
         <tag>精神状态</tag>
       </tags>
   </entry>
+  <entry>
+    <title>10.22闲话</title>
+    <url>/2023/10/23/10-22%E9%97%B2%E8%AF%9D/</url>
+    <content><![CDATA[<h1 id="闲话">10.22闲话</h1>
+<p>md，累了。</p>
+<h2 id="日记">日记</h2>
+<p>一大早就起晚了，错过了集合时间，迟到十分钟。还好其他人没有到点就走，不然我可能就要留在秦皇岛了。</p>
+<p>感觉前一天考 CSP 考出创伤了，感觉题目相当恶心，好像也没用 Linux
+测试，在洛谷那个自测上交了一下，果不其然，T1 CE。</p>
+<p>好，就这样吧，离 AFO 更进一步。</p>
+<h2 id="我推の歌">我推の歌</h2>
+<p>幼鸟指南 ——毛不易</p>
+<p>阳光开朗大男孩的暗黑风格作品，张力还是很大的。</p>
+<p>失敗作少女（maretu remix 版）——原作 かいりきベア，remixed by
+maretu</p>
+<p>老子就 tm 是失败作！</p>
+<h2 id="口胡式题解">口胡式题解</h2>
+<p>CSP T2 game</p>
+<p>栈+哈希，对于栈内每个状态记哈希，弹栈的同时回退哈希。</p>
+]]></content>
+      <categories>
+        <category>闲话</category>
+      </categories>
+      <tags>
+        <tag>闲话</tag>
+        <tag>生活</tag>
+        <tag>精神状态</tag>
+      </tags>
+  </entry>
 </search>
