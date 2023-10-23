@@ -2574,4 +2574,45 @@ maretu</p>
         <tag>精神状态</tag>
       </tags>
   </entry>
+  <entry>
+    <title>10.23闲话</title>
+    <url>/2023/10/23/10-23%E9%97%B2%E8%AF%9D/</url>
+    <content><![CDATA[<h1 id="闲话">10.23 闲话</h1>
+<h2 id="日记">日记</h2>
+<p>内耗了两三天吧，现在感觉平静了，总之该 AFO 就 AFO，不用 AFO
+就继续学。</p>
+<p>总结一下比赛，发现我把所有不该犯的错误都犯了，不在 Linux
+下测试（A），不好好读题（C），死磕一道题（C），不写部分分（D）。犯得好，下次别犯了。幸好不是
+NOIP，不然我得原地退役了。</p>
+<p>考前一直写题单里的题，今天总算有机会随机跳题了，改
+CSP？不存在的。</p>
+<p>（然后下午就被打脸了，改 C 题大模拟去了）</p>
+<p>中午跟 cdx 吃的饭，拜谢
+cdx。看着初中爷和高一爷，我常常能感觉到人与人的参差，而我就是参差中那衬托高峰用的小山谷罢了。</p>
+<p>中午在机房睡过头，一睁眼看见大家都就位开始写题了，赶紧弹射起步。太尴尬了。</p>
+<p>终于把大模拟改出来了，舒服了。</p>
+<p>晚上又瞎找了几题水一水，写题也总比耗着好。</p>
+<p>附上 CSP-S 2023 迷惑行为之我是阿芙朵嘉小姐的狗：</p>
+<p><img
+src="https://cdn.luogu.com.cn/upload/image_hosting/zhzm8o0a.png" /></p>
+<p><del>阿芙朵嘉小姐 daisuki！</del>山东上大分。</p>
+<p>因为在机房不怎么听歌，我决定删除“我推の歌”栏目。</p>
+<h2 id="口胡式题解">口胡式题解</h2>
+<h3 id="at_abc165_f-lis-on-tree"><strong>AT_abc165_f</strong> LIS on
+Tree</h3>
+<p>树上 DFS 与 LIS 的结合。考虑在求 LIS
+的过程上附带回退即可，别忘了答案要下传。</p>
+<h3 id="at_agc018_b-sports-festival"><strong>AT_agc018_b</strong> Sports
+Festival</h3>
+<p>先假设所有项目都开展，之后删除人数最多的项目，以此类推，删除过程由于每个人对项目的选择是单调的，故可以对每个人维护一个指针。</p>
+]]></content>
+      <categories>
+        <category>闲话</category>
+      </categories>
+      <tags>
+        <tag>闲话</tag>
+        <tag>生活</tag>
+        <tag>精神状态</tag>
+      </tags>
+  </entry>
 </search>
