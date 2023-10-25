@@ -2682,4 +2682,43 @@ class="math inline">\(f_{2,1}+d(1,2)\)</span>。</p>
         <tag>精神状态</tag>
       </tags>
   </entry>
+  <entry>
+    <title>10.25闲话</title>
+    <url>/2023/10/25/10-25%E9%97%B2%E8%AF%9D/</url>
+    <content><![CDATA[<h1 id="闲话">10.25 闲话</h1>
+<h2 id="日寄">日寄</h2>
+<p>上午考模拟赛，wangk：“这次的难度已经不能再简单了。”</p>
+<p>但这不影响我切不了 T2，做不出 T4。</p>
+<p>下午随了几道性质题，发现最近特别爱做性质题，这不好，太久处于舒适圈容易懈怠，明天开始做大模拟。</p>
+<p>今天不推歌。</p>
+<h2 id="口题解">口题解</h2>
+<h3 id="cf938d-buy-a-ticket"><strong>CF938D</strong> Buy a Ticket</h3>
+<p>建图的时候就可以把边权记为二倍。把所有点按票价排序，影响顺序一定是票价小的点会影响票价大的，故按票价从小到大尝试向周围拓展，其过程类似最短路。</p>
+<h3 id="at_abc295_g-minimum-reachable-city"><strong>AT_abc295_g</strong>
+Minimum Reachable City</h3>
+<p>题意为在一棵祖先编号严格小于后代的树上给出若干返祖边，询问点能到达的最浅祖先。将返祖边拆分，视为若干条子结点向父结点的连边，用并查集维护每个点向上能到达的最浅点即可。</p>
+<h3 id="cf74c-chessboard-billiard"><strong>CF74C</strong> Chessboard
+Billiard</h3>
+<p>虽然是一个绿题，但有一个相当牛*的性质。</p>
+<p>从一个正方形出发考虑，一个正方形中能放置的球数等于其边长，将每个球的轨迹染色，发现正方形上下两边缘颜色序列正好相反，左右两边缘也相反。于是可以复制一个正方形，将其上下颠倒，并用其上边缘重合已有正方形的下边缘，得到一个矩形，以此类推，发现一个长
+<span class="math inline">\((n-1)x+1\)</span>，宽 <span
+class="math inline">\(n\)</span> 的矩形，可以放置的球数和边长为 <span
+class="math inline">\(n\)</span>
+的正方形相同。同理拓展左右边缘，得到结论：</p>
+<p>一个长 <span class="math inline">\((n-1)x+1\)</span>，宽 <span
+class="math inline">\((n-1)y+1\)</span> 的矩形，可以放置的球数和边长为
+<span class="math inline">\(n\)</span> 的正方形相同。</p>
+<p>那么对于一个长为 <span class="math inline">\(n\)</span>，宽为 <span
+class="math inline">\(m\)</span> 的矩形，其可以放置的球数即 <span
+class="math inline">\(\gcd(n-1,m-1)+1\)</span>。</p>
+]]></content>
+      <categories>
+        <category>闲话</category>
+      </categories>
+      <tags>
+        <tag>闲话</tag>
+        <tag>生活</tag>
+        <tag>精神状态</tag>
+      </tags>
+  </entry>
 </search>
