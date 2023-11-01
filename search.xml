@@ -2966,4 +2966,46 @@ lca 再减去 lca
         <tag>精神状态</tag>
       </tags>
   </entry>
+  <entry>
+    <title>11.1闲话</title>
+    <url>/2023/11/02/11-1%E9%97%B2%E8%AF%9D/</url>
+    <content><![CDATA[<h1 id="闲话">11.1 闲话</h1>
+<p>昨晚回家找图去了，没更闲话。</p>
+<p>欸嘿。</p>
+<h2 id="日寄">日寄</h2>
+<p>感觉好像每天也没那么抽象，所以改回日寄了（我总是在打自己的脸）。</p>
+<p>感觉 SPOJ 是一个非常膈应人的
+OJ，它就像班主任一样，只会说一句：“孩子你废了。”但是为什么废了，需要自己去品。</p>
+<p>中午的时候有高二二期的同学上机房内卷，受到了耳朵龙学长的欢迎（机惨），感觉看着他们就想起了曾经的自己……其实并没有，他们现在的水平已经远超那会儿的我了。祝他们越来越好。</p>
+<p>晚上考了场抽象比赛，OI 赛制，全英题面，没部分分，计数题样例输出
+2，交互题没有交互库……不过还好，后来把交互题换了，又改了 IOI
+赛制。但这依然挡不住我菜得离谱。</p>
+<h2 id="放图">放图</h2>
+<p>女鹅可爱捏</p>
+<p><img
+src="https://github.com/intconstlee/intconstlee.github.io/blob/master/tobeuse/104800761.jpg" /></p>
+<p><img
+src="https://github.com/intconstlee/intconstlee.github.io/blob/master/tobeuse/112201257.jpg" /></p>
+<p><img
+src="https://github.com/intconstlee/intconstlee.github.io/blob/master/tobeuse/28c84f00-78d4-11ee-af5a-e7e6d63a5e4d.jpg" /></p>
+<h2 id="口呼梯阶">口呼梯阶</h2>
+<h3
+id="at_jsc2019_qual_e-card-collector"><strong>AT_jsc2019_qual_e</strong>
+Card Collector</h3>
+<p>首先使用一个经典转化：把行和列看作图上的点，把坐标点看作图上的边，行取牌视为行向列连边，列取牌视为列向行连边，根据题意每个点出度最多为
+<span
+class="math inline">\(1\)</span>，于是转化为求最大生成基环树森林，类似
+Kruskal 地做。</p>
+<h3 id="p4559-列队"><strong>P4559</strong> 列队</h3>
+<p>最优策略是保证相对位置不变，发现左边学生向右跑，右边学生向左跑，用可持久化权值线段树维护一段区间内的相对位置，递归地找哪些学生向左，哪些学生向右，代入向左跑和向右跑的式子即可，式子较为简单，可自行推导。</p>
+]]></content>
+      <categories>
+        <category>闲话</category>
+      </categories>
+      <tags>
+        <tag>闲话</tag>
+        <tag>生活</tag>
+        <tag>精神状态</tag>
+      </tags>
+  </entry>
 </search>
