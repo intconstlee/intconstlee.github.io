@@ -3011,4 +3011,57 @@ Kruskal 地做。</p>
         <tag>精神状态</tag>
       </tags>
   </entry>
+  <entry>
+    <title>11.2闲话</title>
+    <url>/2023/11/03/11-2%E9%97%B2%E8%AF%9D/</url>
+    <content><![CDATA[<h1 id="闲话">11.2 闲话</h1>
+<p>以后每天早上更闲话吧。</p>
+<h2 id="日寄">日寄</h2>
+<p>上午及中午过得浑浑噩噩的，感觉我这一天从下午才开始。</p>
+<p>被科普了一种很新的假期，叫答辩假，触发方式就是跟教练说自己答辩错过了上学点，请假一上午。这十分合理……个鬼，难道不应该说吃早饭错过了上学点吗？</p>
+<p>下午尝试写题，发现自己啥也不会，于是开始乱搞，尝试在 U 盘上装 Windows
+to go（可以理解为在 U
+盘里装系统），然后把电脑搞寄了。于是自行还原，后半个下午都在重装软件和配环境了，也算给自己找点事做。</p>
+<p>晚上讲了 vjudge D
+题，感觉是个可做题，可惜考场不敢看（而且这题全英版也读不懂），写了交了，这时耳朵龙来了一句说他代码只有九行。于是半个机房都开始了压代码竞赛，最终
+pdqb 压到了 118B，我压到了 108B，耳朵龙好像都快低于 100B
+了，听到这个以后我决定不压了。凹不过卷王，摆了。</p>
+<p>弹卡还是有意思的，但我忽然对戴老师课间那个你画我猜起兴趣了，话说有人能给个网址吗。</p>
+<h2 id="放图">放图</h2>
+<p>启用了图床，访问应该会快一点（但是图偏大，有个 20MB 的）。</p>
+<p>今天放舟。</p>
+<p>（pid：78450627）</p>
+<p><img
+src="https://picdl.sunbangyan.cn/2023/11/03/70320097f2e2feabd4ed5f79bf8ec8c8.jpg" /></p>
+<p>（pid：100117039）</p>
+<p><img
+src="https://picdl.sunbangyan.cn/2023/11/03/238fe7cf6a55b1e3e65405932c3dc15c.jpg" /></p>
+<p>（pid：108254243）</p>
+<p><img
+src="https://picst.sunbangyan.cn/2023/11/03/cdd8051e1d12e35bc851ed4942f1cdf9.jpg" /></p>
+<p>（pid：108396628）</p>
+<p><img
+src="https://picst.sunbangyan.cn/2023/11/03/243a153a41c63788b0836cccca534447.png" /></p>
+<h2 id="口呼梯阶">口呼梯阶</h2>
+<h3 id="cf1566e-buds-re-hanging"><strong>CF1566E</strong> Buds
+Re-hanging</h3>
+<p>一个点可能在未来成为 Bud 节点当且仅当它有一个非 Bud
+子结点，又发现无论如何移动都不会影响最终答案，因为可以逆操作，于是可以把所有
+Bud 接到根上，之后贪心地接到叶子上。设 Bud 点数为 <span
+class="math inline">\(k\)</span>，一个一般的 Bud
+自身不是叶子结点，并且会接到一个叶子结点使它不是叶子结点，贡献为 <span
+class="math inline">\(2\)</span>，发现若根节点连接了某个叶子结点（包括未来的叶子结点），Buds
+可以全接到那个叶子上，答案为 <span class="math inline">\(n-2\times k
+-1\)</span>，否则某一个 Bud 仍然连接到根，答案为 <span
+class="math inline">\(n-2\times(k-1)-1-1=n-2\times k\)</span>。</p>
+]]></content>
+      <categories>
+        <category>闲话</category>
+      </categories>
+      <tags>
+        <tag>闲话</tag>
+        <tag>生活</tag>
+        <tag>精神状态</tag>
+      </tags>
+  </entry>
 </search>
