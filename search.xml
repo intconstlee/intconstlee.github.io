@@ -3064,4 +3064,106 @@ class="math inline">\(n-2\times(k-1)-1-1=n-2\times k\)</span>。</p>
         <tag>精神状态</tag>
       </tags>
   </entry>
+  <entry>
+    <title>11.4闲话</title>
+    <url>/2023/11/04/11-4%E9%97%B2%E8%AF%9D/</url>
+    <content><![CDATA[<h1 id="闲话">11.4 闲话</h1>
+<p>早上打七点四十场 <del>老八</del>
+早八模拟赛，没来得及写闲话，更没时间传图。干脆把两天一起写了。<del>于是就诞生了
+11 月 34 日。</del></p>
+<h2 id="日寄">日寄</h2>
+<p>连续两天早八，感觉人快不行了。</p>
+<p>3 号那场感觉良好，4
+号那场对我来说每一题都是不可场切的，看来还是菜。</p>
+<hr />
+<p>感觉高一好卷啊，他们中午觉都不睡，来机房就是卷。</p>
+<p>xjzm
+的饭卡由于卡套过于特别以至于其被值周生两次要求把兜里东西掏出来。</p>
+<blockquote>
+<p>xjzm：“下次要是再查我就把我饭卡吃了。”</p>
+<p>intconstlee：“学校里不让吃零食。”</p>
+</blockquote>
+<hr />
+<p>3 号的时候 pdqb 在电脑上下载了 steam 和 wallpaper engine，没有关
+R18，课间的时候我们在弹卡，GCY 去 pd 电脑看胡桃涩图。</p>
+<p>GCY 你在看什么！FBI Warning！</p>
+<hr />
+<p>4 号一大早去三机房考的试，耳朵龙在三机房发现有 whk
+爷前一天上微机课玩云原神，没删，也没退号，还不关机，于是耳朵龙立马原神启动。</p>
+<p>这时候 LJ 进来了。</p>
+<hr />
+<p>3 号我们的娱乐活动还是弹卡为主，但是自从因为太吵被 D
+了好几次又被楼下备课组找上门后似乎也没那么乐了，但是留下了个“这么吵简直不像是二中的学生”的乐子给我们玩。</p>
+<p>“你是二中的学生吗？”“我是五中的。”</p>
+<p>4
+号机房里娱乐活动升级为你画我猜，十分抽象，可惜我没截图，具体可以参考戴老师闲话。精彩瞬间如下：</p>
+<blockquote>
+<p>pdqb：“你就想一下这个啊，梅西。”</p>
+<p>大家：“？？？”</p>
+<p>pdqb：“goat 啊，然后不就是山羊胡吗？”</p>
+</blockquote>
+<blockquote>
+<p>intconstlee：“我要画的这个是个性别，三个字。”</p>
+<p>大家：“直升机。”系统：错误。</p>
+<p>半分钟后，intconstlee：“抱歉我眼花了，四个字。”</p>
+</blockquote>
+<blockquote>
+<p>pdqb：“我画的这个是米。”</p>
+<p>接下来我灵魂重现一下 pdqb 的米：<img
+src="https://cdn.luogu.com.cn/upload/image_hosting/c0go4b29.png" /></p>
+</blockquote>
+<hr />
+<p>pdqb 在电脑上养了那个大鹅桌宠。</p>
+<blockquote>
+<p>pdqb：他怎么叼我鼠标。</p>
+<p>intconstlee：人家是叼队。</p>
+</blockquote>
+<hr />
+<p>好消息是卷饼可以一起去考
+NOIP，坏消息是卷饼还没完全回归机房，白天还在上 whk。4 号晚卷饼来机房打
+ABC，一小时切至 F 题，太强悍了，最终排名 147。</p>
+<h2 id="放图">放图</h2>
+<p>5 号一早再放。</p>
+<h2 id="口呼梯阶">口呼梯阶</h2>
+<h3 id="p6796-好多表达式"><strong>P6796</strong> 好多表达式</h3>
+<p>现在考虑到了第 <span class="math inline">\(i\)</span> 个数。</p>
+<p>如果这个数前符号是加，这个数的贡献为 <span
+class="math inline">\(a\times i\)</span>，即 <span
+class="math inline">\(f_i=f_{i-1}+a\times i\)</span>。</p>
+<p>如果这个数前符号是乘，算上这个数已经有 <span
+class="math inline">\(siz\)</span> 个数连乘，乘积为 <span
+class="math inline">\(mul\)</span>，这个数之前连乘数的贡献为 <span
+class="math inline">\(sum\)</span>，则新的 <span
+class="math inline">\(sum=sum\times a+a\)</span>，<span
+class="math inline">\(f_i=f_{i-siz}+mul\times(i-siz)+sum\)</span>。</p>
+<h3 id="at_agc005_c-tree-restoring"><strong>AT_agc005_c</strong> Tree
+Restoring</h3>
+<p>树上最长的路径为直径，距离最远的点为直径两端点，注意到直径上的点
+<span class="math inline">\(a\)</span> 值从 <span
+class="math inline">\(mx\)</span> 递减到 <span
+class="math inline">\(mx/2+1\)</span> 再递增至 <span
+class="math inline">\(mx\)</span>，一棵合法的树不会存在比 <span
+class="math inline">\(mx/2+1\)</span> 更小的 <span
+class="math inline">\(a\)</span>，统计每种 <span
+class="math inline">\(a\)</span> 值的数量，若 <span
+class="math inline">\(mx/2+2\)</span> 至 <span
+class="math inline">\(mx\)</span> 的某个值的数量小于 <span
+class="math inline">\(2\)</span>，则无解，若 <span
+class="math inline">\(1\)</span> 至 <span
+class="math inline">\(mx/2\)</span> 的某个值数量不为 <span
+class="math inline">\(0\)</span>，则无解，若 <span
+class="math inline">\(mx\)</span> 为基数，<span
+class="math inline">\(mx/2+1\)</span> 数量必为 <span
+class="math inline">\(2\)</span>，否则必为 <span
+class="math inline">\(1\)</span>（重心）。</p>
+]]></content>
+      <categories>
+        <category>闲话</category>
+      </categories>
+      <tags>
+        <tag>闲话</tag>
+        <tag>生活</tag>
+        <tag>精神状态</tag>
+      </tags>
+  </entry>
 </search>
