@@ -1,0 +1,588 @@
+/* =========================================================
+   flat.css — 单色相层级 / 无渐变 / 无描边
+   每页一个色相；用 s0…s5 六级明度组织内容
+   ========================================================= */
+
+/* ---------- 1. 全局扁平化 ---------- */
+.ambient { display: none !important; }
+*, *::before, *::after { background-image: none !important; }
+body { background: var(--s0); color: var(--on-s0); }
+.appbar {
+  background: var(--s0);
+  border-bottom: 0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.dock {
+  background: var(--s1);
+  border: 0;
+  box-shadow: 0 14px 34px -22px color-mix(in oklab, var(--s5) 55%, transparent);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.dock__item.is-active { background: var(--s2); color: var(--on-s2); }
+.dock__item.is-active::after { display: none; }
+.dock__item:hover { background: var(--s2); color: var(--on-s2); }
+.icon-btn:hover { background: var(--s1); }
+.icon-btn { border: 0; }
+.search-pill { background: var(--s1); border: 0; }
+.search-pill:hover { background: var(--s2); }
+.search-pill kbd { background: var(--s2); color: var(--on-s2); }
+.brand-mark { background: var(--s4); color: var(--on-s4); box-shadow: none; }
+.toast { background: var(--s5); color: var(--on-s5); }
+.toast { box-shadow: none; }
+.cmdk { background: color-mix(in oklab, var(--s5) 48%, transparent); backdrop-filter: none; }
+
+/* 去掉所有装饰性描边（保留键盘焦点框） */
+.appbar, .search-pill, .brand-mark, .icon-btn, .btn, .chip, .tag, .card, .pick, .mode,
+.type-chip, .input, .blk--table, .blk--def, .blk--warn, .blk--note, .blk--exam,
+.blk--example, .blk--kv, .blk--code, .blk--quote, .qcard, .opt, .q-hint, .feedback,
+.lab, .lab__bar, .lab__foot, .editor, .lab-result, .g-tool, .gate-board-wrap, .kmap-cell,
+.kmap-side__block, .bitbar, .bit, .order-item, .match-slot, .match-chip, .field-row .input,
+.fields-out, .wrong-card, .stat-card, .ref-card, .ref-search, .ch-toc, .ch-next, .ch-cta,
+.atlas-note, .cmdk__panel, .review-item, .hp-card, .lab-teaser, .ch-card, .setup-summary,
+.ch-mobile-toc .chip, .feedback__next, .wafer-item, .recent-row, .weak-item, .qcard .input,
+.qcard .opt, .code-lab, .section, .hero, .ch-hero, .result-hero, .page-head, .ref-head,
+.ref-tabs, .ch-toc__item, .qcard__stemtable .blk--table, .blk--steps .step::after,
+.table-scroll, table.data, table.data th, table.data td, .blk__caption, .ch-cta .btn {
+  border-color: transparent !important;
+}
+.card, .pick, .mode, .type-chip, .chip, .tag, .blk--table, .blk--def, .blk--warn,
+.blk--note, .blk--exam, .blk--example, .blk--kv, .blk--code, .blk--quote, .qcard, .opt,
+.lab, .lab__bar, .lab__foot, .g-tool, .gate-board-wrap, .kmap-cell, .kmap-side__block,
+.bitbar, .bit, .order-item, .match-slot, .match-chip, .field-row .input, .fields-out,
+.wrong-card, .stat-card, .ref-card, .ref-search, .ch-toc, .ch-next, .ch-cta, .atlas-note,
+.cmdk__panel, .review-item, .hp-card, .lab-teaser, .ch-card, .setup-summary, .hero,
+.ch-hero, .result-hero, .btn, .qcard, .lab, .ch-card__arrow, .atlas-item__arrow,
+.ch-ring, .result-ring, .wafer-ring {
+  box-shadow: none;
+}
+.hero::before, .hero::after, .ch-card::after, .blk--exam::after, .ch-hero::before,
+.ch-hero::after, .result-hero::before, .result-hero::after, .lab-teaser__screen::before {
+  display: none !important;
+}
+.hero__foot, .ref-tabs, .marquee, .ch-card::after { mask-image: none !important; -webkit-mask-image: none !important; }
+.btn:hover { transform: none; box-shadow: none; }
+.rail-btn:hover, .ch-card:hover, .atlas-item:hover .atlas-item__arrow { transform: none; }
+.ch-card:hover, .lab-teaser:hover, .pick[aria-pressed="true"], .bit.is-on,
+.mini-bars .b.is-today i, .hero__badge i, .setup-summary, .dock__item.is-active {
+  box-shadow: none;
+}
+* { scrollbar-color: var(--s3) transparent; }
+*::-webkit-scrollbar-thumb { background: var(--s3); }
+
+/* ---------- 2. 基础组件：只用色块，不用边框 ---------- */
+.btn { background: var(--s4); color: var(--on-s4); border: 0; }
+.btn--tonal { background: var(--s2); color: var(--on-s2); }
+.btn--outlined { background: var(--s1); color: var(--on-s1); border: 0; }
+.btn--ghost { background: transparent; color: var(--on-s0); }
+.btn--light { background: var(--on-s5); color: var(--s5); }
+.btn[disabled] { opacity: .45; }
+.btn--filled:active, .btn--tonal:active { opacity: .88; }
+.chip { background: var(--s1); color: var(--on-s1); border: 0; }
+.chip:hover { background: var(--s2); color: var(--on-s2); }
+.chip.is-active, .chip[aria-pressed="true"] { background: var(--s4); color: var(--on-s4); }
+.tag { background: var(--s1); color: var(--on-s1); }
+.tag--p { background: var(--s4); color: var(--on-s4); }
+.tag--ter { background: var(--s2); color: var(--on-s2); }
+.tag--warn, .tag--danger, .tag--success { background: var(--s2); color: var(--on-s2); }
+.input {
+  background: var(--s1); color: var(--on-s0); border: 0;
+  box-shadow: none;
+}
+.input::placeholder { color: color-mix(in oklab, var(--on-s0) 42%, transparent); }
+.input:hover { background: var(--s2); }
+.input:focus { background: var(--s2); border: 0; box-shadow: none; outline: none; }
+.input:focus-visible { outline: 2px solid var(--s4); outline-offset: 2px; }
+select.input { appearance: auto; -webkit-appearance: auto; padding-right: 14px; }
+.input.is-error { background: var(--s2); box-shadow: inset 0 0 0 2px var(--danger); }
+.input.is-ok { background: var(--s2); box-shadow: inset 0 0 0 2px var(--success); }
+.field-label { color: color-mix(in oklab, var(--on-s0) 62%, transparent); }
+
+.card, .hp-card, .stat-card, .review-item, .wrong-card, .ref-card, .lab-teaser,
+.ch-card, .setup-summary, .atlas-note { background: var(--s1); color: var(--on-s1); }
+
+/* 表格：用深浅交替，不用线 */
+table.data { background: var(--s0); }
+table.data th { background: var(--s2); color: var(--on-s2); border: 0; }
+table.data td { border: 0; background: var(--s0); }
+table.data tbody tr:nth-child(even) td { background: var(--s1); }
+table.data tbody tr:hover td { background: var(--s2); }
+.blk--table { background: var(--s0); overflow: hidden; }
+.blk--table .table-title { background: var(--s2); color: var(--on-s2); border: 0; }
+.blk__caption { background: var(--s1); color: color-mix(in oklab, var(--on-s1) 65%, transparent); }
+
+/* ---------- 3. 首页 ---------- */
+.hero { background: var(--s4); color: var(--on-s4); }
+@media (max-width: 720px) {
+  .hero__badge { display: none !important; }
+  .hero__title { letter-spacing: .01em; }
+  .ch-hero { border-radius: 24px; }
+}
+.hero .btn--light { background: var(--on-s4); color: var(--s4); }
+.hero__title .hero__accent { color: color-mix(in oklab, var(--on-s4) 58%, var(--s4)); }
+.hero__title .hero__accent::after { display: none; }
+.hero__lead { color: color-mix(in oklab, var(--on-s4) 74%, transparent); }
+.eyebrow--light { color: color-mix(in oklab, var(--on-s4) 55%, transparent); }
+.hero__badge { background: color-mix(in oklab, var(--on-s4) 10%, transparent); border: 0; color: color-mix(in oklab, var(--on-s4) 80%, transparent); }
+.hero__badge i { background: var(--on-s4); }
+.hero__actions .btn--outlined { background: color-mix(in oklab, var(--on-s4) 14%, transparent); color: var(--on-s4); border: 0; }
+.hero__actions .btn--outlined:hover { background: color-mix(in oklab, var(--on-s4) 20%, transparent); }
+.hero__stats { border-top-color: color-mix(in oklab, var(--on-s4) 18%, transparent); }
+.hero__stat span { color: color-mix(in oklab, var(--on-s4) 52%, transparent); }
+.hero__foot { border-top-color: color-mix(in oklab, var(--on-s4) 18%, transparent); }
+.marquee span { color: color-mix(in oklab, var(--on-s4) 48%, transparent); }
+.marquee span::after { color: color-mix(in oklab, var(--on-s4) 40%, transparent); }
+.orbit__ring, .orbit__spinner { display: none; }
+.orbit__disc { fill: color-mix(in oklab, var(--on-s4) 6%, transparent); stroke: none; }
+.orbit__disc--inner { fill: color-mix(in oklab, var(--on-s4) 5%, transparent); }
+.orbit__center { fill: color-mix(in oklab, var(--on-s4) 9%, transparent); stroke: none; }
+.orbit__center-text { fill: var(--on-s4); }
+.orbit__center-sub { fill: color-mix(in oklab, var(--on-s4) 48%, transparent); }
+.orbit__node circle.orbit__dot { fill: var(--on-s4); stroke: none; }
+.orbit__node text { fill: var(--s4); }
+.orbit__node .orbit__label { fill: color-mix(in oklab, var(--on-s4) 68%, transparent); }
+.orbit__node:hover circle.orbit__dot { fill: color-mix(in oklab, var(--on-s4) 72%, var(--s4)); }
+.orbit__node:hover text { fill: var(--s4); }
+
+.ch-card { background: var(--s3); color: var(--on-s3); }
+.ch-card h3 { color: var(--on-s3); }
+.ch-card p, .ch-card__en, .ch-card__meta { color: color-mix(in oklab, var(--on-s3) 66%, transparent); }
+.ch-card__num { background: var(--s4); color: var(--on-s4); }
+.ch-card__motif { color: color-mix(in oklab, var(--s4) 75%, var(--on-s3)); opacity: .5; }
+.ch-card__meta { border-top: 0; }
+.ch-card__arrow { background: var(--s1); color: var(--s4); }
+.ch-card:hover { background: var(--s4); color: var(--on-s4); }
+.ch-card:hover h3 { color: var(--on-s4); }
+.ch-card:hover p, .ch-card:hover .ch-card__en, .ch-card:hover .ch-card__meta { color: color-mix(in oklab, var(--on-s4) 74%, transparent); }
+.ch-card:hover .ch-card__num { background: color-mix(in oklab, var(--on-s4) 20%, transparent); color: var(--on-s4); }
+.ch-card:hover .ch-card__motif { color: var(--on-s4); opacity: .7; }
+.ch-card:hover .ch-card__arrow { background: color-mix(in oklab, var(--on-s4) 18%, transparent); color: var(--on-s4); }
+.ch-card--ref { background: var(--s1); color: var(--on-s1); }
+.ch-card--ref h3 { color: var(--on-s1); }
+.ch-card--ref:hover { background: var(--s4); color: var(--on-s4); }
+
+.lab-teaser { background: var(--s2); color: var(--on-s2); }
+.lab-teaser__screen { background: var(--s5); color: var(--on-s5); }
+.lab-teaser__body h3 { color: var(--on-s2); }
+.lab-teaser__body p { color: color-mix(in oklab, var(--on-s2) 66%, transparent); }
+.lab-teaser__body .tag { background: var(--s1); color: var(--on-s1); }
+.home-progress .hp-card { background: var(--s1); color: var(--on-s1); }
+.home-progress .hp-card:nth-child(1) { background: var(--s3); color: var(--on-s3); }
+.home-progress .hp-card:nth-child(1) .sub,
+.home-progress .hp-card:nth-child(1) .hp-total small,
+.home-progress .hp-card:nth-child(1) .hp-continue span { color: color-mix(in oklab, var(--on-s3) 66%, transparent); }
+.home-progress .hp-card:nth-child(1) .hp-continue b { color: var(--on-s3); }
+.home-progress .hp-card:nth-child(1) .ripple-dot { background: var(--s4); box-shadow: none; }
+.home-progress .hp-card:nth-child(1) .btn--outlined { background: var(--s1); color: var(--on-s1); }
+.home-progress .hp-card:nth-child(2) { background: var(--s1); color: var(--on-s1); }
+.home-progress .hp-day i { background: var(--s4); }
+.home-progress .hp-day span, .home-progress .hp-day em { color: color-mix(in oklab, var(--on-s1) 60%, transparent); }
+.site-foot { border-top: 0; }
+
+/* ---------- 4. 章节页 ---------- */
+.ch-hero { background: var(--s4); color: var(--on-s4); }
+.ch-hero__ghost { display: none; }
+.ch-hero h1 { color: var(--on-s4); }
+.ch-hero .crumbs { color: color-mix(in oklab, var(--on-s4) 62%, transparent); }
+.ch-hero .crumbs a { color: color-mix(in oklab, var(--on-s4) 78%, transparent); }
+.ch-hero .crumbs a:hover { color: var(--on-s4); }
+.ch-hero .eyebrow { color: color-mix(in oklab, var(--on-s4) 58%, transparent); }
+.ch-hero__tagline { color: var(--on-s4); }
+.ch-hero__blurb { color: color-mix(in oklab, var(--on-s4) 76%, transparent); }
+.ch-hero__meta .chip { background: color-mix(in oklab, var(--on-s4) 13%, transparent); color: var(--on-s4); }
+.ch-hero__topics .tag { background: color-mix(in oklab, var(--on-s4) 13%, transparent); color: var(--on-s4); }
+.ch-hero .btn--filled { background: var(--on-s4); color: var(--s4); }
+.ch-hero .btn--tonal, .ch-hero .btn--outlined { background: color-mix(in oklab, var(--on-s4) 16%, transparent); color: var(--on-s4); }
+.ch-ring { background: color-mix(in oklab, var(--on-s4) 14%, transparent); border-radius: 50%; }
+.ch-ring svg { display: none; }
+.ch-ring__label b { color: var(--on-s4); }
+.ch-ring__label span { color: color-mix(in oklab, var(--on-s4) 62%, transparent); }
+.ch-toc { background: var(--s1); color: var(--on-s1); padding: 16px 8px 14px; }
+.ch-toc__list::before { display: none; }
+.ch-toc__item { color: color-mix(in oklab, var(--on-s1) 66%, transparent); }
+.ch-toc__item::before { background: var(--s3); border: 0; box-shadow: none; left: 8px; }
+.ch-toc__item:hover { background: var(--s2); color: var(--on-s2); }
+.ch-toc__item.is-active { background: var(--s4); color: var(--on-s4); }
+.ch-toc__item.is-active::before { background: var(--on-s4); border: 0; box-shadow: none; }
+.ch-toc__item.is-read::before { background: var(--s4); }
+.ch-toc__num { color: color-mix(in oklab, currentColor 70%, transparent); }
+.ch-toc__item.is-active .ch-toc__num { color: var(--on-s4); }
+.ch-toc__item.is-active .ch-toc__num::after { color: var(--on-s4); }
+.ksec { border: 0 !important; }
+.ksec + .ksec { border-top: 0; padding-top: 0; margin-top: clamp(30px, 4vw, 46px); }
+.ksec__head h2 { color: var(--on-s0); }
+.ksec__num { color: var(--s4); }
+.ksec__lead { color: color-mix(in oklab, var(--on-s0) 60%, transparent); }
+.ksec__actions .chip { background: var(--s1); color: var(--on-s1); }
+.reading-bar i { background: var(--s4); }
+
+.blk { color: var(--on-s0); }
+.blk code { background: var(--s2); color: var(--on-s2); }
+.blk--p { color: var(--on-s0); }
+.blk--def { background: var(--s1); padding: 20px 22px; border-radius: 16px; }
+.blk--def .blk__title { color: var(--on-s1); }
+.blk--key { background: var(--s2); color: var(--on-s2); }
+.blk--key ol li::before { color: color-mix(in oklab, var(--on-s2) 62%, transparent); border: 0; }
+.blk--key ul li::before { background: var(--s4); }
+.blk--formula { background: var(--s1); color: var(--on-s1); border: 0; }
+.blk--formula .blk__note { color: color-mix(in oklab, var(--on-s1) 60%, transparent); }
+.blk--example { background: var(--s1); color: var(--on-s1); border: 0; }
+.blk--example .blk__title { color: var(--on-s1); }
+.blk--warn { background: var(--s1); color: var(--on-s1); border: 0; }
+.blk--warn .blk__title { color: var(--on-s1); }
+.blk--note { background: var(--s1); border: 0; color: var(--on-s1); }
+.blk--note .blk__title { color: color-mix(in oklab, var(--on-s1) 62%, transparent); }
+.blk--exam { background: var(--s2); color: var(--on-s2); }
+.blk--exam .blk__title { color: var(--on-s2); }
+.blk--quote { background: var(--s1); color: var(--on-s1); padding: 18px 22px; border-radius: 16px; }
+.blk--quote cite { color: color-mix(in oklab, var(--on-s1) 58%, transparent); }
+.blk--list ul li::before { background: var(--s4); }
+.blk--list ol li::before { color: var(--s4); }
+.blk--kv .kv-row { background: var(--s0); }
+.blk--kv .kv-row:nth-child(even) { background: var(--s1); }
+.blk--kv .kv-k { color: var(--s4); }
+.blk--kv .kv-v { color: var(--on-s0); }
+.blk--kv .table-title { background: var(--s2); color: var(--on-s2); }
+.blk--steps .step::before { background: var(--s4); color: var(--on-s4); }
+.blk--steps .step b { color: var(--on-s0); }
+.blk--steps .step p { color: color-mix(in oklab, var(--on-s0) 60%, transparent); }
+.blk--steps .step::after { display: none; }
+.blk--code { background: var(--s5); color: var(--on-s5); }
+.code__bar { border: 0; }
+.code__dots i { background: color-mix(in oklab, var(--on-s5) 22%, transparent); }
+.code__lang, .code__title, .code__cap { color: color-mix(in oklab, var(--on-s5) 52%, transparent); }
+.blk--code pre { color: color-mix(in oklab, var(--on-s5) 90%, transparent); }
+.ch-end .ch-cta { background: var(--s4); color: var(--on-s4); }
+.ch-cta p { color: color-mix(in oklab, var(--on-s4) 72%, transparent); }
+.ch-cta .btn { background: var(--on-s4); color: var(--s4); }
+.ch-next { background: var(--s1); color: var(--on-s1); }
+.ch-next small, .ch-next svg { color: color-mix(in oklab, var(--on-s1) 55%, transparent); }
+.ch-next__num { color: var(--s4); }
+.ch-next:hover { background: var(--s2); }
+
+/* ---------- 5. 练习设置 ---------- */
+.view--practice .page-head,
+.view--ref .ref-head,
+.view--wrong .page-head {
+  padding: clamp(24px, 4vw, 48px);
+  border-radius: clamp(26px, 3.6vw, 44px);
+  margin-top: 16px;
+  align-items: center;
+}
+.view--practice .page-head { background: var(--s2); color: var(--on-s2); }
+.view--practice .page-head h1 { color: var(--on-s2); }
+.view--practice .page-head p, .view--practice .page-head .eyebrow { color: color-mix(in oklab, var(--on-s2) 64%, transparent); }
+.view--practice .page-head__meta b { color: var(--on-s2); }
+.view--practice .page-head__meta span { color: color-mix(in oklab, var(--on-s2) 58%, transparent); }
+.setup-block__head span { background: var(--s4); color: var(--on-s4); }
+.pick { background: var(--s1); color: var(--on-s1); }
+.pick:hover { background: var(--s2); transform: none; }
+.pick[aria-pressed="true"] { background: var(--s2); color: var(--on-s2); }
+.pick__num { background: var(--s2); color: var(--on-s2); }
+.pick[aria-pressed="true"] .pick__num { background: var(--s4); color: var(--on-s4); }
+.pick__body b { color: inherit; }
+.pick__body span { color: color-mix(in oklab, currentColor 60%, transparent); }
+.mode { background: var(--s1); color: var(--on-s1); }
+.mode:hover { background: var(--s2); }
+.mode[aria-pressed="true"] { background: var(--s2); color: var(--on-s2); }
+.mode__icon { background: var(--s2); color: var(--on-s2); }
+.mode[aria-pressed="true"] .mode__icon { background: var(--s4); color: var(--on-s4); }
+.mode span { color: color-mix(in oklab, currentColor 62%, transparent); }
+.type-chip { background: var(--s1); color: var(--on-s1); }
+.type-chip:hover { background: var(--s2); }
+.type-chip[aria-pressed="true"] { background: var(--s4); color: var(--on-s4); }
+.setup-tip { background: var(--s1); color: color-mix(in oklab, var(--on-s1) 70%, transparent); }
+.setup-tip svg { color: var(--s4); }
+.setup-summary { background: var(--s4); color: var(--on-s4); }
+.setup-summary__count span, .setup-summary__hint { color: color-mix(in oklab, var(--on-s4) 76%, transparent); }
+.setup-summary .btn { background: var(--on-s4); color: var(--s4); }
+.resume-card, .hp-card[style*="margin-bottom"] { background: var(--s1); }
+
+/* ---------- 6. 答题 ---------- */
+.quiz-page::before { display: none; }
+.quiz-top__chip { background: var(--s1); border: 0; color: var(--on-s1); }
+.quiz-top__chip i { background: var(--s4); }
+.quiz-top__count { color: color-mix(in oklab, var(--on-s0) 60%, transparent); }
+.quiz-top__count b { color: var(--on-s0); }
+.quiz-top__time { color: color-mix(in oklab, var(--on-s0) 50%, transparent); }
+.quiz-seg { background: var(--s2); }
+.quiz-seg.is-current { background: var(--s3); }
+.quiz-seg.is-correct { background: var(--s4); }
+.quiz-seg.is-wrong { background: var(--s5); }
+.quiz-progress__pct { color: color-mix(in oklab, var(--on-s0) 52%, transparent); }
+.qdot { background: var(--s1); color: var(--on-s1); }
+.qdot.is-current { background: var(--s2); color: var(--on-s2); border: 0; }
+.qdot.is-correct { background: var(--s4); color: var(--on-s4); }
+.qdot.is-wrong { background: var(--s5); color: var(--on-s5); }
+.quiz-rail__tip { border-top: 0; }
+.qcard { background: var(--s3); color: var(--on-s3); border-radius: 32px; }
+.qcard__stem { color: var(--on-s3); }
+.qcard__stem code { background: var(--s1); color: var(--on-s3); }
+.qcard__stem b { color: var(--s5); }
+.qcard__topic { color: color-mix(in oklab, var(--on-s3) 58%, transparent); }
+.qcard .tag--p { background: var(--s4); color: var(--on-s4); }
+.qcard .tag--ter { background: var(--s1); color: var(--on-s1); }
+.qcard__diff i { background: color-mix(in oklab, var(--on-s3) 24%, transparent); }
+.qcard__diff i.on { background: var(--s4); }
+.qcard .opt { background: var(--s0); color: var(--on-s0); border: 0; }
+.qcard .opt:hover { background: var(--s1); }
+.qcard .opt__key { background: var(--s2); color: var(--on-s2); }
+.qcard .opt.is-selected { background: var(--s4); color: var(--on-s4); }
+.qcard .opt.is-selected .opt__key { background: var(--on-s4); color: var(--s4); }
+.qcard .opt.is-correct { background: var(--s4); color: var(--on-s4); }
+.qcard .opt.is-correct .opt__key { background: var(--on-s4); color: var(--s4); }
+.qcard .opt.is-wrong { background: var(--s5); color: var(--on-s5); }
+.qcard .opt.is-wrong .opt__key { background: var(--on-s5); color: var(--s5); }
+.qcard .opt.is-dim { opacity: .38; }
+.qcard .q-fill__unit { color: color-mix(in oklab, var(--on-s3) 62%, transparent); }
+.qcard .input { background: var(--s0); color: var(--on-s0); }
+.qcard .q-fill__hint, .qcard .q-fill__alt { color: color-mix(in oklab, var(--on-s3) 56%, transparent); }
+.qcard .q-actions { border: 0; }
+.qcard .btn--ghost { color: var(--on-s3); }
+.qcard .btn--ghost:hover { background: var(--s2); }
+.qcard .btn--filled { background: var(--s4); color: var(--on-s4); }
+.qcard .btn--filled[disabled] { background: color-mix(in oklab, var(--on-s3) 14%, transparent); color: color-mix(in oklab, var(--on-s3) 48%, transparent); opacity: 1; }
+.qcard .q-hint { background: var(--s0); color: var(--on-s0); }
+.qcard .qcard__stemtable .blk--table { background: var(--s0); }
+.qcard .feedback { background: var(--s0); color: var(--on-s0); }
+.feedback--ok, .feedback--bad { background: var(--s0); color: var(--on-s0); }
+.feedback__head span { background: var(--s4); }
+.feedback--bad .feedback__head span { background: var(--s5); }
+.feedback__head span svg, .feedback--bad .feedback__head span svg { color: var(--on-s4); }
+.feedback__answer { border-top: 0; }
+.feedback__next { background: var(--s4); color: var(--on-s4); }
+.feedback__actions .btn { background: transparent; color: var(--on-s0); border: 0; }
+.qcard .feedback__next { background: var(--s4); color: var(--on-s4); }
+.qcard .feedback__actions .btn { color: var(--on-s0); }
+
+/* 实验区：深色块 + 同色相 */
+.lab { background: var(--s5); color: var(--on-s5); border: 0; }
+.lab--paper { background: var(--s0); color: var(--on-s0); }
+.lab__bar { background: var(--s5); border: 0; }
+.lab--paper .lab__bar { background: var(--s2); color: var(--on-s2); }
+.lab__foot { border: 0; color: color-mix(in oklab, currentColor 55%, transparent); }
+.lab-btn { background: color-mix(in oklab, currentColor 10%, transparent); border: 0; color: inherit; }
+.lab-btn--primary { background: var(--s4); color: var(--on-s4); }
+.lab-status { color: color-mix(in oklab, currentColor 60%, transparent); }
+.lab-status.is-ok { color: var(--on-s5); }
+.lab-status.is-bad { color: var(--on-s5); }
+.lab--paper .lab-status { color: color-mix(in oklab, var(--on-s0) 62%, transparent); }
+.lab--paper .lab-status.is-ok, .lab--paper .lab-status.is-bad { color: var(--on-s0); }
+.lab-result { background: var(--s5); color: var(--on-s5); border: 0; }
+.lab--paper .lab-result { background: var(--s2); color: var(--on-s2); }
+.lab-table th, .lab-table td { border: 0; }
+.editor { background: var(--s5); border: 0; }
+.editor__gutter { background: var(--s5); color: color-mix(in oklab, var(--on-s5) 40%, transparent); }
+.editor textarea { color: var(--on-s5); background: transparent; }
+.code-hintbar { border: 0; color: color-mix(in oklab, var(--on-s5) 48%, transparent); }
+.spec-chip { border: 0; background: color-mix(in oklab, var(--on-s5) 8%, transparent); color: color-mix(in oklab, var(--on-s5) 65%, transparent); }
+.g-tool { background: color-mix(in oklab, var(--on-s5) 8%, transparent); border: 0; }
+.gate-board-wrap { background: var(--s5); }
+.gate-board .g-wire { stroke: color-mix(in oklab, var(--on-s5) 35%, transparent); }
+.gate-board .g-wire.is-live { stroke: var(--on-s5); }
+.gate-board .g-node rect { fill: color-mix(in oklab, var(--s4) 35%, var(--s5)); stroke: none; }
+.gate-board .g-node:hover rect { fill: color-mix(in oklab, var(--s4) 45%, var(--s5)); }
+.gate-board .g-node.is-selected rect { stroke: var(--on-s5); }
+.gate-board .g-io rect { fill: color-mix(in oklab, var(--on-s5) 10%, transparent); stroke: none; }
+.gate-board .g-io text { fill: var(--on-s5); }
+.gate-board .g-port { fill: var(--s5); stroke: var(--on-s5); }
+.gate-board .g-port:hover { fill: var(--on-s5); }
+.gate-truth button { border: 0; background: color-mix(in oklab, var(--on-s5) 6%, transparent); color: color-mix(in oklab, var(--on-s5) 60%, transparent); }
+.gate-truth button.is-on { background: var(--s4); color: var(--on-s4); }
+.kmap-cell { background: var(--s1); color: var(--on-s0); border: 0; }
+.kmap-cell--one { background: var(--s2); color: var(--on-s2); }
+.kmap-cell.is-selected { background: var(--s4); color: var(--on-s4); }
+.kmap-head, .kmap-corner { color: color-mix(in oklab, var(--on-s0) 52%, transparent); }
+.kmap-side__block { background: var(--s1); }
+.group-chip { background: var(--s2); color: var(--on-s2); }
+.bitbar { border: 0; }
+.bitbar__seg { background: var(--s2); color: var(--on-s2); font-size: 10.5px; font-weight: 550; }
+.bitbar__seg:nth-child(2n) { background: var(--s3); color: var(--on-s3); }
+.bit { background: var(--s1); border: 0; color: var(--on-s0); }
+.bit span { color: color-mix(in oklab, var(--on-s0) 52%, transparent); }
+.bit.is-on { background: var(--s4); color: var(--on-s4); }
+.bit.is-on span { color: color-mix(in oklab, var(--on-s4) 65%, transparent); }
+.bin-readout b, .fields-out b { color: var(--s4); }
+.field-row .input { background: var(--s1); border: 0; }
+.fields-out { background: var(--s1); border: 0; }
+.wave-row__name { background: var(--s5); border: 0; }
+.wave-cell { border: 0; }
+.wave-svg .sig { stroke: var(--on-s5); }
+.wave-rows { border: 0; }
+.wave-row { border: 0; }
+.order-item { background: var(--s1); border: 0; }
+.order-item.is-correct { background: var(--s4); color: var(--on-s4); }
+.order-item.is-wrong { background: var(--s5); color: var(--on-s5); }
+.order-item__idx { background: var(--s2); color: var(--on-s2); }
+.order-item__move button:hover { background: var(--s2); }
+.match-slot { background: var(--s1); border: 0; }
+.match-slot.is-over { background: var(--s2); }
+.match-chip { background: var(--s1); border: 0; }
+.match-chip:hover { background: var(--s1); }
+.match-chip.is-selected { background: var(--s4); color: var(--on-s4); }
+.match-slot.is-correct { background: var(--s2); }
+.match-slot.is-wrong { background: var(--s5); }
+
+/* ---------- 7. 结果页 ---------- */
+.view--result .result-hero { background: var(--s4); color: var(--on-s4); border-radius: 32px; }
+.view--result .result-copy h1 { color: var(--on-s4); }
+.view--result .result-copy p { color: color-mix(in oklab, var(--on-s4) 74%, transparent); }
+.view--result .result-copy .eyebrow { color: color-mix(in oklab, var(--on-s4) 58%, transparent); }
+.view--result .result-stats b { color: var(--on-s4); }
+.view--result .result-stats span { color: color-mix(in oklab, var(--on-s4) 62%, transparent); }
+.view--result .result-ring { background: color-mix(in oklab, var(--on-s4) 15%, transparent); border-radius: 50%; }
+.view--result .result-ring svg { display: none; }
+.view--result .result-ring__center b { color: var(--on-s4); }
+.view--result .result-ring__center span { color: color-mix(in oklab, var(--on-s4) 66%, transparent); }
+.view--result .result-actions .btn--filled { background: var(--on-s4); color: var(--s4); }
+.view--result .result-actions .btn--outlined { background: color-mix(in oklab, var(--on-s4) 14%, transparent); color: var(--on-s4); }
+.view--result .result-actions .btn--ghost { color: color-mix(in oklab, var(--on-s4) 80%, transparent); }
+.review-item { background: var(--s1); }
+.review-item__stem { color: var(--on-s1); }
+.review-item__meta { color: color-mix(in oklab, var(--on-s1) 58%, transparent); }
+.review-item__meta b { color: var(--on-s1); }
+.review-item__toggle { background: var(--s2); color: var(--on-s2); }
+.review-explain { border: 0; color: color-mix(in oklab, var(--on-s1) 68%, transparent); }
+
+/* ---------- 8. 统计 ---------- */
+.view--stats .page-head {
+  background: var(--s2);
+  color: var(--on-s2);
+  border-radius: 32px;
+  padding: clamp(26px, 4vw, 48px);
+  margin-top: 16px;
+  align-items: center;
+}
+.view--stats .page-head h1 { color: var(--on-s2); }
+.view--stats .page-head p, .view--stats .page-head .eyebrow { color: color-mix(in oklab, var(--on-s2) 64%, transparent); }
+.view--stats .page-head__meta b { color: var(--on-s2); }
+.view--stats .page-head__meta span { color: color-mix(in oklab, var(--on-s2) 58%, transparent); }
+.view--stats .stat-card { background: var(--s1); color: var(--on-s1); }
+.view--stats .stat-card--total { background: var(--s4); color: var(--on-s4); }
+.view--stats .stat-card--total .stat-card__label,
+.view--stats .stat-card--total .stat-card__sub { color: color-mix(in oklab, var(--on-s4) 72%, transparent); }
+.view--stats .stat-card--total .stat-card__big { color: var(--on-s4); }
+.view--stats .stat-card--accuracy { background: var(--s3); color: var(--on-s3); }
+.view--stats .stat-card--accuracy .stat-card__label,
+.view--stats .stat-card--accuracy .stat-card__sub { color: color-mix(in oklab, var(--on-s3) 68%, transparent); }
+.view--stats .stat-card--week { background: var(--s1); }
+.view--stats .mastery-card { background: var(--s2); color: var(--on-s2); }
+.view--stats .mastery-card .stat-card__sub { color: color-mix(in oklab, var(--on-s2) 60%, transparent); }
+.view--stats .wafer-item { background: var(--s0); color: var(--on-s0); }
+.view--stats .wafer-item:hover { background: var(--s1); }
+.view--stats .wafer-ring {
+  background: var(--s2);
+  width: 46px; height: 46px; flex: none;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  overflow: visible; border-radius: 12px;
+}
+.view--stats .wafer-ring svg { display: none; }
+.view--stats .wafer-ring b {
+  position: static; inset: auto; display: block;
+  color: var(--s4); font-family: var(--font-mono); font-size: 12px; font-weight: 600; line-height: 1;
+}
+.view--stats .wafer-bar { display: block; width: 28px; height: 3px; border-radius: 99px; background: var(--s0); overflow: hidden; }
+.view--stats .wafer-bar span { display: block; height: 100%; background: var(--s4); border-radius: 99px; }
+.view--stats .wafer-item__name span { color: color-mix(in oklab, var(--on-s0) 55%, transparent); }
+.view--stats .weak-card { background: var(--s1); color: var(--on-s1); }
+.view--stats .weak-card .stat-card__sub { color: color-mix(in oklab, var(--on-s1) 58%, transparent); }
+.view--stats .weak-item { background: var(--s2); color: var(--on-s2); }
+.view--stats .weak-item b, .view--stats .weak-item span { color: var(--on-s2); }
+.view--stats .weak-item .bar { background: var(--s0); }
+.view--stats .weak-item .bar i { background: var(--s4); }
+.view--stats .stat-card--total, .view--stats .stat-card--accuracy { border-radius: 24px; }
+.view--stats .stat-card--total::after { display: none; }
+.view--stats .mini-bars .b i { background: var(--s4); }
+.view--stats .recent-row { border: 0; }
+.view--stats .recent-row__bar { background: var(--s2); }
+.view--stats .recent-row__bar i { background: var(--s4); }
+.view--stats .page-head { margin-bottom: 18px; }
+.view--stats .empty-banner, .view--stats .card--p { background: var(--s1); color: var(--on-s1); }
+.view--stats .card--p .btn { background: var(--s4); color: var(--on-s4); }
+.view--stats .card--p b { color: var(--on-s1); }
+
+/* ---------- 9. 速查台 ---------- */
+.view--ref .ref-head { background: var(--s2); color: var(--on-s2); }
+.view--ref .ref-head h1 { color: var(--on-s2); }
+.view--ref .ref-head p, .view--ref .ref-head .eyebrow { color: color-mix(in oklab, var(--on-s2) 64%, transparent); }
+.view--ref .ref-search { background: var(--s0); color: var(--on-s0); border: 0; }
+.view--ref .ref-search input { color: var(--on-s0); }
+.view--ref .ref-card { background: var(--s1); color: var(--on-s1); }
+.view--ref .ref-card:nth-child(3n + 1) { background: var(--s1); }
+.view--ref .ref-card:nth-child(3n + 2) { background: var(--s0); }
+.view--ref .ref-card__num, .view--ref .ref-card__lead { color: color-mix(in oklab, var(--on-s1) 58%, transparent); }
+.view--ref .ref-tip { color: color-mix(in oklab, var(--on-s0) 55%, transparent); }
+
+/* ---------- 10. 章节地图 ---------- */
+.view--atlas .atlas-side {
+  background: var(--s2);
+  color: var(--on-s2);
+  padding: clamp(22px, 3vw, 34px);
+  border-radius: 32px;
+}
+.view--atlas .atlas-side h1 { color: var(--on-s2); }
+.view--atlas .atlas-side > p, .view--atlas .atlas-side .eyebrow { color: color-mix(in oklab, var(--on-s2) 66%, transparent); }
+.view--atlas .atlas-side .atlas-note { background: var(--s0); color: var(--on-s0); }
+.view--atlas .atlas-side .atlas-note h4 { color: color-mix(in oklab, var(--on-s0) 55%, transparent); }
+.view--atlas .atlas-side .tag { background: var(--s1); color: var(--on-s1); }
+.view--atlas .atlas-side .tag--ter { background: var(--s1); color: var(--on-s1); }
+.view--atlas .atlas-item::before { background: var(--s1); opacity: 0; }
+.view--atlas .atlas-item:hover::before { opacity: 1; }
+.view--atlas .atlas-item__num { color: var(--s4); }
+.view--atlas .atlas-item__main h3 { color: var(--on-s0); }
+.view--atlas .atlas-item__main h3 span, .view--atlas .atlas-item__main p, .view--atlas .atlas-item__stats { color: color-mix(in oklab, var(--on-s0) 56%, transparent); }
+.view--atlas .atlas-item__bar { background: var(--s2); }
+.view--atlas .atlas-item__bar i { background: var(--s4); }
+.view--atlas .atlas-item__arrow { background: var(--s1); color: var(--s4); }
+.view--atlas .atlas-item:hover .atlas-item__arrow { background: var(--s4); color: var(--on-s4); }
+.view--atlas .atlas-list, .view--atlas .atlas-item { border: 0; }
+
+/* ---------- 11. 错题本 ---------- */
+.view--wrong .page-head { background: var(--s2); color: var(--on-s2); }
+.view--wrong .page-head h1 { color: var(--on-s2); }
+.view--wrong .page-head p, .view--wrong .page-head .eyebrow { color: color-mix(in oklab, var(--on-s2) 64%, transparent); }
+.view--wrong .page-head__meta b { color: var(--on-s2); }
+.view--wrong .page-head__meta span { color: color-mix(in oklab, var(--on-s2) 58%, transparent); }
+.view--wrong .wrong-card { background: var(--s1); color: var(--on-s1); }
+.view--wrong .wrong-toolbar .chip { background: var(--s1); }
+.view--wrong .wrong-toolbar .chip[aria-pressed="true"] { background: var(--s4); color: var(--on-s4); }
+.view--wrong .wrong-card__ch { background: var(--s2); color: var(--on-s2); }
+.view--wrong .wrong-card__stem { color: var(--on-s1); }
+.view--wrong .wrong-card__meta { color: color-mix(in oklab, var(--on-s1) 56%, transparent); }
+.view--wrong .wrong-explain { border: 0; color: color-mix(in oklab, var(--on-s1) 70%, transparent); }
+.view--wrong .wrong-toolbar .chip { background: var(--s1); }
+
+/* ---------- 12. 搜索面板 ---------- */
+.cmdk__panel { background: var(--s0); border: 0; }
+.cmdk__search { border: 0; background: var(--s1); }
+.cmdk__search kbd, .cmdk__foot kbd { background: var(--s2); color: var(--on-s2); }
+.cmdk__item:hover, .cmdk__item.is-active { background: var(--s1); box-shadow: none; }
+.cmdk__item__icon { background: var(--s2); color: var(--on-s2); }
+.cmdk__item__tag { border: 0; background: var(--s1); color: color-mix(in oklab, var(--on-s1) 60%, transparent); }
+.cmdk__foot { border: 0; background: var(--s1); }
+.cmdk__hint { color: color-mix(in oklab, var(--on-s0) 55%, transparent); }
+
+/* ---------- 13. 辅助：浅色块内的文字 ---------- */
+.setup-block__head h2, .setup-block__head small { color: inherit; }
+.view--stats .stat-card__label { color: color-mix(in oklab, currentColor 60%, transparent); }
+.view--stats .stat-card__sub { color: color-mix(in oklab, currentColor 58%, transparent); }
+.view--stats .stat-card h3 { color: inherit; }
+.view--ref .blk { color: inherit; }
+.view--ref .blk--p { color: inherit; }
+.view--ref .blk--table { background: var(--s0); }
+.view--ref .ref-card table.data th { background: var(--s2); color: var(--on-s2); }
+.view--ref .ref-card table.data td { color: var(--on-s0); }
+.view--ref .ref-card .blk--formula { background: var(--s2); color: var(--on-s2); }
+.view--ref .ref-card .blk--kv { background: var(--s0); }
+.view--ref .ref-card .blk--key { background: var(--s2); color: var(--on-s2); }
+
+/* 进度条一律实心色块 */
+.hp-day i, .mini-bars .b i, .weak-item .bar i, .recent-row__bar i, .atlas-item__bar i,
+.ch-ring, .result-ring, .tag, .chip, .btn, .stat-card, .qcard, .lab, .dock,
+.toast, .brand-mark, .brand-mark svg, .reading-bar i {
+  background-image: none !important;
+}
+
+/* 可访问性：键盘焦点仍保留可见框 */
+:focus-visible { outline: 2px solid var(--s4); outline-offset: 3px; }

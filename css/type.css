@@ -1,0 +1,107 @@
+/* type.css — 标题 / 装饰性数字用 Space Grotesk，正文数字跟随正文西文字体 */
+.hero__stat b,
+.ch-card__num,
+.ch-card__en,
+.atlas-item__num,
+.atlas-item__en,
+.atlas-item__stats b,
+.atlas-item__arrow,
+.ch-toc__num,
+.ksec__num,
+.ch-next__num,
+.ch-ring__label b,
+.page-head__meta b,
+.stat-card__big,
+.wafer-ring b,
+.hp-total b,
+.hp-day em,
+.quiz-top__count,
+.quiz-top__time,
+.qdot,
+.qcard__diff,
+.result-ring__center b,
+.result-stats b,
+.review-item__idx,
+.wrong-card__ch,
+.ref-card__num,
+.pick__num,
+.setup-summary__count b,
+.orbit__node,
+.orbit__center b {
+  font-family: var(--font-digit);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* 英文小标签也统一到几何展示字体 */
+.brand-text em,
+.eyebrow,
+.fig__kicker,
+.hero__badge,
+.lab-teaser__body .tag,
+kbd {
+  font-family: var(--font-digit);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* 题干、引文属于正文内容：其中的数字跟随正文西文字体，而不是 Space Grotesk */
+.qcard__stem,
+.blk--quote {
+  font-family: var(--font-sans);
+}
+
+/* 正文表格使用等宽数字，保持列对齐；字体仍是正文西文字体 */
+table.data,
+.blk--kv {
+  font-variant-numeric: tabular-nums;
+}
+
+/* 步骤 / 阅读路线前的编号是装饰性数字 */
+.blk--steps .step::before,
+.atlas-note li::before {
+  font-family: var(--font-digit);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .02em;
+}
+
+.hero__stat b,
+.stat-card__big,
+.result-ring__center b,
+.ch-ring__label b,
+.hp-total b {
+  font-weight: 500;
+  letter-spacing: .012em;
+}
+
+.eyebrow,
+.hero__badge,
+.fig__kicker,
+.quiz-top__time,
+.ksec__num,
+.ref-card__num,
+.wrong-card__ch {
+  letter-spacing: .1em;
+}
+
+.ch-card__en,
+.atlas-item__en {
+  letter-spacing: .07em;
+}
+
+.ch-card__num,
+.atlas-item__num,
+.pick__num,
+.quiz-top__count,
+.qdot,
+.review-item__idx,
+.setup-summary__count b,
+.wafer-ring b,
+.lab-teaser__body .tag {
+  letter-spacing: .04em;
+}
+
+.fig .n {
+  font-family: var(--font-digit);
+  font-variant-numeric: tabular-nums;
+}

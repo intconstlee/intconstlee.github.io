@@ -1,0 +1,79 @@
+/* figures.css — 知识点矢量示意图 */
+.fig {
+  margin: 24px 0 26px;
+  padding: 14px 16px 12px;
+  border-radius: 22px;
+  background: var(--s1);
+}
+.fig__head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.fig__kicker {
+  flex: none;
+  font-family: var(--font-digit);
+  font-size: 9px;
+  letter-spacing: .14em;
+  color: var(--s4);
+  text-transform: uppercase;
+}
+.fig__title {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 500;
+  color: color-mix(in oklab, var(--on-s1) 66%, transparent);
+  letter-spacing: .02em;
+}
+.fig__canvas {
+  padding: 8px 6px;
+  border-radius: 14px;
+  background: var(--s0);
+}
+.fig__hint { display: none; margin-left: auto; flex: none; font-size: 9px; letter-spacing: .06em; color: color-mix(in oklab, var(--on-s1) 52%, transparent); }
+.fig svg { display: block; width: 100%; height: auto; }
+.fig figcaption {
+  margin-top: 10px;
+  font-size: 11.5px;
+  line-height: 1.7;
+  color: color-mix(in oklab, var(--on-s1) 58%, transparent);
+}
+
+.fig .f-line { stroke: var(--on-s0); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.fig .f-thin { stroke: color-mix(in oklab, var(--on-s0) 34%, transparent); stroke-width: 1; fill: none; }
+.fig .f-wire { stroke: var(--s4); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.fig .f-box { fill: var(--s2); }
+.fig .f-box-2 { fill: var(--s3); }
+.fig .f-box-0 { fill: var(--s0); }
+.fig .f-accent { fill: var(--s4); }
+.fig .f-arrow { fill: var(--s4); }
+.fig .f-bubble { fill: var(--s0); stroke: var(--on-s0); stroke-width: 1.2; }
+.fig text {
+  fill: var(--on-s0);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: .01em;
+}
+.fig .n { font-family: var(--font-digit); letter-spacing: .02em; }
+.fig .v { font-family: var(--font-sans); font-variant-numeric: tabular-nums; letter-spacing: .02em; font-weight: 500; }
+.fig .sym { font-family: var(--font-mono); letter-spacing: 0; }
+.fig .tiny { font-size: 8.5px; fill: color-mix(in oklab, var(--on-s0) 58%, transparent); }
+.fig .muted { font-size: 10px; fill: color-mix(in oklab, var(--on-s0) 48%, transparent); }
+.fig .on-a { fill: var(--on-s4); }
+.fig .accent-t { fill: var(--s4); }
+
+@media (max-width: 720px) {
+  .fig { margin: 20px 0 22px; padding: 11px 11px 10px; border-radius: 18px; }
+  .fig__head { margin-bottom: 8px; }
+  .fig__canvas {
+    padding: 4px 2px;
+    border-radius: 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  .fig__canvas svg { width: 620px; max-width: none; }
+  .fig__hint { display: inline-flex; }
+  .fig figcaption { font-size: 11px; margin-top: 8px; }
+}
