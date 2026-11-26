@@ -54,7 +54,7 @@ window.DATA.questions.push(
     stem: '三变量函数的每个最小项含有______个文字（填阿拉伯数字）。',
     accept: ['3', '三'],
     placeholder: '数字',
-    explain: '最小项要求每个变量恰好出现一次（原变量或反变量），三变量就是 3 个文字，例如 A′BC。只含两个文字的 AB 只是蕴含项，不是最小项。'
+    explain: '最小项要求每个变量恰好出现一次（原变量或反变量），三变量就是 3 个文字，例如 A′BC。在三个变量中，只含两个文字的 AB 是乘积项，不是最小项。'
   },
   {
     id: 'q2-005',
@@ -63,7 +63,7 @@ window.DATA.questions.push(
     topic: '术语辨析',
     diff: 2,
     type: 'single',
-    stem: '关于乘积项 AB′，下列说法正确的是？',
+    stem: '设 F(A,B,C)=AB′+C，关于乘积项 AB′，下列说法正确的是？',
     options: [
       '它是蕴含项，但不是三变量的最小项',
       '它是三变量的一个最小项',
@@ -71,7 +71,7 @@ window.DATA.questions.push(
       '它与 A+B′ 等价'
     ],
     answer: 0,
-    explain: 'AB′ 只含两个文字、缺少 C，所以是蕴含项而不是最小项。它展开成最小项是 AB′C′ + AB′C，即 m<sub>4</sub>+m<sub>5</sub>。最大项必须是和项；A+B′ 是另一回事（它等于 (A′B)′），并不等于 AB′。'
+    explain: '只要 AB′=1 就有 F=1，所以 AB′ 是 F 的蕴含项；它缺少变量 C，因此不是三变量最小项。它展开成最小项是 AB′C′ + AB′C，即 m<sub>4</sub>+m<sub>5</sub>。最大项必须是和项；A+B′ 是另一回事（它等于 (A′B)′），并不等于 AB′。'
   },
   {
     id: 'q2-006',
@@ -122,8 +122,8 @@ window.DATA.questions.push(
     type: 'multi',
     stem: '关于 SOP 与 POS，下列说法正确的有？',
     options: [
-      'SOP 是若干最小项相或',
-      'POS 是若干最大项相与',
+      '标准 SOP 是若干最小项相或',
+      '标准 POS 是若干最大项相与',
       '同一个函数的 SOP 与 POS 逻辑等价',
       'SOP 一定比 POS 用的门少',
       'POS 中的每个最大项可以不含全部变量'

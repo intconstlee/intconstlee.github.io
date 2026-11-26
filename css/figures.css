@@ -52,14 +52,16 @@
 .fig text {
   fill: var(--on-s0);
   font-family: var(--font-sans);
-  font-size: 11px;
   letter-spacing: .01em;
 }
+.fig text:not([font-size]) { font-size: 12px; }
 .fig .n { font-family: var(--font-digit); letter-spacing: .02em; }
 .fig .v { font-family: var(--font-sans); font-variant-numeric: tabular-nums; letter-spacing: .02em; font-weight: 500; }
 .fig .sym { font-family: var(--font-mono); letter-spacing: 0; }
-.fig .tiny { font-size: 8.5px; fill: color-mix(in oklab, var(--on-s0) 58%, transparent); }
-.fig .muted { font-size: 10px; fill: color-mix(in oklab, var(--on-s0) 48%, transparent); }
+.fig text.tiny:not([font-size]) { font-size: 10.5px; }
+.fig .tiny { fill: color-mix(in oklab, var(--on-s0) 58%, transparent); }
+.fig text.muted:not([font-size]) { font-size: 11.5px; }
+.fig .muted { fill: color-mix(in oklab, var(--on-s0) 48%, transparent); }
 .fig .on-a { fill: var(--on-s4); }
 .fig .accent-t { fill: var(--s4); }
 

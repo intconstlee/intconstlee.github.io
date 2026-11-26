@@ -99,7 +99,7 @@ window.DATA.questions.push(
     diff: 2,
     type: 'tf',
     stem: 'AMAT 是平均每次访存的时间，因此用 AMAT 乘以指令数就能得到程序运行时间。',
-    explain: '只有访存指令才产生访存时间，还要考虑访存比例、CPI 与流水线停顿。CPU 时间 = 指令数 × CPI × 时钟周期，AMAT 只影响其中的访存部分。',
+    explain: '取指也访问存储器；估计额外停顿时，要分别统计取指次数以及 load/store 的数据访问次数，结合缺失率与缺失代价。CPU 时间 = 指令数 × CPI × 时钟周期，AMAT 只影响其中的访存部分。',
     answer: 0
   },
   {

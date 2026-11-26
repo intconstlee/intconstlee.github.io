@@ -942,13 +942,13 @@
       var term = [];
       for (var v = 0; v < n; v++) {
         var val = bitsList[0][v], same = bitsList.every(function (b) { return b[v] === val; });
-        if (same) term.push(val ? esc(vars[v]) : '<span class="ovl">' + esc(vars[v]) + '</span>');
+        if (same) term.push(vars[v] + (val ? '' : '′'));
       }
       return term.length ? term.join('·') : '1';
     }
     function updateExpr() {
       var exp = q('.kmap-expression', hostEl);
-      exp.innerHTML = groups.length ? groups.map(function (g) { return termOf(g.cells); }).join(' + ') : '—';
+      exp.innerHTML = groups.length ? groups.map(function (g) { return esc(termOf(g.cells)); }).join(' + ') : '—';
     }
     q('[data-a="clear"]', hostEl).addEventListener('click', function () { if (locked) return; selected = []; render(); updateStatus(); });
     q('[data-a="group"]', hostEl).addEventListener('click', function () {
@@ -982,7 +982,14 @@
       if (miss.length) return { ok: false, detail: '还有 1 未覆盖：' + miss.map(function (m) { return 'm' + m; }).join('、') };
       var refCount = (lab.groups || []).length;
       if (refCount && groups.length > refCount) return { ok: false, detail: '覆盖正确，但不是最简：用了 ' + groups.length + ' 组，最少 ' + refCount + ' 组' };
-      return { ok: true, detail: '覆盖完整，' + groups.length + ' 组，化简式：' + groups.map(function (g) { return termOf(g.cells); }).join(' + ').replace(/<[^>]+>/g, '') };
+      // 一个 k 格的合法圈消去 log2(k) 个变量；同样的组数还要比较文字数。
+      function literalCount(cells) { return n - Math.log2(cells.length); }
+      if (refCount && groups.length === refCount) {
+        var actual = groups.reduce(function (sum, g) { return sum + literalCount(g.cells); }, 0);
+        var minimum = lab.groups.reduce(function (sum, cells) { return sum + literalCount(cells); }, 0);
+        if (actual > minimum) return { ok: false, detail: '覆盖正确，还可以扩大圈组：当前共有 ' + actual + ' 个文字，参考化简式只需 ' + minimum + ' 个。' };
+      }
+      return { ok: true, detail: '覆盖完整，' + groups.length + ' 组，化简式：' + groups.map(function (g) { return termOf(g.cells); }).join(' + ') };
     }
     q('[data-a="check"]', hostEl).addEventListener('click', function () {
       var r = check();

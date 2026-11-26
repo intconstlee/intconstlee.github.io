@@ -71,7 +71,7 @@
         ' C' + (x + 13) + ' ' + (y + 14) + ' ' + (x + 13) + ' ' + (y - 14) + ' ' + x + ' ' + (y - 26) + ' Z';
       s += '<path class="f-box" d="' + d + '"/>';
       if (type === 'XOR' || type === 'XNOR') s += P('M' + (x - 8) + ' ' + (y - 26) + ' C' + (x + 7) + ' ' + (y - 15) + ' ' + (x + 7) + ' ' + (y + 15) + ' ' + (x - 8) + ' ' + (y + 26), 'f-line');
-      s += L(x - 24, y - 13, x + 2, y - 13) + L(x - 24, y + 13, x + 2, y + 13);
+      s += L(x - 24, y - 13, x + 8, y - 13) + L(x - 24, y + 13, x + 8, y + 13);
       shapeEnd = x + 38;
     } else {
       s += '<path class="f-box" d="M' + x + ' ' + (y - 26) + ' h22 a26 26 0 0 1 0 52 h-22 Z"/>';
@@ -79,7 +79,7 @@
       shapeEnd = x + 48;
     }
     if (bub) {
-      var bx = shapeEnd + 6;
+      var bx = shapeEnd + 5;
       s += C(bx, y, 5, 'f-bubble');
       s += L(bx + 5, y, x + 82, y);
     } else {
@@ -98,47 +98,29 @@
       b += T(x + 36, y + 60, t === 'BUF' ? 'BUFFER' : t, 'n', 'middle', 12);
       b += T(x + 36, y + 77, expr[i], 'tiny', 'middle');
     });
-    b += T(380, 312, '输入 A、B 在左侧，输出 Y 在右侧；所有门都是单输出。', 'muted', 'middle');
+    b += T(380, 312, '输入在左侧，输出 Y 在右侧；所有门都是单输出。', 'muted', 'middle');
     return b;
   });
 
   /* ================= 2. CMOS 反相器 ================= */
-  wrap('cmos', 'CMOS 反相器：上拉与下拉', 'pMOS 在 A=0 时导通、把 Y 拉向 VDD；nMOS 在 A=1 时导通、把 Y 拉向地。两者不会同时完全导通，这就是静态 CMOS 低功耗的来源。', 760, 330, function () {
+  wrap('cmos', 'CMOS 反相器：上拉与下拉', 'pMOS 在 A=0 时导通、把 Y 拉向 VDD；nMOS 在 A=1 时导通、把 Y 拉向地。稳态有效输入下，一只导通、一只截止；输入翻转时可能短暂同时导通。', 760, 330, function () {
     var b = '';
     b += L(70, 44, 460, 44, 'f-line');
     b += T(70, 32, 'VDD', 'tiny');
     b += L(70, 300, 460, 300, 'f-line');
     b += T(70, 318, 'GND', 'tiny');
-    // pMOS / nMOS blocks
-    b += R(240, 74, 100, 44, 10, 'f-box');
-    b += T(290, 101, 'pMOS', 'n', 'middle', 12);
-    b += R(240, 222, 100, 44, 10, 'f-box');
-    b += T(290, 249, 'nMOS', 'n', 'middle', 12);
-    // input A
-    b += L(150, 50, 150, 270, 'f-wire');
-    b += L(150, 96, 240, 96, 'f-wire');
-    b += L(150, 244, 240, 244, 'f-wire');
-    b += C(150, 55, 4, 'f-accent');
-    b += T(120, 145, 'A', 'n', 'middle', 16);
-    // output node
-    b += L(340, 96, 400, 96, 'f-wire');
-    b += L(400, 96, 400, 244, 'f-wire');
-    b += L(340, 244, 400, 244, 'f-wire');
-    b += L(290, 44, 290, 74, 'f-wire');
-    b += L(290, 266, 290, 300, 'f-wire');
-    b += L(400, 170, 470, 170, 'f-wire');
-    b += C(470, 170, 5, 'f-accent');
-    b += T(490, 175, 'Y', 'n', 'start', 17);
-    b += T(175, 88, 'A=0 → 导通', 'tiny', 'start');
-    b += T(175, 236, 'A=1 → 导通', 'tiny', 'start');
-    b += T(290, 130, '上拉', 'tiny', 'middle');
-    b += T(290, 214, '下拉', 'tiny', 'middle');
-    // truth table
-    var tx = 560, ty = 70;
-    b += T(tx, ty, 'A   Y', 'n', 'start', 12);
-    b += L(tx, ty + 12, tx + 120, ty + 12, 'f-line');
-    b += T(tx, ty + 40, '0   1', 'v', 'start', 14);
-    b += T(tx, ty + 70, '1   0', 'v', 'start', 14);
+    // 两管漏极在 Y 相接，输入同时驱动两只管的栅极。
+    b += L(290, 44, 290, 74, 'f-wire') + L(290, 118, 290, 222, 'f-wire') + L(290, 266, 290, 300, 'f-wire');
+    b += BOX(240, 74, 100, 44, 'pMOS') + BOX(240, 222, 100, 44, 'nMOS');
+    b += P('M100 170 H145 M145 96 V244 M145 96 H230 M145 244 H240', 'f-wire');
+    b += C(235, 96, 5, 'f-bubble') + C(145, 170, 3, 'f-accent') + T(90, 175, 'A', 'n', 'end', 16);
+    b += C(290, 170, 4, 'f-accent') + AR(290, 170, 425, 170) + T(436, 175, 'Y', 'n', 'start', 16);
+    b += T(185, 87, 'A=0 导通', 'tiny', 'middle') + T(185, 235, 'A=1 导通', 'tiny', 'middle');
+    var tx = 510, ty = 80;
+    [['A', 'Y'], ['0', '1'], ['1', '0']].forEach(function (row, i) {
+      row.forEach(function (v, j) { b += T(tx + 25 + j * 65, ty + i * 30, v, 'n', 'middle', 14); });
+    });
+    b += L(tx, ty + 10, tx + 115, ty + 10);
     b += T(tx, ty + 110, '静态时总有一只', 'tiny');
     b += T(tx, ty + 126, '晶体管截止', 'tiny');
     return b;
@@ -158,22 +140,24 @@
       b += T(x - 24, ys[k] + 4, ({ vdd: 'VDD', voh: 'VOH', vih: 'VIH', vil: 'VIL', vol: 'VOL', gnd: 'GND' })[k], 'n', 'end', 10);
     });
     b += L(x - 16, ys.vdd, x - 16, ys.gnd, 'f-thin');
-    b += T(x + 30, (ys.voh + ys.vih) / 2 + 4, '逻辑 1', 'v', 'start', 14);
-    b += T(x + 30, (ys.vil + ys.vol) / 2 + 4, '逻辑 0', 'v', 'start', 14);
+    b += T(x + 30, (ys.voh + ys.vih) / 2 + 4, '高电平噪声容限', 'v', 'start', 14);
+    b += T(x + 30, (ys.vil + ys.vol) / 2 + 4, '低电平噪声容限', 'v', 'start', 14);
     b += T(x + 210, (ys.vih + ys.vil) / 2 + 4, '不确定区', 'v', 'middle', 12);
+    b += T(x + 30, 67, '发送端保证的高电平', 'v', 'start', 12);
+    b += T(x + 30, 258, '发送端保证的低电平', 'v', 'start', 12);
     // 噪声容限箭头
     b += AR(x + w + 54, ys.voh, x + w + 54, ys.vih);
     b += T(x + w + 68, (ys.voh + ys.vih) / 2 + 4, 'NMH', 'n', 'start', 12);
     b += T(x + w + 68, (ys.voh + ys.vih) / 2 + 20, 'VOH − VIH', 'tiny', 'start');
-    b += AR(x + w + 154, ys.vil, x + w + 154, ys.vol);
-    b += T(x + w + 168, (ys.vil + ys.vol) / 2 + 4, 'NML', 'n', 'start', 12);
-    b += T(x + w + 168, (ys.vil + ys.vol) / 2 + 20, 'VIL − VOL', 'tiny', 'start');
+    b += AR(x + w + 54, ys.vil, x + w + 54, ys.vol);
+    b += T(x + w + 68, (ys.vil + ys.vol) / 2 + 4, 'NML', 'n', 'start', 12);
+    b += T(x + w + 68, (ys.vil + ys.vol) / 2 + 20, 'VIL − VOL', 'tiny', 'start');
     b += T(380, 302, '电压落在 VIH 与 VIL 之间时，接收端不保证把它认成 0 还是 1。', 'muted', 'middle');
     return b;
   });
 
   /* ================= 4. 补码数环 ================= */
-  wrap('twos', '4 位补码数环', '16 个状态排成一圈：0…7 为正，−8…−1 为负。跨过 7 与 −8 的分界时，符号位翻转。', 760, 380, function () {
+  wrap('twos', '4 位补码数环', '16 个状态排成一圈：0…7 为非负数，−8…−1 为负。跨过 7 与 −8 的分界时，符号位翻转。', 760, 380, function () {
     var cx = 248, cy = 186, r = 134;
     var b = '';
     b += '<circle cx="' + cx + '" cy="' + cy + '" r="' + (r - 48) + '" class="f-box-2" opacity=".35"/>';
@@ -222,7 +206,7 @@
       cols.forEach(function (c, j) {
         var v = vals[i][j];
         var x = x0 + j * cw, y = y0 + i * ch;
-        b += '<rect x="' + x + '" y="' + y + '" width="' + (cw - 4) + '" height="' + (ch - 4) + '" rx="7" class="' + (v === '1' ? 'f-box' : 'f-box-0') + '"/>';
+        b += '<rect stroke="var(--on-s0)" stroke-opacity=".32" x="' + x + '" y="' + y + '" width="' + (cw - 4) + '" height="' + (ch - 4) + '" rx="7" class="' + (v === '1' ? 'f-box' : 'f-box-0') + '"/>';
         b += T(x + cw / 2 - 2, y + ch / 2 + 5, v, 'v', 'middle', 14);
         b += T(x + 7, y + 12, 'm' + (mt ? mt[i][j] : (i * cols.length + j)), 'tiny', 'start');
       });
@@ -235,6 +219,8 @@
     var b = '';
     b += R(x0 - 4, y0 - 4, cw * 4, ch * 2, 12, 'f-box-0');
     b += kmapGrid(x0, y0, cw, ch, ['A=0', 'A=1'], ['00', '01', '11', '10'], vals, { mt: [[0, 1, 3, 2], [4, 5, 7, 6]] });
+    b += R(x0 + 1, y0 + 1, cw * 4 - 7, ch - 6, 10, 'f-wire');
+    b += R(x0 + cw + 2, y0 - 3, cw * 2 - 9, ch * 2 + 2, 10, 'f-line');
     // G1 row bracket
     b += L(x0, y0 - 34, x0 + cw * 4 - 4, y0 - 34, 'f-wire');
     b += L(x0, y0 - 40, x0, y0 - 28, 'f-wire');
@@ -258,7 +244,7 @@
     return b;
   });
 
-  wrap('kmap4', '四变量卡诺图：四角与无关项', '行是 AB、列是 CD，两边都按格雷码。四角 m0/m2/m8/m10 合并成 B′D′；m13/m15 合并成 ABD。', 760, 430, function () {
+  wrap('kmap4', '四变量卡诺图：跨边界圈组', '行是 AB、列是 CD，两边都按格雷码。四角 m0/m2/m8/m10 合并成 B′D′；m13/m15 合并成 ABD。', 760, 430, function () {
     var x0 = 96, y0 = 96, cw = 62, ch = 54;
     var rows = ['AB=00', 'AB=01', 'AB=11', 'AB=10'];
     var cols = ['00', '01', '11', '10'];
@@ -281,7 +267,7 @@
         var g1 = (i === 0 || i === 3) && (j === 0 || j === 3);
         var g2 = i === 2 && (j === 1 || j === 2);
         var cls = v !== '1' ? 'f-box-0' : (g2 ? 'f-accent' : (g1 ? 'f-box-2' : 'f-box'));
-        b += '<rect x="' + x + '" y="' + y + '" width="' + (cw - 8) + '" height="' + (ch - 8) + '" rx="7" class="' + cls + '"/>';
+        b += '<rect stroke="var(--on-s0)" stroke-opacity=".32" x="' + x + '" y="' + y + '" width="' + (cw - 8) + '" height="' + (ch - 8) + '" rx="7" class="' + cls + '"/>';
         b += T(x + (cw - 8) / 2, y + (ch - 8) / 2 + 6, v, 'v' + (g2 ? ' on-a' : ''), 'middle', 13);
       });
     });
@@ -294,8 +280,8 @@
     b += T(rx, 162, '也可以当 0 放着。', 'tiny', 'start');
     b += R(rx, 196, 200, 82, 10, 'f-box-0');
     b += T(rx + 12, 218, '四角相邻：左右边界相接，', 'tiny', 'start');
-    b += T(rx + 12, 236, '上下边界相接，四个角同时', 'tiny', 'start');
-    b += T(rx + 12, 254, '相邻。', 'tiny', 'start');
+    b += T(rx + 12, 236, '上下边界相接，四个角可组成', 'tiny', 'start');
+    b += T(rx + 12, 254, '一个跨边界的 2×2 圈。', 'tiny', 'start');
     return b;
   });
 
@@ -303,26 +289,24 @@
   wrap('mux4', '4 选 1 复用器', '选择端 S1S0 决定哪一个数据端接到输出。4 选 1 可以先做两个 2 选 1，再做一级 2 选 1。', 760, 306, function () {
     var b = '';
     b += '<path class="f-box" d="M250 52 L430 90 L430 210 L250 248 Z"/>';
-    b += T(340, 145, '4:1', 'n', 'middle', 20);
-    b += T(340, 165, 'MUX', 'n', 'middle', 20);
+    b += T(340, 139, '4:1', 'n', 'middle', 20);
+    b += T(340, 169, 'MUX', 'n', 'middle', 20);
     var ins = [['D0', 78], ['D1', 126], ['D2', 174], ['D3', 222]];
     ins.forEach(function (d) {
       b += L(150, d[1], 250, d[1], 'f-wire');
       b += T(140, d[1] + 4, d[0], 'n', 'end', 12);
     });
-    b += L(315, 250, 315, 286, 'f-wire');
-    b += L(355, 250, 355, 286, 'f-wire');
+    b += L(315, 234.3, 315, 286, 'f-wire');
+    b += L(355, 225.8, 355, 286, 'f-wire');
     b += T(315, 300, 'S0', 'n', 'middle', 10);
     b += T(355, 300, 'S1', 'n', 'middle', 10);
     b += L(430, 150, 510, 150, 'f-wire');
     b += T(520, 155, 'Y', 'n', 'start', 15);
     var rx = 560, ry = 76;
-    b += T(rx, ry, 'S1   S0     Y', 'n', 'start', 11);
-    b += L(rx, ry + 12, rx + 130, ry + 12, 'f-line');
-    [['0 0', 'D0'], ['0 1', 'D1'], ['1 0', 'D2'], ['1 1', 'D3']].forEach(function (p, i) {
-      b += T(rx, ry + 34 + i * 28, p[0], 'n', 'start', 11);
-      b += T(rx + 88, ry + 34 + i * 28, p[1], 'n', 'start', 11);
+    [['S1', 'S0', 'Y'], ['0', '0', 'D0'], ['0', '1', 'D1'], ['1', '0', 'D2'], ['1', '1', 'D3']].forEach(function (row, i) {
+      row.forEach(function (v, j) { b += T(rx + j * 46, ry + i * 30, v, 'n', 'middle', 13); });
     });
+    b += L(rx - 20, ry + 10, rx + 112, ry + 10);
     return b;
   });
 
@@ -340,7 +324,7 @@
     outs.forEach(function (o, i) {
       var y = 78 + i * 48;
       b += L(320, y, 400, y, 'f-wire');
-      b += C(406, y, 4, 'f-accent');
+      b += C(400, y, 4, 'f-accent');
       b += T(420, y + 4, o, 'n', 'start', 12);
     });
     b += T(235, 270, '每根输出线对应一个最小项', 'muted', 'middle');
@@ -387,29 +371,25 @@
     }
     return b;
   }
-  wrap('delay', '传播延迟与最小延迟', '输入变化后，输出要经过一段门延迟才响应。两级路径上的 tpd 相加决定关键路径；最短路径给出 tcd。', 760, 300, function () {
-    var n = 8;
-    var rows = [
-      { name: 'A', cells: [0, 0, 1, 1, 1, 1, 0, 0] },
-      { name: 'Y', cells: [0, 0, 0, 1, 1, 1, 1, 0] }
-    ];
-    var b = waveform(rows, 100, 560, 72, 86, n);
-    b += AR(240, 60, 310, 60);
-    b += T(275, 48, 'tpd', 'n', 'middle', 11);
-    b += T(380, 268, '延迟由门和连线造成；关键路径 = 各门延迟之和。', 'muted', 'middle');
+  wrap('delay', '传播延迟与最小延迟', 'tcd 是输出最早可能开始变化的时间，tpd 是输出最迟保证稳定的时间。图中两条响应给出同一输入边沿的快、慢边界。', 760, 300, function () {
+    var b = waveform([
+      { name: '输入', cells: [0, 0, 1, 1, 1, 1, 1, 1] },
+      { name: '最快响应', cells: [0, 0, 0, 1, 1, 1, 1, 1] },
+      { name: '最慢响应', cells: [0, 0, 0, 0, 0, 1, 1, 1] }
+    ], 110, 544, 65, 62, 8);
+    b += AR(246, 45, 314, 45) + T(280, 35, 'tcd', 'n', 'middle', 13);
+    b += AR(246, 270, 450, 270) + T(348, 289, 'tpd', 'n', 'middle', 13);
     return b;
   });
-  wrap('glitch', '毛刺：不同路径的延迟不一致', '同一个信号经不同路径到达同一扇入，延迟差会在输出端产生一个窄脉冲。它是组合逻辑的“瞬态”，不是稳态错误。', 760, 300, function () {
-    var n = 8;
-    var rows = [
-      { name: 'A', cells: [1, 1, 1, 0, 0, 0, 0, 0] },
-      { name: 'B', cells: [0, 1, 1, 1, 1, 1, 1, 1] },
-      { name: 'Y理想', cells: [0, 1, 1, 0, 0, 0, 0, 0], ideal: true, soft: true },
-      { name: 'Y实际', cells: [0, 1, 1, 1, 0, 0, 0, 0] }
-    ];
-    var b = waveform(rows, 100, 560, 72, 50, n);
-    b += T(380, 288, '台阶处出现窄脉冲；稳态值由最终输入决定。', 'muted', 'middle');
-    return b;
+  wrap('glitch', '毛刺：不同路径的延迟不一致', '同一个信号经不同延迟的路径重新汇合，输出端可能产生窄脉冲。它是组合逻辑的“瞬态”，不是稳态错误。', 760, 300, function () {
+    // F = AB + A′C，B=C=1。A 下降后两项短暂同为 0。
+    return waveform([
+      { name: 'A', cells:   [1,1,1,0,0,0,0,0] },
+      { name: 'AB', cells:  [1,1,1,1,0,0,0,0] },
+      { name: 'A′C', cells: [0,0,0,0,0,1,1,1] },
+      { name: 'F 理想', cells: [1,1,1,1,1,1,1,1], soft: true },
+      { name: 'F 实际', cells: [1,1,1,1,1,0,1,1] }
+    ], 115, 536, 55, 42, 8) + T(380, 288, 'F = AB + A′C，B = C = 1。两项短暂同时为 0，经或门延迟后输出低脉冲。', 'muted', 'middle');
   });
 
   /* ================= 10. SR 锁存器 ================= */
@@ -421,27 +401,27 @@
     b += T(475, 232, 'NOR₂', 'n', 'middle', 14);
     // inputs
     b += L(90, 92, 230, 92, 'f-wire');
-    b += T(80, 97, 'S', 'n', 'end', 15);
+    b += T(80, 97, 'R', 'n', 'end', 15);
     b += L(90, 232, 420, 232, 'f-wire');
-    b += T(80, 237, 'R', 'n', 'end', 15);
+    b += T(80, 237, 'S', 'n', 'end', 15);
     // outputs
     b += L(340, 92, 620, 92, 'f-wire');
     b += T(630, 97, 'Q', 'n', 'start', 15);
     b += L(530, 232, 620, 232, 'f-wire');
     b += T(630, 237, 'Q′', 'n', 'start', 15);
     // feedback: Q -> NOR2 second input, routed above
-    b += P('M350 92 V40 H400 V212 H420', 'f-wire');
+    b += C(365, 92, 3, 'f-accent') + P('M365 92 V212 H420', 'f-wire');
     b += ARROW(420, 212, 'r');
     // feedback: Q' -> NOR1 second input, routed left/below
-    b += P('M530 232 V300 H180 V116 H230', 'f-wire');
-    b += ARROW(230, 116, 'r');
-    b += T(404, 64, 'Q → NOR₂', 'tiny', 'start');
+    b += P('M552 232 V296 H180 V238 Q171 232 180 226 V116 H230', 'f-wire');
+    b += C(552, 232, 3, 'f-accent') + ARROW(230, 116, 'r');
+    b += T(373, 181, 'Q → NOR₂', 'tiny', 'start');
     b += T(186, 282, 'Q′ → NOR₁', 'tiny', 'start');
     return b;
   });
 
   /* ================= 11. D 触发器 + 时序 ================= */
-  wrap('dff', 'D 触发器：符号与时序', '上升沿到来时，Q 采样 D 的值；沿前必须稳定（setup），沿后还要保持一段时间（hold）。', 760, 340, function () {
+  wrap('dff', 'D 触发器：符号与时序', '上升沿到来时，Q 采样 D 的值；沿前必须稳定（setup），沿后还要保持一段时间（hold）。右图忽略时钟到 Q 的延迟。', 760, 340, function () {
     var b = '';
     b += R(96, 86, 166, 156, 12, 'f-box-2');
     b += T(179, 144, 'D', 'n', 'middle', 18);
@@ -458,29 +438,22 @@
     // timing
     var rows = [
       { name: 'CLK', cells: [0, 1, 0, 1, 0, 1, 0, 1] },
-      { name: 'D', cells: [1, 0, 0, 1, 1, 0, 0, 1] },
-      { name: 'Q', cells: [0, 1, 0, 0, 0, 1, 1, 0] }
+      { name: 'D', cells: [1, 1, 0, 0, 1, 1, 0, 0] },
+      { name: 'Q', cells: [0, 1, 1, 0, 0, 1, 1, 0] }
     ];
     b += waveform(rows, 390, 330, 82, 62, 8);
     return b;
   });
-  wrap('setup_hold', '建立时间与保持时间', '时钟沿不是一个“点”，触发器要求 D 在沿前 t_setup、沿后 t_hold 都稳定。违反任一条都可能进入亚稳态。', 760, 360, function () {
-    var rows = [
-      { name: 'CLK', cells: [0, 1, 0, 1, 0, 1, 0, 1, 0, 1] },
-      { name: 'D', cells: [0, 0, 1, 1, 1, 0, 0, 0, 1, 1] },
-      { name: 'Q', cells: [0, 0, 0, 1, 1, 1, 1, 0, 0, 1] }
-    ];
-    var b = '<rect x="286" y="54" width="104" height="244" rx="8" fill="var(--s4)" opacity=".1"/>';
-    b += waveform(rows, 100, 560, 74, 78, 10);
-    b += L(338, 40, 338, 298, 'f-wire');
-    b += T(338, 18, '时钟沿', 'n', 'middle', 10);
-    b += AR(286, 48, 338, 48);
-    b += T(312, 36, 't_setup', 'tiny', 'middle');
-    b += AR(338, 48, 390, 48);
-    b += T(364, 36, 't_hold', 'tiny', 'middle');
-    b += AR(338, 314, 400, 314);
-    b += T(369, 332, 't_pcq', 'tiny', 'middle');
-    b += T(380, 348, 'D 在时钟沿附近稳定，Q 才会可靠更新。', 'muted', 'middle');
+  wrap('setup_hold', '建立时间与保持时间', '触发器要求 D 在沿前 t_setup、沿后 t_hold 都稳定。违反任一条都可能进入亚稳态。', 760, 360, function () {
+    var b = '<rect x="310" y="73" width="87" height="212" rx="5" fill="var(--s4)" opacity=".12"/>';
+    b += P('M110 128 H365 V94 H675 M110 205 H279 V171 H438 V205 H675 M110 277 H408 V243 H675', 'f-wire');
+    [['CLK',115], ['D',191], ['Q',263]].forEach(function (r) { b += T(90,r[1],r[0],'n','end',14); });
+    [310,365,397].forEach(function (x) { b += L(x,63,x,287,'f-thin'); });
+    b += L(408,239,408,301,'f-thin') + L(365,285,365,301,'f-thin');
+    b += AR(310,58,365,58) + AR(365,58,397,58);
+    b += T(332,46,'t_setup','n','middle',12) + T(393,46,'t_hold','n','middle',12);
+    b += AR(365,300,408,300) + T(386,318,'t_pcq','n','middle',12);
+    b += T(380,345,'阴影内 D 保持为 1。示例按最大传播延迟 t_pcq 画出 Q 的上升沿。','muted','middle');
     return b;
   });
 
@@ -496,17 +469,18 @@
     states.forEach(function (s) {
       b += C(s.x, s.y, 54, s.hot ? 'f-accent' : 'f-box-2');
       b += T(s.x, s.y - 5, s.id, 'v' + (s.hot ? ' on-a' : ''), 'middle', 19);
-      b += T(s.x, s.y + 18, s.out, 'tiny' + (s.hot ? ' on-a' : ''), 'middle', 8.5);
+      b += T(s.x, s.y + 18, s.out, 'tiny' + (s.hot ? ' on-a' : ''), 'middle', 11);
     });
-    b += AR(278, 88, 480, 88);
-    b += T(379, 72, 'TA·TB', 'n', 'middle', 11);
-    b += AR(540, 156, 540, 204);
-    b += T(566, 184, 'TB·TA′', 'n', 'middle', 11);
-    b += AR(480, 272, 280, 272);
-    b += T(380, 294, 'TB′', 'v', 'middle', 11);
-    b += AR(220, 208, 220, 156);
-    b += T(194, 184, 'TA′', 'n', 'middle', 11);
-    b += T(380, 340, 'Moore 型：输出写在状态里；每条边标注转移条件。', 'muted', 'middle');
+    b += AR(274, 100, 486, 100) + T(380, 86, 'TA = 0', 'n', 'middle', 13);
+    b += AR(540, 154, 540, 206) + T(556, 185, '无条件', 'tiny');
+    b += AR(486, 260, 274, 260) + T(380, 283, 'TB = 0', 'n', 'middle', 13);
+    b += AR(220, 206, 220, 154) + T(204, 185, '无条件', 'tiny', 'end');
+    b += P('M173 126 C85 164 82 42 156 66', 'f-wire') + AR(156,66,174,72);
+    b += T(93, 107, 'TA = 1', 'n','end',13);
+    b += P('M587 233 C679 192 676 321 604 292', 'f-wire') + AR(604,292,586,288);
+    b += T(668,268,'TB = 1','n','start',13);
+    b += AR(220, 17, 220, 46) + T(228, 27, '复位', 'tiny');
+    b += T(380, 346, 'TA、TB 分别表示 A 路、B 路有车。G、Y、R 分别表示绿、黄、红灯。', 'muted', 'middle');
     return b;
   });
   wrap('fsm_types', 'Moore 与 Mealy 的区别', 'Moore 机的输出只取决于状态；Mealy 机的输出同时取决于状态和当前输入，因此可以在转移边上直接写输出。', 760, 300, function () {
@@ -533,7 +507,7 @@
     b += T(570, 118, 'x=1 / z=1', 'tiny', 'middle');
     b += AR(610, 150, 530, 150);
     b += T(570, 168, 'x=0 / z=0', 'tiny', 'middle');
-    b += T(380, 276, '同一个功能可以有多种实现，选择要看输出是否需要与输入组合。', 'muted', 'middle');
+    b += T(380, 276, '这里只画出跨状态的转移。Moore 看圆内的输出，Mealy 看边上的“输入 / 输出”。', 'muted', 'middle');
     return b;
   });
 
@@ -548,17 +522,16 @@
       b += T(x + 28, 124, 'D' + bit, 'tiny', 'middle');
       b += T(x + 28, 162, 'FF', 'n', 'middle', 11);
       b += T(x + 28, 180, 'Q' + bit, 'tiny', 'middle');
-      b += L(x + 18, 92, x + 18, 76, 'f-wire');
-      b += L(x + 38, 192, x + 38, 226, 'f-wire');
+      b += L(x + 28, 96, x + 28, 57, 'f-wire');
+      b += L(x + 28, 192, x + 28, 241, 'f-wire');
     });
-    b += T(370, 56, 'D3…D0', 'n', 'middle', 12);
-    b += T(382, 246, 'Q3…Q0', 'n', 'start', 12);
-    b += L(370, 226, 370, 258, 'f-wire');
+    b += T(370, 45, 'D3…D0', 'n', 'middle', 12);
+    b += T(370, 258, 'Q3…Q0', 'n', 'middle', 12);
     b += L(120, 210, 210, 210, 'f-wire');
     b += T(108, 215, 'CLK', 'n', 'end', 12);
     b += L(120, 170, 210, 170, 'f-wire');
     b += T(108, 175, 'EN', 'n', 'end', 12);
-    b += T(370, 214, '共享 CLK / EN', 'tiny', 'middle');
+    b += P('M210 201 L220 210 L210 219', 'f-wire');
     b += T(380, 286, '所有触发器共享同一个时钟与使能', 'muted', 'middle');
     return b;
   });

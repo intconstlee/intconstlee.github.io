@@ -43,10 +43,10 @@ window.DATA.questions.push(
     topic: '无关项',
     diff: 2,
     type: 'fill',
-    stem: '在 <code>case</code> 分支标签 <code>3\'b01x</code> 中，<code>x</code> 用作什么项？填“无关”或“无关项”。',
+    stem: '在 <code>casez</code> 分支标签 <code>3\'b01?</code> 中，<code>?</code> 用作什么项？填“无关”或“无关项”。',
     accept: ['无关', '无关项'],
     placeholder: '两个字',
-    explain: '教材用它表示<b>无关项</b>（don\'t care）：综合器可以自由选择 0 或 1，以换取更简的逻辑。仿真时 <code>x</code> 仍是未知值，不能当作确定的 0 写进测试向量；两者要区分清楚。'
+    explain: '这里的 ? 表示该位匹配时忽略，因此 010 和 011 均匹配。普通 case 对 X 和 Z 精确匹配，标签 01x 不会匹配已知的 010 或 011。'
   },
   {
     id: 'q4-028',
@@ -108,13 +108,13 @@ window.DATA.questions.push(
     type: 'single',
     stem: '关于阻塞赋值 <code>=</code> 与非阻塞赋值 <code>&lt;=</code>，正确的是？',
     options: [
-      '阻塞立即更新，非阻塞在时间步末统一更新',
+      '阻塞立即更新，无延迟非阻塞赋值在当前时刻的 NBA 区更新',
       '阻塞用于时序逻辑，非阻塞用于组合逻辑',
       '非阻塞赋值会立即更新左值',
       '两种赋值的综合结果永远相同'
     ],
     answer: 0,
-    explain: '阻塞赋值执行完立即生效，后续语句能看到新值；非阻塞赋值先算右边，左值在时间步末统一更新。B 把场合说反了；C 与语义相反；D 忽略了仿真竞争与综合差异。'
+    explain: '阻塞赋值执行完立即生效，后续语句能看到新值；非阻塞赋值先算右边，无显式延迟时左值在当前时刻的 NBA 区更新。B 把场合说反了；C 与语义相反；D 忽略了仿真竞争与综合差异。'
   },
   {
     id: 'q4-031',
@@ -167,7 +167,7 @@ window.DATA.questions.push(
     stem: '在 <code>always_comb</code> 中写 <code>t = a &amp; b; y = t | c;</code>，这里用阻塞赋值的主要理由是？',
     options: [
       '让 <code>t</code> 的新值对下一句立即可见',
-      '让 <code>t</code> 延迟到块末再更新',
+      '让 <code>t</code> 延迟到当前时刻的 NBA 区更新',
       '阻塞赋值能推断触发器',
       '防止 <code>t</code> 出现 X'
     ],
@@ -228,23 +228,23 @@ window.DATA.questions.push(
     topic: '次态逻辑',
     diff: 3,
     type: 'hdl',
-    stem: '实现 FSM 次态逻辑：<code>S0</code> 在 <code>ta</code> 时保持、否则 <code>tb</code> 时进 <code>S1</code>；<code>S1→S2</code>；<code>S2</code> 在 <code>tb</code> 时保持、否则 <code>ta</code> 时进 <code>S3</code>；<code>S3→S0</code>。编码 00/01/10/11。',
-    explain: '用 <code>case (state)</code> 逐状态写次态，<code>S0</code>、<code>S2</code> 内的 <code>?:</code> 表达信号优先级，<code>default</code> 处理 <code>S3</code> 和非法编码。只写组合逻辑，不要在这里更新 <code>state</code>；状态寄存器应放在另一个 <code>always_ff</code> 中。',
+    stem: '实现 FSM 次态逻辑：<code>S0</code> 在 <code>ta</code> 时保持、否则进 <code>S1</code>；<code>S1→S2</code>；<code>S2</code> 在 <code>tb</code> 时保持、否则进 <code>S3</code>；<code>S3→S0</code>。编码 00/01/10/11。',
+    explain: '用 <code>case (state)</code> 逐状态写次态，<code>S0</code>、<code>S2</code> 内的 <code>?:</code> 根据当前绿灯方向的传感器选择次态，<code>default</code> 处理 <code>S3</code> 和非法编码。只写组合逻辑，不要在这里更新 <code>state</code>；状态寄存器应放在另一个 <code>always_ff</code> 中。',
     lab: {
       inputs: [{ name: 'state', width: 2 }, { name: 'ta', width: 1 }, { name: 'tb', width: 1 }],
       outputs: [{ name: 'next', width: 2 }],
       tests: [
-        { in: { state: 0, ta: 0, tb: 0 }, out: { next: 0 } },
+        { in: { state: 0, ta: 0, tb: 0 }, out: { next: 1 } },
         { in: { state: 0, ta: 0, tb: 1 }, out: { next: 1 } },
         { in: { state: 0, ta: 1, tb: 1 }, out: { next: 0 } },
         { in: { state: 1, ta: 0, tb: 0 }, out: { next: 2 } },
-        { in: { state: 2, ta: 0, tb: 0 }, out: { next: 2 } },
+        { in: { state: 2, ta: 0, tb: 0 }, out: { next: 3 } },
         { in: { state: 2, ta: 1, tb: 0 }, out: { next: 3 } },
         { in: { state: 2, ta: 0, tb: 1 }, out: { next: 2 } },
         { in: { state: 3, ta: 0, tb: 0 }, out: { next: 0 } }
       ],
       template: 'module fsm_next(input logic [1:0] state,\n                input logic ta, tb,\n                output logic [1:0] next);\n  // 在这里编写\nendmodule',
-      solution: 'module fsm_next(input logic [1:0] state,\n                input logic ta, tb,\n                output logic [1:0] next);\n  always_comb begin\n    case (state)\n      2\'b00: next = ta ? 2\'b00 : (tb ? 2\'b01 : 2\'b00);\n      2\'b01: next = 2\'b10;\n      2\'b10: next = tb ? 2\'b10 : (ta ? 2\'b11 : 2\'b10);\n      default: next = 2\'b00;\n    endcase\n  end\nendmodule',
+      solution: 'module fsm_next(input logic [1:0] state,\n                input logic ta, tb,\n                output logic [1:0] next);\n  always_comb begin\n    case (state)\n      2\'b00: next = ta ? 2\'b00 : 2\'b01;\n      2\'b01: next = 2\'b10;\n      2\'b10: next = tb ? 2\'b10 : 2\'b11;\n      default: next = 2\'b00;\n    endcase\n  end\nendmodule',
       moduleName: 'fsm_next'
     }
   },

@@ -217,7 +217,7 @@ window.DATA.sections[7] = {
         {
           t: 'note',
           title: '为什么可以有两个存储器',
-          html: '单周期数据通路通常把指令存储器和数据存储器分开，形成“哈佛结构”。这样取指和访存不会争用同一个端口；若使用统一存储器，就必须用两个时钟相位或更复杂的时序，单周期反而做不成。'
+          html: '单周期数据通路通常把指令存储器和数据存储器分开，形成“哈佛结构”。这样取指和访存不会争用同一个端口；统一存储器若只有一个访问端口，就需要安排分时访问；提供独立取指端口与数据端口也可满足同周期的两次访问。'
         }
       ]
     },
@@ -239,6 +239,7 @@ window.DATA.sections[7] = {
           rows: [
             ['R 型', '1', '1', '0', '0', '0'],
             ['lw', '1', '0', '1', '0', '1'],
+            ['addi（教学子集）', '1', '0', '1', '0', '0'],
             ['sw', '0', 'X', '1', '1', 'X'],
             ['beq', '0', 'X', '0', '0', 'X'],
             ['j', '0', 'X', 'X', '0', 'X']
@@ -251,6 +252,7 @@ window.DATA.sections[7] = {
           rows: [
             ['R 型', '0', '0', '10', '0'],
             ['lw', '1', '0', '00', '0'],
+            ['addi（教学子集）', '0', '0', '00', '0'],
             ['sw', '0', '0', '00', '0'],
             ['beq', '0', '1', '01', '0'],
             ['j', '0', '0', 'XX', '1']
@@ -271,9 +273,14 @@ window.DATA.sections[7] = {
           html: '表中的 X 表示“该信号对这条指令没有影响”，综合时可以做无关项优化。但 <code>sw</code> 的 <code>RegWrite</code> 必须是 0，不能因为是 X 就当成 1；否则 <code>sw</code> 会意外改写寄存器。<code>j</code> 的 <code>ALUSrc</code>、<code>MemtoReg</code> 等才能真正视为无关。'
         },
         {
+          t: 'example',
+          title: '从字节地址连接到 HDL 字数组',
+          html: '课件将顶层分成处理器 mips、指令存储器 imem 和数据存储器 dmem。设本例的指令 ROM 深度为 64 字、从地址 0 开始。合法对齐的 PC=0x0C 对应数组下标 3，可用 PC[7:2] 取字下标；低两位表示字节偏移。该切片只能在已限定的地址范围使用，否则高地址会发生别名。控制器只为 sw 拉高数据存储器写使能，取指和 lw 都保持它为 0。'
+        },
+        {
           t: 'note',
           title: '加入更多指令',
-          html: '支持 <code>j</code> 需要把跳转目标接到 PC；支持 <code>jal</code> 要把 <code>PC+4</code> 写入 <code>$31</code>，因此写寄存器选择要增加“<code>$31</code>”这一路；支持 <code>jr</code> 要直接从寄存器读出的地址更新 PC；支持 <code>addi</code>、<code>slti</code> 要增加相应的 ALU 操作；支持 <code>andi</code> 则要增加零扩展选择。每加一条指令，先问“它需要哪条新数据通路”，再问“控制器要多哪个信号”。'
+          html: '支持 <code>j</code> 需要把跳转目标接到 PC；支持 <code>jal</code> 要把 <code>PC+4</code> 写入 <code>$31</code>，因此写寄存器选择要增加“<code>$31</code>”这一路；支持 <code>jr</code> 要直接从寄存器读出的地址更新 PC；支持 <code>addi</code>、<code>slti</code> 可复用已有加法和有符号小于比较通路，由主译码器选择相应运算；支持 <code>andi</code> 则要增加零扩展选择。每加一条指令，先问“它需要哪条新数据通路”，再问“控制器要多哪个信号”。'
         }
       ]
     },
@@ -505,12 +512,12 @@ window.DATA.sections[7] = {
         {
           t: 'note',
           title: '流水线中增加指令',
-          html: '支持 <code>jal</code> 要在 ID 级把 <code>PC+4</code> 写入 <code>$31</code>，并尽快得到跳转目标；支持 <code>jr</code> 要在 ID 级读出寄存器并更新 PC，控制冒险更严重；<code>mult</code>、<code>div</code> 这类多周期单元需要暂停流水线或使用独立单元；把分支比较提前到 ID 级可以减少冲刷条数。每增加一条指令，都要检查它是否引入新的结构、数据或控制冒险。'
+          html: '无延迟槽模型中，<code>jal</code> 可在 ID 级确定跳转目标，同时让链接地址 PC+4 和目的寄存器号 31 随指令传到 WB 级写回；支持 <code>jr</code> 要在 ID 级读出寄存器并更新 PC，控制冒险更严重；<code>mult</code>、<code>div</code> 这类多周期单元需要暂停流水线或使用独立单元；把分支比较提前到 ID 级可以减少冲刷条数。每增加一条指令，都要检查它是否引入新的结构、数据或控制冒险。'
         },
         {
           t: 'note',
           title: '控制信号的“生命周期”',
-          html: '同一条指令在不同级需要不同信号：<code>RegDst</code> 在 ID 级选择目的寄存器号；<code>ALUSrc</code> 和 <code>ALUControl</code> 在 EX 级起作用；<code>MemRead</code>、<code>MemWrite</code> 在 MEM 级起作用；<code>RegWrite</code>、<code>MemtoReg</code> 在 WB 级起作用。把它们一直带到 WB 再统一使用，可以避免在流水线中途“丢失”控制信息。'
+          html: '同一条指令在不同级需要不同信号：ID 级译码产生 <code>RegDst</code>，它在 EX 级选择目的寄存器号；<code>ALUSrc</code> 和 <code>ALUControl</code> 在 EX 级起作用；<code>MemRead</code>、<code>MemWrite</code> 在 MEM 级起作用；<code>RegWrite</code>、<code>MemtoReg</code> 在 WB 级起作用。每一级只把后续仍需使用的信号传入下一个流水线寄存器。'
         }
       ]
     },

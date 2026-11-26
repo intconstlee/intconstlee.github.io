@@ -629,7 +629,7 @@
         return dataLabels[label];
       }
       if (hasOwn(labels, label)) {
-        return labels[label];
+        return labels[label] * 4;
       }
       fail('标签不存在: ' + label, line);
     }
@@ -1366,6 +1366,14 @@
         }
       }
 
+      function writeArithmetic(op, dest, value) {
+        if ((op.op === 'add' || op.op === 'sub' || op.op === 'addi') &&
+            (value < -2147483648 || value > 2147483647)) {
+          fail('有符号整数溢出', op.line);
+        }
+        writeReg(dest, value);
+      }
+
       function effectiveAddress(op) {
         return ((readReg(op.rs) + op.offset) >>> 0);
       }
@@ -1442,11 +1450,11 @@
         switch (op.op) {
           case 'add':
           case 'addu':
-            writeReg(op.rd, (readReg(op.rs) + readReg(op.rt)) | 0);
+            writeArithmetic(op, op.rd, readReg(op.rs) + readReg(op.rt));
             break;
           case 'sub':
           case 'subu':
-            writeReg(op.rd, (readReg(op.rs) - readReg(op.rt)) | 0);
+            writeArithmetic(op, op.rd, readReg(op.rs) - readReg(op.rt));
             break;
           case 'and':
             writeReg(op.rd, readReg(op.rs) & readReg(op.rt));
@@ -1492,7 +1500,8 @@
             if (op.rs === 31 && jrTarget === -1) {
               halted = true;
             } else {
-              nextPc = jumpAbsolute(op, jrTarget);
+              if ((jrTarget & 3) !== 0) fail('jr 目标地址未按字对齐', op.line);
+              nextPc = jumpAbsolute(op, (jrTarget >>> 0) / 4);
             }
             break;
           case 'mult':
@@ -1545,8 +1554,7 @@
             break;
           case 'addi':
           case 'addiu':
-            writeReg(op.rt,
-                     (readReg(op.rs) + signExtend16(op.imm)) | 0);
+            writeArithmetic(op, op.rt, readReg(op.rs) + signExtend16(op.imm));
             break;
           case 'andi':
             writeReg(op.rt, readReg(op.rs) & (op.imm & 0xffff));
@@ -1642,7 +1650,7 @@
             nextPc = jumpAbsolute(op, op.target);
             break;
           case 'jal':
-            writeReg(31, nextPc);
+            writeReg(31, nextPc * 4);
             nextPc = jumpAbsolute(op, op.target);
             break;
           default:

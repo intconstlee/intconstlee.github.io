@@ -32,7 +32,7 @@ window.DATA.sections[0] = {
           ['符号-幅值', '最高位为符号位，其余为幅值', '−(2<sup>N−1</sup>−1) ~ 2<sup>N−1</sup>−1', '有 +0 与 −0，加减要分情况'],
           ['反码', '各位取反', '−(2<sup>N−1</sup>−1) ~ 2<sup>N−1</sup>−1', '有 ±0，加法需循环进位'],
           ['补码', '各位取反再加 1', '−2<sup>N−1</sup> ~ 2<sup>N−1</sup>−1', '只有一个 0，加减统一'],
-          ['偏移', '加偏移量 2<sup>N−1</sup>', '由位数与偏移量决定', '多用于浮点数的指数']
+          ['偏移', '加预先约定的偏移量（IEEE 单精度规格化指数加 127）', '由位数与偏移量决定', '多用于浮点数的指数']
         ] },
         { t: 'key', title: '补码四条实用规则', items: [
           '<b>范围</b>：<code>1000…0</code> 是最小负数 −2<sup>N−1</sup>，<code>0111…1</code> 是最大正数 2<sup>N−1</sup>−1。',
@@ -50,7 +50,7 @@ window.DATA.sections[0] = {
           ['6', '6', '0110', 'E', '14', '1110'],
           ['7', '7', '0111', 'F', '15', '1111']
         ] },
-        { t: 'warn', title: '三个高频错误', html: '<b>①</b>把 <code>10000000</code> 当成 −0：它是 −128，而 −128 的相反数在 8 位内不存在（+128 溢出），取反加一后仍是原码。<b>②</b>符号扩展时补 0：8 位 <code>11010110</code> 若高位补 0 就变成 +214，必须补 1。<b>③</b>把 <code>1111</code> 一律当 15：作为补码它是 −1，比较大小要用 <code>slt</code>（有符号）而不是 <code>sltu</code>。' }
+        { t: 'warn', title: '三个高频错误', html: '<b>①</b>把 <code>10000000</code> 当成 −0：它是 −128，而 −128 的相反数在 8 位内不存在（+128 溢出），取反加一后仍是同一位串。<b>②</b>符号扩展时补 0：8 位 <code>11010110</code> 若高位补 0 就变成 +214，必须补 1。<b>③</b>把 <code>1111</code> 一律当 15：作为补码它是 −1，比较大小要用 <code>slt</code>（有符号）而不是 <code>sltu</code>。' }
       ]
     },
     {
@@ -109,7 +109,7 @@ window.DATA.sections[0] = {
           ['AND2', 'NAND 后接反相器', '——', 'A·B'],
           ['OR2', 'NOR 后接反相器', '——', 'A+B']
         ], caption: 'PUN 与 PDN 严格对偶：PDN 串联对应 PUN 并联。串联 pMOS 会拖慢上拉，所以同等扇入下 NAND 比 NOR 快。' },
-        { t: 'formula', html: 'P<sub>dyn</sub> = ½·C·V<sub>DD</sub><sup>2</sup>·f，P<sub>static</sub> = V<sub>DD</sub>·I<sub>leak</sub>', note: 'f 是节点翻转频率；并非每周期都翻转时用活动因子 α 写成 αCV<sub>DD</sub><sup>2</sup>f。CMOS 门静态时总有一个晶体管截止，故静态功耗只有泄漏。' },
+        { t: 'formula', html: 'P<sub>dyn</sub> = ½·C·V<sub>DD</sub><sup>2</sup>·f，P<sub>static</sub> = V<sub>DD</sub>·I<sub>leak</sub>', note: '此处 f 按每秒全部翻转次数计（包括两个方向）。若 α 表示每时钟周期平均 0→1 次数，等价写法是 αCV<sub>DD</sub><sup>2</sup>f<sub>clk</sub>。CMOS 门静态时总有一个晶体管截止，故静态功耗只有泄漏。' },
         { t: 'warn', title: '功耗的四个误区', html: '①动态功耗与 V<sub>DD</sub> <b>平方</b>成正比，降电压最有效；②它与<b>翻转的节点电容</b>成正比，与晶体管总数不成正比；③时钟树每周期都翻转，常常是动态功耗大户，门控时钟能显著省电；④工艺缩小后动态功耗下降，<b>泄漏功耗上升</b>，两者要权衡。' }
       ]
     },
@@ -182,7 +182,7 @@ window.DATA.sections[0] = {
       id: 'ref-seq',
       num: '3.5',
       title: '时序与触发器参数',
-      lead: '两条方程定生死：周期看建立，频率看保持。',
+      lead: '建立约束给出最小时钟周期，保持约束检查最短数据路径。',
       tag: '考点',
       blocks: [
         { t: 'p', html: '同步设计把状态只放在触发器里、只在时钟沿更新、触发器之间只放组合逻辑。于是整机时序可以按“一个周期”逐拍分析，而分析只需四个参数与两条不等式。' },
@@ -193,7 +193,7 @@ window.DATA.sections[0] = {
           ['t<sub>ccq</sub>', '时钟沿到 Q 开始变化的最短时间', '保持约束里的最快输出']
         ] },
         { t: 'formula', html: 'T<sub>c</sub> ≥ t<sub>pcq</sub> + t<sub>pd</sub> + t<sub>setup</sub>，t<sub>ccq</sub> + t<sub>cd</sub> ≥ t<sub>hold</sub>', note: '第一式给出 T<sub>c,min</sub> 与 f<sub>max</sub> = 1/T<sub>c,min</sub>；第二式与周期无关，只与“最短路径”有关。t<sub>pd</sub> 取关键路径，t<sub>cd</sub> 取最短路径。' },
-        { t: 'formula', html: '含时钟偏移 t<sub>skew</sub>（建立取接收端更早、保持取接收端更晚的最坏情况）：T<sub>c</sub> ≥ t<sub>pcq</sub> + t<sub>pd</sub> + t<sub>setup</sub> + t<sub>skew</sub>，t<sub>ccq</sub> + t<sub>cd</sub> ≥ t<sub>hold</sub> + t<sub>skew</sub>', note: '时钟偏移会同时吃掉建立余量与保持余量，所以高速芯片必须做时钟树或时钟网格，把偏移压到很小。' },
+        { t: 'formula', html: '定义 Δ = 接收端时钟到达时刻 − 发送端时钟到达时刻。T<sub>c</sub> ≥ t<sub>pcq</sub> + t<sub>pd</sub> + t<sub>setup</sub> − Δ；t<sub>ccq</sub> + t<sub>cd</sub> ≥ t<sub>hold</sub> + Δ', note: '接收时钟晚到时，建立检查放宽、保持检查收紧。若只知 |Δ| ≤ S，分别取建立最坏 Δ=−S 与保持最坏 Δ=+S，此时两式右侧都加 S。' },
         { t: 'example', title: '例：算周期与频率', html: 't<sub>pcq</sub>=0.08 ns、t<sub>setup</sub>=0.05 ns、t<sub>pd</sub>=1.20 ns、t<sub>hold</sub>=0.02 ns、t<sub>ccq</sub>=0.05 ns、t<sub>cd</sub>=0.30 ns。则 T<sub>c,min</sub>=0.08+1.20+0.05=1.33 ns，f<sub>max</sub>=1/1.33≈752 MHz；保持检查 0.05+0.30=0.35 ns &gt; 0.02 ns，通过。' },
         { t: 'table', title: '锁存器与触发器', head: ['对比项', '锁存器', '触发器'], rows: [
           ['敏感方式', '电平敏感', '边沿触发'],
@@ -205,8 +205,8 @@ window.DATA.sections[0] = {
           { k: '二进制编码', v: '用 ⌈log<sub>2</sub>k⌉ 位表示 k 个状态，寄存器最省，次态逻辑较复杂' },
           { k: '独热编码', v: 'k 位、每状态一位为 1；寄存器多但逻辑简单，FPGA 中常用' },
           { k: '格雷码', v: '相邻状态只变一位，减少翻转与毛刺，适合顺序循环' },
-          { k: '两级同步器', v: '异步输入先过两级触发器；第一级的亚稳态有整整一个周期去分辨' },
-          { k: 'MTBF', v: 'MTBF = e<sup>t<sub>r</sub>/τ</sup> / (T<sub>0</sub>·f<sub>clk</sub>·f<sub>data</sub>)，多一级触发器就把可靠性提高一个数量级' }
+          { k: '两级同步器', v: '单比特异步电平在目的时钟域串接两级触发器；两次采样间的可用分辨时间还要扣除建立与布线等开销' },
+          { k: 'MTBF', v: 'MTBF = e<sup>t<sub>r</sub>/τ</sup> / (T<sub>0</sub>·f<sub>clk</sub>·f<sub>data</sub>)，其他条件相同时，若可用分辨时间增加 Δt，MTBF 约乘以 exp(Δt/τ)，具体倍数由工艺和时序决定' }
         ] },
         { t: 'warn', title: '保持违例不能靠降频修', html: '保持约束 t<sub>ccq</sub> + t<sub>cd</sub> ≥ t<sub>hold</sub> 里没有 T<sub>c</sub>：数据在时钟沿后 t<sub>hold</sub> 内就冲过来，与周期长短无关。修复只能<b>增加该路径的 t<sub>cd</sub></b>（插缓冲器/延时单元）或调整时钟偏移。另一个坑：多比特异步信号不能各自过同步器，必须用握手或异步 FIFO。' }
       ]
@@ -241,7 +241,7 @@ window.DATA.sections[0] = {
           { k: '相等比较', v: '<code>==</code> 遇 X 得 X；testbench 里用 <code>!==</code> 才能捕捉 X' },
           { k: '参数化', v: '<code>#(parameter WIDTH = 8)</code> + 实例化 <code>#(.WIDTH(32))</code>' }
         ] },
-        { t: 'warn', title: '三条铁律', html: '①组合逻辑用 <code>always_comb</code> + 阻塞赋值；②时序逻辑用 <code>always_ff</code> + 非阻塞赋值；③<b>同一信号不要在两个 always 块中赋值</b>（多驱动）。违反前两条会造成“仿真对、综合错”；违反第三条会得到 X 或综合报错。' }
+        { t: 'warn', title: '三条铁律', html: '①组合逻辑用 <code>always_comb</code> + 阻塞赋值；②时序逻辑用 <code>always_ff</code> + 非阻塞赋值；③<b>同一信号不要在两个 always 块中赋值</b>（多驱动）。按此约定可避免时钟沿的仿真竞争并清楚表达硬件意图。always_comb 与 always_ff 的输出应只有一个过程驱动。' }
       ]
     },
     {
@@ -251,7 +251,7 @@ window.DATA.sections[0] = {
       lead: '32 位定长、三种格式、32 个寄存器。',
       tag: '考点',
       blocks: [
-        { t: 'p', html: 'MIPS 是典型的 RISC：所有指令 32 位定长，只有 R/I/J 三种格式，32 个 32 位通用寄存器，访存只能用 <code>lw/sw</code>。三条设计原则：<b>规整性有利于简单性、越常用越快、为编译器和流水线设计</b>。' },
+        { t: 'p', html: 'MIPS 是典型的 RISC：本书的基础整数指令为 32 位定长，常用 R/I/J 三种格式，32 个 32 位通用寄存器，数据访存使用加载与存储指令，如 lw/sw、lb/sb。课件归纳四条设计原则：规整有利于简单、加快常见情况、小有利于快、好的设计需要折中。' },
         { t: 'table', title: 'R 型指令（op = 000000，靠 funct 区分）', head: ['指令', '含义', 'funct', '指令', '含义', 'funct'], rows: [
           ['add', '加（检溢出）', '0x20', 'sub', '减（检溢出）', '0x22'],
           ['addu', '加（不检溢出）', '0x21', 'subu', '减（不检溢出）', '0x23'],
@@ -276,8 +276,8 @@ window.DATA.sections[0] = {
         ] },
         { t: 'kv', title: 'J 型与其他', items: [
           { k: 'j', v: 'opcode 0x02，无条件跳转' },
-          { k: 'jal', v: 'opcode 0x03，跳转并把 PC+4 写入 $ra' },
-          { k: 'sllv / srlv / srav', v: '可变移位：移位量放在 rs 中（funct 0x04 / 0x06 / 0x07）' },
+          { k: 'jal', v: 'opcode 0x03，跳转并写 $ra；本课程无延迟槽模型写 PC+4，带一个延迟槽的经典 MIPS 写 PC+8' },
+          { k: 'sllv / srlv / srav', v: '可变移位：移位量取 rs 寄存器值的低 5 位（funct 0x04 / 0x06 / 0x07）' },
           { k: 'mult / div', v: '结果放 HI/LO；<code>mfhi</code> 读 HI（funct 0x10）、<code>mflo</code> 读 LO' },
           { k: '浮点', v: '协处理器 1 的 $f0~$f31；add.s/sub.s/mul.s/div.s，lwc1/swc1 访存' }
         ] },
@@ -329,7 +329,7 @@ window.DATA.sections[0] = {
         ] },
         { t: 'example', title: '例：add $t0, $s1, $s2', html: 'op=000000，rs=$s1=17=10001，rt=$s2=18=10010，rd=$t0=8=01000，shamt=00000，funct=add=100000。拼接得 <code>000000 10001 10010 01000 00000 100000</code>，即 <code>0x02324020</code>。' },
         { t: 'example', title: '例：lw $t0, 4($a0)', html: 'op=lw=0x23=100011，rs=$a0=4=00100，rt=$t0=8=01000，imm=4=0000000000000100。拼接得 <code>100011 00100 01000 0000000000000100</code>，即 <code>0x8C880004</code>。反过来看到 <code>0x8C880004</code>，先拆字段再查表，就能还原成这条指令。' },
-        { t: 'formula', html: '分支目标 = (PC+4) + offset×4；跳转目标 = {(PC+4)[31:28], target[25:0], 2\'b00}', note: '分支偏移以<b>字</b>为单位且相对 PC+4（取指后 PC 已加 4），范围约 ±2<sup>15</sup> 字；J 型把 26 位目标左移 2 位，只能跳到当前 256 MB 区域内。' },
+        { t: 'formula', html: '分支目标 = (PC+4) + offset×4；跳转目标 = {(PC+4)[31:28], target[25:0], 2\'b00}', note: '分支偏移以<b>字</b>为单位且相对 PC+4（取指后 PC 已加 4），范围约 ±2<sup>15</sup> 字；J 型把 26 位目标左移 2 位，只能跳到 PC+4 所在的 256 MiB 区域内。' },
         { t: 'warn', title: '编码时最易错的四处', html: '<b>①</b>把 rd 与 rt 填反：R 型的顺序是 rs、rt 两个源在前，rd 目标在中间。<b>②</b>分支偏移按字节填：字段里应填“字”数（字节偏移除以 4）。<b>③</b>忘记 shamt 占 5 位：非移位指令必须填 00000，否则整条码全错位。<b>④</b>负数立即数直接写绝对值：16 位 imm 要用补码表示。' }
       ]
     },
@@ -358,7 +358,7 @@ window.DATA.sections[0] = {
           ['控制冒险', '分支结果未定就取了错误方向', '分支预测、延迟槽、冲刷']
         ], caption: '数据冒险里最常见的是 RAW（真相关），可用前递解决；load-use 因为数据到 MEM 末才可用，必须停一拍。WAR/WAW 只在乱序执行时出现，靠寄存器重命名。' },
         { t: 'example', title: '例：流水线加速比', html: '程序 10<sup>6</sup> 条指令。非流水线 T<sub>c</sub>=800 ps、CPI=1；5 级流水线每级 200 ps 加 20 ps 寄存器开销，T<sub>c</sub>=220 ps；20% 的指令各停 1 拍，CPI=1.2。则 T<sub>pipe</sub>=10<sup>6</sup>×1.2×220 ps=264 μs，T<sub>non</sub>=800 μs，S≈3.03。理想上限 800/220≈3.6，停顿吃掉了约 16% 的收益。' },
-        { t: 'warn', title: '深流水线为何收益递减', html: 'T<sub>c</sub> = max(各级延迟) + t<sub>setup(流水线寄存器)</sub>。级数越多，寄存器开销占比越大，T<sub>c</sub> 不能无限缩小；同时分支误预测与冒险的代价按<b>周期数</b>计，级数越深，一次冲刷浪费的周期越多。所以现代处理器转向提高 IPC（超标量、乱序）与多核，而不是一味加深流水。' }
+        { t: 'warn', title: '深流水线为何收益递减', html: 'T<sub>c</sub> = max(各级延迟) + 流水线寄存器开销（发射端时钟到 Q 与接收端建立时间；忽略偏斜）。级数越多，寄存器开销占比越大，T<sub>c</sub> 不能无限缩小；同时分支误预测与冒险的代价按<b>周期数</b>计，级数越深，一次冲刷浪费的周期越多。所以现代处理器转向提高 IPC（超标量、乱序）与多核，而不是一味加深流水。' }
       ]
     },
     {
@@ -394,10 +394,10 @@ window.DATA.sections[0] = {
           ['解决什么', 'CPU 与主存的速度差', '主存容量不足、进程隔离与保护'],
           ['谁来管理', '纯硬件', '硬件 + 操作系统'],
           ['替换单位', '块（16~64 B）', '页（4~64 KB）'],
-          ['缺失代价', '几十~几百周期', '缺页：数百万周期（磁盘 I/O）'],
+          ['缺失代价', '几十~几百周期', '需要磁盘 I/O 的缺页可达数百万周期'],
           ['写策略', '写直达或写回', '写回（脏页）']
         ] },
-        { t: 'warn', title: '两个容易混的概念', html: '<b>①TLB 缺失 ≠ 缺页</b>：前者只是映射不在 TLB 中，页还在内存，遍历页表几十周期即可补齐；后者是页表项有效位为 0，必须由操作系统从磁盘调入。②写直达简单但流量大，写回省带宽但要脏位、多核还要一致性协议；写回通常配写分配，写直达常配不写分配。' }
+        { t: 'warn', title: '两个容易混的概念', html: '<b>①TLB 缺失 ≠ 缺页</b>：前者需查页表，合法且已驻留的页可直接补填 TLB。合法但未驻留的页需要操作系统分配页框并建立映射；按需清零的页可直接分配，文件页或已换出的页可能需磁盘 I/O。②写直达简单但流量大，写回省带宽但要脏位、多核还要一致性协议；写回通常配写分配，写直达常配不写分配。' }
       ]
     },
     {
@@ -433,7 +433,48 @@ window.DATA.sections[0] = {
           ['扫描链', '把触发器串成移位寄存器，便于注入激励与观察结果'],
           ['BIST', '内建自测试：芯片自己生成激励并判断结果']
         ] },
-        { t: 'warn', title: '综合与仿真不一致的五个原因', html: '①用了不可综合的写法（#延时、initial、文件 I/O）；②组合块漏分支，推断出锁存器；③同一信号多驱动；④异步复位/时钟处理不当；⑤依赖仿真器的 X 传播语义。对策是三件事一起做：<b>代码规范 + lint 检查 + 门级仿真</b>。' }
+        { t: 'warn', title: '综合与仿真不一致的五个原因', html: '①用了目标工具不支持的行为描述（如 #延时、运行时文件 I/O）；部分 FPGA 工具支持 initial 中的存储器初始化；②组合块漏分支，推断出锁存器；③同一信号多驱动；④异步复位/时钟处理不当；⑤依赖仿真器的 X 传播语义。对策是三件事一起做：<b>代码规范 + lint 检查 + 门级仿真</b>。' }
+      ]
+    },
+    {
+      id: 'ref-c',
+      num: '附录 C',
+      title: 'C 语言与机器表示',
+      lead: '从 C 表达式推算地址、布局和机器操作。',
+      tag: '基础',
+      blocks: [
+        { t: 'table', title: '教材 32 位 MIPS 环境中的典型对象大小', head: ['C 类型', '字节数', '访问方式'], rows: [
+          ['char', '1', '字节加载 lb 或 lbu'],
+          ['short', '2', '半字加载 lh 或 lhu'],
+          ['int、指针', '4', '字加载 lw'],
+          ['float / double', '4 / 8', '单精度 / 双精度']
+        ] },
+        { t: 'p', html: '对 int 数组 a，a[i] 等价于 *(a+i)。若首地址为 0x1000，sizeof(int)=4，则 &amp;a[3] 为 0x100C。char 指针每加 1 只前进一字节。' },
+        { t: 'example', title: '用掩码操作一位', html: '设 x 是 32 位无符号整数，位号从 0 起算。<code>(x &gt;&gt; 3) &amp; 1u</code> 取得第 3 位，<code>x |= 1u &lt;&lt; 3</code> 将它置 1，<code>x &amp;= ~(1u &lt;&lt; 3)</code> 将它清零。' },
+        { t: 'example', title: '结构体为何可能占 8 字节', html: '在 int 要求 4 字节对齐的 ABI 下，<code>struct S { char c; int n; };</code> 的 c 在偏移 0，偏移 1 至 3 是填充，n 在偏移 4。此布局中 sizeof(struct S)=8。具体宽度和对齐由实现与 ABI 决定。' },
+        { t: 'p', html: '函数前四个整型实参按本课约定放在 $a0 至 $a3。递归调用前，调用者要保留仍会用到的值，包括将被下一条 jal 覆盖的返回地址。' },
+        { t: 'code', title: '观察编译阶段', lang: 'shell', code: 'gcc -O2 -S prog.c -o prog.s\ngcc -O2 -c prog.c -o prog.o\ngcc prog.o -o prog' },
+        { t: 'note', title: '检查内存访问的含义', html: '有符号整数溢出在 C 中属于未定义行为。设备寄存器通常通过 volatile 限定的左值读写；volatile 本身不保证原子性或跨核内存顺序。' }
+      ]
+    },
+    {
+      id: 'ref-mipsfpga',
+      num: '原书附录 D',
+      title: 'MIPSfpga 上板',
+      lead: '让软件读出的拨码开关值出现在红色 LED 上。',
+      tag: '实践',
+      blocks: [
+        { t: 'table', title: '板级示例的两个内存映射端口', head: ['地址', 'CPU 访问', '外设作用'], rows: [
+          ['0xBF800008', 'lw 读', '拨码开关提供输入位'],
+          ['0xBF800000', 'sw 写', '输出寄存器驱动红色 LED']
+        ] },
+        { t: 'steps', title: '从程序到电路板', items: [
+          { title: '准备程序映像', html: '程序循环读取拨码端口，再写 LED 端口。将机器码映像用作片上 RAM 的初始化内容。' },
+          { title: '仿真数据通路', html: '给开关输入一个已知值，观察 lw 的读地址，再核对 sw 的写地址、写使能和写数据。' },
+          { title: '实现并下载', html: '在顶层连接时钟、复位和外设，按目标板约束绑定引脚。完成综合、布局布线和时序检查后，将生成的配置下载到 FPGA。' },
+          { title: '上板验证', html: '释放复位，依次拨动不同开关。确认相应红色 LED 的状态随输入改变，并与仿真读写数据一致。' }
+        ] },
+        { t: 'note', title: '两个附录 D 的区别', html: '原书附录 D 讲 MIPSfpga 板级实验，上述地址属于该示例的外设映射。《知识点精讲》的附录 D 汇总公式、数据和术语，可在本站对应的速查卡中查阅。' }
       ]
     },
     {

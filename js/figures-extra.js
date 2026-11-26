@@ -9,10 +9,11 @@
     var b = '';
     b += R(190, 70, 300, 160, 16, 'f-box-2');
     b += T(340, 104, 'module mux2', 'n', 'middle', 16);
-    b += T(340, 124, '(input logic a, b, s;', 'tiny', 'middle');
+    b += T(340, 124, '(input logic a, b, s,', 'tiny', 'middle');
     b += T(340, 140, ' output logic y);', 'tiny', 'middle');
     b += L(300, 170, 380, 170, 'f-thin');
-    b += T(340, 196, 'assign y = s ? b : a;', 'sym', 'middle', 11);
+    b += T(340, 192, 'assign y = s ? b : a;', 'sym', 'middle', 11);
+    b += T(340, 212, 'endmodule', 'tiny', 'middle');
     var ports = [['a', 105], ['b', 145], ['s', 185]];
     ports.forEach(function (p) {
       b += L(110, p[1], 190, p[1], 'f-wire');
@@ -26,25 +27,19 @@
   });
 
   /* ================= 2. FSM 三段式结构 ================= */
-  wrap('fsm_struct', 'FSM 的三段式写法', '状态寄存器只负责“记住状态”；次态逻辑决定下一状态；输出逻辑决定输出。三段分开，综合器才能稳定地推断出触发器。', 760, 300, function () {
-    var b = '';
-    b += R(250, 54, 180, 56, 10, 'f-box');
-    b += T(340, 86, '次态逻辑', 'n', 'middle', 13);
-    b += R(250, 170, 180, 56, 10, 'f-box-2');
-    b += T(340, 202, '状态寄存器', 'n', 'middle', 13);
-    b += R(540, 112, 150, 56, 10, 'f-box');
-    b += T(615, 144, '输出逻辑', 'n', 'middle', 13);
-    b += AR(340, 110, 340, 170);
-    b += T(354, 144, 'next', 'tiny', 'start');
-    b += AR(430, 198, 540, 140);
-    b += T(482, 156, 'state', 'tiny', 'middle');
-    b += AR(160, 198, 250, 198);
-    b += T(150, 203, 'clk', 'n', 'end', 12);
-    b += AR(160, 82, 250, 82);
-    b += T(150, 87, 'in', 'n', 'end', 12);
-    b += AR(690, 140, 730, 140);
-    b += T(740, 144, 'out', 'n', 'start', 12);
-    b += T(380, 270, '状态寄存器在时钟沿更新；组合逻辑只算“下一拍”。', 'muted', 'middle');
+  wrap('fsm_struct', 'Moore 状态机的三段式结构', '次态由当前状态和输入共同决定。时钟上升沿将次态写入寄存器，Moore 输出逻辑只读取当前状态。', 760, 300, function () {
+    var b = BOX(126, 72, 140, 62, '次态逻辑') +
+      BOX(340, 72, 130, 62, '状态寄存器', '', 'f-box-2') +
+      BOX(550, 72, 120, 62, '输出逻辑');
+    b += AR(58, 103, 126, 103) + T(50, 108, 'in', 'n', 'end');
+    b += AR(266, 103, 340, 103) + T(303, 90, 'next', 'tiny', 'middle');
+    b += AR(470, 103, 550, 103) + T(507, 90, 'state', 'tiny', 'middle');
+    b += AR(670, 103, 710, 103) + T(718, 108, 'out', 'n', 'start');
+    b += C(510, 103, 3, 'f-accent') + P('M510 103 V208 H196 V134', 'f-wire') + ARROW(196, 134, 'u');
+    b += T(350, 225, '当前状态反馈', 'tiny', 'middle');
+    b += AR(405, 38, 405, 72) + T(405, 29, 'clk', 'n', 'middle');
+    b += P('M398 72 L405 80 L412 72', 'f-line');
+    b += T(380, 266, 'Mealy 型还需把输入接入输出逻辑。', 'muted', 'middle');
     return b;
   });
 
@@ -54,7 +49,7 @@
     b += R(70, 76, 250, 170, 14, 'f-box-2');
     b += T(195, 128, '全加器', 'n', 'middle', 18);
     b += T(195, 152, 'FA', 'n', 'middle', 12);
-    var ins = [['A', 112, 24], ['B', 150, 24], ['Cin', 188, 18]];
+    var ins = [['A', 112], ['B', 150], ['Cin', 188]];
     ins.forEach(function (p) {
       b += L(26, p[1], 70, p[1], 'f-wire');
       b += T(22, p[1] + 4, p[0], 'n', 'end', 12);
@@ -87,39 +82,42 @@
   });
 
   /* ================= 4. 行波进位加法器 ================= */
-  wrap('ripple', '4 位行波进位加法器', '每一级把本位和进位交给下一级；进位要穿过所有级，因此最坏延迟随位数线性增长。', 770, 260, function () {
+  wrap('ripple', '4 位行波进位加法器', '第 i 级计算和位 Sᵢ，将进位 Cᵢ₊₁ 送入更高一位。最坏情况下进位穿过全部四级。', 770, 260, function () {
     var b = '';
-    b += T(380, 32, 'C0 → C1 → C2 → C3 → C4', 'n', 'middle', 12);
+    b += T(380, 25, '进位由低位传向高位', 'muted', 'middle');
     for (var i = 0; i < 4; i++) {
       var x = 66 + i * 170;
       b += R(x, 84, 120, 84, 10, 'f-box-2');
-      b += T(x + 60, 116, 'FA' + (3 - i), 'n', 'middle', 13);
-      b += L(x + 60, 56, x + 60, 84, 'f-wire');
-      b += T(x + 60, 48, 'A' + (3 - i) + ', B' + (3 - i), 'tiny', 'middle');
+      b += T(x + 60, 116, 'FA' + i, 'n', 'middle', 13);
+      b += L(x + 38, 57, x + 38, 84, 'f-wire') + T(x + 38, 49, 'A' + i, 'tiny', 'middle');
+      b += L(x + 82, 57, x + 82, 84, 'f-wire') + T(x + 82, 49, 'B' + i, 'tiny', 'middle');
       b += L(x + 60, 168, x + 60, 196, 'f-wire');
-      b += T(x + 60, 212, 'S' + (3 - i), 'n', 'middle', 11);
-      if (i < 3) b += AR(x + 120, 126, x + 170, 126);
+      b += T(x + 60, 212, 'S' + i, 'n', 'middle', 11);
+      if (i < 3) {
+        b += AR(x + 120, 126, x + 170, 126);
+        b += T(x + 145, 118, 'C' + (i + 1), 'tiny', 'middle');
+      }
     }
     b += L(36, 126, 66, 126, 'f-wire');
     b += T(28, 131, 'C0', 'n', 'end', 11);
     b += AR(696, 126, 736, 126);
     b += T(744, 131, 'C4', 'n', 'start', 11);
-    b += T(380, 246, '位数越多，进位链越长；超前进位就是把这个链打断。', 'muted', 'middle');
+    b += T(380, 246, '超前进位逻辑利用多位的产生、传播信号并行计算进位。', 'muted', 'middle');
     return b;
   });
 
   /* ================= 5. ALU ================= */
-  wrap('alu', 'ALU：算术与逻辑的共用通路', 'A、B 进入运算单元，ALUop 选择运算；结果与 Zero、Carry、Overflow 等标志一起送出。', 760, 300, function () {
+  wrap('alu', 'ALU：算术与逻辑的共用通路', 'A、B 进入运算单元，ALUControl 选择运算；结果与 Zero、Carry、Overflow 等标志一起送出。', 760, 300, function () {
     var b = '';
-    b += '<path class="f-box" d="M240 62 L450 96 L450 204 L240 238 Z"/>';
+    b += '<path class="f-box" d="M240 62 L450 96 L450 204 L240 238 V166 L262 150 L240 134 Z"/>';
     b += T(345, 140, 'ALU', 'n', 'middle', 24);
     b += T(345, 164, 'n 位', 'n', 'middle', 12);
     b += L(170, 104, 240, 104, 'f-wire');
     b += T(160, 109, 'A', 'n', 'end', 14);
     b += L(170, 196, 240, 196, 'f-wire');
     b += T(160, 201, 'B', 'n', 'end', 14);
-    b += L(345, 238, 345, 276, 'f-wire');
-    b += T(345, 292, 'ALUop', 'n', 'middle', 11);
+    b += AR(345, 276, 345, 221);
+    b += T(345, 292, 'ALUControl', 'n', 'middle', 11);
     b += L(450, 150, 540, 150, 'f-wire');
     b += T(540, 136, 'Y', 'n', 'middle', 15);
     b += C(540, 104, 4, 'f-accent');
@@ -127,9 +125,11 @@
     b += T(552, 108, 'Zero', 'tiny', 'start');
     b += C(540, 196, 4, 'f-accent');
     b += L(450, 196, 540, 196, 'f-thin');
-    b += T(552, 200, 'Carry / V', 'tiny', 'start');
+    b += T(552, 200, 'Carry', 'tiny', 'start');
+    b += L(450, 178, 540, 178, 'f-thin') + C(540, 178, 4, 'f-accent');
+    b += T(552, 182, 'Overflow', 'tiny', 'start');
     var ops = [['000', 'AND'], ['001', 'OR'], ['010', 'ADD'], ['110', 'SUB'], ['111', 'SLT']];
-    b += T(620, 64, 'ALUop → 运算', 'tiny', 'start');
+    b += T(620, 64, 'ALUControl → 运算', 'tiny', 'start');
     ops.forEach(function (o, i) {
       b += T(620, 90 + i * 24, o[0], 'n', 'start', 10);
       b += T(680, 90 + i * 24, o[1], 'n', 'start', 10);
@@ -138,7 +138,7 @@
   });
 
   /* ================= 6. IEEE 754 ================= */
-  wrap('ieee', 'IEEE 754 单精度：1 + 8 + 23', '符号位决定正负；阶码用偏置 127 的移码；尾数存储去掉隐含的 1.0，所以实际有效位是 24 位。', 760, 260, function () {
+  wrap('ieee', 'IEEE 754 单精度：1 + 8 + 23', '规格化数的阶码 E 取 1 到 254，隐含首位 1 与 23 位小数域组成 24 位有效数。阶码全零和全一另有含义。', 760, 260, function () {
     var x = 70, y = 92, w = 620, h = 48;
     var sw = w * 1 / 32, ew = w * 8 / 32, fw = w * 23 / 32;
     var b = '';
@@ -148,25 +148,27 @@
     b += T(x + sw / 2, y + 29, 'S', 'n on-a', 'middle', 14);
     b += T(x + sw + ew / 2, y + 29, '阶码 8 位', 'n', 'middle', 12);
     b += T(x + sw + ew + fw / 2, y + 29, '尾数 23 位', 'n', 'middle', 12);
-    b += T(x, y - 18, '31', 'tiny', 'middle');
-    b += T(x + sw, y - 18, '30', 'tiny', 'middle');
-    b += T(x + sw + ew, y - 18, '23', 'tiny', 'middle');
-    b += T(x + w, y - 18, '0', 'tiny', 'middle');
+    b += T(x + sw / 2, y - 18, '31', 'tiny', 'middle');
+    b += T(x + 1.5 * sw, y - 18, '30', 'tiny', 'middle');
+    b += T(x + sw + ew - sw / 2, y - 18, '23', 'tiny', 'middle');
+    b += T(x + sw + ew + sw / 2, y - 18, '22', 'tiny', 'middle');
+    b += T(x + w - sw / 2, y - 18, '0', 'tiny', 'middle');
     b += T(x + sw / 2, y + h + 24, '1 位', 'tiny', 'middle');
     b += T(x + sw + ew / 2, y + h + 24, '8 位', 'tiny', 'middle');
     b += T(x + sw + ew + fw / 2, y + h + 24, '23 位', 'tiny', 'middle');
-    b += T(380, 216, '值 = (−1)^S × 1.F × 2^(E−127)', 'n', 'middle', 15);
+    b += T(380, 216, '规格化数 = (−1)^S × (1 + F) × 2^(E−127)', 'n', 'middle', 15);
     b += T(380, 242, '例：0x42C80000 → S=0，E=133，F=0.5625 → +100.0', 'tiny', 'middle');
     return b;
   });
 
   /* ================= 7. 计数器 ================= */
-  wrap('counter', '带使能与并行装载的计数器', 'EN=1 时才计数，LOAD=1 时在下一个时钟沿装载 D；否则保持当前值。', 760, 260, function () {
+  wrap('counter', '带使能与并行装载的计数器', '时钟上升沿先检查 LOAD，若为 1 则装载 D；否则 EN=1 时加一，EN=0 时保持。', 760, 260, function () {
     var b = '';
     b += R(250, 64, 240, 132, 12, 'f-box-2');
     b += T(370, 104, '计数器', 'n', 'middle', 18);
     b += T(370, 126, 'N 位', 'tiny', 'middle');
     b += L(160, 92, 250, 92, 'f-wire');
+    b += P('M250 86 L258 92 L250 98', 'f-line');
     b += T(150, 97, 'CLK', 'n', 'end', 11);
     b += L(160, 126, 250, 126, 'f-wire');
     b += T(150, 131, 'EN', 'n', 'end', 11);
@@ -177,7 +179,7 @@
     b += L(490, 126, 580, 126, 'f-wire');
     b += T(592, 131, 'Q', 'n', 'start', 14);
     var seq = ['000', '001', '010', '011', '100', '101', '110', '111'];
-    b += T(70, 216, '计数序列', 'tiny', 'start');
+    b += T(70, 216, '3 位示例 · LOAD=0，EN=1', 'tiny', 'start');
     seq.forEach(function (s, i) {
       var x = 70 + i * 82;
       b += R(x, 226, 62, 24, 6, i % 2 ? 'f-box-2' : 'f-box');
@@ -196,22 +198,22 @@
     b += R(70, 84, 90, 186, 10, 'f-box-2');
     b += T(115, 166, '行译码', 'n', 'middle', 11);
     b += T(115, 184, '2:4', 'tiny', 'middle');
+    for (var col = 0; col < 4; col++) {
+      b += L(289 + col * 66, 96, 289 + col * 66, 306, 'f-thin');
+    }
     for (var r = 0; r < 4; r++) {
-      b += L(160, 115 + r * 48, 260, 115 + r * 48, 'f-wire');
+      b += L(160, 115 + r * 48, 516, 115 + r * 48, 'f-wire');
       b += T(250, 111 + r * 48, 'WL' + r, 'tiny', 'end');
       for (var c = 0; c < 4; c++) {
         b += R(260 + c * 66, 96 + r * 48, 58, 38, 6, (r + c) % 3 === 0 ? 'f-box-2' : 'f-box');
       }
     }
-    b += T(430, 64, '4 × 4 存储单元', 'tiny', 'start');
-    // bitlines down to column mux
-    for (var c = 0; c < 4; c++) {
-      b += L(289 + c * 66, 278, 289 + c * 66, 306, 'f-thin');
-    }
+    b += T(388, 78, '4 × 4 存储单元（单比特读出示意）', 'tiny', 'middle');
+    // Word and bit lines are occluded by the cell bodies at their ports.
     b += R(250, 306, 270, 28, 8, 'f-box-2');
     b += T(385, 325, '列多路器', 'n', 'middle', 11);
     // column address into mux
-    b += L(385, 334, 385, 348, 'f-wire');
+    b += AR(385, 351, 385, 334);
     b += T(400, 346, '列地址', 'tiny', 'start');
     // data out of mux
     b += L(520, 320, 620, 320, 'f-wire');
@@ -239,7 +241,7 @@
     b += T(x + w, y - 20, '0', 'tiny', 'middle');
     return b;
   }
-  wrap('instr_r', 'R 型指令：寄存器—寄存器', 'opcode=0，靠 funct 区分运算；rs、rt 是源，rd 是目的，shamt 是移位量。', 760, 250, function () {
+  wrap('instr_r', 'R 型指令：寄存器—寄存器', '以 add 为例，opcode=0，funct 选加法，rs、rt 提供操作数，rd 指定目的寄存器。定长移位指令用 shamt 编码移位量。', 760, 250, function () {
     var b = '';
     var fields = [
       { label: 'opcode', bits: 6 }, { label: 'rs', bits: 5 }, { label: 'rt', bits: 5 },
@@ -247,34 +249,34 @@
     ];
     b += segBar(60, 86, 640, 48, fields);
     b += T(380, 170, '例：add $t0, $s3, $s4  →  000000 10011 10100 01000 00000 100000', 'sym', 'middle', 10);
-    b += T(380, 204, 'R 型没有立即数；所有操作数都在寄存器里。', 'muted', 'middle');
+    b += T(380, 204, 'add 的 shamt 为 0；sll 等定长移位指令将移位量放在 shamt 字段。', 'muted', 'middle');
     return b;
   });
-  wrap('instr_ij', 'I 型与 J 型：立即数与跳转', 'I 型把 16 位立即数塞进指令；J 型用 26 位目标地址，与 PC+4 的高 4 位拼接。', 760, 320, function () {
+  wrap('instr_ij', 'I 型与 J 型：立即数与跳转', 'I 型含 16 位立即数字段。J 型的目标地址由 PC+4 的高 4 位、指令的 26 位目标字段和末尾两个 0 拼接而成。', 760, 320, function () {
     var b = '';
-    b += T(60, 42, 'I 型（addi / lw / sw / beq）', 'n', 'start', 11);
+    b += T(60, 32, 'I 型（addi / lw / sw / beq）', 'n', 'start', 11);
     b += segBar(60, 76, 640, 44, [
       { label: 'opcode', bits: 6 }, { label: 'rs', bits: 5 }, { label: 'rt', bits: 5 }, { label: 'imm / offset', bits: 16 }
     ]);
-    b += T(60, 174, 'J 型（j / jal）', 'n', 'start', 11);
+    b += T(60, 164, 'J 型（j / jal）', 'n', 'start', 11);
     b += segBar(60, 208, 640, 44, [
       { label: 'opcode', bits: 6 }, { label: 'target address', bits: 26 }
     ]);
-    b += T(380, 298, 'I 型立即数符号扩展；分支偏移以字为单位，相对 PC+4。', 'muted', 'middle');
+    b += T(380, 298, 'addi、lw、sw 和 beq 对立即数作符号扩展；andi、ori 和 xori 作零扩展。', 'muted', 'middle');
     return b;
   });
   wrap('instr_all', '三种 MIPS 指令格式', '所有指令都是 32 位：R 型靠 funct，I 型含 16 位立即数，J 型含 26 位目标地址。', 760, 340, function () {
     var b = '';
-    b += T(50, 34, 'R', 'n', 'start', 12);
+    b += T(22, 75, 'R', 'n', 'start', 12);
     b += segBar(50, 52, 660, 38, [
       { label: 'opcode', bits: 6 }, { label: 'rs', bits: 5 }, { label: 'rt', bits: 5 },
       { label: 'rd', bits: 5 }, { label: 'shamt', bits: 5 }, { label: 'funct', bits: 6 }
     ]);
-    b += T(50, 134, 'I', 'n', 'start', 12);
+    b += T(22, 175, 'I', 'n', 'start', 12);
     b += segBar(50, 152, 660, 38, [
       { label: 'opcode', bits: 6 }, { label: 'rs', bits: 5 }, { label: 'rt', bits: 5 }, { label: 'immediate', bits: 16 }
     ]);
-    b += T(50, 234, 'J', 'n', 'start', 12);
+    b += T(22, 275, 'J', 'n', 'start', 12);
     b += segBar(50, 252, 660, 38, [
       { label: 'opcode', bits: 6 }, { label: 'target', bits: 26 }
     ]);
@@ -282,13 +284,13 @@
   });
 
   /* ================= 10. 栈帧 ================= */
-  wrap('stack', '函数调用与栈帧', '调用者把参数放到栈上，callee 保存返回地址和寄存器；$sp 指向栈顶，栈向低地址增长。', 760, 330, function () {
+  wrap('stack', '函数调用与栈帧', '前四个单字参数使用 $a0–$a3，更多参数经栈传递。图示为简化栈帧：被调函数按需保存 $ra 和它要改写的 $s 寄存器，$sp 指向该帧的低地址端。', 760, 330, function () {
     var x = 250, w = 250;
     var rows = [
       ['高地址', '调用者的栈帧', 'f-box-2'],
-      ['', '参数 5…', 'f-box-2'],
+      ['', '栈上传递的第 5 个及后续参数', 'f-box-2'],
       ['', '返回地址 $ra', 'f-accent'],
-      ['', '保存的 $s0–$s7', 'f-box-2'],
+      ['', '本函数需保存的 $s 寄存器', 'f-box-2'],
       ['', '局部变量', 'f-box-2'],
       ['低地址', '空闲区', 'f-box']
     ];
@@ -312,9 +314,9 @@
     var rows = [
       ['寄存器', '操作数 = R[rs]', 'add $t0,$s1,$s2'],
       ['立即数', '操作数 = imm', 'addi $t0,$s1,5'],
-      ['基址 + 偏移', '地址 = R[rs] + imm', 'lw $t0,8($sp)'],
-      ['PC 相对', '地址 = PC+4 + imm×4', 'beq $s0,$s1,L'],
-      ['伪直接', '地址 = PC高4位 ‖ target×4', 'j target']
+      ['基址 + 偏移', '地址 = R[rs] + SignExt(imm)', 'lw $t0,8($sp)'],
+      ['PC 相对', '地址 = PC+4 + SignExt(imm)×4', 'beq $s0,$s1,L'],
+      ['伪直接', '地址 = (PC+4)[31:28] ‖ target ‖ 00', 'j target']
     ];
     rows.forEach(function (r, i) {
       var y = 54 + i * 52;
@@ -328,7 +330,7 @@
   });
 
   /* ================= 12. 单周期数据通路 ================= */
-  wrap('datapath', '单周期数据通路', '每条指令在一个周期内走完整条通路：取指、读寄存器、ALU、访存、写回。最长的一条路径决定时钟周期。', 760, 340, function () {
+  wrap('datapath', '单周期数据通路：lw 的读数路径', '图示 lw 的读数路径，省略控制和选择器：基址与符号扩展后的偏移相加，得到访存地址，读出的字写回 rt。时钟周期必须满足最慢指令的时序要求。', 760, 340, function () {
     var b = '';
     var boxes = [
       ['PC', 36, 120, 70, 50, 'f-box-2'],
@@ -347,13 +349,16 @@
     b += AR(550, 145, 600, 145);
     b += P('M655 110 V70 H340 V100', 'f-wire');
     b += ARROW(340, 100, 'd');
-    b += T(470, 62, '写回', 'tiny', 'middle');
+    b += T(470, 62, '存储器读出数据 → 写入 rt', 'tiny', 'middle');
+    b += P('M195 180 V226 H510 V190', 'f-wire') + ARROW(510, 190, 'u');
+    b += R(245, 211, 148, 30, 6, 'f-box') + T(319, 230, '立即数字段符号扩展', 'tiny', 'middle');
+    b += T(445, 136, '基址', 'tiny', 'middle') + T(575, 136, '地址', 'tiny', 'middle');
     b += T(380, 300, '控制单元根据 opcode 产生 RegWrite、MemRead、ALUSrc 等信号。', 'muted', 'middle');
     return b;
   });
 
   /* ================= 13. 流水线 ================= */
-  wrap('pipeline', '五级流水线', '把一条指令拆成 IF、ID、EX、MEM、WB 五段，每个周期同时有 5 条指令在不同阶段推进。', 760, 360, function () {
+  wrap('pipeline', '五级流水线', '流水线将指令执行分为 IF、ID、EX、MEM、WB 五段。填满且无停顿时，五条指令可同时处于不同阶段。', 760, 360, function () {
     var b = '';
     var st = ['IF', 'ID', 'EX', 'MEM', 'WB'];
     st.forEach(function (s, i) {
@@ -363,13 +368,13 @@
     });
     for (var i = 0; i < 4; i++) b += AR(154 + i * 146, 70, 180 + i * 146, 70);
     // timing grid
-    var gx = 72, gy = 130, cw = 100, rh = 34;
-    for (var c = 0; c < 6; c++) {
+    var gx = 72, gy = 130, cw = 82, rh = 34;
+    for (var c = 0; c < 8; c++) {
       b += T(gx + c * cw + 40, gy - 10, 'C' + (c + 1), 'n', 'middle', 9);
     }
     ['I1', 'I2', 'I3', 'I4'].forEach(function (ins, r) {
       b += T(40, gy + r * rh + 22, ins, 'n', 'middle', 10);
-      for (var c = 0; c < 6; c++) {
+      for (var c = 0; c < 8; c++) {
         var stage = c - r;
         if (stage >= 0 && stage < 5) {
           b += R(gx + c * cw, gy + r * rh, cw - 4, rh - 4, 4, (c + r) % 2 ? 'f-box' : 'f-box-2');
@@ -382,7 +387,7 @@
   });
 
   /* ================= 14. 数据冒险 ================= */
-  wrap('hazard', 'load-use 冒险：停顿一拍', '上一条 lw 的结果要到 MEM 后才可用；下一条指令若立即使用，就必须停顿一拍。转发可以消除大部分 ALU 冒险，但无法消除 load-use 的这一拍。', 760, 300, function () {
+  wrap('hazard', 'load-use 冒险：停顿一拍', '经典五级流水线中，lw 的读数在 MEM 末尾才可用。紧随的 add 在 EX 需要这个数，因此停顿一拍，再从 MEM/WB 前递。转发可以消除大部分 ALU 冒险，但无法消除 load-use 的这一拍。', 760, 300, function () {
     var b = '';
     var gx = 120, gy = 70, cw = 96, rh = 42;
     for (var c = 0; c < 6; c++) b += T(gx + c * cw + 40, gy - 12, 'C' + (c + 1), 'n', 'middle', 9);
@@ -400,27 +405,27 @@
         b += T(gx + c * cw + (cw - 4) / 2, gy + r * rh + 24, s, 'n' + (s === 'STALL' ? ' on-a' : ''), 'middle', 9);
       });
     });
-    b += AR(430, 240, 430, 198);
-    b += T(430, 258, '停顿', 'tiny', 'middle');
+    b += AR(454, 240, 454, 184);
+    b += T(454, 258, '冻结 IF 与 ID，向 EX 插入气泡', 'tiny', 'middle');
     b += T(380, 284, '转发可消除大部分 ALU 冒险；load-use 仍需停顿一拍。', 'muted', 'middle');
     return b;
   });
 
   /* ================= 15. 存储层次 ================= */
-  wrap('hierarchy', '存储层次：容量、速度与价格', '越靠近 CPU 越快越小越贵；越远越大越慢越便宜。Cache 用局部性把“大而慢”伪装成“小而快”。', 760, 330, function () {
+  wrap('hierarchy', '存储层次：容量、速度与价格', '靠近 CPU 的存储通常延迟更低、容量更小、单位容量成本更高。下列容量和访问时间只是数量级示例。', 760, 330, function () {
     var b = '';
     var tiers = [
       ['寄存器', '几十个 / 1 周期', 220, 'f-accent'],
       ['L1 Cache', '32–64 KB / 2–4 周期', 300, 'f-box-2'],
       ['L2 Cache', '256 KB–1 MB / ~10 周期', 380, 'f-box'],
       ['主存 DRAM', 'GB 级 / ~100 周期', 460, 'f-box-2'],
-      ['磁盘 / SSD', 'TB 级 / 10⁵–10⁶ 周期', 560, 'f-box']
+      ['磁盘 / SSD', 'TB 级 / 微秒至毫秒', 560, 'f-box']
     ];
     tiers.forEach(function (t, i) {
       var y = 44 + i * 54;
       var left = (760 - t[2]) / 2;
       b += R(left, y, t[2], 40, 6, t[3]);
-      b += T(380, y + 25, t[0], 'n' + (i === 0 ? ' on-a' : ''), 'middle', 11);
+      b += T(left + 15, y + 25, t[0], 'n' + (i === 0 ? ' on-a' : ''), 'start', 11);
       b += T(left + t[2] - 14, y + 25, t[1], 'tiny' + (i === 0 ? ' on-a' : ''), 'end', 8.5);
     });
     b += T(380, 320, '局部性：时间局部性 + 空间局部性。', 'muted', 'middle');
@@ -428,7 +433,7 @@
   });
 
   /* ================= 16. Cache 地址拆分 ================= */
-  wrap('cache_addr', 'Cache 地址：tag / index / offset', 'offset 选块内字节，index 选 cache 行，tag 与行内存的 tag 比较判断命中。', 760, 330, function () {
+  wrap('cache_addr', 'Cache 地址：tag / index / offset', '示例为 32 位字节地址、4 KiB 数据容量、16 B 块的直接映射 Cache。8 位 index 选择 256 行中的一行，4 位 offset 选择块内字节。', 760, 330, function () {
     var x = 60, y = 70, w = 640, h = 44;
     var b = '';
     var tw = w * 20 / 32, iw = w * 8 / 32, ow = w * 4 / 32;
@@ -442,7 +447,7 @@
     b += T(x + w, y - 14, '0', 'tiny', 'middle');
     // cache rows
     var cy = 156;
-    b += T(60, cy - 12, 'Cache（4 行示例）', 'tiny', 'start');
+    b += T(60, cy - 12, '仅显示第 0 至 3 行', 'tiny', 'start');
     b += T(240, cy - 12, 'Valid', 'tiny', 'middle');
     b += T(370, cy - 12, 'Tag', 'tiny', 'middle');
     b += T(500, cy - 12, 'Data', 'tiny', 'middle');
@@ -459,7 +464,7 @@
   });
 
   /* ================= 17. 页表与地址转换 ================= */
-  wrap('page_table', '虚拟地址 → 页表 → 物理地址', '虚拟页号 VPN 查页表得到物理页帧号 PPN，页内偏移不变。TLB 只是页表的高速缓存。', 760, 330, function () {
+  wrap('page_table', '虚拟地址 → 页表 → 物理地址', '虚拟页号 VPN 查页表得到物理页帧号 PPN，页内偏移不变。TLB 缓存近期使用的地址转换及访问权限。', 760, 330, function () {
     var b = '';
     // virtual address
     b += T(50, 58, '虚拟地址', 'n', 'start', 11);
@@ -474,7 +479,7 @@
     b += R(596, 72, 80, 38, 6, 'f-box');
     b += T(636, 96, 'offset', 'n', 'middle', 10);
     // VPN -> page table
-    b += AR(128, 112, 128, 168);
+    b += AR(128, 110, 128, 168);
     b += T(140, 148, '查页表', 'tiny', 'start');
     b += R(48, 168, 164, 76, 8, 'f-box');
     b += T(130, 196, '页表项 PTE', 'n', 'middle', 10);
@@ -484,18 +489,18 @@
     b += ARROW(470, 93, 'r');
     b += T(318, 190, 'PPN', 'n', 'middle', 9);
     // offset unchanged: route above the bars, no crossing
-    b += P('M292 72 V34 H636 V72', 'f-wire');
+    b += P('M252 72 V34 H636 V72', 'f-wire');
     b += ARROW(636, 72, 'd');
     b += T(464, 26, 'offset 原样复制', 'tiny', 'middle');
     // TLB
     b += R(300, 248, 220, 34, 7, 'f-box-0');
-    b += T(410, 270, 'TLB：页表的高速缓存', 'n', 'middle', 10);
+    b += T(410, 270, 'TLB：缓存页号映射与权限', 'n', 'middle', 10);
     b += T(380, 310, 'TLB 命中时跳过页表；缺失时才访问内存中的页表。', 'muted', 'middle');
     return b;
   });
 
   /* ================= 18. I/O 三种方式 ================= */
-  wrap('io', '轮询、中断与 DMA', '轮询让 CPU 反复问设备；中断让设备主动通知；DMA 让设备直接搬内存，CPU 只在结束时介入。', 760, 300, function () {
+  wrap('io', '轮询、中断与 DMA', '轮询让 CPU 反复问设备；中断让设备主动通知；DMA 由 CPU 设置源、目的和长度，控制器在设备与内存之间传输，完成后通常用中断通知 CPU。', 760, 300, function () {
     var b = '';
     var rows = [
       ['轮询', ['CPU 查询', 'CPU 查询', 'CPU 查询', '传输'], 'f-box'],
@@ -507,7 +512,7 @@
       b += T(54, y + 28, r[0], 'n', 'middle', 10);
       var x = 120;
       r[1].forEach(function (cell, j) {
-        var w = j === 2 && i === 2 ? 300 : 150;
+        var w = r[1].length === 3 ? 202 : 150;
         b += R(x, y, w, 42, 6, r[2]);
         b += T(x + w / 2, y + 26, cell, 'n', 'middle', 10);
         x += w + 8;
